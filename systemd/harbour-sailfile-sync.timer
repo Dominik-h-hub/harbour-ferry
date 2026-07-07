@@ -1,0 +1,13 @@
+[Unit]
+Description=Sailfile periodic background sync timer
+
+[Timer]
+# Interval is reconfigured by the app (FR-18); these are placeholder defaults.
+# The timer is NOT enabled by default in M0 — the diagnostics page starts the
+# service directly.
+OnBootSec=15min
+OnUnitActiveSec=30min
+Persistent=false
+
+[Install]
+WantedBy=timers.target

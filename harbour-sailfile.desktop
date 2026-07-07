@@ -3,5 +3,13 @@ Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-sailfile
 Exec=sailfish-qml harbour-sailfile
-Name=harbour-sailfile
+Name=Sailfile
 
+[X-Sailjail]
+# Sandboxing disabled per AD-07d, decided 2026-07-06 after the TS-00 spike
+# (emulator, SFOS 5.0.0.62): inside the jail the Sailfish Secrets daemon
+# socket is invisible, system binaries (systemctl, python3) cannot be
+# executed and the systemd D-Bus API is unreachable - background sync and
+# secrets storage are impossible sandboxed. rclone, network and config
+# encryption did work sandboxed (see diagnostics reports).
+Sandboxing=Disabled

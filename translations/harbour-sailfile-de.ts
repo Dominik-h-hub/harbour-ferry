@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="de">
+<context>
+    <name>AccountPage</name>
+    <message>
+        <source>Remove account</source>
+        <translation>Konto entfernen</translation>
+    </message>
+    <message>
+        <source>Removing account</source>
+        <translation>Entferne Konto</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Account</source>
+        <translation>Konto</translation>
+    </message>
+    <message>
+        <source>Backend</source>
+        <translation>Backend</translation>
+    </message>
+    <message>
+        <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
+        <translation>Bei 2FA hat der Server einen Login-Token ausgestellt; das Passwort selbst wird nicht gespeichert. Nur zur erneuten Anmeldung wieder eingeben.</translation>
+    </message>
+    <message>
+        <source>Saving runs the connection test in the background - the result appears as a banner.</source>
+        <translation>Beim Speichern läuft der Verbindungstest im Hintergrund - das Ergebnis erscheint als Banner.</translation>
+    </message>
+    <message>
+        <source>Account removed</source>
+        <translation>Konto entfernt</translation>
+    </message>
+</context>
+<context>
+    <name>CoverPage</name>
+    <message>
+        <source>Syncing...</source>
+        <translation>Synchronisiere...</translation>
+    </message>
+    <message>
+        <source>No sync pairs</source>
+        <translation>Keine Sync-Paare</translation>
+    </message>
+    <message>
+        <source>%1 failed</source>
+        <translation>%1 fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>%1 pairs OK</source>
+        <translation>%1 Paare OK</translation>
+    </message>
+</context>
+<context>
+    <name>DiagnosticsPage</name>
+    <message>
+        <source>Diagnostics</source>
+        <translation>Diagnose</translation>
+    </message>
+    <message>
+        <source>TS-00 validation tests</source>
+        <translation>TS-00-Validierungstests</translation>
+    </message>
+    <message>
+        <source>Tests running...</source>
+        <translation>Tests laufen...</translation>
+    </message>
+    <message>
+        <source>Report: </source>
+        <translation>Bericht: </translation>
+    </message>
+    <message>
+        <source>Run all tests</source>
+        <translation>Alle Tests ausführen</translation>
+    </message>
+    <message>
+        <source>No results yet</source>
+        <translation>Noch keine Ergebnisse</translation>
+    </message>
+    <message>
+        <source>Pull down to run all tests</source>
+        <translation>Zum Starten aller Tests nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Python error - see log</source>
+        <translation>Python-Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>FileBrowserPage</name>
+    <message>
+        <source>Select files</source>
+        <translation>Dateien auswählen</translation>
+    </message>
+    <message>
+        <source>Choose a folder</source>
+        <translation>Ordner auswählen</translation>
+    </message>
+    <message>
+        <source>%1 selected</source>
+        <translation>%1 ausgewählt</translation>
+    </message>
+    <message>
+        <source>Local files</source>
+        <translation>Lokale Dateien</translation>
+    </message>
+    <message>
+        <source>Add selection (%1)</source>
+        <translation>Auswahl hinzufügen (%1)</translation>
+    </message>
+    <message>
+        <source>Select this folder</source>
+        <translation>Diesen Ordner auswählen</translation>
+    </message>
+    <message>
+        <source>Empty folder</source>
+        <translation>Leerer Ordner</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>ImageViewerPage</name>
+    <message>
+        <source>Image could not be displayed</source>
+        <translation>Bild konnte nicht angezeigt werden</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>MainPage</name>
+    <message>
+        <source>Local syncs</source>
+        <translation>Lokale Syncs</translation>
+    </message>
+    <message>
+        <source>Remote</source>
+        <translation>Remote</translation>
+    </message>
+    <message>
+        <source>Last sync skipped: %1</source>
+        <translation>Letzter Sync übersprungen: %1</translation>
+    </message>
+    <message>
+        <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
+        <translation>Sync angehalten: ungewöhnlich viele Änderungen - Paar lange drücken und &apos;Sync erzwingen&apos; wählen</translation>
+    </message>
+    <message>
+        <source>Last full sync: %1</source>
+        <translation>Letzter vollständiger Sync: %1</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>New sync pair</source>
+        <translation>Neues Sync-Paar</translation>
+    </message>
+    <message>
+        <source>Sync now</source>
+        <translation>Jetzt synchronisieren</translation>
+    </message>
+    <message>
+        <source>No sync pairs yet</source>
+        <translation>Noch keine Sync-Paare</translation>
+    </message>
+    <message>
+        <source>Pull down to create one</source>
+        <translation>Zum Erstellen nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Deleting sync pair</source>
+        <translation>Lösche Sync-Paar</translation>
+    </message>
+    <message>
+        <source>Sync this pair</source>
+        <translation>Dieses Paar synchronisieren</translation>
+    </message>
+    <message>
+        <source>Force sync (confirm big change)</source>
+        <translation>Sync erzwingen (große Änderung bestätigen)</translation>
+    </message>
+    <message>
+        <source>Resume</source>
+        <translation>Fortsetzen</translation>
+    </message>
+    <message>
+        <source>Show log</source>
+        <translation>Log anzeigen</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bearbeiten</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>New library</source>
+        <translation>Neue Bibliothek</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>No libraries</source>
+        <translation>Keine Bibliotheken</translation>
+    </message>
+    <message>
+        <source>Check the account settings, then pull down to refresh</source>
+        <translation>Kontoeinstellungen prüfen, dann zum Aktualisieren nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Pull down to create a library</source>
+        <translation>Zum Erstellen einer Bibliothek nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Paused - long-press to resume</source>
+        <translation>Pausiert - zum Fortsetzen lange drücken</translation>
+    </message>
+    <message>
+        <source>Library created</source>
+        <translation>Bibliothek erstellt</translation>
+    </message>
+    <message>
+        <source>Synchronization started</source>
+        <translation>Synchronisation gestartet</translation>
+    </message>
+    <message>
+        <source>Sync pair deleted</source>
+        <translation>Sync-Paar gelöscht</translation>
+    </message>
+    <message>
+        <source>Welcome! Please set up your account first.</source>
+        <translation>Willkommen! Bitte richte zuerst dein Konto ein.</translation>
+    </message>
+    <message>
+        <source>Sync skipped: %1</source>
+        <translation>Sync übersprungen: %1</translation>
+    </message>
+    <message>
+        <source>Synchronization finished</source>
+        <translation>Synchronisation abgeschlossen</translation>
+    </message>
+</context>
+<context>
+    <name>RemoteBrowserPage</name>
+    <message>
+        <source>Libraries</source>
+        <translation>Bibliotheken</translation>
+    </message>
+    <message>
+        <source>Remote storage</source>
+        <translation>Remote-Speicher</translation>
+    </message>
+    <message>
+        <source>Select this folder</source>
+        <translation>Diesen Ordner auswählen</translation>
+    </message>
+    <message>
+        <source>New library</source>
+        <translation>Neue Bibliothek</translation>
+    </message>
+    <message>
+        <source>New folder</source>
+        <translation>Neuer Ordner</translation>
+    </message>
+    <message>
+        <source>Upload here</source>
+        <translation>Hierher hochladen</translation>
+    </message>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Empty folder</source>
+        <translation>Leerer Ordner</translation>
+    </message>
+    <message>
+        <source>Check the account settings, then pull down to refresh</source>
+        <translation>Kontoeinstellungen prüfen, dann zum Aktualisieren nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Pull down to create a folder</source>
+        <translation>Zum Erstellen eines Ordners nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Deleting %1</source>
+        <translation>Lösche %1</translation>
+    </message>
+    <message>
+        <source>View</source>
+        <translation>Anzeigen</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bearbeiten</translation>
+    </message>
+    <message>
+        <source>Download</source>
+        <translation>Herunterladen</translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation>Löschen</translation>
+    </message>
+    <message>
+        <source>Unlock</source>
+        <translation>Entsperren</translation>
+    </message>
+    <message>
+        <source>Encrypted library</source>
+        <translation>Verschlüsselte Bibliothek</translation>
+    </message>
+    <message>
+        <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
+        <translation>Passwort für &apos;%1&apos; eingeben. Es wird für zukünftige Zugriffe sicher gespeichert.</translation>
+    </message>
+    <message>
+        <source>Library password</source>
+        <translation>Bibliothekspasswort</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>Library is encrypted</source>
+        <translation>Bibliothek ist verschlüsselt</translation>
+    </message>
+    <message>
+        <source>Folder created</source>
+        <translation>Ordner erstellt</translation>
+    </message>
+    <message>
+        <source>Deleted</source>
+        <translation>Gelöscht</translation>
+    </message>
+    <message>
+        <source>Uploading %1 file(s)</source>
+        <translation>Lade %1 Datei(en) hoch</translation>
+    </message>
+    <message>
+        <source>Downloading %1</source>
+        <translation>Lade %1 herunter</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>SettingsPage</name>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Settings</source>
+        <translation>Einstellungen</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>Account</source>
+        <translation>Konto</translation>
+    </message>
+    <message>
+        <source>Not configured</source>
+        <translation>Nicht eingerichtet</translation>
+    </message>
+    <message>
+        <source>Synchronization</source>
+        <translation>Synchronisation</translation>
+    </message>
+    <message>
+        <source>Background sync</source>
+        <translation>Hintergrund-Synchronisation</translation>
+    </message>
+    <message>
+        <source>Manual only</source>
+        <translation>Nur manuell</translation>
+    </message>
+    <message>
+        <source>Every 5 minutes</source>
+        <translation>Alle 5 Minuten</translation>
+    </message>
+    <message>
+        <source>Every 15 minutes</source>
+        <translation>Alle 15 Minuten</translation>
+    </message>
+    <message>
+        <source>Every 30 minutes</source>
+        <translation>Alle 30 Minuten</translation>
+    </message>
+    <message>
+        <source>Every hour</source>
+        <translation>Jede Stunde</translation>
+    </message>
+    <message>
+        <source>Every 6 hours</source>
+        <translation>Alle 6 Stunden</translation>
+    </message>
+    <message>
+        <source>Every 12 hours</source>
+        <translation>Alle 12 Stunden</translation>
+    </message>
+    <message>
+        <source>Allowed network</source>
+        <translation>Erlaubtes Netzwerk</translation>
+    </message>
+    <message>
+        <source>Wi-Fi only</source>
+        <translation>Nur WLAN</translation>
+    </message>
+    <message>
+        <source>Wi-Fi and mobile data</source>
+        <translation>WLAN und mobile Daten</translation>
+    </message>
+    <message>
+        <source>Safety limit: max. deletions per run</source>
+        <translation>Sicherheitslimit: max. Löschungen pro Lauf</translation>
+    </message>
+    <message>
+        <source>Exclude patterns</source>
+        <translation>Ausschlussmuster</translation>
+    </message>
+    <message>
+        <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
+        <translation>Ein Muster pro Zeile; gilt für alle Ordner-Syncs. Änderungen lösen einen vollständigen Resync jedes Paares aus.</translation>
+    </message>
+    <message>
+        <source>e.g. *.tmp</source>
+        <translation>z. B. *.tmp</translation>
+    </message>
+    <message>
+        <source>Support</source>
+        <translation>Support</translation>
+    </message>
+    <message>
+        <source>Diagnostics</source>
+        <translation>Diagnose</translation>
+    </message>
+    <message>
+        <source>Next run: %1</source>
+        <translation>Nächster Lauf: %1</translation>
+    </message>
+    <message>
+        <source>Active</source>
+        <translation>Aktiv</translation>
+    </message>
+</context>
+<context>
+    <name>SyncLogPage</name>
+    <message>
+        <source>Refresh</source>
+        <translation>Aktualisieren</translation>
+    </message>
+    <message>
+        <source>Sync log</source>
+        <translation>Sync-Log</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>SyncPairEditorPage</name>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>New sync pair</source>
+        <translation>Neues Sync-Paar</translation>
+    </message>
+    <message>
+        <source>Edit sync pair</source>
+        <translation>Sync-Paar bearbeiten</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <source>Synchronize a folder</source>
+        <translation>Ordner synchronisieren</translation>
+    </message>
+    <message>
+        <source>Synchronize a single file</source>
+        <translation>Einzelne Datei synchronisieren</translation>
+    </message>
+    <message>
+        <source>Local file</source>
+        <translation>Lokale Datei</translation>
+    </message>
+    <message>
+        <source>Local folder</source>
+        <translation>Lokaler Ordner</translation>
+    </message>
+    <message>
+        <source>Select</source>
+        <translation>Auswählen</translation>
+    </message>
+    <message>
+        <source>Remote folder</source>
+        <translation>Remote-Ordner</translation>
+    </message>
+    <message>
+        <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
+        <translation>Die erste Synchronisation führt einen vollständigen Resync beider Seiten aus. Hinweis: Änderungen, die die Dateigröße unverändert lassen, werden nicht erkannt (Größenvergleich).</translation>
+    </message>
+    <message>
+        <source>Sync pair created</source>
+        <translation>Sync-Paar erstellt</translation>
+    </message>
+    <message>
+        <source>Sync pair updated</source>
+        <translation>Sync-Paar aktualisiert</translation>
+    </message>
+</context>
+<context>
+    <name>TextEditorPage</name>
+    <message>
+        <source>Save</source>
+        <translation>Speichern</translation>
+    </message>
+    <message>
+        <source>Edit</source>
+        <translation>Bearbeiten</translation>
+    </message>
+    <message>
+        <source>File content</source>
+        <translation>Dateiinhalt</translation>
+    </message>
+    <message>
+        <source>Saved</source>
+        <translation>Gespeichert</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+<context>
+    <name>TextViewerPage</name>
+    <message>
+        <source>Edit</source>
+        <translation>Bearbeiten</translation>
+    </message>
+    <message>
+        <source>Internal error - see log</source>
+        <translation>Interner Fehler - siehe Log</translation>
+    </message>
+</context>
+</TS>

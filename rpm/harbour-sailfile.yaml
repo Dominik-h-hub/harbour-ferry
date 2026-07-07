@@ -1,18 +1,21 @@
 Name: harbour-sailfile
-Summary: Python SailfishOS sample
-Version: 1.0
+Summary: Native Seafile client for Sailfish OS
+Version: 0.7.0
 Release: 1
 # The contents of the Group field should be one of the groups listed here:
 # http://gitorious.org/meego-developer-tools/spectacle/blobs/master/data/GROUPS
 Group: Qt/Qt
-URL: https://github.com/sailfishos
-License: LICENSE
+URL: https://openrepos.net
+License: Apache-2.0
 # This must be generated before uploading a package to a remote build service.
 # Usually this line does not need to be modified.
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  A Sailfish OS sample application written in Python.
+  Sailfile is a native Seafile client for Sailfish OS using rclone as the
+  transfer and sync engine. Browse your libraries, upload and download
+  files, and keep local folders synchronized bidirectionally - manually or
+  on a schedule.
 Configure: none
 # The qtc5 builder inserts macros to allow QtCreator to have fine
 # control over qmake/make execution
@@ -26,23 +29,24 @@ PkgConfigBR:
   - Qt5Qml
   - Qt5Quick
 
-# Build dependencies without a pkgconfig setup can be listed here
-# PkgBR:
-#   - package-needed-to-build
+# Build dependencies without a pkgconfig setup
+PkgBR:
+  - qt5-qttools-linguist
 
 # Runtime dependencies which are not automatically detected
 Requires:
-  - sailfishsilica-qt5 >= 0.10.9 
+  - sailfishsilica-qt5 >= 0.10.9
   - pyotherside-qml-plugin-python3-qt5
+  - python3-base
   - libsailfishapp-launcher
 
 # All installed files
 Files:
-#  - '%{_bindir}'
   - '%{_datadir}/%{name}'
   - '%{_datadir}/applications/%{name}.desktop'
   - '%{_datadir}/icons/hicolor/86x86/apps/%{name}.png'
+  - '/usr/lib/systemd/user/%{name}-sync.service'
+  - '/usr/lib/systemd/user/%{name}-sync.timer'
 
 # For more information about yaml and what's supported in Sailfish OS
 # build system, please see https://wiki.merproject.org/wiki/Spectacle
-

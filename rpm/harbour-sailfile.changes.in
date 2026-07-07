@@ -8,8 +8,89 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Sun Apr 13 2014 Jack Tar <jack.tar@example.com> 0.0.1-1
-- Scrubbed the deck
-- Hoisted the sails
+* Tue Jul 07 2026 domi300 <domi300@gmx.de> 0.7.0-1
+- Encrypted libraries (FR-04): password prompt on first access, key kept
+  in Sailfish Secrets, lock icons, works for browsing and sync pairs
+- Sync conflict detection with notification (FR-12)
+- First start opens the account setup automatically (wizard)
+- German translation (DEV-03)
+- Ship rclone MIT license notice (PK-04); polished package description
 
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.6.2-1
+- Timer: switch to OnCalendar with Persistent=true so runs missed during
+  device suspend are executed on wake-up (monotonic timers stall asleep)
+- Paused pairs now show a "Paused - long-press to resume" hint
 
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.6.1-1
+- Fix crash on non-ASCII paths (umlauts): subprocess argv now UTF-8 encoded
+- Fix --max-delete getting a float value from the settings slider
+- Fix background timer: 5-minute interval added to the timer manager
+- Account and settings pages are dialogs now (accept at the top right)
+- Sync list: folder names instead of full paths, target + last-run date in
+  the second line; header spacing; auto-refresh picks up background runs
+- 2FA accounts: explain that a login token is stored instead of a password
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.6.0-1
+- UI: tab bar on the main page (local syncs / remote), three-line sync
+  list with last-run timestamp, account password visible in settings,
+  two-line account summary
+- M4b: systemd timer wiring with interval setting (FR-18), network rule
+  with skip banner (FR-19/FR-19a), safety-abort confirm + force run
+  (FR-14/FR-14a), failure notifications (FR-20), editable exclude
+  patterns + max-delete setting (FR-15), cover status + sync action
+- Timer helper now runs the real sync engine headless
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.5.0-1
+- Remote browser: View for .txt and images, plain text Edit for .txt
+- M4a: sync pairs (folder/single file) with editor, own pickers (FR-10)
+- bisync engine with required flag set, resync on first run, max-delete
+  safety, conflict-resolve newer, serial runs (FR-11..FR-17)
+- New main page: local syncs list with live status; remote libraries
+  attached via swipe (section 5.1); per-pair sync log viewer (NFR-04)
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.4.1-1
+- Fix app hang: rclone no longer prompts interactively for the config
+  password (--ask-password=false on every invocation)
+- Fix secrets lockout when mixing SDK-debugger and app-grid launches:
+  new collections use NoAccessControlMode; existing collection is migrated
+  once (non-destructively) when access works; clear error message otherwise
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.4.0-1
+- M3: upload via own file browser with multi-selection (FR-06, OD-08);
+  restricted to standard user folders + removable media (AD-07c)
+- In-app banner feedback (Notices) for download/upload/delete/new folder
+- Sequential multi-file upload with per-file progress and cancel
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.3.0-1
+- M2: Sailfish Secrets integration over the P2P D-Bus socket (AD-04);
+  config password migrated automatically from the M1 file store
+- Remote browser: list libraries/folders, navigate, download to
+  ~/Downloads with progress + cancel, delete with remorse, create folders
+  (FR-05, FR-07, FR-08, FR-09 basics)
+- Diagnostics: Secrets store/get roundtrip test
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.2.0-1
+- M1: account setup with backend-generated form (FR-01/FR-01a)
+- rclone config manager: non-interactive state machine incl. 2FA (FR-02),
+  encrypted rclone.conf (AD-04, interim file-based config password)
+- Connection test with friendly error messages (FR-03)
+- Settings page; diagnostics moved under Settings (FR-21)
+- Diagnostics: Secrets D-Bus introspection dump (input for M2)
+- Build: automatic per-arch rclone binary selection (armv7hl/aarch64/i486)
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.1.2-1
+- Reload user systemd units after install/upgrade (%post scriptlet)
+- Diagnostics run daemon-reload before starting the sync service
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.1.1-1
+- Sailjail disabled per AD-07d after TS-00 spike results (OD-11)
+- systemd unit runs the helper without sailjail wrapper
+- Diagnostics: sandbox-aware probes, UTF-8-safe IO, QML module probes
+
+* Mon Jul 06 2026 domi300 <domi300@gmx.de> 0.1.0-1
+- M0 walking skeleton (TS-00 validation build)
+- Built-in diagnostics page running the spike tests (FR-21)
+- Sailjail profile with explicit permission set (AD-07)
+- systemd user service + timer with sailjail-wrapped sync helper (AD-03)
+- Backend plugin skeleton with Seafile definition (AD-09)
+- Packaging prepared for bundled rclone binary (PK-01)
