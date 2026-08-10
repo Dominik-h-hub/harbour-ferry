@@ -1,4 +1,4 @@
-# Ferry — native Seafile client for Sailfish OS (M0 walking skeleton).
+# Ferry — native Seafile client for Sailfish OS
 #
 # NOTICE:
 # Application name defined in TARGET has a corresponding QML filename.
@@ -9,22 +9,17 @@ TARGET = harbour-ferry
 
 CONFIG += sailfishapp_qml
 
-# German translation (DEV-03); .qm files are built with lrelease and
-# installed to /usr/share/harbour-ferry/translations.
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-ferry-de.ts
-
-# qml/ (including qml/utilities Python modules), the .desktop file and the
-# app icon are deployed automatically by sailfishapp_qml.
 
 # Background sync helper started by the systemd user service (AD-03).
 helper.files = helper
 helper.path = /usr/share/$${TARGET}
 INSTALLS += helper
 
-# Bundled rclone binary (PK-01): the matching build for the target
+# Bundled rclone binary: the matching build for the target
 # architecture is picked automatically via QT_ARCH (armv7hl -> arm,
-# aarch64 -> arm64, i486 -> i386). See rclone-binaries/README.md.
+# aarch64 -> arm64, i486 -> i386).
 equals(QT_ARCH, "arm64") {
     RCLONE_BINARY = $$PWD/rclone-binaries/rclone-aarch64
 } else:equals(QT_ARCH, "arm") {
@@ -38,12 +33,12 @@ rclonebin.path = /usr/share/$${TARGET}/bin
 rclonebin.extra = install -D -m 755 $$RCLONE_BINARY $(INSTALL_ROOT)/usr/share/$${TARGET}/bin/rclone
 INSTALLS += rclonebin
 
-# Third-party license notices (PK-04: rclone is MIT-licensed).
+# Third-party license notices (rclone is MIT-licensed).
 licenses.files = licenses
 licenses.path = /usr/share/$${TARGET}
 INSTALLS += licenses
 
-# systemd user units for background sync (PK-02).
+# systemd user units for background sync.
 systemduser.files = systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer
 systemduser.path = /usr/lib/systemd/user
