@@ -1,9 +1,8 @@
 [Unit]
-Description=Ferry background sync helper (M0: writes diagnostics marker)
+Description=Ferry background sync helper (writes diagnostics marker)
 
 [Service]
 Type=oneshot
-# No sailjail wrapper: sandboxing is disabled per AD-07d (see the .desktop
-# file for the TS-00 evidence).
+# No sailjail wrapper: sandboxing is disabled.
 ExecStart=/usr/bin/python3 /usr/share/harbour-ferry/helper/sync_helper.py
 TimeoutStartSec=120
