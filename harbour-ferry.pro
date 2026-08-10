@@ -12,7 +12,7 @@ CONFIG += sailfishapp_qml
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-ferry-de.ts
 
-# Background sync helper started by the systemd user service (AD-03).
+# Background sync helper started by the systemd user service.
 helper.files = helper
 helper.path = /usr/share/$${TARGET}
 INSTALLS += helper
