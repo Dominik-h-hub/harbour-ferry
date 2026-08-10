@@ -1,4 +1,4 @@
-# rclone binaries (PK-01)
+# rclone binaries
 
 One rclone binary per RPM build target. The .pro file picks the matching
 one automatically at build time via QT_ARCH - no manual copying needed.
@@ -15,4 +15,4 @@ file from each and replace the files above (keep the names). Verify with
 i486 = ELF 32-bit Intel 80386.
 
 Current version: rclone v1.74.3. rclone is MIT-licensed; the license
-notice ships with the package (PK-04).
+notice ships with the package.
