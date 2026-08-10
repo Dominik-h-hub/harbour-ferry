@@ -1,5 +1,5 @@
 /*
- * Sailfile - diagnostics page (FR-21, TS-00).
+ * Ferry - diagnostics page (FR-21, TS-00).
  * Runs the validation spike tests via the Python diagnostics module and
  * shows PASS/FAIL per test. Full details go to stdout/journal and to a
  * report file in the app data directory.
@@ -177,13 +177,13 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.running = false;
             page.summary = qsTr("Python error - see log");
         }
 
         onReceived: {
-            console.log('[sailfile] message from python: ' + data);
+            console.log('[ferry] message from python: ' + data);
         }
     }
 }

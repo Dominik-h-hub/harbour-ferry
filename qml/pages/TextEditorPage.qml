@@ -1,5 +1,5 @@
 /*
- * Sailfile - plain text editor for remote .txt files.
+ * Ferry - plain text editor for remote .txt files.
  * Save via the pull-down menu; the page stays open while saving.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -104,7 +104,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.busy = false;
             page.errorMessage = qsTr("Internal error - see log");
         }

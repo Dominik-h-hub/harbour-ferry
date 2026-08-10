@@ -1,5 +1,5 @@
 [Unit]
-Description=Sailfile periodic background sync timer
+Description=Ferry periodic background sync timer
 
 [Timer]
 # Interval is reconfigured by the app (FR-18); these are placeholder defaults.

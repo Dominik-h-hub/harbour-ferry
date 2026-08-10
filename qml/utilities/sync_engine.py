@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - bisync engine (FR-11..FR-17).
+# Ferry - bisync engine (FR-11..FR-17).
 # Runs rclone bisync per sync pair with the flag set from the requirements:
 #   --size-only -v --stats 0 --stats-log-level NOTICE (FR-11)
 #   --conflict-resolve newer --conflict-loser num      (FR-12a)
@@ -192,7 +192,7 @@ def _run_pair_locked(pair, force):
 
     try:
         with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
-            log_file.write("# sailfile sync run %s\n# %s\n" % (now, " ".join(args)))
+            log_file.write("# ferry sync run %s\n# %s\n" % (now, " ".join(args)))
             log_file.flush()
             proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
                                   stderr=subprocess.STDOUT,
@@ -216,7 +216,7 @@ def _run_pair_locked(pair, force):
             names = ", ".join(os.path.basename(c) for c in conflicts[:5])
             message = "OK - %d conflict file(s): %s" % (len(conflicts), names)
             log("conflicts detected: %s" % names)
-            notify.send("Sailfile: sync conflict",
+            notify.send("Ferry: sync conflict",
                         "%s - please review" % names)
             return _finish_run(pair_id, now, True, message, extra)
         return _finish_run(pair_id, now, True, "OK", extra)
@@ -242,10 +242,10 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
         # FR-20: notifications only on failure / action required.
         name = os.path.basename((pair or {}).get("local", "")) or pair_id
         if extra_fields.get("safety_abort"):
-            notify.send("Sailfile: sync stopped", "%s: unusually many changes "
+            notify.send("Ferry: sync stopped", "%s: unusually many changes "
                         "- confirmation required" % name)
         else:
-            notify.send("Sailfile: sync failed", "%s: %s" % (name, message))
+            notify.send("Ferry: sync failed", "%s: %s" % (name, message))
     _send("sync-status", {"pair": pair_id, "running": False,
                           "ok": ok, "message": message})
     return pair if pair else {"ok": ok, "message": message}
@@ -254,7 +254,7 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
 def run_pair_async(pair_id, force=False):
     """Fire-and-forget run for the UI ('sync this pair', FR-16)."""
     threading.Thread(target=run_pair, args=(pair_id, force),
-                     name="sailfile-sync").start()
+                     name="ferry-sync").start()
     return True
 
 
@@ -287,5 +287,5 @@ def run_all_now():
 
 
 def run_all_async():
-    threading.Thread(target=run_all_now, name="sailfile-sync-all").start()
+    threading.Thread(target=run_all_now, name="ferry-sync-all").start()
     return True

@@ -1,18 +1,18 @@
-# Sailfile — native Seafile client for Sailfish OS (M0 walking skeleton).
+# Ferry — native Seafile client for Sailfish OS (M0 walking skeleton).
 #
 # NOTICE:
 # Application name defined in TARGET has a corresponding QML filename.
 # If name defined in TARGET is changed, the corresponding QML file, desktop
 # file, icon and translation filenames must be changed as well.
 
-TARGET = harbour-sailfile
+TARGET = harbour-ferry
 
 CONFIG += sailfishapp_qml
 
 # German translation (DEV-03); .qm files are built with lrelease and
-# installed to /usr/share/harbour-sailfile/translations.
+# installed to /usr/share/harbour-ferry/translations.
 CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-sailfile-de.ts
+TRANSLATIONS += translations/harbour-ferry-de.ts
 
 # qml/ (including qml/utilities Python modules), the .desktop file and the
 # app icon are deployed automatically by sailfishapp_qml.
@@ -44,12 +44,12 @@ licenses.path = /usr/share/$${TARGET}
 INSTALLS += licenses
 
 # systemd user units for background sync (PK-02).
-systemduser.files = systemd/harbour-sailfile-sync.service \
-    systemd/harbour-sailfile-sync.timer
+systemduser.files = systemd/harbour-ferry-sync.service \
+    systemd/harbour-ferry-sync.timer
 systemduser.path = /usr/lib/systemd/user
 INSTALLS += systemduser
 
-DISTFILES += qml/harbour-sailfile.qml \
+DISTFILES += qml/harbour-ferry.qml \
     qml/cover/CoverPage.qml \
     qml/pages/MainPage.qml \
     qml/pages/SettingsPage.qml \
@@ -70,7 +70,7 @@ DISTFILES += qml/harbour-sailfile.qml \
     qml/utilities/notify.py \
     qml/utilities/timer_manager.py \
     qml/utilities/enc_libraries.py \
-    translations/harbour-sailfile-de.ts \
+    translations/harbour-ferry-de.ts \
     qml/utilities/common.py \
     qml/utilities/credential_store.py \
     qml/utilities/secrets_client.py \
@@ -81,9 +81,9 @@ DISTFILES += qml/harbour-sailfile.qml \
     qml/utilities/backends/__init__.py \
     qml/utilities/backends/seafile.py \
     helper/sync_helper.py \
-    systemd/harbour-sailfile-sync.service \
-    systemd/harbour-sailfile-sync.timer \
-    rpm/harbour-sailfile.changes.in \
-    rpm/harbour-sailfile.spec \
-    rpm/harbour-sailfile.yaml \
-    harbour-sailfile.desktop
+    systemd/harbour-ferry-sync.service \
+    systemd/harbour-ferry-sync.timer \
+    rpm/harbour-ferry.changes.in \
+    rpm/harbour-ferry.spec \
+    rpm/harbour-ferry.yaml \
+    harbour-ferry.desktop

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - local file browser backend (FR-06, AD-07c).
+# Ferry - local file browser backend (FR-06, AD-07c).
 # Visible area is restricted to the standard user folders (Documents,
 # Downloads, Music, Pictures, Videos) and mounted removable media; the
 # browser starts on an overview of these roots.

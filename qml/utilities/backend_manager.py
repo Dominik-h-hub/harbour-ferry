@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - backend plugin discovery (AD-09c).
+# Ferry - backend plugin discovery (AD-09c).
 # Backends are Python modules in qml/utilities/backends/; adding a file
 # there makes the backend appear in the UI without further changes.
 #

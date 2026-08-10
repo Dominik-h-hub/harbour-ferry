@@ -1,5 +1,5 @@
 /*
- * Sailfile - cover: sync status + "sync now" action (section 5.2, FR-20).
+ * Ferry - cover: sync status + "sync now" action (section 5.2, FR-20).
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -29,7 +29,7 @@ CoverBackground {
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Sailfile 0.7.0"
+            text: "Ferry 0.7.0"
             color: Theme.primaryColor
             font.pixelSize: Theme.fontSizeMedium
         }
@@ -97,6 +97,6 @@ CoverBackground {
             });
         }
 
-        onError: console.log('[sailfile] cover python error: ' + traceback)
+        onError: console.log('[ferry] cover python error: ' + traceback)
     }
 }

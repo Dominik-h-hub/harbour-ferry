@@ -1,5 +1,5 @@
 /*
- * Sailfile — native Seafile client for Sailfish OS.
+ * Ferry — native Seafile client for Sailfish OS.
  * M0 walking skeleton (TS-00 validation build).
  *
  * SPDX-License-Identifier: Apache-2.0

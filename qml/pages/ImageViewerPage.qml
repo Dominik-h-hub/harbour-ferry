@@ -1,5 +1,5 @@
 /*
- * Sailfile - image viewer for remote photos. The file is fetched into a
+ * Ferry - image viewer for remote photos. The file is fetched into a
  * private cache and shown full screen.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -80,7 +80,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.loading = false;
             page.errorMessage = qsTr("Internal error - see log");
         }

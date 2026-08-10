@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile background sync helper (AD-03).
+# Ferry background sync helper (AD-03).
 # Started by the systemd user timer; runs all sync pairs through the same
 # engine as the app (network rule and skip behavior included, FR-18/19/19a)
 # and exits afterwards (NFR-02). Also writes the diagnostics marker file.
@@ -13,7 +13,7 @@ import json
 import os
 import sys
 
-LOG_PREFIX = "[sailfile-helper]"
+LOG_PREFIX = "[ferry-helper]"
 
 # Make the app's Python modules importable.
 _INSTALL_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

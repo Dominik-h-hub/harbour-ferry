@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.15.2, 2026-07-06T21:38:49. -->
+<!-- Written by QtCreator 4.15.2, 2026-07-13T16:54:12. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -8,7 +8,7 @@
  </data>
  <data>
   <variable>ProjectExplorer.Project.ActiveTarget</variable>
-  <value type="int">0</value>
+  <value type="int">1</value>
  </data>
  <data>
   <variable>ProjectExplorer.Project.EditorSettings</variable>
@@ -91,9 +91,9 @@
   <variable>ProjectExplorer.Project.Target.0</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Mer.Device.Type</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-aarch64 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-aarch64.default</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.1.0.11-aarch64 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.1.0.11-aarch64 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.1.0.11-aarch64.default</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -104,8 +104,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -161,8 +161,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -219,8 +219,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_aarch64_in_Sailfish_SDK_Build_Engine-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -406,7 +406,7 @@
     </valuelist>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="bool" key="MerRunConfiguration.DebugBypassOpenSslArmCapEnabled">true</value>
-    <value type="QString" key="MerRunConfiguration.QmlLiveBenchWorkspace">C:/Users/PC/SFOSdev/harbour-sailfile</value>
+    <value type="QString" key="MerRunConfiguration.QmlLiveBenchWorkspace">C:/Users/PC/SFOSdev/harbour-ferry</value>
     <value type="bool" key="MerRunConfiguration.QmlLiveEnabled">false</value>
     <value type="int" key="MerRunConfiguration.QmlLiveIpcPort">-1</value>
     <value type="int" key="MerRunConfiguration.QmlLiveOptions">3</value>
@@ -417,7 +417,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.MerQmlRunConfiguration</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
     <value type="int" key="RemoteLinux.EnvironmentAspect.Version">1</value>
-    <value type="QString" key="RunConfiguration.Arguments">harbour-sailfile</value>
+    <value type="QString" key="RunConfiguration.Arguments">harbour-ferry</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
@@ -430,9 +430,9 @@
   <variable>ProjectExplorer.Project.Target.1</variable>
   <valuemap type="QVariantMap">
    <value type="QString" key="DeviceType">Mer.Device.Type</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.0.0.62-i486 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.0.0.62-i486 (in Sailfish SDK Build Engine)</value>
-   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.0.0.62-i486.default</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">SailfishOS-5.1.0.11-i486 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">SailfishOS-5.1.0.11-i486 (in Sailfish SDK Build Engine)</value>
+   <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">SailfishOS-5.1.0.11-i486.default</value>
    <value type="int" key="ProjectExplorer.Target.ActiveBuildConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveDeployConfiguration">0</value>
    <value type="int" key="ProjectExplorer.Target.ActiveRunConfiguration">0</value>
@@ -443,8 +443,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Debug</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Debug</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Debug</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -500,8 +500,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Release</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Release</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Release</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -558,8 +558,8 @@
     <value type="QString" key="MerBuildConfiguration.SigningUser"></value>
     <value type="QString" key="MerSfdkConfigurationAspect.Options"></value>
     <value type="QString" key="MerSpecFileAspect.Path"></value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Profile</value>
-    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-sailfile-SailfishOS_5_0_0_62_i486_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory">C:\Users\PC\SFOSdev\build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Profile</value>
+    <value type="QString" key="ProjectExplorer.BuildConfiguration.BuildDirectory.shadowDir">C:/Users/PC/SFOSdev/build-harbour-ferry-SailfishOS_5_1_0_11_i486_in_Sailfish_SDK_Build_Engine-Profile</value>
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
@@ -745,7 +745,7 @@
     </valuelist>
     <valuelist type="QVariantList" key="CustomOutputParsers"/>
     <value type="bool" key="MerRunConfiguration.DebugBypassOpenSslArmCapEnabled">true</value>
-    <value type="QString" key="MerRunConfiguration.QmlLiveBenchWorkspace">C:/Users/PC/SFOSdev/harbour-sailfile</value>
+    <value type="QString" key="MerRunConfiguration.QmlLiveBenchWorkspace">C:/Users/PC/SFOSdev/harbour-ferry</value>
     <value type="bool" key="MerRunConfiguration.QmlLiveEnabled">false</value>
     <value type="int" key="MerRunConfiguration.QmlLiveIpcPort">-1</value>
     <value type="int" key="MerRunConfiguration.QmlLiveOptions">3</value>
@@ -756,7 +756,7 @@
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">QmakeProjectManager.MerQmlRunConfiguration</value>
     <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey"></value>
     <value type="int" key="RemoteLinux.EnvironmentAspect.Version">1</value>
-    <value type="QString" key="RunConfiguration.Arguments">harbour-sailfile</value>
+    <value type="QString" key="RunConfiguration.Arguments">harbour-ferry</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseCppDebuggerAuto">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>

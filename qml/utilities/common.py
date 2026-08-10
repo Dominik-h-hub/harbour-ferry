@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - shared helpers for the Python modules (paths, logging,
+# Ferry - shared helpers for the Python modules (paths, logging,
 # subprocess execution, rclone binary lookup).
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -11,14 +11,14 @@ import platform
 import shutil
 import subprocess
 
-APP_NAME = "harbour-sailfile"
+APP_NAME = "harbour-ferry"
 APP_VERSION = "0.7.0"
 
 
 def make_logger(tag):
     """Create a debug log function (DEV-02) that never crashes on
     ASCII-only stdout (C locale under the SDK debugger)."""
-    prefix = "[sailfile:%s]" % tag
+    prefix = "[ferry:%s]" % tag
 
     def log(msg):
         line = "%s %s" % (prefix, msg)

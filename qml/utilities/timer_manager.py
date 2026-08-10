@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - systemd user timer control (AD-03, FR-18).
+# Ferry - systemd user timer control (AD-03, FR-18).
 # The interval is applied via a drop-in override for the packaged timer
 # unit; "manual" disables the timer entirely.
 #
@@ -14,7 +14,7 @@ import common
 
 log = common.make_logger("timer")
 
-TIMER_UNIT = "harbour-sailfile-sync.timer"
+TIMER_UNIT = "harbour-ferry-sync.timer"
 # OnCalendar expressions: monotonic timers (OnUnitActiveSec) stall while the
 # device is suspended; calendar timers with Persistent=true catch up missed
 # runs as soon as the device wakes (observed on the Fairphone 4).
@@ -60,7 +60,7 @@ def apply_interval(key):
     os.makedirs(_dropin_dir(), exist_ok=True)
     override = os.path.join(_dropin_dir(), "override.conf")
     with open(override, "w", encoding="utf-8") as f:
-        f.write("# Written by Sailfile (FR-18)\n"
+        f.write("# Written by Ferry (FR-18)\n"
                 "[Timer]\n"
                 "OnBootSec=\n"
                 "OnUnitActiveSec=\n"

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - network state via ConnMan on the system D-Bus (FR-19/FR-19a).
+# Ferry - network state via ConnMan on the system D-Bus (FR-19/FR-19a).
 #
 # SPDX-License-Identifier: Apache-2.0
 

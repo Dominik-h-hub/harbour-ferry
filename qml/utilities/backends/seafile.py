@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Sailfile backend definition: Seafile (native rclone seafile backend, AD-02).
+# Ferry backend definition: Seafile (native rclone seafile backend, AD-02).
 #
 # SPDX-License-Identifier: Apache-2.0
 

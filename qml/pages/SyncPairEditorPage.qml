@@ -1,5 +1,5 @@
 /*
- * Sailfile - sync pair editor (FR-10, section 5.2).
+ * Ferry - sync pair editor (FR-10, section 5.2).
  * Type selection folder/single file; local picker uses the own file
  * browser, remote picker uses the remote browser in picker mode.
  *
@@ -141,7 +141,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.busy = false;
         }
     }

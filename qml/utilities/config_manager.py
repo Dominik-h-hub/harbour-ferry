@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - rclone configuration manager (AD-04, FR-01..FR-03).
+# Ferry - rclone configuration manager (AD-04, FR-01..FR-03).
 # Creates/updates the account remote via rclone's non-interactive config
 # state machine (handles the seafile 2FA question), keeps rclone.conf
 # encrypted with the password from the credential store, and runs the
@@ -26,7 +26,7 @@ except ImportError:
 log = common.make_logger("config")
 
 # One server account (AD-05): a single, fixed remote name.
-REMOTE_NAME = "sailfile"
+REMOTE_NAME = "ferry"
 _MAX_STATE_STEPS = 12
 
 
@@ -273,7 +273,7 @@ def setup_and_test_background(backend_id, values):
         if HAVE_PYOTHERSIDE:
             pyotherside.send("account-result", result)
 
-    threading.Thread(target=worker, name="sailfile-account").start()
+    threading.Thread(target=worker, name="ferry-account").start()
     return True
 
 

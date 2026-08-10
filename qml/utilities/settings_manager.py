@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - app settings (FR-15, FR-18, FR-19).
+# Ferry - app settings (FR-15, FR-18, FR-19).
 # Stored as JSON in the app config directory.
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -93,5 +93,5 @@ def apply_all_background(new_settings):
         if HAVE_PYOTHERSIDE:
             pyotherside.send("settings-applied", result)
 
-    threading.Thread(target=worker, name="sailfile-settings").start()
+    threading.Thread(target=worker, name="ferry-settings").start()
     return True

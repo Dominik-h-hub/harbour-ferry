@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - M0 walking skeleton diagnostics (TS-00).
+# Ferry - M0 walking skeleton diagnostics (TS-00).
 # Runs the validation spike tests in the real target environment and reports
 # PASS/FAIL/SKIP per test to the QML DiagnosticsPage (FR-21).
 #
-# Copyright (C) 2026 Sailfile contributors
+# Copyright (C) 2026 Ferry contributors
 # SPDX-License-Identifier: Apache-2.0
 
 import datetime
@@ -29,9 +29,9 @@ except ImportError:
     # Allows running this module standalone on a desktop for a smoke test.
     HAVE_PYOTHERSIDE = False
 
-APP_NAME = "harbour-sailfile"
+APP_NAME = "harbour-ferry"
 APP_VERSION = "0.7.0"
-LOG_PREFIX = "[sailfile]"
+LOG_PREFIX = "[ferry]"
 RCLONE_MIN_VERSION = (1, 66)
 NETWORK_PROBE_URLS = [
     "https://downloads.rclone.org/version.txt",
@@ -283,7 +283,7 @@ def test_network():
     for url in NETWORK_PROBE_URLS:
         try:
             log("network probe: %s" % url)
-            req = urllib.request.Request(url, headers={"User-Agent": "sailfile-m0-diagnostics"})
+            req = urllib.request.Request(url, headers={"User-Agent": "ferry-m0-diagnostics"})
             with urllib.request.urlopen(req, timeout=12) as resp:
                 body = resp.read(200)
                 d.append("GET %s -> HTTP %s, first bytes: %r" % (url, resp.status, body[:80]))
@@ -319,7 +319,7 @@ def test_rclone_config():
     try:
         # 1. Create a config entry non-interactively.
         rc, out = run_cmd([rclone, "--config", cfg, "config", "create",
-                           "sailfile-probe", "local"], timeout=20)
+                           "ferry-probe", "local"], timeout=20)
         d.append("config create (rc=%d): %s" % (rc, out[:300]))
         create_ok = (rc == 0)
 
@@ -330,7 +330,7 @@ def test_rclone_config():
 
         # 3. Encryption probe: encrypt the config, then read it back with
         #    RCLONE_CONFIG_PASS (AD-04). Password fed via stdin (no tty).
-        enc_pass = "sailfile-probe-pass"
+        enc_pass = "ferry-probe-pass"
         rc, out = run_cmd([rclone, "--config", cfg, "config", "encryption", "set"],
                           timeout=20, input_text="%s\n%s\n" % (enc_pass, enc_pass))
         d.append("config encryption set (rc=%d): %s" % (rc, out[:400]))
@@ -494,7 +494,7 @@ def test_secrets_roundtrip():
     if not secrets_client.is_available():
         return "FAIL", "Sailfish Secrets not available (socket or dbus missing)"
     probe_name = "diagnostics-probe"
-    probe_value = "sailfile-probe-%d" % os.getpid()
+    probe_value = "ferry-probe-%d" % os.getpid()
     try:
         secrets_client.ensure_collection()
         d.append("collection ensured: %r" % secrets_client.COLLECTION)
@@ -520,14 +520,14 @@ def test_user_folders():
     home = home_dir()
     for name in USER_FOLDERS:
         folder = os.path.join(home, name)
-        probe = os.path.join(folder, ".sailfile-m0-probe.txt")
+        probe = os.path.join(folder, ".ferry-m0-probe.txt")
         try:
             if not os.path.isdir(folder):
                 d.append("%s: MISSING (%s)" % (name, folder))
                 all_ok = False
                 continue
             with open(probe, "w", encoding="utf-8") as f:
-                f.write("sailfile m0 probe")
+                f.write("ferry m0 probe")
             with open(probe, encoding="utf-8") as f:
                 f.read()
             os.remove(probe)
@@ -556,7 +556,7 @@ def test_user_folders():
         except Exception as e:
             d.append("negative probe %s: blocked/failed as expected (%s)" % (label, e))
 
-    neg_probe = os.path.join(home, ".sailfile-negative-probe.txt")
+    neg_probe = os.path.join(home, ".ferry-negative-probe.txt")
     try:
         with open(neg_probe, "w", encoding="utf-8") as f:
             f.write("x")
@@ -703,9 +703,9 @@ def _write_report(summary):
     # view, so also drop a copy into ~/Downloads (whitelisted, easy to find).
     targets = [
         os.path.join(data_dir(), "diagnostics-report.txt"),
-        os.path.join(home_dir(), "Downloads", "sailfile-diagnostics-report.txt"),
+        os.path.join(home_dir(), "Downloads", "ferry-diagnostics-report.txt"),
     ]
-    content = "Sailfile %s M0 diagnostics report - %s\n%s\n\n%s\n" % (
+    content = "Ferry %s M0 diagnostics report - %s\n%s\n\n%s\n" % (
         APP_VERSION, datetime.datetime.now().isoformat(), summary,
         "\n".join(_report_lines))
     written = []
@@ -723,7 +723,7 @@ def _write_report(summary):
 
 def _run_all_impl(qml_probe_info=None):
     del _report_lines[:]
-    log("=== Sailfile %s M0 diagnostics started (TS-00) ===" % APP_VERSION)
+    log("=== Ferry %s M0 diagnostics started (TS-00) ===" % APP_VERSION)
     if qml_probe_info:
         # Import results of QML modules (Sailfish.Secrets etc.), probed by
         # the DiagnosticsPage and passed in for the report (AD-08c way 3).
@@ -770,7 +770,7 @@ def run_all(qml_probe_info=None):
         finally:
             _run_lock.release()
 
-    threading.Thread(target=worker, name="sailfile-diagnostics").start()
+    threading.Thread(target=worker, name="ferry-diagnostics").start()
 
 
 if __name__ == "__main__":

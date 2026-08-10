@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - encrypted Seafile libraries (FR-04).
+# Ferry - encrypted Seafile libraries (FR-04).
 # The library password is stored (rclone-obscured) in Sailfish Secrets; at
 # runtime the remote is addressed via an rclone connection string
 # ("remote,library=...,library_key=...:path") so no extra config section is

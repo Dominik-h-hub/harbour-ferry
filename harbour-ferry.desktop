@@ -1,9 +1,9 @@
 [Desktop Entry]
 Type=Application
 X-Nemo-Application-Type=silica-qt5
-Icon=harbour-sailfile
-Exec=sailfish-qml harbour-sailfile
-Name=Sailfile
+Icon=harbour-ferry
+Exec=sailfish-qml harbour-ferry
+Name=Ferry
 
 [X-Sailjail]
 # Sandboxing disabled per AD-07d, decided 2026-07-06 after the TS-00 spike

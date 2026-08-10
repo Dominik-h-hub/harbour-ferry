@@ -1,5 +1,5 @@
 /*
- * Sailfile - main page with two tabs (section 5.1):
+ * Ferry - main page with two tabs (section 5.1):
  * left "Local syncs", right "Remote" (library overview; tapping a library
  * opens the remote browser). Custom tab bar for Qt 5.6 compatibility.
  *
@@ -522,7 +522,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.loading = false;
         }
     }

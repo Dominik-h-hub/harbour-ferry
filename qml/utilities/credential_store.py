@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - credential store for the rclone config password (AD-04).
+# Ferry - credential store for the rclone config password (AD-04).
 #
 # M2: primary storage is Sailfish Secrets via the daemon's P2P D-Bus socket
 # (secrets_client). A password stored by the M1 interim file store is

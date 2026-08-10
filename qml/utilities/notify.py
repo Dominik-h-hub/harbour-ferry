@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - system notifications via org.freedesktop.Notifications
+# Ferry - system notifications via org.freedesktop.Notifications
 # (FR-20: only for failures / action required, never for success).
 # Works both in the app and in the headless timer helper.
 #
@@ -33,7 +33,7 @@ def send(summary, body=""):
         obj = bus.get_object("org.freedesktop.Notifications",
                              "/org/freedesktop/Notifications")
         iface = dbus.Interface(obj, "org.freedesktop.Notifications")
-        iface.Notify("Sailfile", dbus.UInt32(0), "icon-lock-warning",
+        iface.Notify("Ferry", dbus.UInt32(0), "icon-lock-warning",
                      summary, body, [],
                      {"x-nemo-preview-summary": summary,
                       "x-nemo-preview-body": body},

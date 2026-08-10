@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - remote browser backend (FR-05, FR-07, FR-08, FR-09).
+# Ferry - remote browser backend (FR-05, FR-07, FR-08, FR-09).
 # Lists remote directories via rclone lsjson, downloads to ~/Downloads with
 # progress events, deletes remote entries and creates folders. Talks only
 # to the generic remote name (AD-09d).
@@ -83,7 +83,7 @@ def _send(event, payload):
 
 def _remote_target(path):
     # Routes paths inside known encrypted libraries via connection string
-    # (FR-04); plain paths become "sailfile:path".
+    # (FR-04); plain paths become "ferry:path".
     return enc_libraries.build_target(config_manager.REMOTE_NAME, path)
 
 
@@ -233,7 +233,7 @@ def download(path, name, is_dir):
         _send("transfer-finished",
               {"id": transfer_id, "ok": rc == 0 and not cancelled, "message": message})
 
-    threading.Thread(target=worker, name="sailfile-transfer-%d" % transfer_id).start()
+    threading.Thread(target=worker, name="ferry-transfer-%d" % transfer_id).start()
     return {"ok": True, "id": transfer_id, "message": "Download started"}
 
 
@@ -296,7 +296,7 @@ def upload(local_paths, remote_dir):
             % (transfer_id, ok, failed, cancelled))
         _send("transfer-finished", {"id": transfer_id, "ok": ok, "message": message})
 
-    threading.Thread(target=worker, name="sailfile-upload-%d" % transfer_id).start()
+    threading.Thread(target=worker, name="ferry-upload-%d" % transfer_id).start()
     return {"ok": True, "id": transfer_id, "message": "Upload started"}
 
 

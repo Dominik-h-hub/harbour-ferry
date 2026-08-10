@@ -1,5 +1,5 @@
 /*
- * Sailfile - plain text viewer for remote .txt files.
+ * Ferry - plain text viewer for remote .txt files.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -100,7 +100,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.loading = false;
             page.errorMessage = qsTr("Internal error - see log");
         }

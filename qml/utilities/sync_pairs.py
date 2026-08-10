@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - sync pair storage (FR-10).
+# Ferry - sync pair storage (FR-10).
 # Pairs are kept in a JSON file in the app data directory. Each pair:
 #   id, type ("folder"|"file"), local (absolute path; for "file" the file
 #   itself), remote (remote directory path), paused, needs_resync,

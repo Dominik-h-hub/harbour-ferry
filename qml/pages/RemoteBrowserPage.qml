@@ -1,5 +1,5 @@
 /*
- * Sailfile - remote browser (FR-05, FR-07, FR-08, FR-09).
+ * Ferry - remote browser (FR-05, FR-07, FR-08, FR-09).
  * Lists libraries at the root and navigates folders via the page stack.
  * Downloads go to ~/Downloads; deletion is guarded by a remorse timer.
  *
@@ -409,7 +409,7 @@ Page {
         }
 
         onError: {
-            console.log('[sailfile] python error: ' + traceback);
+            console.log('[ferry] python error: ' + traceback);
             page.loading = false;
             page.errorMessage = qsTr("Internal error - see log");
         }

@@ -1,4 +1,4 @@
-Name: harbour-sailfile
+Name: harbour-ferry
 Summary: Native Seafile client for Sailfish OS
 Version: 0.7.0
 Release: 1
@@ -12,7 +12,7 @@ License: Apache-2.0
 Sources:
 - '%{name}-%{version}.tar.bz2'
 Description: |
-  Sailfile is a native Seafile client for Sailfish OS using rclone as the
+  Ferry is a native Seafile client for Sailfish OS using rclone as the
   transfer and sync engine. Browse your libraries, upload and download
   files, and keep local folders synchronized bidirectionally - manually or
   on a schedule.

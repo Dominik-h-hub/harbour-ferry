@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Sailfile - Sailfish Secrets client (AD-04, AD-08c way 1).
+# Ferry - Sailfish Secrets client (AD-04, AD-08c way 1).
 # Talks to sailfishsecretsd over its peer-to-peer D-Bus socket. The method
 # signatures below were taken from the daemon's introspection XML captured
 # by the diagnostics on SFOS 5.0 (see diagnostics test "Secrets D-Bus
@@ -17,7 +17,7 @@ log = common.make_logger("secrets")
 
 OBJECT_PATH = "/Sailfish/Secrets"
 INTERFACE = "org.sailfishos.secrets"
-COLLECTION = "sailfile"
+COLLECTION = "ferry"
 
 DEFAULT_STORAGE_PLUGIN = "org.sailfishos.secrets.plugin.storage.sqlite"
 DEFAULT_ENCRYPTION_PLUGIN = "org.sailfishos.secrets.plugin.encryption.openssl"

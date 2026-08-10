@@ -1,5 +1,5 @@
 /*
- * Sailfile - account dialog (FR-01, FR-01a, FR-02, FR-03).
+ * Ferry - account dialog (FR-01, FR-01a, FR-02, FR-03).
  * The form is generated from the config_fields definition of the selected
  * backend (AD-09b). Accepting the dialog saves the account and runs the
  * connection test in the background; the result is shown on the settings
@@ -214,6 +214,6 @@ Dialog {
             });
         }
 
-        onError: console.log('[sailfile] python error: ' + traceback)
+        onError: console.log('[ferry] python error: ' + traceback)
     }
 }

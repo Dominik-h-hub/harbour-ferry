@@ -1,5 +1,5 @@
 /*
- * Sailfile - settings dialog (section 5.2).
+ * Ferry - settings dialog (section 5.2).
  * Account, sync interval (FR-18), network rule (FR-19), exclude patterns
  * (FR-15), max-delete threshold (FR-14), diagnostics entry (FR-21).
  * Values are applied when the dialog is accepted (top-right).
@@ -223,6 +223,6 @@ Dialog {
             });
         }
 
-        onError: console.log('[sailfile] python error: ' + traceback)
+        onError: console.log('[ferry] python error: ' + traceback)
     }
 }
