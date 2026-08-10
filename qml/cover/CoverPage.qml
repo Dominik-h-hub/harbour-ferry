@@ -1,5 +1,5 @@
 /*
- * Ferry - cover: sync status + "sync now" action (section 5.2, FR-20).
+ * Ferry - cover: sync status + "sync now" action.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
