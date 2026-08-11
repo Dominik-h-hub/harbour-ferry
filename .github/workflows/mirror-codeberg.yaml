@@ -1,0 +1,48 @@
+name: Mirror to Codeberg
+
+# Mirrors the main branch (full commit history) and all tags to
+# https://codeberg.org/dominik-h/harbour-ferry
+# Runs on every push to main and on every pushed tag.
+# Auth: repository secret CODEBERG_TOKEN (Codeberg access token, write:repository).
+
+on:
+  push:
+    branches:
+      - 'main'
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history incl. all branches and tags - required for a real mirror
+          fetch-depth: 0
+
+      - name: Push main and tags to Codeberg
+        env:
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
+        run: |
+          git remote add codeberg https://codeberg.org/dominik-h/harbour-ferry.git
+          git config --local http.https://codeberg.org/.extraheader "Authorization: token ${CODEBERG_TOKEN}"
+
+          echo "Pushing main branch to Codeberg..."
+          for i in {1..3}; do
+            git push --force codeberg refs/remotes/origin/main:refs/heads/main && break || {
+              if [ $i -eq 3 ]; then exit 1; fi
+              echo "Push failed (attempt $i/3). Retrying in 5s..."
+              sleep 5
+            }
+          done
+
+          echo "Pushing tags to Codeberg..."
+          for i in {1..3}; do
+            git push --force codeberg --tags && break || {
+              if [ $i -eq 3 ]; then exit 1; fi
+              echo "Push tags failed (attempt $i/3). Retrying in 5s..."
+              sleep 5
+            }
+          done
