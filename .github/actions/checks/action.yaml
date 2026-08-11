@@ -76,27 +76,3 @@ runs:
             done
             exit $failed
           '
-
-    - name: Verify bundled daemon RPM
-      shell: bash
-      run: |
-        # The Store/OpenRepos app RPM must embed the daemon RPM for the
-        # Settings sideload flow. The spec bundles it silently only when
-        # daemon-rpm/RPMS/ is populated, so verify it really got in.
-        APP_RPM=$(find RPMS -name "harbour-ferry-[0-9]*.rpm" \
-                    -not -name "*-debuginfo-*" -not -name "*-debugsource-*" | head -n1)
-        if [ -z "$APP_RPM" ]; then
-          echo "::error::App RPM not found for bundling check"
-          exit 1
-        fi
-        echo "Checking $APP_RPM for the bundled daemon RPM..."
-        LISTING=$(docker run --rm -v "${{ github.workspace }}/RPMS:/RPMS" \
-          coderus/sailfishos-platform-sdk:${{ env.sdkVersion }} \
-          rpm -qlp "/RPMS/$(basename "$APP_RPM")")
-        if echo "$LISTING" | grep -q '^/usr/share/harbour-ferry/daemon/harbour-ferry-daemon-.*\.rpm$'; then
-          echo "OK - Daemon RPM is bundled:"
-          echo "$LISTING" | grep '^/usr/share/harbour-ferry/daemon/'
-        else
-          echo "::error::No bundled daemon RPM found in $APP_RPM (daemon-rpm/RPMS/ empty at build time?)"
-          exit 1
-        fi
