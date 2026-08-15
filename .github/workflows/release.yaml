@@ -25,7 +25,7 @@
 name: Sailfish OS Release
 
 env:
-  sdkVersion: "5.2.0.15"
+  sdkVersion: "5.0.0.43"
 
 on:
   push:
