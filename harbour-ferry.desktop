@@ -3,7 +3,7 @@ Type=Application
 X-Nemo-Application-Type=silica-qt5
 Icon=harbour-ferry
 Exec=sailfish-qml harbour-ferry
-Name=Ferry
+Name=Ferry Sync
 
 [X-Sailjail]
 # Sandboxing disabled: inside the jail the Sailfish Secrets daemon

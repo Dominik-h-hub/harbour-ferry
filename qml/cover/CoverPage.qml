@@ -29,7 +29,7 @@ CoverBackground {
 
         Label {
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "Ferry 0.7.0"
+            text: "Ferry 0.7"
             color: Theme.primaryColor
             font.pixelSize: Theme.fontSizeMedium
         }

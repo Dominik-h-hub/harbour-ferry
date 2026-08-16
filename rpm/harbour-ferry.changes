@@ -1,0 +1,24 @@
+# Rename this file as harbour-ferry.changes to include changelog
+# entries in your RPM file.
+#
+# Add new changelog entries following the format below.
+# Add newest entries to the top of the list.
+# Separate entries from eachother with a blank line.
+
+# * date Author's Name <author's email> version-release
+# - Summary of changes
+
+* Tue Jul 07 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
+- Encrypted libraries: password prompt on first access, key kept
+  in Sailfish Secrets, lock icons, works for browsing and sync pairs
+- Sync conflict detection with notification
+- First start opens the account setup automatically (wizard)
+- added German translation
+- Ship rclone MIT license notice; polished package description
+
+* Mon Jul 06 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.1-1
+- initial implementation of the Ferry Sync app
+- Built-in diagnostics page running the spike tests
+- systemd user service + timer with sailjail-wrapped sync helper
+- Backend plugin with Seafile definition
+- Packaging prepared for bundled rclone binary

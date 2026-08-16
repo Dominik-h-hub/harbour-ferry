@@ -30,7 +30,7 @@ except ImportError:
     HAVE_PYOTHERSIDE = False
 
 APP_NAME = "harbour-ferry"
-APP_VERSION = "0.7.0"
+APP_VERSION = "0.7"
 LOG_PREFIX = "[ferry]"
 RCLONE_MIN_VERSION = (1, 66)
 NETWORK_PROBE_URLS = [

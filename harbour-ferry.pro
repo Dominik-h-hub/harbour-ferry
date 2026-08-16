@@ -9,6 +9,8 @@ TARGET = harbour-ferry
 
 CONFIG += sailfishapp_qml
 
+SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
+
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-ferry-de.ts
 
@@ -80,5 +82,4 @@ DISTFILES += qml/harbour-ferry.qml \
     systemd/harbour-ferry-sync.timer \
     rpm/harbour-ferry.changes.in \
     rpm/harbour-ferry.spec \
-    rpm/harbour-ferry.yaml \
     harbour-ferry.desktop
