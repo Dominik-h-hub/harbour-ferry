@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - rclone configuration manager (AD-04, FR-01..FR-03).
+# Ferry - rclone configuration manager.
 # Creates/updates the account remote via rclone's non-interactive config
 # state machine (handles the seafile 2FA question), keeps rclone.conf
 # encrypted with the password from the credential store, and runs the
@@ -25,7 +25,7 @@ except ImportError:
 
 log = common.make_logger("config")
 
-# One server account (AD-05): a single, fixed remote name.
+# One server account: a single, fixed remote name.
 REMOTE_NAME = "ferry"
 _MAX_STATE_STEPS = 12
 
@@ -65,7 +65,7 @@ def _run_rclone(args, timeout=60, input_text=None, log_args=True):
     os.makedirs(common.config_dir(), exist_ok=True)
     # --ask-password=false: without it rclone would prompt interactively for
     # the config password when RCLONE_CONFIG_PASS is unavailable and block
-    # until the timeout (observed as an app hang).
+    # until the timeout.
     cmd = [rclone, "--config", rclone_conf_path(), "--ask-password=false"] + args
     return common.run_cmd(cmd, timeout=timeout, input_text=input_text,
                           env_extra=_rclone_env(), logger=log, log_args=log_args)
@@ -88,7 +88,7 @@ def build_rclone_command(args):
 
 
 def friendly_error(output):
-    """Public alias for UI-facing error mapping (FR-03)."""
+    """Public alias for UI-facing error mapping."""
     return _friendly_error(output)
 
 
@@ -188,7 +188,7 @@ def _run_config_state_machine(backend, params, values, update):
 
 
 def _ensure_encrypted():
-    """Encrypt rclone.conf with the stored config password (AD-04)."""
+    """Encrypt rclone.conf with the stored config password."""
     if is_config_encrypted():
         log("rclone.conf already encrypted")
         return True, "already encrypted"
@@ -246,7 +246,7 @@ def get_account_password():
     """Return {"password", "token_only"} for the settings form.
 
     With 2FA enabled rclone's seafile backend exchanges the password for an
-    auth token at setup time and does NOT store the password (FR-02) - in
+    auth token at setup time and does NOT store the password - in
     that case token_only is True and there is nothing to reveal. The value
     is decoded with 'rclone reveal' and never written to the log."""
     result = {"password": "", "token_only": False}
@@ -300,7 +300,7 @@ def test_connection_background():
 
 
 def test_connection():
-    """List the remote root (FR-03).
+    """List the remote root.
 
     Returns (ok, message, details, libraries) where libraries is the list of
     top-level directory names on the remote.
@@ -360,7 +360,7 @@ def _result(ok, message, details, steps, libraries=None):
 
 
 def setup_and_test(backend_id, values):
-    """Save the account (FR-01) and run the connection test (FR-03).
+    """Save the account and run the connection test.
 
     Called from the AccountPage. Returns
     {ok, message, details, steps, libraries, account} - the extra fields feed
@@ -425,7 +425,7 @@ def setup_and_test(backend_id, values):
 
 
 def delete_account():
-    """Remove the account: config file and config password (FR-01a reset)."""
+    """Remove the account: config file and config password."""
     removed = []
     for path in (rclone_conf_path(),):
         if os.path.exists(path):
