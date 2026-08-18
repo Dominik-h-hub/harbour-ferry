@@ -1,5 +1,5 @@
 /*
- * Ferry - sync log viewer (NFR-04).
+ * Ferry - sync log viewer.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
