@@ -1,5 +1,5 @@
 /*
- * Ferry - remote browser (FR-05, FR-07, FR-08, FR-09).
+ * Ferry - remote browser.
  * Lists libraries at the root and navigates folders via the page stack.
  * Downloads go to ~/Downloads; deletion is guarded by a remorse timer.
  *
@@ -205,7 +205,7 @@ Page {
         running: page.loading && entriesModel.count === 0
     }
 
-    // Active download panel (FR-09: progress + cancel).
+    // Active download panel (progress + cancel).
     Rectangle {
         id: transferPanel
         visible: page.activeTransferId >= 0
