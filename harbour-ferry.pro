@@ -78,6 +78,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/diagnostics.py \
     qml/utilities/backends/__init__.py \
     qml/utilities/backends/seafile.py \
+    qml/utilities/backends/nextcloud.py \
     helper/sync_helper.py \
     systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer \

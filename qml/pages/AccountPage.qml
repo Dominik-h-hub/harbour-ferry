@@ -80,9 +80,9 @@ Dialog {
                 }
                 onCurrentIndexChanged: {
                     if (page.backends.length > 0 && currentIndex >= 0) {
-                        // NOTE (FR-01a): switching backends on an existing
-                        // account will require a confirmation + reset once
-                        // more than one backend exists (v2).
+                        // Switching to another backend clears the form (the
+                        // stored account belongs to the previous one); saving
+                        // then replaces the remote in config_manager.
                         python.loadFields(page.backends[currentIndex].id);
                     }
                 }
@@ -169,7 +169,11 @@ Dialog {
                         var f = fieldDefs[i];
                         values[f.key] = (f["default"] !== undefined) ? f["default"] : "";
                     }
-                    if (summary && summary.url) {
+                    // Only prefill when the stored account belongs to the
+                    // selected backend - otherwise this is a fresh setup for
+                    // a different service.
+                    if (summary && summary.url
+                            && summary.backend_id === backendId) {
                         page.accountExists = true;
                         values["url"] = summary.url;
                         values["user"] = summary.user;
@@ -206,10 +210,30 @@ Dialog {
                 importModule('backend_manager', function() {
                     call('backend_manager.list_backends', [], function(list) {
                         page.backends = list;
-                        if (list.length > 0) {
-                            backendCombo.currentIndex = 0;
-                            loadFields(list[0].id);
+                        if (list.length === 0) {
+                            return;
                         }
+                        // Preselect the backend of the stored account so
+                        // saving does not rewrite it to another service.
+                        call('config_manager.get_account_summary', [],
+                             function(summary) {
+                            var index = 0;
+                            if (summary && summary.backend_id) {
+                                for (var i = 0; i < list.length; i++) {
+                                    if (list[i].id === summary.backend_id) {
+                                        index = i;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (backendCombo.currentIndex === index) {
+                                // No change signal - load the fields here.
+                                loadFields(list[index].id);
+                            } else {
+                                // onCurrentIndexChanged calls loadFields.
+                                backendCombo.currentIndex = index;
+                            }
+                        });
                     });
                 });
             });

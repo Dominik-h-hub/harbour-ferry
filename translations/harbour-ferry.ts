@@ -39,7 +39,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="198"/>
+        <location filename="../qml/pages/AccountPage.qml" line="202"/>
         <source>Account removed</source>
         <translation type="unfinished"></translation>
     </message>

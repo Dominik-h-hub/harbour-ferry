@@ -44,6 +44,29 @@ def list_backends():
     return result
 
 
+def backend_id_for_remote(rclone_type, vendor=""):
+    """Map a stored rclone remote back to the backend id that created it.
+
+    Several backends can share an rclone type (webdav serves Nextcloud and
+    others), so a backend may pin itself down further via "rclone_vendor".
+    Returns "" when no backend matches.
+    """
+    for name in _module_names():
+        try:
+            info = get_backend(name).BACKEND
+        except Exception as e:
+            log("skipping backend %r: %s" % (name, e))
+            continue
+        if info.get("rclone_type") != rclone_type:
+            continue
+        expected_vendor = info.get("rclone_vendor", "")
+        if expected_vendor and expected_vendor != vendor:
+            continue
+        return info["id"]
+    log("no backend matches remote type=%r vendor=%r" % (rclone_type, vendor))
+    return ""
+
+
 def get_fields(backend_id):
     """Return the config field definitions for the account form."""
     fields = get_backend(backend_id).BACKEND["config_fields"]

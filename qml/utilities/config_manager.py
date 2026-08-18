@@ -224,14 +224,21 @@ def get_account_summary():
         return None
     summary = {
         "backend": remote.get("type", ""),
+        "vendor": remote.get("vendor", ""),
         "url": remote.get("url", ""),
         "user": remote.get("user", ""),
         "use_2fa": str(remote.get("2fa", "")).lower() == "true",
         "encrypted": is_config_encrypted(),
     }
-    log("account summary: backend=%s url=%s user=%s 2fa=%s encrypted=%s"
-        % (summary["backend"], summary["url"], summary["user"],
-           summary["use_2fa"], summary["encrypted"]))
+    # Which backend module the remote belongs to (the account form preselects
+    # it, so an existing account is not silently rewritten to another type).
+    summary["backend_id"] = backend_manager.backend_id_for_remote(
+        summary["backend"], summary["vendor"])
+    log("account summary: backend=%s vendor=%s id=%s url=%s user=%s 2fa=%s"
+        " encrypted=%s"
+        % (summary["backend"], summary["vendor"], summary["backend_id"],
+           summary["url"], summary["user"], summary["use_2fa"],
+           summary["encrypted"]))
     return summary
 
 
@@ -363,7 +370,14 @@ def setup_and_test(backend_id, values):
     try:
         backend = backend_manager.get_backend(backend_id)
         params = backend.build_rclone_config(values)
-        update = get_account_summary() is not None
+
+        # 'rclone config update' cannot change a remote's type, so switching
+        # the account to another backend means recreating it from scratch.
+        existing = get_account_summary() or {}
+        stored_type = existing.get("backend") or ""
+        switching = bool(stored_type) \
+            and stored_type != backend.BACKEND["rclone_type"]
+        update = bool(existing) and not switching
 
         missing = [k for k in ("url", "user") if not params.get(k)]
         if not update and not values.get("pass"):
@@ -374,6 +388,16 @@ def setup_and_test(backend_id, values):
             return _result(False, "Please fill in: %s" % ", ".join(missing),
                            "", steps)
         steps.append({"title": "Check input", "ok": True, "detail": "complete"})
+
+        if switching:
+            _status("Switching backend...")
+            rc, out = _run_rclone(["config", "delete", REMOTE_NAME], timeout=30)
+            steps.append({"title": "Switch backend", "ok": rc == 0,
+                          "detail": ("replacing the previous %s remote"
+                                     % stored_type) if rc == 0 else out[:300]})
+            if rc != 0:
+                return _result(False, "Switching the backend failed",
+                               out[:300], steps)
 
         _status("Writing rclone configuration...")
         ok, message = _run_config_state_machine(backend, params, values, update)
