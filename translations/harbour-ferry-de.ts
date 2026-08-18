@@ -54,6 +54,10 @@
         <source>%1 pairs OK</source>
         <translation>%1 Paare OK</translation>
     </message>
+    <message>
+        <source>Ferry FileSync</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DiagnosticsPage</name>

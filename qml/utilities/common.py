@@ -12,7 +12,7 @@ import shutil
 import subprocess
 
 APP_NAME = "harbour-ferry"
-APP_VERSION = "0.7"
+APP_VERSION = "0.2"
 
 
 def make_logger(tag):

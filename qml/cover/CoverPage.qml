@@ -22,16 +22,38 @@ CoverBackground {
         }
     }
 
+    // Round launcher icon (installed under /usr/share/icons/hicolor) displayed at the top of the cover.
+    Image {
+        id: appIcon
+        source: "image://theme/harbour-ferry"
+        anchors {
+            top: parent.top
+            topMargin: Theme.paddingLarge
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: Math.round(parent.width * 0.5)
+        height: width
+        sourceSize.width: width
+        sourceSize.height: width
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+    }
+
     Column {
-        anchors.centerIn: parent
-        width: parent.width - 2 * Theme.paddingLarge
+        anchors {
+            left: parent.left; right: parent.right
+            verticalCenter: parent.verticalCenter
+            verticalCenterOffset: Theme.paddingLarge
+            margins: Theme.paddingMedium
+        }
         spacing: Theme.paddingSmall
 
         Label {
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Ferry 0.7"
-            color: Theme.primaryColor
+            width: parent.width
+            text: qsTr("FerrySync")
             font.pixelSize: Theme.fontSizeMedium
+            color: Theme.highlightColor
+            truncationMode: TruncationMode.Fade
         }
 
         Label {

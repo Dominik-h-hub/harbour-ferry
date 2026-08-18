@@ -47,22 +47,27 @@
 <context>
     <name>CoverPage</name>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="39"/>
+        <location filename="../qml/cover/CoverPage.qml" line="53"/>
+        <source>Ferry FileSync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/cover/CoverPage.qml" line="61"/>
         <source>Syncing...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="40"/>
+        <location filename="../qml/cover/CoverPage.qml" line="62"/>
         <source>No sync pairs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="41"/>
+        <location filename="../qml/cover/CoverPage.qml" line="63"/>
         <source>%1 failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/cover/CoverPage.qml" line="42"/>
+        <location filename="../qml/cover/CoverPage.qml" line="64"/>
         <source>%1 pairs OK</source>
         <translation type="unfinished"></translation>
     </message>
