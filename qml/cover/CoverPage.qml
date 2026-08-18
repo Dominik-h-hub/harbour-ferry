@@ -49,11 +49,10 @@ CoverBackground {
         spacing: Theme.paddingSmall
 
         Label {
-            width: parent.width
-            text: qsTr("FerrySync")
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "FerrySync"
             font.pixelSize: Theme.fontSizeMedium
-            color: Theme.highlightColor
-            truncationMode: TruncationMode.Fade
+            color: Theme.primaryColor
         }
 
         Label {

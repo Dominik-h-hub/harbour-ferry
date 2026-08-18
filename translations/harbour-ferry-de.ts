@@ -8,8 +8,8 @@
         <translation>Konto entfernen</translation>
     </message>
     <message>
-        <source>Removing account</source>
-        <translation>Entferne Konto</translation>
+        <source>Removing account and all sync pairs</source>
+        <translation>Entferne Konto und alle Sync-Paare</translation>
     </message>
     <message>
         <source>Save</source>
@@ -34,6 +34,14 @@
     <message>
         <source>Account removed</source>
         <translation>Konto entfernt</translation>
+    </message>
+    <message>
+        <source>Account removed, %1 sync pair(s) deleted</source>
+        <translation>Konto entfernt, %1 Sync-Paar(e) gelöscht</translation>
+    </message>
+    <message>
+        <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
+        <translation>Ein Wechsel des Backends ersetzt das gespeicherte Konto und löscht alle Sync-Paare - sie zeigen auf den alten Server.</translation>
     </message>
 </context>
 <context>
@@ -153,20 +161,12 @@
         <source>%1 pairs OK</source>
         <translation>%1 Paare OK</translation>
     </message>
-    <message>
-        <source>FerrySync</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DiagnosticsPage</name>
     <message>
         <source>Diagnostics</source>
         <translation>Diagnose</translation>
-    </message>
-    <message>
-        <source>TS-00 validation tests</source>
-        <translation>TS-00-Validierungstests</translation>
     </message>
     <message>
         <source>Tests running...</source>
@@ -191,6 +191,10 @@
     <message>
         <source>Python error - see log</source>
         <translation>Python-Fehler - siehe Log</translation>
+    </message>
+    <message>
+        <source>validation tests</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

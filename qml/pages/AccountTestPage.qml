@@ -1,9 +1,10 @@
 /*
  * Ferry - account connection test result page.
- * Replaces the account dialog on the page stack when it is accepted: it runs
- * the save + connection test, shows the live progress and afterwards the full
- * result (steps, account data, found libraries). Going back returns to the
- * page from which the account dialog was opened.
+ * Replaces the account dialog on the page stack when it is accepted. The
+ * dialog starts the save + connection test; this page follows it through the
+ * 'account-status' and 'account-result' events and shows the live progress
+ * and then the full result (steps, account data, found libraries). Going back
+ * returns to the page from which the account dialog was opened.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -14,10 +15,6 @@ import io.thp.pyotherside 1.5
 
 Page {
     id: page
-
-    // Set by AccountPage via acceptDestinationProperties.
-    property string backendId: ""
-    property var formValues: ({})
 
     property bool running: true
     property string statusText: qsTr("Saving account...")
@@ -30,28 +27,8 @@ Page {
     readonly property color okColor: "#66cc66"
     readonly property color failColor: "#ff6666"
 
-    // The run is started from onStatusChanged rather than Component.onCompleted
-    // so it cannot fire early should Silica pre-create the accept destination.
-    property bool modulesReady: false
-    property bool started: false
-
     ListModel { id: stepModel }
     ListModel { id: libraryModel }
-
-    function startRun() {
-        if (page.started || !page.modulesReady || status !== PageStatus.Active) {
-            return;
-        }
-        page.started = true;
-        if (page.backendId.length > 0) {
-            python.saveAndTest();
-        } else {
-            // Opened without form data - just test what is already stored.
-            python.retest();
-        }
-    }
-
-    onStatusChanged: startRun()
 
     function buildAccountRows(account) {
         var rows = [];
@@ -301,12 +278,6 @@ Page {
             libraryModel.clear();
         }
 
-        function saveAndTest() {
-            reset(qsTr("Saving account..."));
-            call('config_manager.setup_and_test_background',
-                 [page.backendId, page.formValues], function() {});
-        }
-
         function retest() {
             reset(qsTr("Testing connection..."));
             call('config_manager.test_connection_background', [], function() {});
@@ -326,12 +297,9 @@ Page {
                 page.applyResult(result);
             });
 
-            importModule('config_manager', function() {
-                importModule('backend_manager', function() {
-                    page.modulesReady = true;
-                    page.startRun();
-                });
-            });
+            // The save+test job itself is started by the account dialog when
+            // it is accepted; this page only reports what comes back.
+            importModule('config_manager', function() {});
         }
 
         onError: {

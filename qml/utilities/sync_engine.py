@@ -16,6 +16,7 @@ import datetime
 import hashlib
 import os
 import re
+import shutil
 import subprocess
 import threading
 
@@ -55,8 +56,28 @@ def _workdir():
     return os.path.join(common.data_dir(), "bisync")
 
 
+def _filters_dir():
+    return os.path.join(common.data_dir(), "filters")
+
+
 def log_path(pair_id):
     return os.path.join(_logs_dir(), "%s.log" % pair_id)
+
+
+def reset_state():
+    """Drop the bisync working state, the filter files and the run logs.
+
+    Called when the account is removed or switched: the stored listings
+    describe the remote side of the old account, and bisync would act on that
+    stale picture if a new pair ever reused the same paths.
+    """
+    removed = []
+    for path in (_workdir(), _filters_dir(), _logs_dir()):
+        if os.path.isdir(path):
+            shutil.rmtree(path, ignore_errors=True)
+            removed.append(os.path.basename(path))
+    log("sync state reset (removed: %s)" % (removed or "nothing"))
+    return removed
 
 
 def _rotate_log(pair_id):
@@ -98,7 +119,7 @@ def _filters_content(pair):
 
 
 def _filters_path(pair_id):
-    return os.path.join(common.data_dir(), "filters", "%s.txt" % pair_id)
+    return os.path.join(_filters_dir(), "%s.txt" % pair_id)
 
 
 def _prepare_filters(pair):

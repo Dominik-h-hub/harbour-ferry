@@ -87,6 +87,25 @@ def forget(library):
     log("library %r removed from encrypted registry" % library)
 
 
+def forget_all():
+    """Drop every registered encrypted library and its stored key.
+
+    The registry belongs to one account - keeping it across an account change
+    would mark same-named folders of the new account as encrypted and route
+    them through a connection string with a key that does not fit.
+    """
+    names = known_libraries()
+    for name in names:
+        forget(name)
+    with _LOCK:
+        try:
+            os.remove(_registry_path())
+        except OSError:
+            pass
+    log("encrypted library registry cleared (%d entries)" % len(names))
+    return len(names)
+
+
 def _quote(value):
     """Quote a connection string value if it contains special characters."""
     if any(c in value for c in ',:"= '):

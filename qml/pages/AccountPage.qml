@@ -22,6 +22,9 @@ Dialog {
     property int valuesRev: 0
     property bool accountExists: false
     property bool tokenOnly: false
+    // An account is stored, but for a different backend than the selected one:
+    // saving will replace it and wipe the sync pairs.
+    property bool switchesBackend: false
 
     canAccept: page.valuesRev >= 0
                && !!formValues["url"] && !!formValues["user"]
@@ -31,11 +34,12 @@ Dialog {
     // result page lands on the settings/main page again.
     acceptDestination: Qt.resolvedUrl("AccountTestPage.qml")
     acceptDestinationAction: PageStackAction.Replace
-    acceptDestinationProperties: ({
-        backendId: page.backends.length > 0 && backendCombo.currentIndex >= 0
-                   ? page.backends[backendCombo.currentIndex].id : "",
-        formValues: page.formValues
-    })
+
+    // Silica creates the accept destination before the dialog is accepted, so
+    // handing it the form data via acceptDestinationProperties would capture
+    // the values while they are still empty. The job is started here instead;
+    // the result page only listens for the account-status/-result events.
+    onAccepted: python.saveInBackground()
 
     function setValue(key, value) {
         formValues[key] = value;
@@ -52,7 +56,7 @@ Dialog {
             MenuItem {
                 text: qsTr("Remove account")
                 visible: page.accountExists
-                onClicked: remorse.execute(qsTr("Removing account"), function() {
+                onClicked: remorse.execute(qsTr("Removing account and all sync pairs"), function() {
                     python.removeAccount();
                 })
             }
@@ -109,6 +113,16 @@ Dialog {
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.secondaryColor
                 text: qsTr("With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.")
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.switchesBackend
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.errorColor
+                text: qsTr("Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.")
             }
 
             Label {
@@ -175,6 +189,7 @@ Dialog {
                     if (summary && summary.url
                             && summary.backend_id === backendId) {
                         page.accountExists = true;
+                        page.switchesBackend = false;
                         values["url"] = summary.url;
                         values["user"] = summary.user;
                         values["use_2fa"] = summary.use_2fa;
@@ -190,6 +205,7 @@ Dialog {
                     }
                     page.accountExists = false;
                     page.tokenOnly = false;
+                    page.switchesBackend = !!(summary && summary.url);
                     page.formValues = values;
                     page.valuesRev++;
                     page.fields = fieldDefs;
@@ -197,9 +213,23 @@ Dialog {
             });
         }
 
+        function saveInBackground() {
+            if (page.backends.length === 0 || backendCombo.currentIndex < 0) {
+                return;
+            }
+            var backendId = page.backends[backendCombo.currentIndex].id;
+            // Detached call: the dialog is gone once this returns, the
+            // progress and the result show up on the AccountTestPage.
+            call('config_manager.setup_and_test_background',
+                 [backendId, page.formValues], function() {});
+        }
+
         function removeAccount() {
-            call('config_manager.delete_account', [], function() {
-                Notices.show(qsTr("Account removed"));
+            call('config_manager.delete_account', [], function(result) {
+                var pairs = (result && result.pairs_removed) || 0;
+                Notices.show(pairs > 0
+                    ? qsTr("Account removed, %1 sync pair(s) deleted").arg(pairs)
+                    : qsTr("Account removed"));
                 pageStack.pop();
             });
         }

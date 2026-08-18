@@ -342,6 +342,37 @@ def _friendly_error(output):
     return "Connection test failed - see details."
 
 
+def _reset_local_state(reason):
+    """Drop everything that belongs to the account being replaced.
+
+    Sync pairs reference remote paths of that account and would fail on the
+    next run, the bisync listings describe its remote side, and the encrypted
+    library registry holds keys that no longer fit - so a new account starts
+    from scratch. Returns the number of removed sync pairs.
+
+    The imports are local: sync_engine imports this module, so pulling it in
+    at module level would be circular.
+    """
+    pairs = 0
+    try:
+        import sync_pairs
+        pairs = sync_pairs.delete_all_pairs()
+    except Exception as e:
+        log("clearing the sync pairs failed: %s" % e)
+    try:
+        import sync_engine
+        sync_engine.reset_state()
+    except Exception as e:
+        log("clearing the bisync state failed: %s" % e)
+    try:
+        import enc_libraries
+        enc_libraries.forget_all()
+    except Exception as e:
+        log("clearing the encrypted library registry failed: %s" % e)
+    log("local state reset (%s): %d sync pair(s) removed" % (reason, pairs))
+    return pairs
+
+
 def _account_info():
     """Account fields for the result page; never raises, empty when unknown."""
     try:
@@ -392,12 +423,16 @@ def setup_and_test(backend_id, values):
         if switching:
             _status("Switching backend...")
             rc, out = _run_rclone(["config", "delete", REMOTE_NAME], timeout=30)
-            steps.append({"title": "Switch backend", "ok": rc == 0,
-                          "detail": ("replacing the previous %s remote"
-                                     % stored_type) if rc == 0 else out[:300]})
             if rc != 0:
+                steps.append({"title": "Switch backend", "ok": False,
+                              "detail": out[:300]})
                 return _result(False, "Switching the backend failed",
                                out[:300], steps)
+            removed_pairs = _reset_local_state("backend switch")
+            steps.append({"title": "Switch backend", "ok": True,
+                          "detail": "replaced the previous %s remote,"
+                                    " removed %d sync pair(s)"
+                                    % (stored_type, removed_pairs)})
 
         _status("Writing rclone configuration...")
         ok, message = _run_config_state_machine(backend, params, values, update)
@@ -425,12 +460,15 @@ def setup_and_test(backend_id, values):
 
 
 def delete_account():
-    """Remove the account: config file and config password."""
+    """Remove the account: config file, config password and every local sync
+    pair, so the next account starts from scratch."""
     removed = []
     for path in (rclone_conf_path(),):
         if os.path.exists(path):
             os.remove(path)
             removed.append(path)
     credential_store.delete_config_password()
-    log("account deleted (removed: %s)" % (removed or "nothing"))
-    return True
+    pairs = _reset_local_state("account removed")
+    log("account deleted (removed: %s, %d sync pair(s))"
+        % (removed or "nothing", pairs))
+    return {"ok": True, "pairs_removed": pairs}

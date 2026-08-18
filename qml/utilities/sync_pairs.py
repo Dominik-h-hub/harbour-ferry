@@ -115,6 +115,21 @@ def delete_pair(pair_id):
     return True
 
 
+def delete_all_pairs():
+    """Remove every sync pair and the global run metadata.
+
+    Used when the account goes away (removed or switched to another backend):
+    the pairs point at remote paths of that account, so a new account starts
+    from scratch. Returns the number of pairs that were removed.
+    """
+    with _LOCK:
+        data = _load()
+        removed = len(data["pairs"])
+        _save(_empty_store())
+    log("all sync pairs deleted (%d)" % removed)
+    return removed
+
+
 def set_last_global_run(timestamp):
     with _LOCK:
         data = _load()
