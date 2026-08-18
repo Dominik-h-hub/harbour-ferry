@@ -1,5 +1,5 @@
 /*
- * Ferry - main page with two tabs (section 5.1):
+ * Ferry - main page with two tabs:
  * left "Local syncs", right "Remote" (library overview; tapping a library
  * opens the remote browser). Custom tab bar for Qt 5.6 compatibility.
  *
@@ -91,7 +91,6 @@ Page {
         header: Column {
             width: localView.width
 
-            // Breathing room below the tab bar (owner feedback).
             Item { width: 1; height: Theme.paddingLarge * 2 }
 
             Label {
@@ -461,7 +460,7 @@ Page {
         }
 
         function checkFirstRun() {
-            // First-start wizard (section 5.2): open the account dialog
+            // First-start wizard: open the account dialog
             // directly when no account is configured yet.
             call('config_manager.get_account_summary', [], function(summary) {
                 if (!summary && pageStack.depth === 1) {
