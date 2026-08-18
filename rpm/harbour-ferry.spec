@@ -1,9 +1,3 @@
-#
-# Hand-maintained spec file - this is the single source of truth for the
-# package metadata. There is deliberately no harbour-ferry.yaml any more:
-# spectacle would regenerate this file and silently drop every edit made
-# outside its "# >>" / "# <<" markers.
-#
 # Version scheme (Sailfish OS style): Version-Release, e.g. 0.7-1.
 # Keep in sync with the release tag (v<Version>-<Release>-release) and with
 # APP_VERSION in qml/utilities/common.py and qml/utilities/diagnostics.py.
@@ -17,7 +11,7 @@ Name:       harbour-ferry
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    Native Seafile client for Sailfish OS
+Summary:    Native file sync client for Sailfish OS
 Version:    0.2
 Release:    1
 Group:      Qt/Qt
@@ -36,7 +30,7 @@ BuildRequires:  qt5-qttools-linguist
 BuildRequires:  desktop-file-utils
 
 %description
-Ferry is a native Seafile client for Sailfish OS using rclone as the
+Ferry is a native file sync client for Sailfish OS using rclone as the
 transfer and sync engine. Browse your libraries, upload and download
 files, and keep local folders synchronized bidirectionally - manually or
 on a schedule.
