@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Ferry backend definition: Seafile (native rclone seafile backend, AD-02).
+# Ferry backend definition: Seafile (native rclone seafile backend).
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -10,7 +10,7 @@ BACKEND = {
     "rclone_type": "seafile",
     "supports_2fa": True,
     "supports_encrypted_libraries": True,
-    # The account form in the UI is generated from these fields (AD-09b).
+    # The account form in the UI is generated from these fields.
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [

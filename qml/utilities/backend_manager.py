@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - backend plugin discovery (AD-09c).
+# Ferry - backend plugin discovery.
 # Backends are Python modules in qml/utilities/backends/; adding a file
 # there makes the backend appear in the UI without further changes.
 #
@@ -31,7 +31,7 @@ def get_backend(backend_id):
 
 
 def list_backends():
-    """Return [{id, display_name}] for the backend dropdown (FR-01a)."""
+    """Return [{id, display_name}] for the backend dropdown."""
     result = []
     for name in _module_names():
         try:
@@ -45,7 +45,7 @@ def list_backends():
 
 
 def get_fields(backend_id):
-    """Return the config field definitions for the account form (AD-09b)."""
+    """Return the config field definitions for the account form."""
     fields = get_backend(backend_id).BACKEND["config_fields"]
     log("fields for %r: %s" % (backend_id, [f["key"] for f in fields]))
     return fields

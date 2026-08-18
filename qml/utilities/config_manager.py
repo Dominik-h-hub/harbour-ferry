@@ -266,8 +266,8 @@ def get_account_password():
 
 def setup_and_test_background(backend_id, values):
     """Run setup_and_test detached; the result arrives via the
-    'account-result' event (used by the account dialog, which closes on
-    accept before the work finishes)."""
+    'account-result' event (used by the account result page, which is shown
+    while the work is still running)."""
     def worker():
         result = setup_and_test(backend_id, values)
         if HAVE_PYOTHERSIDE:
@@ -277,8 +277,27 @@ def setup_and_test_background(backend_id, values):
     return True
 
 
+def test_connection_background():
+    """Re-run only the connection test detached ('Test again' on the account
+    result page); the result arrives via the 'account-result' event."""
+    def worker():
+        ok, message, details, libraries = test_connection()
+        result = _result(ok, message, details,
+                         [{"title": "Connection test", "ok": ok,
+                           "detail": message}], libraries)
+        if HAVE_PYOTHERSIDE:
+            pyotherside.send("account-result", result)
+
+    threading.Thread(target=worker, name="ferry-retest").start()
+    return True
+
+
 def test_connection():
-    """List the remote root (FR-03). Returns (ok, message, details)."""
+    """List the remote root (FR-03).
+
+    Returns (ok, message, details, libraries) where libraries is the list of
+    top-level directory names on the remote.
+    """
     _status("Testing connection...")
     rc, out = _run_rclone(["lsjson", "%s:" % REMOTE_NAME], timeout=90)
     if rc == 0:
@@ -294,10 +313,10 @@ def test_connection():
         message = "Connection OK - %d libraries found" % len(names)
         details = ", ".join(names[:8]) + (" ..." if len(names) > 8 else "")
         log("connection test OK: %d libraries (%s)" % (len(names), details))
-        return True, message, details
+        return True, message, details, names
     friendly = _friendly_error(out)
     log("connection test FAILED (rc=%d): %s" % (rc, out[:500]))
-    return False, friendly, out[:600]
+    return False, friendly, out[:600], []
 
 
 def _friendly_error(output):
@@ -316,11 +335,31 @@ def _friendly_error(output):
     return "Connection test failed - see details."
 
 
+def _account_info():
+    """Account fields for the result page; never raises, empty when unknown."""
+    try:
+        summary = get_account_summary() or {}
+    except Exception as e:
+        log("account info for the result page failed: %s" % e)
+        return {}
+    return {} if summary.get("error") else summary
+
+
+def _result(ok, message, details, steps, libraries=None):
+    """The payload the account result page renders."""
+    return {"ok": bool(ok), "message": message, "details": details,
+            "steps": steps, "libraries": libraries or [],
+            "account": _account_info()}
+
+
 def setup_and_test(backend_id, values):
     """Save the account (FR-01) and run the connection test (FR-03).
 
-    Called from the AccountPage. Returns {ok, message, details}.
+    Called from the AccountPage. Returns
+    {ok, message, details, steps, libraries, account} - the extra fields feed
+    the account result page.
     """
+    steps = []
     try:
         backend = backend_manager.get_backend(backend_id)
         params = backend.build_rclone_config(values)
@@ -330,27 +369,35 @@ def setup_and_test(backend_id, values):
         if not update and not values.get("pass"):
             missing.append("pass")
         if missing:
-            return {"ok": False,
-                    "message": "Please fill in: %s" % ", ".join(missing),
-                    "details": ""}
+            steps.append({"title": "Check input", "ok": False,
+                          "detail": "missing: %s" % ", ".join(missing)})
+            return _result(False, "Please fill in: %s" % ", ".join(missing),
+                           "", steps)
+        steps.append({"title": "Check input", "ok": True, "detail": "complete"})
 
         _status("Writing rclone configuration...")
         ok, message = _run_config_state_machine(backend, params, values, update)
+        steps.append({"title": "Update account" if update else "Create account",
+                      "ok": ok, "detail": message})
         if not ok:
-            return {"ok": False, "message": "Saving the account failed",
-                    "details": message}
+            return _result(False, "Saving the account failed", message, steps)
 
         _status("Encrypting configuration...")
         ok, message = _ensure_encrypted()
+        steps.append({"title": "Encrypt configuration", "ok": ok,
+                      "detail": message})
         if not ok:
-            return {"ok": False, "message": "Encrypting the configuration failed",
-                    "details": message}
+            return _result(False, "Encrypting the configuration failed",
+                           message, steps)
 
-        ok, message, details = test_connection()
-        return {"ok": ok, "message": message, "details": details}
+        ok, message, details, libraries = test_connection()
+        steps.append({"title": "Connection test", "ok": ok, "detail": message})
+        return _result(ok, message, details, steps, libraries)
     except Exception as e:
         log("setup_and_test unexpected error: %s" % e)
-        return {"ok": False, "message": "Unexpected error", "details": str(e)}
+        steps.append({"title": "Unexpected error", "ok": False,
+                      "detail": str(e)})
+        return _result(False, "Unexpected error", str(e), steps)
 
 
 def delete_account():

@@ -51,6 +51,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/pages/MainPage.qml \
     qml/pages/SettingsPage.qml \
     qml/pages/AccountPage.qml \
+    qml/pages/AccountTestPage.qml \
     qml/pages/DiagnosticsPage.qml \
     qml/pages/RemoteBrowserPage.qml \
     qml/pages/FileBrowserPage.qml \

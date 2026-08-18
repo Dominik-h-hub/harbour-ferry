@@ -28,12 +28,111 @@
         <translation>Bei 2FA hat der Server einen Login-Token ausgestellt; das Passwort selbst wird nicht gespeichert. Nur zur erneuten Anmeldung wieder eingeben.</translation>
     </message>
     <message>
-        <source>Saving runs the connection test in the background - the result appears as a banner.</source>
-        <translation>Beim Speichern läuft der Verbindungstest im Hintergrund - das Ergebnis erscheint als Banner.</translation>
+        <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
+        <translation>Beim Speichern läuft der Verbindungstest und es öffnet sich eine Ergebnisseite mit den Details und den gefundenen Bibliotheken.</translation>
     </message>
     <message>
         <source>Account removed</source>
         <translation>Konto entfernt</translation>
+    </message>
+</context>
+<context>
+    <name>AccountTestPage</name>
+    <message>
+        <source>Saving account...</source>
+        <translation>Konto wird gespeichert...</translation>
+    </message>
+    <message>
+        <source>Testing connection...</source>
+        <translation>Verbindung wird getestet...</translation>
+    </message>
+    <message>
+        <source>Test again</source>
+        <translation>Erneut testen</translation>
+    </message>
+    <message>
+        <source>Edit account</source>
+        <translation>Konto bearbeiten</translation>
+    </message>
+    <message>
+        <source>Connection test</source>
+        <translation>Verbindungstest</translation>
+    </message>
+    <message>
+        <source>Running...</source>
+        <translation>Läuft...</translation>
+    </message>
+    <message>
+        <source>Successful</source>
+        <translation>Erfolgreich</translation>
+    </message>
+    <message>
+        <source>Failed</source>
+        <translation>Fehlgeschlagen</translation>
+    </message>
+    <message>
+        <source>Account</source>
+        <translation>Konto</translation>
+    </message>
+    <message>
+        <source>Server</source>
+        <translation>Server</translation>
+    </message>
+    <message>
+        <source>User</source>
+        <translation>Benutzer</translation>
+    </message>
+    <message>
+        <source>Backend</source>
+        <translation>Backend</translation>
+    </message>
+    <message>
+        <source>Two-factor auth</source>
+        <translation>Zwei-Faktor-Anmeldung</translation>
+    </message>
+    <message>
+        <source>On</source>
+        <translation>An</translation>
+    </message>
+    <message>
+        <source>Off</source>
+        <translation>Aus</translation>
+    </message>
+    <message>
+        <source>Configuration</source>
+        <translation>Konfiguration</translation>
+    </message>
+    <message>
+        <source>Encrypted</source>
+        <translation>Verschlüsselt</translation>
+    </message>
+    <message>
+        <source>Not encrypted</source>
+        <translation>Nicht verschlüsselt</translation>
+    </message>
+    <message>
+        <source>Test details</source>
+        <translation>Testdetails</translation>
+    </message>
+    <message>
+        <source>Error output</source>
+        <translation>Fehlerausgabe</translation>
+    </message>
+    <message>
+        <source>Libraries (%1)</source>
+        <translation>Bibliotheken (%1)</translation>
+    </message>
+    <message>
+        <source>Libraries</source>
+        <translation>Bibliotheken</translation>
+    </message>
+    <message>
+        <source>The account has no libraries yet.</source>
+        <translation>Das Konto hat noch keine Bibliotheken.</translation>
+    </message>
+    <message>
+        <source>Python error - see log</source>
+        <translation>Python-Fehler - siehe Log</translation>
     </message>
 </context>
 <context>
@@ -55,7 +154,7 @@
         <translation>%1 Paare OK</translation>
     </message>
     <message>
-        <source>Ferry FileSync</source>
+        <source>FerrySync</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

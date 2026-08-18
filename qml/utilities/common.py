@@ -16,7 +16,7 @@ APP_VERSION = "0.2"
 
 
 def make_logger(tag):
-    """Create a debug log function (DEV-02) that never crashes on
+    """Create a debug log function that never crashes on
     ASCII-only stdout (C locale under the SDK debugger)."""
     prefix = "[ferry:%s]" % tag
 
@@ -52,7 +52,7 @@ def app_install_dir():
 
 
 def find_rclone():
-    """Locate the rclone binary: bundled first, then PATH (AD-07a).
+    """Locate the rclone binary: bundled first, then PATH.
 
     Returns (path_or_None, origin_description).
     """

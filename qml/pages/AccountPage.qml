@@ -1,9 +1,10 @@
 /*
  * Ferry - account dialog (FR-01, FR-01a, FR-02, FR-03).
  * The form is generated from the config_fields definition of the selected
- * backend (AD-09b). Accepting the dialog saves the account and runs the
- * connection test in the background; the result is shown on the settings
- * page via the 'account-result' event.
+ * backend (AD-09b). Accepting the dialog replaces it on the page stack with
+ * the AccountTestPage, which saves the account, runs the connection test and
+ * lists the result. Going back from there returns to the page this dialog was
+ * opened from.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -26,7 +27,15 @@ Dialog {
                && !!formValues["url"] && !!formValues["user"]
                && (accountExists || !!formValues["pass"])
 
-    onAccepted: python.saveInBackground()
+    // Replace (not push): the dialog leaves the stack, so 'back' on the
+    // result page lands on the settings/main page again.
+    acceptDestination: Qt.resolvedUrl("AccountTestPage.qml")
+    acceptDestinationAction: PageStackAction.Replace
+    acceptDestinationProperties: ({
+        backendId: page.backends.length > 0 && backendCombo.currentIndex >= 0
+                   ? page.backends[backendCombo.currentIndex].id : "",
+        formValues: page.formValues
+    })
 
     function setValue(key, value) {
         formValues[key] = value;
@@ -108,7 +117,7 @@ Dialog {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.secondaryHighlightColor
-                text: qsTr("Saving runs the connection test in the background - the result appears as a banner.")
+                text: qsTr("Saving runs the connection test and opens a result page with the details and the libraries found.")
             }
         }
 
@@ -182,14 +191,6 @@ Dialog {
                     page.fields = fieldDefs;
                 });
             });
-        }
-
-        function saveInBackground() {
-            var backendId = page.backends[backendCombo.currentIndex].id;
-            // Detached call: the dialog closes now, the result arrives on
-            // the settings page via the 'account-result' event.
-            call('config_manager.setup_and_test_background',
-                 [backendId, page.formValues], function() {});
         }
 
         function removeAccount() {

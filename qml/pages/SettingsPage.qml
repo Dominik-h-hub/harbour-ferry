@@ -209,7 +209,8 @@ Dialog {
             addImportPath(Qt.resolvedUrl('../utilities'));
 
             setHandler('account-result', function(result) {
-                Notices.show(result.message);
+                // The result itself is shown on the AccountTestPage; here we
+                // only refresh the account summary shown in this dialog.
                 refreshSummary();
             });
 

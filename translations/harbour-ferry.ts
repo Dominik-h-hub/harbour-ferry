@@ -4,43 +4,167 @@
 <context>
     <name>AccountPage</name>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="44"/>
+        <location filename="../qml/pages/AccountPage.qml" line="53"/>
         <source>Remove account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="46"/>
+        <location filename="../qml/pages/AccountPage.qml" line="55"/>
         <source>Removing account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="58"/>
+        <location filename="../qml/pages/AccountPage.qml" line="67"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="59"/>
+        <location filename="../qml/pages/AccountPage.qml" line="68"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="64"/>
+        <location filename="../qml/pages/AccountPage.qml" line="73"/>
         <source>Backend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="102"/>
+        <location filename="../qml/pages/AccountPage.qml" line="111"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="111"/>
-        <source>Saving runs the connection test in the background - the result appears as a banner.</source>
+        <location filename="../qml/pages/AccountPage.qml" line="120"/>
+        <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="197"/>
+        <location filename="../qml/pages/AccountPage.qml" line="198"/>
         <source>Account removed</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>AccountTestPage</name>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="23"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="305"/>
+        <source>Saving account...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="61"/>
+        <source>Server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
+        <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="63"/>
+        <source>Backend</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="64"/>
+        <source>Two-factor auth</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
+        <source>On</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
+        <source>Off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="66"/>
+        <source>Configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="67"/>
+        <source>Encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="68"/>
+        <source>Not encrypted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="103"/>
+        <source>Test again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="108"/>
+        <source>Edit account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="119"/>
+        <source>Connection test</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="120"/>
+        <source>Running...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="121"/>
+        <source>Successful</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="121"/>
+        <source>Failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="159"/>
+        <source>Account</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="188"/>
+        <source>Test details</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="232"/>
+        <source>Error output</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="247"/>
+        <source>Libraries (%1)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="248"/>
+        <source>Libraries</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="258"/>
+        <source>The account has no libraries yet.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="311"/>
+        <source>Testing connection...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="342"/>
+        <source>Python error - see log</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -48,7 +172,7 @@
     <name>CoverPage</name>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="53"/>
-        <source>Ferry FileSync</source>
+        <source>FerrySync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

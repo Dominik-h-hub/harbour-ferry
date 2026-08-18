@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - credential store for the rclone config password (AD-04).
+# Ferry - credential store for the rclone config password.
 #
 # M2: primary storage is Sailfish Secrets via the daemon's P2P D-Bus socket
-# (secrets_client). A password stored by the M1 interim file store is
-# migrated into Secrets automatically on first access. The file store
-# remains only as an emergency fallback when Secrets is unavailable.
+# (secrets_client). File store remains only as an emergency fallback when Secrets is unavailable.
 #
 # SPDX-License-Identifier: Apache-2.0
 

@@ -1,0 +1,345 @@
+/*
+ * Ferry - account connection test result page.
+ * Replaces the account dialog on the page stack when it is accepted: it runs
+ * the save + connection test, shows the live progress and afterwards the full
+ * result (steps, account data, found libraries). Going back returns to the
+ * page from which the account dialog was opened.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import QtQuick 2.0
+import Sailfish.Silica 1.0
+import io.thp.pyotherside 1.5
+
+Page {
+    id: page
+
+    // Set by AccountPage via acceptDestinationProperties.
+    property string backendId: ""
+    property var formValues: ({})
+
+    property bool running: true
+    property string statusText: qsTr("Saving account...")
+    property bool finished: false
+    property bool ok: false
+    property string message: ""
+    property string details: ""
+    property var accountRows: []
+
+    readonly property color okColor: "#66cc66"
+    readonly property color failColor: "#ff6666"
+
+    // The run is started from onStatusChanged rather than Component.onCompleted
+    // so it cannot fire early should Silica pre-create the accept destination.
+    property bool modulesReady: false
+    property bool started: false
+
+    ListModel { id: stepModel }
+    ListModel { id: libraryModel }
+
+    function startRun() {
+        if (page.started || !page.modulesReady || status !== PageStatus.Active) {
+            return;
+        }
+        page.started = true;
+        if (page.backendId.length > 0) {
+            python.saveAndTest();
+        } else {
+            // Opened without form data - just test what is already stored.
+            python.retest();
+        }
+    }
+
+    onStatusChanged: startRun()
+
+    function buildAccountRows(account) {
+        var rows = [];
+        if (!account || !account.url) {
+            return rows;
+        }
+        rows.push({label: qsTr("Server"), value: account.url});
+        rows.push({label: qsTr("User"), value: account.user || ""});
+        rows.push({label: qsTr("Backend"), value: account.backend || ""});
+        rows.push({label: qsTr("Two-factor auth"),
+                   value: account.use_2fa ? qsTr("On") : qsTr("Off")});
+        rows.push({label: qsTr("Configuration"),
+                   value: account.encrypted ? qsTr("Encrypted")
+                                            : qsTr("Not encrypted")});
+        return rows;
+    }
+
+    function applyResult(result) {
+        page.running = false;
+        page.finished = true;
+        page.ok = !!result.ok;
+        page.message = result.message || "";
+        page.details = result.details || "";
+        page.accountRows = buildAccountRows(result.account);
+
+        stepModel.clear();
+        var steps = result.steps || [];
+        for (var i = 0; i < steps.length; i++) {
+            stepModel.append({title: steps[i].title,
+                              stepOk: !!steps[i].ok,
+                              detail: steps[i].detail || ""});
+        }
+
+        libraryModel.clear();
+        var libraries = result.libraries || [];
+        for (var j = 0; j < libraries.length; j++) {
+            libraryModel.append({name: libraries[j]});
+        }
+    }
+
+    SilicaListView {
+        id: listView
+        anchors.fill: parent
+        model: libraryModel
+
+        PullDownMenu {
+            busy: page.running
+            MenuItem {
+                text: qsTr("Test again")
+                enabled: !page.running
+                onClicked: python.retest()
+            }
+            MenuItem {
+                text: qsTr("Edit account")
+                enabled: !page.running
+                onClicked: pageStack.replace(Qt.resolvedUrl("AccountPage.qml"))
+            }
+        }
+
+        header: Column {
+            width: listView.width
+            spacing: Theme.paddingMedium
+
+            PageHeader {
+                title: qsTr("Connection test")
+                description: page.running ? qsTr("Running...")
+                           : (page.ok ? qsTr("Successful") : qsTr("Failed"))
+            }
+
+            // --- live progress -------------------------------------------
+            Row {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.running
+                spacing: Theme.paddingMedium
+
+                BusyIndicator {
+                    running: page.running
+                    size: BusyIndicatorSize.Small
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Label {
+                    width: parent.width - Theme.itemSizeSmall
+                    anchors.verticalCenter: parent.verticalCenter
+                    wrapMode: Text.WordWrap
+                    color: Theme.highlightColor
+                    text: page.statusText
+                }
+            }
+
+            // --- result summary ------------------------------------------
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.finished
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeLarge
+                color: page.ok ? page.okColor : page.failColor
+                text: page.message
+            }
+
+            // --- account -------------------------------------------------
+            SectionHeader {
+                text: qsTr("Account")
+                visible: page.accountRows.length > 0
+            }
+
+            Repeater {
+                model: page.accountRows
+
+                delegate: Column {
+                    x: Theme.horizontalPageMargin
+                    width: listView.width - 2 * Theme.horizontalPageMargin
+
+                    Label {
+                        text: modelData.label
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        color: Theme.secondaryColor
+                    }
+
+                    Label {
+                        width: parent.width
+                        text: modelData.value
+                        wrapMode: Text.WrapAnywhere
+                        font.pixelSize: Theme.fontSizeSmall
+                        color: Theme.highlightColor
+                    }
+                }
+            }
+
+            // --- steps ---------------------------------------------------
+            SectionHeader {
+                text: qsTr("Test details")
+                visible: stepModel.count > 0
+            }
+
+            Repeater {
+                model: stepModel
+
+                delegate: Column {
+                    x: Theme.horizontalPageMargin
+                    width: listView.width - 2 * Theme.horizontalPageMargin
+
+                    Row {
+                        spacing: Theme.paddingMedium
+
+                        Label {
+                            text: stepOk ? "✓" : "✗"
+                            font.bold: true
+                            color: stepOk ? page.okColor : page.failColor
+                        }
+
+                        Label {
+                            text: title
+                            color: Theme.primaryColor
+                        }
+                    }
+
+                    Label {
+                        width: parent.width
+                        visible: detail.length > 0
+                        text: detail
+                        wrapMode: Text.WrapAnywhere
+                        font.pixelSize: Theme.fontSizeExtraSmall
+                        color: Theme.secondaryColor
+                    }
+                }
+            }
+
+            // --- error details -------------------------------------------
+            Column {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.finished && !page.ok && page.details.length > 0
+                spacing: Theme.paddingSmall
+
+                SectionHeader { text: qsTr("Error output") }
+
+                Label {
+                    width: parent.width
+                    text: page.details
+                    wrapMode: Text.WrapAnywhere
+                    font.family: "monospace"
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: Theme.secondaryColor
+                }
+            }
+
+            // --- libraries -----------------------------------------------
+            SectionHeader {
+                text: page.finished && page.ok
+                      ? qsTr("Libraries (%1)").arg(libraryModel.count)
+                      : qsTr("Libraries")
+                visible: page.finished && page.ok
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.finished && page.ok && libraryModel.count === 0
+                wrapMode: Text.WordWrap
+                color: Theme.secondaryColor
+                text: qsTr("The account has no libraries yet.")
+            }
+        }
+
+        delegate: ListItem {
+            width: listView.width
+            contentHeight: Theme.itemSizeSmall
+
+            Image {
+                id: libraryIcon
+                x: Theme.horizontalPageMargin
+                anchors.verticalCenter: parent.verticalCenter
+                source: "image://theme/icon-m-folder"
+            }
+
+            Label {
+                anchors {
+                    left: libraryIcon.right
+                    leftMargin: Theme.paddingMedium
+                    right: parent.right
+                    rightMargin: Theme.horizontalPageMargin
+                    verticalCenter: parent.verticalCenter
+                }
+                text: name
+                truncationMode: TruncationMode.Fade
+                color: Theme.primaryColor
+            }
+        }
+
+        footer: Item { width: 1; height: Theme.paddingLarge }
+
+        VerticalScrollDecorator { }
+    }
+
+    Python {
+        id: python
+
+        function reset(text) {
+            page.running = true;
+            page.finished = false;
+            page.statusText = text;
+            page.accountRows = [];
+            stepModel.clear();
+            libraryModel.clear();
+        }
+
+        function saveAndTest() {
+            reset(qsTr("Saving account..."));
+            call('config_manager.setup_and_test_background',
+                 [page.backendId, page.formValues], function() {});
+        }
+
+        function retest() {
+            reset(qsTr("Testing connection..."));
+            call('config_manager.test_connection_background', [], function() {});
+        }
+
+        Component.onCompleted: {
+            addImportPath(Qt.resolvedUrl('../utilities'));
+
+            // Progress messages from config_manager while the work runs.
+            setHandler('account-status', function(text) {
+                if (page.running) {
+                    page.statusText = text;
+                }
+            });
+
+            setHandler('account-result', function(result) {
+                page.applyResult(result);
+            });
+
+            importModule('config_manager', function() {
+                importModule('backend_manager', function() {
+                    page.modulesReady = true;
+                    page.startRun();
+                });
+            });
+        }
+
+        onError: {
+            console.log('[ferry] python error: ' + traceback);
+            page.running = false;
+            page.finished = true;
+            page.ok = false;
+            page.message = qsTr("Python error - see log");
+        }
+    }
+}

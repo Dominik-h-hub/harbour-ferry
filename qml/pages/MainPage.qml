@@ -498,14 +498,11 @@ Page {
             });
 
             setHandler('account-result', function(result) {
-                // Shown here when the account dialog was opened from the
-                // first-run check (otherwise the settings page handles it).
-                if (pageStack.depth === 1) {
-                    Notices.show(result.message);
-                    page.remoteLoaded = false;
-                    if (page.currentTab === 1) {
-                        python.loadLibraries();
-                    }
+                // The result is shown on the AccountTestPage; the library
+                // list here just has to pick up the new account.
+                page.remoteLoaded = false;
+                if (page.currentTab === 1) {
+                    python.loadLibraries();
                 }
             });
 
