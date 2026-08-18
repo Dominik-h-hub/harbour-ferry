@@ -1,7 +1,7 @@
 /*
- * Ferry - account dialog (FR-01, FR-01a, FR-02, FR-03).
+ * Ferry - account dialog
  * The form is generated from the config_fields definition of the selected
- * backend (AD-09b). Accepting the dialog replaces it on the page stack with
+ * backend. Accepting the dialog replaces it on the page stack with
  * the AccountTestPage, which saves the account, runs the connection test and
  * lists the result. Going back from there returns to the page this dialog was
  * opened from.
