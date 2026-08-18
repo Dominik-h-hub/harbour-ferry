@@ -1,5 +1,5 @@
 /*
- * Ferry - own local file browser (FR-06, OD-08).
+ * Ferry - own local file browser.
  * All file types are selectable; the visible area is restricted to the
  * standard user folders and removable media (overview at the root).
  *
