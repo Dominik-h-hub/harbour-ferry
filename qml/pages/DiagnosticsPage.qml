@@ -1,5 +1,5 @@
 /*
- * Ferry - diagnostics page (FR-21, TS-00).
+ * Ferry - diagnostics page.
  * Runs the validation spike tests via the Python diagnostics module and
  * shows PASS/FAIL per test. Full details go to stdout/journal and to a
  * report file in the app data directory.
@@ -119,8 +119,8 @@ Page {
     Python {
         id: python
 
-        // Probe QML plugin availability (AD-08c way 3 and modules needed in
-        // later milestones); results are passed into the Python report.
+        // Probe QML plugin availability
+        // results are passed into the Python report.
         function qmlProbes() {
             var mods = ["Sailfish.Secrets 1.0", "Nemo.DBus 2.0",
                         "Nemo.Notifications 1.0", "Nemo.Configuration 1.0"];
