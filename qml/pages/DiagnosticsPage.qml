@@ -30,7 +30,7 @@ Page {
 
             PageHeader {
                 title: qsTr("Diagnostics")
-                description: qsTr("TS-00 validation tests")
+                description: qsTr("validation tests")
             }
 
             Label {
