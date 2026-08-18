@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry background sync helper (AD-03).
+# Ferry background sync helper.
 # Started by the systemd user timer; runs all sync pairs through the same
-# engine as the app (network rule and skip behavior included, FR-18/19/19a)
-# and exits afterwards (NFR-02). Also writes the diagnostics marker file.
+# engine as the app (network rule and skip behavior included)
+# and exits afterwards. Also writes the diagnostics marker file.
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -19,8 +19,8 @@ LOG_PREFIX = "[ferry-helper]"
 _INSTALL_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(_INSTALL_ROOT, "qml", "utilities"))
 
-import common  # noqa: E402
-import sync_engine  # noqa: E402
+import common
+import sync_engine
 
 
 def log(msg):
@@ -32,7 +32,7 @@ def log(msg):
 
 
 def write_marker():
-    """Diagnostics marker (TS-00 test 5) proving the timer chain works."""
+    """Diagnostics marker proving the timer chain works."""
     payload = {
         "written_at": datetime.datetime.now().isoformat(),
         "pid": os.getpid(),
