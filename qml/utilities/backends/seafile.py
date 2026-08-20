@@ -10,6 +10,10 @@ BACKEND = {
     "rclone_type": "seafile",
     "supports_2fa": True,
     "supports_encrypted_libraries": True,
+    # Wording for the top-level containers of the remote. Seafile stores
+    # files in "libraries"; the UI picks its translated strings by "key" and
+    # falls back to the English words below for a key it does not know.
+    "terms": {"key": "library", "one": "Library", "many": "Libraries"},
     # The account form in the UI is generated from these fields.
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).

@@ -26,6 +26,8 @@ BACKEND = {
     # Server-side end-to-end encryption is not supported by rclone's webdav
     # backend - encrypted folders are not usable through this backend.
     "supports_encrypted_libraries": False,
+    # Nextcloud has no library concept - the remote root holds plain folders.
+    "terms": {"key": "folder", "one": "Folder", "many": "Folders"},
     # The account form in the UI is generated from these fields.
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
@@ -68,6 +70,24 @@ def webdav_url(raw_url, user):
     if not user:
         return url
     return url + _FILES_PATH % quote(user, safe="")
+
+
+def display_url(url):
+    """Reduce the stored WebDAV URL to the server URL the user entered.
+
+    rclone needs the full "<server>/remote.php/dav/files/<user>" path, which
+    is far too long for the UI. Cutting at the DAV marker keeps a Nextcloud
+    installed in a subdirectory intact ("https://host/nextcloud") and is the
+    exact inverse of webdav_url(), so the value can be fed back into the
+    account form.
+    """
+    url = (url or "").strip().rstrip("/")
+    lowered = url.lower()
+    for marker in _DAV_MARKERS:
+        index = lowered.find(marker)
+        if index >= 0:
+            return url[:index]
+    return url
 
 
 def build_rclone_config(values):

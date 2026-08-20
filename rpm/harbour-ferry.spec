@@ -1,8 +1,3 @@
-# Version scheme (Sailfish OS style): Version-Release, e.g. 0.7-1.
-# Keep in sync with the release tag (v<Version>-<Release>-release) and with
-# APP_VERSION in qml/utilities/common.py and qml/utilities/diagnostics.py.
-#
-
 Name:       harbour-ferry
 
 # The qtc5 macros let the Sailfish IDE control qmake/make invocation; the
@@ -11,7 +6,7 @@ Name:       harbour-ferry
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    Native file sync client for Sailfish OS
+Summary:    Bidirectional file sync client for Sailfish OS
 Version:    0.2
 Release:    1
 Group:      Qt/Qt

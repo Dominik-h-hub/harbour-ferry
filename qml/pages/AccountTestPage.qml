@@ -3,7 +3,8 @@
  * Replaces the account dialog on the page stack when it is accepted. The
  * dialog starts the save + connection test; this page follows it through the
  * 'account-status' and 'account-result' events and shows the live progress
- * and then the full result (steps, account data, found libraries). Going back
+ * and then the full result (steps, account data, and the top level entries
+ * found - libraries on Seafile, folders on Nextcloud). Going back
  * returns to the page from which the account dialog was opened.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -23,6 +24,13 @@ Page {
     property string message: ""
     property string details: ""
     property var accountRows: []
+    // Backend wording for the remote top level ({key, one, many} from Python).
+    property var remoteTerms: ({})
+
+    Terminology {
+        id: terms
+        source: page.remoteTerms
+    }
 
     readonly property color okColor: "#66cc66"
     readonly property color failColor: "#ff6666"
@@ -35,7 +43,8 @@ Page {
         if (!account || !account.url) {
             return rows;
         }
-        rows.push({label: qsTr("Server"), value: account.url});
+        rows.push({label: qsTr("Server"),
+                   value: account.display_url || account.url});
         rows.push({label: qsTr("User"), value: account.user || ""});
         rows.push({label: qsTr("Backend"), value: account.backend || ""});
         rows.push({label: qsTr("Two-factor auth"),
@@ -53,6 +62,9 @@ Page {
         page.message = result.message || "";
         page.details = result.details || "";
         page.accountRows = buildAccountRows(result.account);
+        if (result.account && result.account.terms) {
+            page.remoteTerms = result.account.terms;
+        }
 
         stepModel.clear();
         var steps = result.steps || [];
@@ -218,11 +230,10 @@ Page {
                 }
             }
 
-            // --- libraries -----------------------------------------------
+            // --- top level of the remote ---------------------------------
             SectionHeader {
-                text: page.finished && page.ok
-                      ? qsTr("Libraries (%1)").arg(libraryModel.count)
-                      : qsTr("Libraries")
+                text: page.finished && page.ok ? terms.counted(libraryModel.count)
+                                               : terms.many
                 visible: page.finished && page.ok
             }
 
@@ -232,7 +243,7 @@ Page {
                 visible: page.finished && page.ok && libraryModel.count === 0
                 wrapMode: Text.WordWrap
                 color: Theme.secondaryColor
-                text: qsTr("The account has no libraries yet.")
+                text: terms.emptyAccount
             }
         }
 

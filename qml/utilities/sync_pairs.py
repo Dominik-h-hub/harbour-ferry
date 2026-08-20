@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - sync pair storage (FR-10).
+# Ferry - sync pair storage.
 # Pairs are kept in a JSON file in the app data directory. Each pair:
 #   id, type ("folder"|"file"), local (absolute path; for "file" the file
 #   itself), remote (remote directory path), paused, needs_resync,
@@ -45,10 +45,15 @@ def _load():
 
 
 def _save(data):
+    """Write the store.
+
+    Silent on purpose: the callers log what they did, including the
+    resulting pair count. Logging here would put a bare "store written"
+    line in front of every action line.
+    """
     os.makedirs(common.data_dir(), exist_ok=True)
     with open(_store_path(), "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
-    log("pair store written (%d pairs)" % len(data["pairs"]))
 
 
 def list_pairs():
@@ -77,7 +82,7 @@ def add_pair(pair_type, local_path, remote_path):
         "local": local_path,
         "remote": remote_path,
         "paused": False,
-        "needs_resync": True,   # FR-13: first run uses --resync
+        "needs_resync": True,   # first run uses --resync
         "filters_hash": "",
         "last_run": "",
         "last_ok": None,
@@ -87,8 +92,9 @@ def add_pair(pair_type, local_path, remote_path):
         data = _load()
         data["pairs"].append(pair)
         _save(data)
-    log("pair added: %s (%s) %s <-> %s"
-        % (pair["id"], pair_type, local_path, remote_path))
+        stored = len(data["pairs"])
+    log("pair added: %s (%s) %s <-> %s (%d pair(s) stored)"
+        % (pair["id"], pair_type, local_path, remote_path, stored))
     return pair
 
 
@@ -135,10 +141,11 @@ def set_last_global_run(timestamp):
         data = _load()
         data["last_global_run"] = timestamp
         _save(data)
+    log("last global run recorded: %s" % timestamp)
 
 
 def set_last_skip(reason):
-    """FR-19a: record that a run was skipped (shown as a banner, no error)."""
+    """record that a run was skipped (shown as a banner, no error)."""
     with _LOCK:
         data = _load()
         data["last_skip"] = reason

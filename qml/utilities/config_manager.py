@@ -50,6 +50,51 @@ def is_config_encrypted():
         return False
 
 
+# Process cache for the parsed configuration state. 'rclone config dump' is
+# the most repeated call in the app - opening the settings or the account
+# page asks for the account summary several times, and each call spawns an
+# rclone process. The cache key is the rclone.conf fingerprint, so a config
+# rewritten by rclone invalidates it by itself; the write paths below drop it
+# explicitly as well (a rewrite within the same mtime tick would go unnoticed).
+_CACHE_LOCK = threading.Lock()
+_config_cache = {"key": None, "rc": -1, "out": "", "encrypted": False}
+
+
+def _conf_fingerprint():
+    try:
+        st = os.stat(rclone_conf_path())
+    except OSError:
+        return None
+    return (st.st_mtime_ns, st.st_size)
+
+
+def invalidate_config_cache():
+    """Forget the cached config dump (after any write to rclone.conf)."""
+    with _CACHE_LOCK:
+        _config_cache["key"] = None
+
+
+def _config_state():
+    """Return (rc, dump_output, encrypted, from_cache) of the rclone.conf."""
+    fingerprint = _conf_fingerprint()
+    if fingerprint is None:
+        return -2, "no configuration file", False, False
+    with _CACHE_LOCK:
+        if _config_cache["key"] == fingerprint:
+            log("config dump served from cache")
+            return (_config_cache["rc"], _config_cache["out"],
+                    _config_cache["encrypted"], True)
+    encrypted = is_config_encrypted()
+    rc, out = _run_rclone(["config", "dump"], timeout=30)
+    if rc == 0:
+        with _CACHE_LOCK:
+            _config_cache.update({"key": fingerprint, "rc": rc, "out": out,
+                                  "encrypted": encrypted})
+    else:
+        invalidate_config_cache()
+    return rc, out, encrypted, False
+
+
 def _rclone_env():
     env = {}
     password = credential_store.get_config_password(create=False)
@@ -164,6 +209,7 @@ def _run_config_state_machine(backend, params, values, update):
         if response is None:
             # No JSON usually means the command completed without questions.
             log("state machine step %d: no JSON in output, assuming done" % step)
+            invalidate_config_cache()
             return True, "configuration written"
         error = response.get("Error") or ""
         if error:
@@ -172,6 +218,7 @@ def _run_config_state_machine(backend, params, values, update):
         state = response.get("State") or ""
         if not option:
             log("state machine finished after %d step(s)" % (step + 1))
+            invalidate_config_cache()
             return True, "configuration written"
         answer, source = _resolve_answer(option, values, backend)
         secret_question = bool(option.get("IsPassword"))
@@ -195,6 +242,7 @@ def _ensure_encrypted():
     password = credential_store.get_config_password(create=True)
     rc, out = _run_rclone(["config", "encryption", "set"], timeout=30,
                           input_text="%s\n%s\n" % (password, password))
+    invalidate_config_cache()
     if rc != 0 or not is_config_encrypted():
         return False, "config encryption failed (rc=%d): %s" % (rc, out[:300])
     log("rclone.conf encrypted")
@@ -206,10 +254,10 @@ def get_account_summary():
     if not os.path.exists(rclone_conf_path()):
         log("no rclone.conf - account not configured")
         return None
-    rc, out = _run_rclone(["config", "dump"], timeout=30)
+    rc, out, encrypted, cached = _config_state()
     if rc != 0:
         log("config dump failed (rc=%d): %s" % (rc, out[:200]))
-        if is_config_encrypted() \
+        if encrypted \
                 and credential_store.get_config_password(create=False) is None:
             return {"error": "Configuration is encrypted but its password is not"
                              " accessible in this session (see log)."
@@ -228,17 +276,26 @@ def get_account_summary():
         "url": remote.get("url", ""),
         "user": remote.get("user", ""),
         "use_2fa": str(remote.get("2fa", "")).lower() == "true",
-        "encrypted": is_config_encrypted(),
+        "encrypted": encrypted,
     }
     # Which backend module the remote belongs to (the account form preselects
     # it, so an existing account is not silently rewritten to another type).
     summary["backend_id"] = backend_manager.backend_id_for_remote(
         summary["backend"], summary["vendor"])
-    log("account summary: backend=%s vendor=%s id=%s url=%s user=%s 2fa=%s"
-        " encrypted=%s"
-        % (summary["backend"], summary["vendor"], summary["backend_id"],
-           summary["url"], summary["user"], summary["use_2fa"],
-           summary["encrypted"]))
+    # Backend wording for the UI: Seafile has libraries, Nextcloud folders.
+    summary["terms"] = backend_manager.get_terms(summary["backend_id"])
+    # Short server URL for the UI; "url" keeps the value rclone works with.
+    summary["display_url"] = backend_manager.display_url(
+        summary["backend_id"], summary["url"])
+    if not cached:
+        # On a cache hit the "served from cache" line above already records
+        # that the summary was asked for; repeating the whole account here
+        # only fills the log.
+        log("account summary: backend=%s vendor=%s id=%s url=%s user=%s"
+            " 2fa=%s encrypted=%s"
+            % (summary["backend"], summary["vendor"], summary["backend_id"],
+               summary["url"], summary["user"], summary["use_2fa"],
+               summary["encrypted"]))
     return summary
 
 
@@ -252,7 +309,7 @@ def get_account_password():
     result = {"password": "", "token_only": False}
     if not os.path.exists(rclone_conf_path()):
         return result
-    rc, out = _run_rclone(["config", "dump"], timeout=30)
+    rc, out, _encrypted, _cached = _config_state()
     if rc != 0:
         return result
     remote = (_parse_json(out) or {}).get(REMOTE_NAME) or {}
@@ -299,11 +356,21 @@ def test_connection_background():
     return True
 
 
-def test_connection():
+def _terms(terms=None):
+    """Container wording for the messages ("libraries" / "folders")."""
+    if terms:
+        return terms
+    summary = get_account_summary() or {}
+    return summary.get("terms") or backend_manager.DEFAULT_TERMS
+
+
+def test_connection(terms=None):
     """List the remote root.
 
-    Returns (ok, message, details, libraries) where libraries is the list of
-    top-level directory names on the remote.
+    Returns (ok, message, details, entries) where entries is the list of
+    top-level directory names on the remote - libraries on Seafile, plain
+    folders elsewhere. The wording of the message follows the backend
+    definition (BACKEND["terms"]).
     """
     _status("Testing connection...")
     rc, out = _run_rclone(["lsjson", "%s:" % REMOTE_NAME], timeout=90)
@@ -317,9 +384,11 @@ def test_connection():
             except ValueError:
                 log("could not parse lsjson output")
         names = [e.get("Name", "?") for e in listing if e.get("IsDir")]
-        message = "Connection OK - %d libraries found" % len(names)
+        words = _terms(terms)
+        label = words["one"] if len(names) == 1 else words["many"]
+        message = "Connection OK - %d %s found" % (len(names), label.lower())
         details = ", ".join(names[:8]) + (" ..." if len(names) > 8 else "")
-        log("connection test OK: %d libraries (%s)" % (len(names), details))
+        log("connection test OK: %d entries (%s)" % (len(names), details))
         return True, message, details, names
     friendly = _friendly_error(out)
     log("connection test FAILED (rc=%d): %s" % (rc, out[:500]))
@@ -423,6 +492,7 @@ def setup_and_test(backend_id, values):
         if switching:
             _status("Switching backend...")
             rc, out = _run_rclone(["config", "delete", REMOTE_NAME], timeout=30)
+            invalidate_config_cache()
             if rc != 0:
                 steps.append({"title": "Switch backend", "ok": False,
                               "detail": out[:300]})
@@ -449,7 +519,8 @@ def setup_and_test(backend_id, values):
             return _result(False, "Encrypting the configuration failed",
                            message, steps)
 
-        ok, message, details, libraries = test_connection()
+        ok, message, details, libraries = test_connection(
+            backend.BACKEND.get("terms"))
         steps.append({"title": "Connection test", "ok": ok, "detail": message})
         return _result(ok, message, details, steps, libraries)
     except Exception as e:
@@ -468,6 +539,7 @@ def delete_account():
             os.remove(path)
             removed.append(path)
     credential_store.delete_config_password()
+    invalidate_config_cache()
     pairs = _reset_local_state("account removed")
     log("account deleted (removed: %s, %d sync pair(s))"
         % (removed or "nothing", pairs))

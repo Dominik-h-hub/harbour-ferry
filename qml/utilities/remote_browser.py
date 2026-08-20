@@ -1,20 +1,23 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - remote browser backend (FR-05, FR-07, FR-08, FR-09).
+# Ferry - remote browser backend.
 # Lists remote directories via rclone lsjson, downloads to ~/Downloads with
 # progress events, deletes remote entries and creates folders. Talks only
-# to the generic remote name (AD-09d).
+# to the generic remote name.
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import collections
 import json
 import os
 import re
 import shutil
 import subprocess
 import threading
+from urllib.parse import quote
 
+import backend_manager
 import common
 import config_manager
 import enc_libraries
@@ -33,6 +36,9 @@ _transfers_lock = threading.Lock()
 _transfer_counter = [0]
 
 _PERCENT_RE = re.compile(r"(\d{1,3})%")
+
+# Lines of rclone output kept per transfer to explain a failure.
+_TAIL_LINES = 40
 
 
 def _new_transfer_id():
@@ -56,22 +62,29 @@ def _finish_transfer(transfer_id):
 
 
 def _stream_process(transfer_id, proc, info_prefix):
-    """Read rclone stats output, emit progress events, return exit code."""
+    """Read rclone stats output, emit progress events.
+
+    Returns (exit_code, output_tail). The tail is what tells a failed
+    transfer apart from an encrypted library that only needs its password -
+    without it a failure is just an exit code with no explanation.
+    """
+    tail = collections.deque(maxlen=_TAIL_LINES)
     try:
         for raw_line in iter(proc.stdout.readline, b""):
             line = raw_line.decode("utf-8", "replace").strip()
             if not line:
                 continue
+            tail.append(line)
             match = _PERCENT_RE.search(line)
             if match:
                 percent = min(100, int(match.group(1)))
                 _send("transfer-progress",
                       {"id": transfer_id, "percent": percent,
                        "info": (info_prefix + " " + line)[:140]})
-        return proc.wait()
+        return proc.wait(), "\n".join(tail)
     except Exception as e:
         log("transfer %d: reader error: %s" % (transfer_id, e))
-        return -1
+        return -1, "\n".join(tail)
 
 
 def _send(event, payload):
@@ -81,9 +94,19 @@ def _send(event, payload):
         log("(event) %s: %r" % (event, payload))
 
 
+def _supports_encrypted_libraries():
+    """Whether the configured backend has encrypted libraries at all."""
+    summary = config_manager.get_account_summary() or {}
+    try:
+        backend = backend_manager.get_backend(summary.get("backend_id") or "")
+    except Exception:
+        return False
+    return bool(backend.BACKEND.get("supports_encrypted_libraries"))
+
+
 def _remote_target(path):
-    # Routes paths inside known encrypted libraries via connection string
-    # (FR-04); plain paths become "ferry:path".
+    # Routes paths inside known encrypted libraries via connection string.
+    # plain paths become "ferry:path".
     return enc_libraries.build_target(config_manager.REMOTE_NAME, path)
 
 
@@ -99,10 +122,9 @@ def list_dir(path=""):
     rc, out = config_manager.run_rclone(["lsjson", target], timeout=90,
                                         log_args=False)
     if rc != 0:
-        lowered = out.lower()
-        library = (path or "").strip("/").split("/")[0]
-        if "encrypt" in lowered or "password" in lowered:
-            # FR-04: encrypted library - the UI asks for the password.
+        library = enc_libraries.encrypted_library(out, path)
+        if library:
+            # encrypted library - the UI asks for the password.
             log("library %r appears to be encrypted (rc=%d): %s"
                 % (library, rc, out[:300]))
             return {"ok": False, "encrypted": True, "library": library,
@@ -129,12 +151,42 @@ def list_dir(path=""):
             "is_dir": bool(item.get("IsDir")),
             "size": item.get("Size", -1),
             "mtime": (item.get("ModTime") or "")[:16].replace("T", " "),
-            # Lock marker for known encrypted libraries (section 5.1).
+            # Lock marker for known encrypted libraries.
             "encrypted": at_root and enc_libraries.is_encrypted(name),
         })
     entries.sort(key=lambda e: (not e["is_dir"], e["name"].lower()))
     log("listing OK: %d entries" % len(entries))
-    return {"ok": True, "entries": entries}
+    # Listing an encrypted library works without its key - and so does
+    # creating folders in it - so nothing here reveals that transfers will
+    # fail. "locked" is only what the app already knows; "can_unlock" offers
+    # the password dialog for every library of a backend that has encrypted
+    # ones, because the user knows which ones they are and must not depend
+    # on the app detecting it first.
+    return {"ok": True, "entries": entries,
+            "locked": enc_libraries.locked_library(path),
+            "can_unlock": (not at_root) and _supports_encrypted_libraries()}
+
+
+def _key_candidates(password):
+    """The forms of a library password to try, best guess first.
+
+    rclone builds the Seafile "decrypt library" request as
+    "password=" + value with Content-Type x-www-form-urlencoded, but never
+    URL-encodes the value (backend/seafile/webapi.go, decryptLibrary). Every
+    character that is special in a form body - "&", "+", "%", "=", space -
+    therefore arrives changed at the server, which rejects the correct
+    password as wrong. It also runs the value through rclone's filename
+    encoder first, which rewrites "/", chr(92) and the double quote.
+
+    Sending the percent-encoded password cancels both out: the server's form
+    parser decodes exactly the original again. The plain form is tried first
+    so a fixed rclone keeps working, and because a stored key that stops
+    working simply leads back to this dialog, the app recovers either way.
+    """
+    yield password, "plain"
+    encoded = quote(password, safe="")
+    if encoded != password:
+        yield encoded, "percent-encoded"
 
 
 def unlock_library(library, password):
@@ -142,23 +194,28 @@ def unlock_library(library, password):
     key in Sailfish Secrets (FR-04). Returns {ok, message}."""
     if not password:
         return {"ok": False, "message": "Password must not be empty"}
-    rc, out = config_manager.run_rclone(["obscure", password], timeout=15,
-                                        log_args=False)
-    if rc != 0 or not out:
-        return {"ok": False, "message": "Could not process the password"}
-    obscured = out.strip().splitlines()[-1]
-    probe = "%s,library=%s,library_key=%s:" % (
-        config_manager.REMOTE_NAME,
-        enc_libraries._quote(library), enc_libraries._quote(obscured))
-    log("probing encrypted library %r" % library)
-    rc, out = config_manager.run_rclone(["lsjson", probe], timeout=90,
-                                        log_args=False)
-    if rc != 0:
-        log("library unlock failed (rc=%d): %s" % (rc, out[:300]))
-        return {"ok": False,
-                "message": "Could not open the library - wrong password?"}
-    enc_libraries.store_key(library, obscured)
-    return {"ok": True, "message": "Library unlocked"}
+    output = ""
+    for candidate, kind in _key_candidates(password):
+        rc, out = config_manager.run_rclone(["obscure", candidate], timeout=15,
+                                            log_args=False)
+        if rc != 0 or not out:
+            return {"ok": False, "message": "Could not process the password"}
+        obscured = out.strip().splitlines()[-1]
+        probe = "%s,library=%s,library_key=%s:" % (
+            config_manager.REMOTE_NAME,
+            enc_libraries._quote(library), enc_libraries._quote(obscured))
+        log("probing encrypted library %r (%s password)" % (library, kind))
+        rc, output = config_manager.run_rclone(["lsjson", probe], timeout=90,
+                                               log_args=False)
+        if rc == 0:
+            enc_libraries.store_key(library, obscured)
+            log("library %r unlocked with the %s password" % (library, kind))
+            return {"ok": True, "message": "Library unlocked"}
+        log("library unlock failed (%s, rc=%d): %s" % (kind, rc, output[:300]))
+    if "incorrect password" in output.lower():
+        return {"ok": False, "message": "Wrong password for this library"}
+    return {"ok": False,
+            "message": "Could not open the library - see the log"}
 
 
 def make_dir(path, name):
@@ -176,8 +233,7 @@ def make_dir(path, name):
 
 
 def delete_entry(path, is_dir):
-    """Delete a remote file or folder (UI guards this with a remorse timer,
-    FR-08)."""
+    #Delete a remote file or folder (UI guards this with a remorse timer
     target = _remote_target(path)
     cmd = ["purge", target] if is_dir else ["deletefile", target]
     log("deleting %s (dir=%s)" % (target, is_dir))
@@ -196,7 +252,7 @@ _STATS_ARGS = ["--stats", "1s", "--stats-one-line", "--log-level", "NOTICE"]
 
 
 def download(path, name, is_dir):
-    """Start an async download to ~/Downloads (FR-07). Progress and
+    """Start an async download to ~/Downloads. Progress and
     completion are reported via 'transfer-progress'/'transfer-finished'
     events; returns {ok, id}."""
     source = _remote_target(path)
@@ -221,24 +277,29 @@ def download(path, name, is_dir):
         _transfers[transfer_id] = proc
 
     def worker():
-        rc = _stream_process(transfer_id, proc, name)
+        rc, output = _stream_process(transfer_id, proc, name)
         cancelled = _finish_transfer(transfer_id)
-        if cancelled:
-            message = "Download cancelled"
-        elif rc == 0:
-            message = "Saved to Downloads: %s" % name
+        library = ""
+        if rc == 0 or cancelled:
+            message = "Download cancelled" if cancelled \
+                else "Saved to Downloads: %s" % name
         else:
-            message = "Download failed: %s" % name
+            log("transfer %d: rclone said: %s" % (transfer_id, output[-600:]))
+            library = enc_libraries.encrypted_library(output, path)
+            message = ("Library %r is encrypted - password required" % library) \
+                if library else "Download failed: %s" % name
         log("transfer %d: finished rc=%s cancelled=%s" % (transfer_id, rc, cancelled))
         _send("transfer-finished",
-              {"id": transfer_id, "ok": rc == 0 and not cancelled, "message": message})
+              {"id": transfer_id, "ok": rc == 0 and not cancelled,
+               "message": message, "encrypted": bool(library),
+               "library": library})
 
     threading.Thread(target=worker, name="ferry-transfer-%d" % transfer_id).start()
     return {"ok": True, "id": transfer_id, "message": "Download started"}
 
 
 def upload(local_paths, remote_dir):
-    """Upload local files into the current remote directory (FR-06).
+    """Upload local files into the current remote directory.
 
     Files are transferred sequentially in one background job; progress
     events carry 'name (i/n)' info. Returns {ok, id}.
@@ -254,6 +315,7 @@ def upload(local_paths, remote_dir):
 
     def worker():
         failed = []
+        library = ""
         total = len(paths)
         for index, local_path in enumerate(paths):
             if _is_cancelled(transfer_id):
@@ -278,29 +340,37 @@ def upload(local_paths, remote_dir):
             _send("transfer-progress",
                   {"id": transfer_id, "percent": 0,
                    "info": "%s (%d/%d)" % (name, index + 1, total)})
-            rc = _stream_process(transfer_id, proc,
-                                 "%s (%d/%d)" % (name, index + 1, total))
+            rc, output = _stream_process(transfer_id, proc,
+                                         "%s (%d/%d)" % (name, index + 1, total))
             if rc != 0 and not _is_cancelled(transfer_id):
                 failed.append(name)
+                log("transfer %d: rclone said: %s" % (transfer_id, output[-600:]))
+                if not library:
+                    library = enc_libraries.encrypted_library(
+                        output, _join(remote_dir, name))
         cancelled = _finish_transfer(transfer_id)
         if cancelled:
             message = "Upload cancelled"
             ok = False
         elif failed:
-            message = "Upload failed for: %s" % ", ".join(failed[:5])
+            message = ("Library %r is encrypted - password required" % library) \
+                if library else "Upload failed for: %s" % ", ".join(failed[:5])
             ok = False
         else:
             message = "Uploaded %d file(s)" % total
             ok = True
         log("transfer %d: upload finished ok=%s failed=%s cancelled=%s"
             % (transfer_id, ok, failed, cancelled))
-        _send("transfer-finished", {"id": transfer_id, "ok": ok, "message": message})
+        _send("transfer-finished", {"id": transfer_id, "ok": ok,
+                                    "message": message,
+                                    "encrypted": bool(library),
+                                    "library": library})
 
     threading.Thread(target=worker, name="ferry-upload-%d" % transfer_id).start()
     return {"ok": True, "id": transfer_id, "message": "Upload started"}
 
 
-# --- text viewing/editing and image viewing (owner request, M3.1) --------
+# --- text viewing/editing and image viewing --------
 
 TEXT_MAX_BYTES = 512 * 1024
 
@@ -326,6 +396,16 @@ def _run_capture(args, timeout=180, input_bytes=None):
         return -3, b"", "ERROR: %s" % e
 
 
+def _failure(output, path):
+    """Error result for a single file operation, with the encrypted-library
+    case called out so the UI can offer the unlock dialog."""
+    library = enc_libraries.encrypted_library(output, path)
+    if library:
+        return {"ok": False, "encrypted": True, "library": library,
+                "message": "Library is encrypted - password required"}
+    return {"ok": False, "message": config_manager.friendly_error(output)}
+
+
 def read_text_file(path):
     """Fetch a text file's content for viewing/editing (size-limited)."""
     target = _remote_target(path)
@@ -333,7 +413,7 @@ def read_text_file(path):
     rc, data, err = _run_capture(["cat", "--count", str(TEXT_MAX_BYTES + 1), target])
     if rc != 0:
         log("read failed (rc=%d): %s" % (rc, err[:300]))
-        return {"ok": False, "message": config_manager.friendly_error(err)}
+        return _failure(err, path)
     if len(data) > TEXT_MAX_BYTES:
         return {"ok": False,
                 "message": "File is too large to open here (max 512 KB)"}
@@ -349,7 +429,7 @@ def save_text_file(path, content):
     rc, _, err = _run_capture(["rcat", target], input_bytes=data)
     if rc != 0:
         log("save failed (rc=%d): %s" % (rc, err[:300]))
-        return {"ok": False, "message": config_manager.friendly_error(err)}
+        return _failure(err, path)
     return {"ok": True, "message": "Saved"}
 
 
@@ -372,12 +452,14 @@ def fetch_image(path, name):
     rc, _, err = _run_capture(["copyto", target, local_path], timeout=300)
     if rc != 0 or not os.path.exists(local_path):
         log("image fetch failed (rc=%d): %s" % (rc, err[:300]))
-        return {"ok": False, "message": config_manager.friendly_error(err)}
+        return _failure(err, path)
+    log("image fetched into the view cache (%d bytes)"
+        % os.path.getsize(local_path))
     return {"ok": True, "local_path": local_path}
 
 
 def cancel_transfer(transfer_id):
-    """Cancel a running transfer (FR-09)."""
+    """Cancel a running transfer."""
     with _transfers_lock:
         known = transfer_id in _transfers
         proc = _transfers.get(transfer_id)

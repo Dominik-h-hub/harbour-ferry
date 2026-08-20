@@ -28,10 +28,6 @@
         <translation>Bei 2FA hat der Server einen Login-Token ausgestellt; das Passwort selbst wird nicht gespeichert. Nur zur erneuten Anmeldung wieder eingeben.</translation>
     </message>
     <message>
-        <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
-        <translation>Beim Speichern läuft der Verbindungstest und es öffnet sich eine Ergebnisseite mit den Details und den gefundenen Bibliotheken.</translation>
-    </message>
-    <message>
         <source>Account removed</source>
         <translation>Konto entfernt</translation>
     </message>
@@ -125,18 +121,6 @@
     <message>
         <source>Error output</source>
         <translation>Fehlerausgabe</translation>
-    </message>
-    <message>
-        <source>Libraries (%1)</source>
-        <translation>Bibliotheken (%1)</translation>
-    </message>
-    <message>
-        <source>Libraries</source>
-        <translation>Bibliotheken</translation>
-    </message>
-    <message>
-        <source>The account has no libraries yet.</source>
-        <translation>Das Konto hat noch keine Bibliotheken.</translation>
     </message>
     <message>
         <source>Python error - see log</source>
@@ -314,24 +298,12 @@
         <translation>Löschen</translation>
     </message>
     <message>
-        <source>New library</source>
-        <translation>Neue Bibliothek</translation>
-    </message>
-    <message>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <source>No libraries</source>
-        <translation>Keine Bibliotheken</translation>
-    </message>
-    <message>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kontoeinstellungen prüfen, dann zum Aktualisieren nach unten ziehen</translation>
-    </message>
-    <message>
-        <source>Pull down to create a library</source>
-        <translation>Zum Erstellen einer Bibliothek nach unten ziehen</translation>
     </message>
     <message>
         <source>Name</source>
@@ -340,10 +312,6 @@
     <message>
         <source>Paused - long-press to resume</source>
         <translation>Pausiert - zum Fortsetzen lange drücken</translation>
-    </message>
-    <message>
-        <source>Library created</source>
-        <translation>Bibliothek erstellt</translation>
     </message>
     <message>
         <source>Synchronization started</source>
@@ -369,8 +337,8 @@
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <source>Libraries</source>
-        <translation>Bibliotheken</translation>
+        <source>Unlock library</source>
+        <translation>Bibliothek entsperren</translation>
     </message>
     <message>
         <source>Remote storage</source>
@@ -379,10 +347,6 @@
     <message>
         <source>Select this folder</source>
         <translation>Diesen Ordner auswählen</translation>
-    </message>
-    <message>
-        <source>New library</source>
-        <translation>Neue Bibliothek</translation>
     </message>
     <message>
         <source>New folder</source>
@@ -644,6 +608,85 @@
     <message>
         <source>Sync pair updated</source>
         <translation>Sync-Paar aktualisiert</translation>
+    </message>
+    <message>
+        <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Terminology</name>
+    <message>
+        <source>Library</source>
+        <translation>Bibliothek</translation>
+    </message>
+    <message>
+        <source>Folder</source>
+        <translation>Ordner</translation>
+    </message>
+    <message>
+        <source>Libraries</source>
+        <translation>Bibliotheken</translation>
+    </message>
+    <message>
+        <source>Folders</source>
+        <translation>Ordner</translation>
+    </message>
+    <message>
+        <source>New library</source>
+        <translation>Neue Bibliothek</translation>
+    </message>
+    <message>
+        <source>New folder</source>
+        <translation>Neuer Ordner</translation>
+    </message>
+    <message>
+        <source>Library created</source>
+        <translation>Bibliothek erstellt</translation>
+    </message>
+    <message>
+        <source>Folder created</source>
+        <translation>Ordner erstellt</translation>
+    </message>
+    <message>
+        <source>No libraries</source>
+        <translation>Keine Bibliotheken</translation>
+    </message>
+    <message>
+        <source>No folders</source>
+        <translation>Keine Ordner</translation>
+    </message>
+    <message>
+        <source>Pull down to create a library</source>
+        <translation>Zum Erstellen einer Bibliothek nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>Pull down to create a folder</source>
+        <translation>Zum Erstellen eines Ordners nach unten ziehen</translation>
+    </message>
+    <message>
+        <source>The account has no libraries yet.</source>
+        <translation>Das Konto hat noch keine Bibliotheken.</translation>
+    </message>
+    <message>
+        <source>The account has no folders yet.</source>
+        <translation>Das Konto hat noch keine Ordner.</translation>
+    </message>
+    <message>
+        <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
+        <translation>Beim Speichern läuft der Verbindungstest und es öffnet sich eine Ergebnisseite mit den Details und den gefundenen Bibliotheken.</translation>
+    </message>
+    <message>
+        <source>Saving runs the connection test and opens a result page with the details and the folders found.</source>
+        <translation>Beim Speichern läuft der Verbindungstest und es öffnet sich eine Ergebnisseite mit den Details und den gefundenen Ordnern.</translation>
+    </message>
+    <message>
+        <source>Libraries (%1)</source>
+        <translation>Bibliotheken (%1)</translation>
+    </message>
+    <message>
+        <source>Folders (%1)</source>
+        <translation>Ordner (%1)</translation>
     </message>
 </context>
 <context>

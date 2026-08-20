@@ -26,6 +26,14 @@ Dialog {
     // saving will replace it and wipe the sync pairs.
     property bool switchesBackend: false
 
+    // Wording of the selected backend (Seafile: libraries, Nextcloud: folders).
+    Terminology {
+        id: terms
+        source: (page.backends.length > 0 && backendCombo.currentIndex >= 0
+                 && page.backends[backendCombo.currentIndex].terms)
+                ? page.backends[backendCombo.currentIndex].terms : ({})
+    }
+
     canAccept: page.valuesRev >= 0
                && !!formValues["url"] && !!formValues["user"]
                && (accountExists || !!formValues["pass"])
@@ -131,7 +139,7 @@ Dialog {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.secondaryHighlightColor
-                text: qsTr("Saving runs the connection test and opens a result page with the details and the libraries found.")
+                text: terms.saveHint
             }
         }
 
@@ -190,7 +198,10 @@ Dialog {
                             && summary.backend_id === backendId) {
                         page.accountExists = true;
                         page.switchesBackend = false;
-                        values["url"] = summary.url;
+                        // The short server URL, not the stored one: it is
+                        // what the user typed, and the backend rebuilds its
+                        // technical form when saving.
+                        values["url"] = summary.display_url || summary.url;
                         values["user"] = summary.user;
                         values["use_2fa"] = summary.use_2fa;
                         call('config_manager.get_account_password', [],

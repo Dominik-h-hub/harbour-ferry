@@ -10,6 +10,7 @@
 
 import os
 import secrets
+import threading
 
 import common
 import secrets_client
@@ -18,6 +19,30 @@ log = common.make_logger("credstore")
 
 SECRET_NAME = "rclone-config-password"
 _PASS_FILENAME = "config-pass"
+
+# Process cache for the config password. Every rclone call needs it for
+# RCLONE_CONFIG_PASS, and each lookup is a blocking D-Bus round trip to
+# sailfishsecretsd - noticeable when browsing the remote, where one user
+# action triggers several rclone processes. The value lives in this process
+# anyway (it is passed to every child), so keeping it costs no extra exposure.
+# Only a real password is cached, never a "not stored" result: the daemon may
+# become reachable later in the session.
+_CACHE_LOCK = threading.Lock()
+_cached_password = None
+
+
+def _remember(password):
+    global _cached_password
+    with _CACHE_LOCK:
+        _cached_password = password
+    return password
+
+
+def invalidate_cache():
+    """Forget the cached password (after delete/rotate)."""
+    global _cached_password
+    with _CACHE_LOCK:
+        _cached_password = None
 
 
 def _pass_path():
@@ -91,6 +116,9 @@ def get_config_password(create=True):
 
     Returns None if no password exists and create is False.
     """
+    with _CACHE_LOCK:
+        if _cached_password:
+            return _cached_password
     if secrets_client.is_available():
         try:
             value = secrets_client.get_secret(SECRET_NAME)
@@ -99,7 +127,7 @@ def get_config_password(create=True):
                 _ensure_open_collection(value)
                 # Clean up a leftover legacy file once Secrets works.
                 _delete_file()
-                return value
+                return _remember(value)
             legacy = _read_file()
             if legacy:
                 secrets_client.set_secret(SECRET_NAME, legacy)
@@ -109,7 +137,7 @@ def get_config_password(create=True):
                     _ensure_open_collection(legacy)
                 else:
                     log("WARNING: migration verification failed - keeping file store")
-                return legacy
+                return _remember(legacy)
             if not create:
                 log("no config password stored")
                 return None
@@ -117,7 +145,7 @@ def get_config_password(create=True):
             secrets_client.set_secret(SECRET_NAME, password)
             log("new config password generated and stored in Sailfish Secrets")
             _ensure_open_collection(password)
-            return password
+            return _remember(password)
         except secrets_client.SecretsError as e:
             _log_secrets_failure(e)
     else:
@@ -127,7 +155,7 @@ def get_config_password(create=True):
     legacy = _read_file()
     if legacy:
         log("config password loaded from file store (fallback)")
-        return legacy
+        return _remember(legacy)
     if not create:
         log("no config password stored")
         return None
@@ -135,10 +163,13 @@ def get_config_password(create=True):
     _write_file(password)
     log("new config password generated and stored in FILE fallback "
         "(Sailfish Secrets was not reachable)")
-    return password
+    return _remember(password)
 
 
 def has_config_password():
+    with _CACHE_LOCK:
+        if _cached_password:
+            return True
     if secrets_client.is_available():
         try:
             if secrets_client.get_secret(SECRET_NAME):
@@ -155,4 +186,5 @@ def delete_config_password():
         except secrets_client.SecretsError as e:
             _log_secrets_failure(e)
     _delete_file()
+    invalidate_cache()
     log("config password deleted from store")

@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - bisync engine (FR-11..FR-17).
+# Ferry - bisync engine.
 # Runs rclone bisync per sync pair with the flag set from the requirements:
-#   --size-only -v --stats 0 --stats-log-level NOTICE (FR-11)
-#   --conflict-resolve newer --conflict-loser num      (FR-12a)
-#   --resync on first run / after state errors         (FR-13)
-#   --max-delete 50                                    (FR-14)
-# Single-file pairs sync the parent folder with an include filter (FR-10).
-# Runs are strictly serial (FR-17). Logs go to per-pair files (NFR-04).
+#   --size-only -v --stats 0 --stats-log-level NOTICE
+#   --conflict-resolve newer --conflict-loser num
+#   --resync on first run / after state errors
+#   --max-delete 50
+# Single-file pairs sync the parent folder with an include filter.
+# Runs are strictly serial. Logs go to per-pair files.
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -38,7 +38,7 @@ log = common.make_logger("sync")
 
 RUN_TIMEOUT = 3600
 
-_run_lock = threading.Lock()   # FR-17: no parallel runs
+_run_lock = threading.Lock()   #no parallel runs
 
 
 def _send(event, payload):
@@ -81,7 +81,7 @@ def reset_state():
 
 
 def _rotate_log(pair_id):
-    """Keep the previous run's log as .prev (NFR-04)."""
+    """Keep the previous run's log as .prev."""
     current = log_path(pair_id)
     if os.path.exists(current):
         previous = current + ".prev"
@@ -102,7 +102,10 @@ def get_log(pair_id):
             try:
                 with open(path, encoding="utf-8", errors="replace") as f:
                     content = f.read()
-                parts.append("===== %s =====\n%s" % (os.path.basename(path), content))
+                # rclone repeats the target in its own messages.
+                parts.append("===== %s =====\n%s"
+                             % (os.path.basename(path),
+                                common.mask_secrets(content)))
             except OSError as e:
                 parts.append("log %s unreadable: %s" % (path, e))
     return "\n".join(parts) if parts else "No log yet."
@@ -112,7 +115,7 @@ def _filters_content(pair):
     if pair["type"] == "file":
         filename = os.path.basename(pair["local"])
         return "+ /%s\n- **\n" % filename
-    # FR-15: user-editable global excludes. A change in this content changes
+    # user-editable global excludes. A change in this content changes
     # the filters hash and correctly forces a resync.
     excludes = settings_manager.get("excludes")
     return "".join("- %s\n" % pattern for pattern in excludes)
@@ -135,7 +138,13 @@ def _prepare_filters(pair):
     return path, content_hash, filters_changed
 
 
-def _classify_failure(output):
+def _classify_failure(output, remote_path=""):
+    # A locked library is not a broken sync - the run never had a chance.
+    # This also registers the library, so the next run is refused up front.
+    library = enc_libraries.encrypted_library(output, remote_path)
+    if library:
+        return "locked", ("Library %r is encrypted - unlock it in the remote"
+                          " browser, then sync again" % library)
     lowered = output.lower()
     if "--resync" in lowered or "cannot find prior" in lowered \
             or "prior listing" in lowered or "empty prior" in lowered:
@@ -177,9 +186,22 @@ def _run_pair_locked(pair, force):
     log("=== sync run start: %s (%s) %s <-> %s force=%s ==="
         % (pair_id, pair["type"], pair["local"], pair["remote"], force))
 
+    # An encrypted library without its key cannot be synced: bisync would
+    # spend its retries on errors and leave half a listing behind.
+    locked = enc_libraries.locked_library(pair["remote"])
+    if locked:
+        log("pair %s targets the locked library %r - not running"
+            % (pair_id, locked))
+        return _finish_run(pair_id,
+                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                           False,
+                           "Library %r is locked - enter its password in the"
+                           " remote browser" % locked,
+                           {"needs_resync": True})
+
     local_dir = pair["local"] if pair["type"] == "folder" \
         else os.path.dirname(pair["local"])
-    # Encrypted-library aware target (FR-04).
+    # Encrypted-library aware target.
     remote_target = enc_libraries.build_target(config_manager.REMOTE_NAME,
                                                pair["remote"])
 
@@ -213,7 +235,9 @@ def _run_pair_locked(pair, force):
 
     try:
         with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
-            log_file.write("# ferry sync run %s\n# %s\n" % (now, " ".join(args)))
+            # The remote target may carry the library key - never write it.
+            log_file.write("# ferry sync run %s\n# %s\n"
+                           % (now, common.mask_secrets(" ".join(args))))
             log_file.flush()
             proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
                                   stderr=subprocess.STDOUT,
@@ -227,10 +251,14 @@ def _run_pair_locked(pair, force):
     with open(log_path(pair_id), encoding="utf-8", errors="replace") as f:
         output = f.read()
     log("bisync finished rc=%d, log %d bytes" % (rc, len(output)))
+    if rc != 0:
+        # Without this the reason lives only in the per-pair log file, and a
+        # failed run is just an exit code in the app log.
+        log("bisync said: %s" % output[-900:].replace("\n", " | "))
 
     if rc == 0:
         extra = {"needs_resync": False, "filters_hash": filters_hash}
-        # FR-12: detect conflict copies created by --conflict-loser num and
+        # Detect conflict copies created by --conflict-loser num and
         # notify the user (action required - review the copies).
         conflicts = sorted(set(re.findall(r"[^\s'\"]+\.conflict\d*", output)))
         if conflicts:
@@ -242,9 +270,10 @@ def _run_pair_locked(pair, force):
             return _finish_run(pair_id, now, True, message, extra)
         return _finish_run(pair_id, now, True, "OK", extra)
 
-    kind, message = _classify_failure(output)
+    kind, message = _classify_failure(output, pair["remote"])
     extra = {"filters_hash": filters_hash}
-    if kind == "needs_resync":
+    if kind in ("needs_resync", "locked"):
+        # Nothing was written - the next attempt has to start over.
         extra["needs_resync"] = True
     elif kind == "safety_abort":
         extra["paused"] = True
@@ -260,7 +289,7 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
     pair = sync_pairs.update_pair(pair_id, fields)
     log("=== sync run end: %s ok=%s message=%s ===" % (pair_id, ok, message))
     if not ok:
-        # FR-20: notifications only on failure / action required.
+        # Notifications only on failure / action required.
         name = os.path.basename((pair or {}).get("local", "")) or pair_id
         if extra_fields.get("safety_abort"):
             notify.send("Ferry: sync stopped", "%s: unusually many changes "
@@ -273,19 +302,18 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
 
 
 def run_pair_async(pair_id, force=False):
-    """Fire-and-forget run for the UI ('sync this pair', FR-16)."""
+    """Fire-and-forget run for the UI ('sync this pair')."""
     threading.Thread(target=run_pair, args=(pair_id, force),
                      name="ferry-sync").start()
     return True
 
 
 def run_all_now():
-    """Synchronous full run (FR-16/FR-17), honoring the network rule
-    (FR-19/FR-19a). Used by the timer helper and the async UI wrapper."""
+    """Synchronous full run, honoring the network rule. Used by the timer helper and the async UI wrapper."""
     allowed, reason = network.allowed_by_rule(settings_manager.get("network_rule"))
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     if not allowed:
-        # FR-19a: skip silently - banner in the app, no error, no notification.
+        # skip silently - banner in the app, no error, no notification.
         sync_pairs.set_last_skip("%s (%s)" % (reason, timestamp))
         _send("sync-all-finished", {"timestamp": timestamp,
                                     "skipped": True, "reason": reason})

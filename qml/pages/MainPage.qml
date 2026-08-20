@@ -1,7 +1,9 @@
 /*
  * Ferry - main page with two tabs:
- * left "Local syncs", right "Remote" (library overview; tapping a library
- * opens the remote browser). Custom tab bar for Qt 5.6 compatibility.
+ * left "Local syncs", right "Remote" (top level of the remote; tapping an
+ * entry opens the remote browser). What that top level is called comes from
+ * the backend: libraries on Seafile, folders on Nextcloud (Terminology.qml).
+ * Custom tab bar for Qt 5.6 compatibility.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -20,6 +22,17 @@ Page {
     property bool anySafetyAbort: false
     property bool remoteLoaded: false
     property string remoteError: ""
+    // Separate from "loading": that one is shared with the sync pair
+    // refresh, which runs right before the remote listing when the page
+    // becomes active again.
+    property bool remoteLoading: false
+    // Backend wording for the remote top level ({key, one, many} from Python).
+    property var remoteTerms: ({})
+
+    Terminology {
+        id: terms
+        source: page.remoteTerms
+    }
 
     onStatusChanged: {
         if (status === PageStatus.Active) {
@@ -45,7 +58,8 @@ Page {
         id: tabBar
         anchors.top: parent.top
         width: parent.width
-        height: Theme.itemSizeSmall
+        height: Theme.itemSizeMedium
+        z: 1
 
         Repeater {
             model: [qsTr("Local syncs"), qsTr("Remote")]
@@ -255,7 +269,7 @@ Page {
         VerticalScrollDecorator { }
     }
 
-    // --- Right tab: remote libraries overview --------------------------------
+    // --- Right tab: remote top level overview --------------------------------
 
     SilicaListView {
         id: remoteView
@@ -273,7 +287,7 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
             }
             MenuItem {
-                text: qsTr("New library")
+                text: terms.createTitle
                 onClicked: {
                     var dialog = pageStack.push(newLibraryDialog);
                     dialog.accepted.connect(function() {
@@ -289,10 +303,10 @@ Page {
 
         ViewPlaceholder {
             enabled: libsModel.count === 0 && !page.loading && page.currentTab === 1
-            text: page.remoteError.length > 0 ? page.remoteError : qsTr("No libraries")
+            text: page.remoteError.length > 0 ? page.remoteError : terms.none
             hintText: page.remoteError.length > 0
                       ? qsTr("Check the account settings, then pull down to refresh")
-                      : qsTr("Pull down to create a library")
+                      : terms.createHint
         }
 
         delegate: BackgroundItem {
@@ -339,7 +353,7 @@ Page {
 
             Column {
                 width: parent.width
-                DialogHeader { title: qsTr("New library") }
+                DialogHeader { title: terms.createTitle }
                 TextField {
                     id: nameField
                     width: parent.width
@@ -403,9 +417,16 @@ Page {
         }
 
         function loadLibraries() {
+            if (page.remoteLoading) {
+                // A listing is already on its way - a second one would only
+                // repeat the same remote round trip.
+                return;
+            }
+            page.remoteLoading = true;
             page.loading = true;
             page.remoteError = "";
             call('remote_browser.list_dir', [""], function(result) {
+                page.remoteLoading = false;
                 page.loading = false;
                 page.remoteLoaded = true;
                 libsModel.clear();
@@ -423,7 +444,7 @@ Page {
 
         function makeLibrary(name) {
             call('remote_browser.make_dir', ["", name], function(result) {
-                Notices.show(result.ok ? qsTr("Library created") : result.message);
+                Notices.show(result.ok ? terms.created : result.message);
                 loadLibraries();
             });
         }
@@ -459,10 +480,17 @@ Page {
             });
         }
 
+        function loadTerms() {
+            call('config_manager.get_account_summary', [], function(summary) {
+                page.remoteTerms = (summary && summary.terms) ? summary.terms : ({});
+            });
+        }
+
         function checkFirstRun() {
             // First-start wizard: open the account dialog
             // directly when no account is configured yet.
             call('config_manager.get_account_summary', [], function(summary) {
+                page.remoteTerms = (summary && summary.terms) ? summary.terms : ({});
                 if (!summary && pageStack.depth === 1) {
                     Notices.show(qsTr("Welcome! Please set up your account first."));
                     pageStack.push(Qt.resolvedUrl("AccountPage.qml"));
@@ -497,8 +525,10 @@ Page {
             });
 
             setHandler('account-result', function(result) {
-                // The result is shown on the AccountTestPage; the library
-                // list here just has to pick up the new account.
+                // The result is shown on the AccountTestPage; this page just
+                // has to pick up the new account - including its wording,
+                // which changes with the backend.
+                loadTerms();
                 page.remoteLoaded = false;
                 if (page.currentTab === 1) {
                     python.loadLibraries();
@@ -520,6 +550,7 @@ Page {
         onError: {
             console.log('[ferry] python error: ' + traceback);
             page.loading = false;
+            page.remoteLoading = false;
         }
     }
 }

@@ -93,6 +93,15 @@ Page {
                 color: Theme.secondaryHighlightColor
                 text: qsTr("The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).")
             }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.secondaryHighlightColor
+                text: qsTr("Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.")
+            }
         }
 
         VerticalScrollDecorator { }

@@ -30,7 +30,15 @@ except ImportError:
     HAVE_PYOTHERSIDE = False
 
 APP_NAME = "harbour-ferry"
-APP_VERSION = "0.7"
+
+try:
+    # The version lives in rpm/harbour-ferry.spec and reaches Python through
+    # the build (see version.py) - a leaf module with no further imports, so
+    # this stays usable even when the rest of the app is unavailable.
+    from version import APP_VERSION
+except ImportError:
+    APP_VERSION = "0.1"
+
 LOG_PREFIX = "[ferry]"
 RCLONE_MIN_VERSION = (1, 66)
 NETWORK_PROBE_URLS = [

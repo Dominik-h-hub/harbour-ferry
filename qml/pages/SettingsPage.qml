@@ -17,10 +17,15 @@ Dialog {
     property string accountUrl: ""
     property bool settingsLoaded: false
     property string timerInfo: ""
+    property bool modulesReady: false
 
     canAccept: settingsLoaded
     onAccepted: python.applyAll()
 
+    // Fires when the dialog is first shown and on every return to it, so
+    // the summary is loaded exactly once per visit. Loading it from
+    // Component.onCompleted as well would double every request - including
+    // the two systemctl processes behind timer_manager.get_status().
     onStatusChanged: {
         if (status === PageStatus.Active) {
             python.refreshSummary();
@@ -45,7 +50,11 @@ Dialog {
             BackgroundItem {
                 id: accountItem
                 width: parent.width
+                // Both: contentHeight sizes the highlight, height makes the
+                // entry grow with the account lines - without it a wrapped
+                // URL runs into the next section header.
                 contentHeight: accountColumn.height + 2 * Theme.paddingMedium
+                height: contentHeight
                 onClicked: pageStack.push(Qt.resolvedUrl("AccountPage.qml"))
 
                 Column {
@@ -108,6 +117,10 @@ Dialog {
 
             Slider {
                 id: maxDeleteSlider
+                // Keep the explicit width: without it Silica does not size
+                // the slider to the column at all. It makes Silica's internal
+                // _extraPadding binding warn about a loop, which Qt breaks by
+                // itself - a harmless warning, unlike a broken layout.
                 width: parent.width
                 minimumValue: 10
                 maximumValue: 100
@@ -162,13 +175,20 @@ Dialog {
         property var intervalKeys: ["manual", "5min", "15min", "30min", "1h", "6h", "12h"]
 
         function refreshSummary() {
+            if (!page.modulesReady) {
+                // Import still running - Component.onCompleted repeats the
+                // call as soon as the modules are there.
+                return;
+            }
             call('config_manager.get_account_summary', [], function(summary) {
                 if (summary && summary.error) {
                     page.accountUser = "";
                     page.accountUrl = summary.error;
                 } else if (summary && summary.url) {
                     page.accountUser = summary.user;
-                    page.accountUrl = summary.url;
+                    // Short server URL - the stored one carries the backend
+                    // specific path (Nextcloud: the full WebDAV path).
+                    page.accountUrl = summary.display_url || summary.url;
                 } else {
                     page.accountUser = "";
                     page.accountUrl = "";
@@ -216,8 +236,13 @@ Dialog {
             importModule('config_manager', function() {
                 importModule('settings_manager', function() {
                     importModule('timer_manager', function() {
-                        refreshSummary();
+                        page.modulesReady = true;
                         loadSettings();
+                        if (page.status === PageStatus.Active) {
+                            // onStatusChanged already fired (or will not
+                            // fire again) - fetch the summary now.
+                            refreshSummary();
+                        }
                     });
                 });
             });

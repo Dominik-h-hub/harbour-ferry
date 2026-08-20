@@ -8,20 +8,40 @@
 
 import os
 import platform
+import re
 import shutil
 import subprocess
 
+# The app version lives in rpm/harbour-ferry.spec and reaches Python through
+# the build (see version.py). It is re-exported here so that modules already
+# importing common keep working with common.APP_VERSION.
+from version import APP_VERSION, APP_RELEASE, APP_VERSION_FULL
+
 APP_NAME = "harbour-ferry"
-APP_VERSION = "0.2"
+
+
+# An encrypted library is addressed through a connection string that carries
+# its key: "remote,library=X,library_key=Y:path". rclone's "obscure" is
+# reversible with "rclone reveal", so such a key in a log file is the library
+# password in plain text - and logs get pasted into bug reports.
+_SECRET_RE = re.compile(r'library_key=(?:"(?:[^"]|"")*"|[^,:\s]*)')
+
+
+def mask_secrets(text):
+    """Replace rclone library keys in text with a placeholder."""
+    return _SECRET_RE.sub("library_key=***", text)
 
 
 def make_logger(tag):
     """Create a debug log function that never crashes on
-    ASCII-only stdout (C locale under the SDK debugger)."""
+    ASCII-only stdout (C locale under the SDK debugger).
+
+    Library keys are masked centrally here, so no caller has to remember it.
+    """
     prefix = "[ferry:%s]" % tag
 
     def log(msg):
-        line = "%s %s" % (prefix, msg)
+        line = mask_secrets("%s %s" % (prefix, msg))
         try:
             print(line, flush=True)
         except UnicodeEncodeError:
@@ -51,11 +71,21 @@ def app_install_dir():
     return os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
+# The lookup result of a found binary (process cache): every rclone call
+# would otherwise stat the bundled candidates and search PATH again.
+_rclone_binary = None
+
+
 def find_rclone():
     """Locate the rclone binary: bundled first, then PATH.
 
-    Returns (path_or_None, origin_description).
+    Returns (path_or_None, origin_description). A successful lookup is cached
+    for the process lifetime; a failure is not, so a binary showing up later
+    (PATH change, package install) is still picked up.
     """
+    global _rclone_binary
+    if _rclone_binary is not None:
+        return _rclone_binary
     machine = platform.machine()
     candidates = [
         os.path.join(app_install_dir(), "bin", "rclone"),
@@ -63,10 +93,12 @@ def find_rclone():
     ]
     for c in candidates:
         if os.path.isfile(c):
-            return c, "bundled"
+            _rclone_binary = (c, "bundled")
+            return _rclone_binary
     path_rclone = shutil.which("rclone")
     if path_rclone:
-        return path_rclone, "system PATH"
+        _rclone_binary = (path_rclone, "system PATH")
+        return _rclone_binary
     return None, "not found (checked: %s, PATH)" % ", ".join(candidates)
 
 
