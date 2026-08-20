@@ -8,7 +8,7 @@ Name:       harbour-ferry
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Bidirectional file sync client for Sailfish OS
 Version:    0.2
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    Apache-2.0
 URL:        https://openrepos.net

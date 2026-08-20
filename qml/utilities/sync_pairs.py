@@ -45,15 +45,26 @@ def _load():
 
 
 def _save(data):
-    """Write the store.
+    """Write the store atomically (temp file + rename).
+
+    A plain rewrite has a window in which the file is truncated but not yet
+    written; a crash or a second writer hitting that window leaves invalid
+    JSON, and _load() answers that with an empty store - every sync pair
+    gone. The rename is atomic, so readers see either the old or the new
+    file, never a half-written one.
 
     Silent on purpose: the callers log what they did, including the
     resulting pair count. Logging here would put a bare "store written"
     line in front of every action line.
     """
     os.makedirs(common.data_dir(), exist_ok=True)
-    with open(_store_path(), "w", encoding="utf-8") as f:
+    path = _store_path()
+    tmp_path = path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
+        f.flush()
+        os.fsync(f.fileno())
+    os.replace(tmp_path, path)
 
 
 def list_pairs():

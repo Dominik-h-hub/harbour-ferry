@@ -12,6 +12,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import contextlib
 import datetime
 import hashlib
 import os
@@ -19,6 +20,11 @@ import re
 import shutil
 import subprocess
 import threading
+
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
+    fcntl = None
 
 import common
 import config_manager
@@ -38,7 +44,89 @@ log = common.make_logger("sync")
 
 RUN_TIMEOUT = 3600
 
-_run_lock = threading.Lock()   #no parallel runs
+# runs are strictly serial. Two independent runners exist - the app
+# process (manual "Sync now") and helper/sync_helper.py, started by the systemd
+# timer - so a thread lock alone is not enough: both could drive rclone bisync
+# and rewrite the pair store at the same time. The RLock serializes threads
+# inside one process, the flock below serializes the processes. RLock (not
+# Lock) because run_all_now() holds the guard across its per-pair run_pair()
+# calls.
+_run_lock = threading.RLock()
+_lock_fd = None
+_lock_depth = 0
+
+BUSY_REASON = "another sync run is already in progress"
+
+
+class _RunLockBusy(Exception):
+    """Raised when another process holds the run lock."""
+
+
+def _lock_path():
+    return os.path.join(common.data_dir(), "sync.lock")
+
+
+def _acquire_file_lock():
+    """Take the exclusive inter-process lock, or raise _RunLockBusy.
+
+    flock is used on purpose: the kernel drops it when the holder exits, so a
+    killed run (or a device reboot mid-sync) cannot leave a stale lock behind
+    that would block every later run.
+    """
+    if fcntl is None:
+        log("no fcntl on this platform - inter-process lock skipped")
+        return None
+    os.makedirs(common.data_dir(), exist_ok=True)
+    fd = os.open(_lock_path(), os.O_WRONLY | os.O_CREAT, 0o600)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except OSError:
+        os.close(fd)
+        raise _RunLockBusy()
+    # The pid is purely diagnostic: it names the holder in the lock file.
+    try:
+        os.ftruncate(fd, 0)
+        os.write(fd, str(os.getpid()).encode("ascii"))
+    except OSError:
+        pass
+    return fd
+
+
+def _release_file_lock():
+    global _lock_fd
+    if _lock_fd is None:
+        return
+    try:
+        fcntl.flock(_lock_fd, fcntl.LOCK_UN)
+    except OSError as e:
+        log("could not release run lock: %s" % e)
+    try:
+        os.close(_lock_fd)
+    except OSError:
+        pass
+    _lock_fd = None
+
+
+@contextlib.contextmanager
+def _exclusive_run():
+    """Hold the run lock for a complete run - threads and processes alike.
+
+    Waits for other threads of this process, but never for another process:
+    a run can take up to RUN_TIMEOUT, and both callers prefer skipping over
+    blocking - the timer helper would only pile up, and the app would hang a
+    worker thread. Raises _RunLockBusy instead.
+    """
+    global _lock_fd, _lock_depth
+    with _run_lock:
+        if _lock_depth == 0:
+            _lock_fd = _acquire_file_lock()
+        _lock_depth += 1
+        try:
+            yield
+        finally:
+            _lock_depth -= 1
+            if _lock_depth == 0:
+                _release_file_lock()
 
 
 def _send(event, payload):
@@ -176,8 +264,16 @@ def run_pair(pair_id, force=False, check_network=True):
         # FR-14: user confirmed the big change; unpause for this run.
         sync_pairs.update_pair(pair_id, {"paused": False, "safety_abort": False})
         pair = sync_pairs.get_pair(pair_id)
-    with _run_lock:
-        return _run_pair_locked(pair, force)
+    try:
+        with _exclusive_run():
+            return _run_pair_locked(pair, force)
+    except _RunLockBusy:
+        # A run is already in progress here or in the timer helper; the
+        # pair keeps its previous state - no error, no notification.
+        log("pair %s not run: %s" % (pair_id, BUSY_REASON))
+        _send("sync-status", {"pair": pair_id, "running": False,
+                              "ok": None, "message": "Skipped: %s" % BUSY_REASON})
+        return {"skipped": True, "message": BUSY_REASON}
 
 
 def _run_pair_locked(pair, force):
@@ -320,16 +416,27 @@ def run_all_now():
         log("global sync run skipped: %s" % reason)
         return {"skipped": True, "reason": reason}
 
-    pairs = sync_pairs.list_pairs()
-    log("global sync run: %d pair(s)" % len(pairs))
-    for pair in pairs:
-        if pair.get("paused"):
-            log("skipping paused pair %s" % pair["id"])
-            continue
-        run_pair(pair["id"], check_network=False)
-    sync_pairs.clear_last_skip()
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    sync_pairs.set_last_global_run(timestamp)
+    try:
+        # Held across all pairs so the other runner cannot slip between them
+        # and rewrite the pair store while this run is still going.
+        with _exclusive_run():
+            pairs = sync_pairs.list_pairs()
+            log("global sync run: %d pair(s)" % len(pairs))
+            for pair in pairs:
+                if pair.get("paused"):
+                    log("skipping paused pair %s" % pair["id"])
+                    continue
+                run_pair(pair["id"], check_network=False)
+            sync_pairs.clear_last_skip()
+            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+            sync_pairs.set_last_global_run(timestamp)
+    except _RunLockBusy:
+        # Same as the network skip: no error, no notification, try again at
+        # the next timer tick.
+        _send("sync-all-finished", {"timestamp": timestamp,
+                                    "skipped": True, "reason": BUSY_REASON})
+        log("global sync run skipped: %s" % BUSY_REASON)
+        return {"skipped": True, "reason": BUSY_REASON}
     _send("sync-all-finished", {"timestamp": timestamp})
     log("global sync run finished")
     return {"skipped": False}
