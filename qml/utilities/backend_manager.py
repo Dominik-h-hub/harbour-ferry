@@ -54,6 +54,24 @@ def get_terms(backend_id):
         return dict(DEFAULT_TERMS)
 
 
+def supports_modtime(backend_id):
+    """Whether the backend keeps modification times (default: no).
+
+    Decides whether bisync is given --conflict-resolve newer. An unknown or
+    broken backend module answers "no", which only costs the automatic
+    conflict resolution - a wrong "yes" would have rclone ignore the flag and
+    warn on every single run.
+    """
+    if not backend_id:
+        return False
+    try:
+        return bool(get_backend(backend_id).BACKEND.get("supports_modtime", False))
+    except Exception as e:
+        log("modtime capability of %r unavailable (%s) - assuming none"
+            % (backend_id, e))
+        return False
+
+
 def list_backends():
     """Return [{id, display_name, terms}] for the backend dropdown."""
     result = []

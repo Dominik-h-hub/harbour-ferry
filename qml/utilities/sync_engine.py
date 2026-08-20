@@ -4,7 +4,8 @@
 # Ferry - bisync engine.
 # Runs rclone bisync per sync pair with the flag set from the requirements:
 #   --size-only -v --stats 0 --stats-log-level NOTICE
-#   --conflict-resolve newer --conflict-loser num
+#   --conflict-loser num, plus --conflict-resolve newer where the
+#   backend has modification times (see _modtime_supported)
 #   --resync on first run / after state errors
 #   --max-delete 50
 # Single-file pairs sync the parent folder with an include filter.
@@ -26,6 +27,7 @@ try:
 except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
     fcntl = None
 
+import backend_manager
 import common
 import config_manager
 import enc_libraries
@@ -199,6 +201,23 @@ def get_log(pair_id):
     return "\n".join(parts) if parts else "No log yet."
 
 
+def _modtime_supported():
+    """Whether the configured backend carries modification times.
+
+    bisync can only pick the newer file of a conflict if both sides have
+    usable modtimes. Seafile has none, and rclone then drops the flag with a
+    NOTICE on every run - so it is only passed where it does something. The
+    account summary comes from the config cache, not from a fresh rclone
+    call.
+    """
+    try:
+        summary = config_manager.get_account_summary() or {}
+        return backend_manager.supports_modtime(summary.get("backend_id"))
+    except Exception as e:
+        log("modtime capability unknown (%s) - assuming none" % e)
+        return False
+
+
 # rclone reads filter rules as globs, so every metacharacter in a file name
 # has to be escaped: "notes*.txt" would otherwise match every notes file,
 # "report[1].txt" would be read as a character class, and a lone brace
@@ -334,16 +353,23 @@ def _run_pair_locked(pair, force):
 
     args = ["bisync", remote_target, local_dir,
             "--size-only", "-v", "--stats", "0", "--stats-log-level", "NOTICE",
-            "--conflict-resolve", "newer", "--conflict-loser", "num",
+            "--conflict-loser", "num",
             "--max-delete", str(int(settings_manager.get("max_delete"))),
             "--workdir", _workdir(),
             "--filters-file", filters_path]
+    if _modtime_supported():
+        # the newer file wins, the older one stays as a numbered copy.
+        args += ["--conflict-resolve", "newer"]
+    else:
+        # without modtimes there is no "newer" - both versions are
+        # kept as conflict copies and the user is notified about them below.
+        log("backend without modtimes - conflicts keep both versions")
     if resync:
         args.append("--resync")
-        log("running with --resync (first run or recovery, FR-13)")
+        log("running with --resync (first run or recovery)")
     if force:
         args.append("--force")
-        log("running with --force (single run only, FR-14a)")
+        log("running with --force (single run only)")
 
     os.makedirs(_workdir(), exist_ok=True)
     os.makedirs(_logs_dir(), exist_ok=True)

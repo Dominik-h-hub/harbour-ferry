@@ -10,6 +10,11 @@ BACKEND = {
     "rclone_type": "seafile",
     "supports_2fa": True,
     "supports_encrypted_libraries": True,
+    # The rclone seafile backend carries no modification times. rclone
+    # therefore drops --conflict-resolve ("ignoring --conflict-resolve
+    # newer as at least one remote does not support modtimes",
+    # observed with rclone 1.74.3), so conflicts keep both versions.
+    "supports_modtime": False,
     # Wording for the top-level containers of the remote. Seafile stores
     # files in "libraries"; the UI picks its translated strings by "key" and
     # falls back to the English words below for a key it does not know.

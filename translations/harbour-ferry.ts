@@ -4,52 +4,52 @@
 <context>
     <name>AccountPage</name>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="65"/>
+        <location filename="../qml/pages/AccountPage.qml" line="77"/>
         <source>Remove account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="67"/>
+        <location filename="../qml/pages/AccountPage.qml" line="79"/>
         <source>Removing account and all sync pairs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="79"/>
+        <location filename="../qml/pages/AccountPage.qml" line="91"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="80"/>
+        <location filename="../qml/pages/AccountPage.qml" line="92"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="85"/>
+        <location filename="../qml/pages/AccountPage.qml" line="97"/>
         <source>Backend</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="123"/>
+        <location filename="../qml/pages/AccountPage.qml" line="135"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="133"/>
+        <location filename="../qml/pages/AccountPage.qml" line="145"/>
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="156"/>
+        <location filename="../qml/pages/AccountPage.qml" line="155"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="242"/>
+        <location filename="../qml/pages/AccountPage.qml" line="269"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="243"/>
+        <location filename="../qml/pages/AccountPage.qml" line="270"/>
         <source>Account removed</source>
         <translation type="unfinished"></translation>
     </message>

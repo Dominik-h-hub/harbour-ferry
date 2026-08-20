@@ -26,6 +26,10 @@ BACKEND = {
     # Server-side end-to-end encryption is not supported by rclone's webdav
     # backend - encrypted folders are not usable through this backend.
     "supports_encrypted_libraries": False,
+    # rclone's webdav backend sets modification times for the nextcloud
+    # vendor (X-OC-Mtime header), so bisync can resolve a conflict by
+    # picking the newer file.
+    "supports_modtime": True,
     # Nextcloud has no library concept - the remote root holds plain folders.
     "terms": {"key": "folder", "one": "Folder", "many": "Folders"},
     # The account form in the UI is generated from these fields.
