@@ -11,6 +11,7 @@
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-2
 - FIX: missing german translation parts
 - FIX: run_lock is now used for all processes instead of single process.
+- FIX: recreate_collection_open() deletes the collection AFTER recreating it instead of before.
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept

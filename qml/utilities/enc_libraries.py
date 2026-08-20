@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - encrypted Seafile libraries (FR-04).
+# Ferry - encrypted Seafile libraries.
 # The library password is stored (rclone-obscured) in Sailfish Secrets; at
 # runtime the remote is addressed via an rclone connection string
 # ("remote,library=...,library_key=...:path") so no extra config section is
@@ -85,6 +85,23 @@ def register(name):
 
 def _secret_name(library):
     return "library-key-%s" % library
+
+
+def stored_keys():
+    """Return {secret name: key} for every registered encrypted library.
+
+    Used by the secrets-collection migration, which has to write every secret
+    back after the collection was recreated. Reads through the daemon on
+    purpose - the process cache may not know all of them yet. A SecretsError
+    propagates: an incomplete picture must not be treated as "nothing to
+    preserve".
+    """
+    keys = {}
+    for library in known_libraries():
+        key = secrets_client.get_secret(_secret_name(library))
+        if key:
+            keys[_secret_name(library)] = key
+    return keys
 
 
 def store_key(library, obscured_key):

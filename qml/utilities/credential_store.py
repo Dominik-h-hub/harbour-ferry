@@ -80,25 +80,53 @@ def _open_collection_marker():
 
 
 def _ensure_open_collection(password):
-    """One-time migration: recreate the collection with NoAccessControlMode
-    so the SDK-debugger identity cannot lock us out again. Only runs while
-    we have working access and the password in hand - never destructive."""
+    """One-time migration of the collection to NoAccessControlMode, so that a
+    second application identity cannot lock us out (see
+    secrets_client.ensure_collection for what that mode buys and costs).
+
+    The migration IS destructive: an access mode cannot be changed after
+    creation, so the collection has to be deleted and rebuilt. Everything in
+    it is therefore read out beforehand and restored afterwards - the config
+    password and the key of every encrypted library. Two safeguards for the
+    window in between, in which the secrets only exist in this process:
+
+    - Can the old collection not be read completely? Then nothing is deleted
+      and the migration waits for the next start.
+    - Does the rebuild fail half way? Then the config password goes into the
+      file fallback so the rclone config stays decryptable; without it the
+      account would have to be set up from scratch.
+    """
     marker = _open_collection_marker()
     if os.path.exists(marker):
         return
+    # Imported late: enc_libraries sits on top of this module, and only this
+    # one migration needs it.
+    import enc_libraries
+    preserve = {SECRET_NAME: password}
     try:
-        log("migrating secrets collection to open access mode")
-        secrets_client.recreate_collection_open()
-        secrets_client.set_secret(SECRET_NAME, password)
-        if secrets_client.get_secret(SECRET_NAME) == password:
-            os.makedirs(common.data_dir(), exist_ok=True)
-            with open(marker, "w", encoding="utf-8") as f:
-                f.write("migrated\n")
-            log("secrets collection migrated to open access mode")
-        else:
-            log("WARNING: open-collection migration verification failed")
+        preserve.update(enc_libraries.stored_keys())
     except secrets_client.SecretsError as e:
-        log("open-collection migration failed (%s) - will retry next start" % e)
+        log("could not read the stored library keys (%s) - migration "
+            "postponed, nothing deleted" % e)
+        return
+    try:
+        log("migrating secrets collection to open access mode "
+            "(%d secret(s) to preserve)" % len(preserve))
+        secrets_client.recreate_collection_open(preserve)
+    except secrets_client.SecretsError as e:
+        log("open-collection migration failed (%s) - writing the config "
+            "password to the file fallback so the rclone config stays "
+            "readable" % e)
+        try:
+            _write_file(password)
+        except OSError as file_error:
+            log("WARNING: file fallback failed as well (%s) - the config "
+                "password now only lives in this process" % file_error)
+        return
+    os.makedirs(common.data_dir(), exist_ok=True)
+    with open(marker, "w", encoding="utf-8") as f:
+        f.write("migrated\n")
+    log("secrets collection migrated to open access mode")
 
 
 def _log_secrets_failure(error):

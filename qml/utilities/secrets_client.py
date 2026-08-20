@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - Sailfish Secrets client (AD-04, AD-08c way 1).
+# Ferry - Sailfish Secrets client.
 # Talks to sailfishsecretsd over its peer-to-peer D-Bus socket. The method
 # signatures below were taken from the daemon's introspection XML captured
 # by the diagnostics on SFOS 5.0 (see diagnostics test "Secrets D-Bus
@@ -214,14 +214,30 @@ def delete_collection():
     log("collection %r deleted (or did not exist)" % COLLECTION)
 
 
-def recreate_collection_open():
+def recreate_collection_open(preserve=None):
     """Delete and recreate the collection with NoAccessControlMode.
 
-    Used by the one-time migration away from OwnerOnlyMode; the caller must
-    re-store all secrets afterwards.
+    Used by the one-time migration away from OwnerOnlyMode. Deleting is
+    unavoidable - the access mode is fixed when a collection is created and
+    the API offers no way to change it afterwards - so this call is
+    destructive by nature. Everything the caller passes in `preserve`
+    ({secret name: value}) is written back into the new collection and read
+    back for verification; anything not in there is gone.
+
+    Raises SecretsError if a value does not survive, while the caller still
+    holds the values and can put them somewhere safe.
     """
+    preserve = preserve or {}
     delete_collection()
     ensure_collection()
+    for name, value in preserve.items():
+        set_secret(name, value)
+    lost = sorted(name for name, value in preserve.items()
+                  if get_secret(name) != value)
+    if lost:
+        raise SecretsError("secrets did not survive the collection rebuild: %s"
+                           % ", ".join(lost))
+    log("collection rebuilt, %d secret(s) restored and verified" % len(preserve))
 
 
 def _identifier(name):
