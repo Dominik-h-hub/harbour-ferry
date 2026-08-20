@@ -178,7 +178,7 @@
     </message>
     <message>
         <source>validation tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Validierungstests</translation>
     </message>
 </context>
 <context>
@@ -611,7 +611,7 @@
     </message>
     <message>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hinweis: Bei einer Synchronisation mit einer verschlüsselten Bibliothek (z. B. Seafile) muss die Bibliothek zuerst unter dem Remote-Tab entsperrt werden.</translation>
     </message>
 </context>
 <context>

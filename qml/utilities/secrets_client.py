@@ -29,9 +29,10 @@ NO_ACCESS_CONTROL_MODE = 2      # AccessControlMode (identity-independent)
 SYSTEM_INTERACTION = 1          # UserInteractionMode
 RESULT_SUCCEEDED = 0            # Result::Code
 
-# The daemon derives an application identity from the calling process;
-# launching via the SDK debugger yields a different identity than the app
-# grid, which locks OwnerOnlyMode collections (observed on SFOS 5.0).
+# The daemon derives an application identity from the calling process, so
+# the app, the background sync helper and an SDK-debugger launch each
+# count as a different application; that locks OwnerOnlyMode collections
+# (observed on SFOS 5.0). See ensure_collection() for the consequences.
 OWNERSHIP_ERROR_FRAGMENT = "owned by a different application"
 
 
@@ -159,8 +160,30 @@ def _create_collection(access_mode):
 def ensure_collection():
     """Create the app's secrets collection if it does not exist yet.
 
-    New collections use NoAccessControlMode so the launch method (app grid
-    vs SDK debugger) does not lock us out of our own collection.
+    The collection is created with NoAccessControlMode, which switches off
+    the daemon's application-identity check. That is a deliberate trade-off:
+
+    Why it is needed: the identity is derived from the calling process, and
+    more than one process shares this collection - the app itself
+    (sailfish-qml), the background sync helper (python3, started by the
+    systemd timer, see systemd/harbour-ferry-sync.service) and, during
+    development, an SDK-debugger launch. Under OwnerOnlyMode the daemon
+    answers every other caller with "owned by a different application", so
+    the helper could not read the rclone config password and background sync
+    would fail. The debugger case is only the most visible symptom of this.
+
+    What it costs: any local process of this user that can reach
+    sailfishsecretsd can read what is stored here - the rclone config
+    password and the encrypted-library keys - because collection and secret
+    names are predictable and no longer restrict access. The protection
+    level is therefore "same user, same device", which is also what guards
+    the fallback password file (0600) and rclone.conf itself.
+
+    Tightening this again means giving the helper the same identity as the
+    app, or running the sync inside the app process - it is not fixable by
+    handling the debugger identity alone. Note that the secrets test on the
+    diagnostics page runs in the app process, so it would not notice a
+    helper locked out by OwnerOnlyMode.
     """
     storage, _ = _plugins()
     try:
