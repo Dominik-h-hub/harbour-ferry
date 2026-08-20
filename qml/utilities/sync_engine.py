@@ -199,10 +199,28 @@ def get_log(pair_id):
     return "\n".join(parts) if parts else "No log yet."
 
 
+# rclone reads filter rules as globs, so every metacharacter in a file name
+# has to be escaped: "notes*.txt" would otherwise match every notes file,
+# "report[1].txt" would be read as a character class, and a lone brace
+# makes rclone abort the run with "mismatched '{' and '}' in glob".
+_GLOB_META = "\\*?[]{}"
+
+
+def _escape_glob(name):
+    """Turn a file name into a rule that matches exactly that name."""
+    return "".join("\\" + c if c in _GLOB_META else c for c in name)
+
+
 def _filters_content(pair):
     if pair["type"] == "file":
         filename = os.path.basename(pair["local"])
-        return "+ /%s\n- **\n" % filename
+        if "\n" in filename or "\r" in filename:
+            # One rule per line - a line break would split the name into
+            # two rules, the second of which filters something else.
+            raise ValueError("The file name contains a line break, which"
+                             " cannot be expressed as a sync filter."
+                             " Please rename the file.")
+        return "+ /%s\n- **\n" % _escape_glob(filename)
     # user-editable global excludes. A change in this content changes
     # the filters hash and correctly forces a resync.
     excludes = settings_manager.get("excludes")
@@ -301,7 +319,15 @@ def _run_pair_locked(pair, force):
     remote_target = enc_libraries.build_target(config_manager.REMOTE_NAME,
                                                pair["remote"])
 
-    filters_path, filters_hash, filters_changed = _prepare_filters(pair)
+    try:
+        filters_path, filters_hash, filters_changed = _prepare_filters(pair)
+    except ValueError as e:
+        # Without a usable rule the run would sync the wrong set of
+        # files, so it does not start at all.
+        log("pair %s has an unusable file name: %s" % (pair_id, e))
+        return _finish_run(pair_id,
+                           datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
+                           False, str(e), {})
     resync = bool(pair.get("needs_resync")) or filters_changed
     if filters_changed:
         log("filters changed - forcing resync")

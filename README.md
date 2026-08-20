@@ -12,7 +12,7 @@
 
 Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect it to your cloud server, browse your files, and keep local folders synchronized in both directions.
 
-[rclone](https://rclone.org) is the transfer and sync engine. 
+[rclone](https://rclone.org) is the transfer and sync engine.
 
 <p align="center">
 <a href="https://github.com/Dominik-h-hub/harbour-ferry/releases"><img src="docs/images/get-it-on-logos/direct-rpm-download.png" alt="Direct RPM Download" height="55"></a>
@@ -38,7 +38,6 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Translations**: EN, DE
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
-
 
 ## Supported Backends
 

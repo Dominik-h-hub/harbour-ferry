@@ -3,7 +3,7 @@
 One rclone binary per RPM build target. The .pro file picks the matching
 one automatically at build time via QT_ARCH - no manual copying needed.
 
-| File | Build target | Download (https://downloads.rclone.org/) |
+| File | Build target | [Download](https://downloads.rclone.org/)|
 |---|---|---|
 | `rclone-aarch64` | aarch64 (Fairphone 4) | `rclone-vX.Y.Z-linux-arm64.zip` |
 | `rclone-armv7hl` | armv7hl (32-bit ARM) | `rclone-vX.Y.Z-linux-arm-v7.zip` |
