@@ -9,16 +9,88 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+import contextlib
 import json
 import os
 import threading
 import time
+
+try:
+    import fcntl
+except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
+    fcntl = None
 
 import common
 
 log = common.make_logger("pairs")
 
 _LOCK = threading.Lock()
+
+# The app process and helper/sync_helper.py both mutate this store, and every
+# mutation is a load/modify/save cycle - a thread lock would let one process
+# overwrite what the other just wrote. The lock file is separate from the
+# store on purpose: _save() replaces the store by rename, so a lock held on
+# the store's own inode would be invisible to the next writer.
+_LOCK_TIMEOUT = 5.0     # seconds to wait for the other process
+_LOCK_RETRY = 0.05
+
+
+def _lock_path():
+    return os.path.join(common.data_dir(), "sync-pairs.lock")
+
+
+@contextlib.contextmanager
+def _transaction():
+    """Serialize one load/modify/save cycle - against threads and processes.
+
+    Waits for the other process, unlike the sync run lock: a transaction is a
+    small JSON rewrite and over in milliseconds. It gives up after
+    _LOCK_TIMEOUT rather than freezing the UI behind a stuck holder; the
+    write itself stays atomic either way, so the worst case is a lost update
+    instead of a damaged store.
+    """
+    with _LOCK:
+        fd = _acquire_store_lock()
+        try:
+            yield
+        finally:
+            _release_store_lock(fd)
+
+
+def _acquire_store_lock():
+    if fcntl is None:
+        return None
+    try:
+        os.makedirs(common.data_dir(), exist_ok=True)
+        fd = os.open(_lock_path(), os.O_WRONLY | os.O_CREAT, 0o600)
+    except OSError as e:
+        log("could not open the store lock (%s) - continuing without it" % e)
+        return None
+    deadline = time.time() + _LOCK_TIMEOUT
+    while True:
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return fd
+        except OSError:
+            if time.time() >= deadline:
+                log("WARNING: store lock still held after %.1fs - continuing "
+                    "without it" % _LOCK_TIMEOUT)
+                os.close(fd)
+                return None
+            time.sleep(_LOCK_RETRY)
+
+
+def _release_store_lock(fd):
+    if fd is None:
+        return
+    try:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+    except OSError as e:
+        log("could not release the store lock: %s" % e)
+    try:
+        os.close(fd)
+    except OSError:
+        pass
 
 
 def _store_path():
@@ -99,7 +171,7 @@ def add_pair(pair_type, local_path, remote_path):
         "last_ok": None,
         "last_message": "",
     }
-    with _LOCK:
+    with _transaction():
         data = _load()
         data["pairs"].append(pair)
         _save(data)
@@ -110,7 +182,7 @@ def add_pair(pair_type, local_path, remote_path):
 
 
 def update_pair(pair_id, fields):
-    with _LOCK:
+    with _transaction():
         data = _load()
         for pair in data["pairs"]:
             if pair["id"] == pair_id:
@@ -123,7 +195,7 @@ def update_pair(pair_id, fields):
 
 
 def delete_pair(pair_id):
-    with _LOCK:
+    with _transaction():
         data = _load()
         before = len(data["pairs"])
         data["pairs"] = [p for p in data["pairs"] if p["id"] != pair_id]
@@ -139,7 +211,7 @@ def delete_all_pairs():
     the pairs point at remote paths of that account, so a new account starts
     from scratch. Returns the number of pairs that were removed.
     """
-    with _LOCK:
+    with _transaction():
         data = _load()
         removed = len(data["pairs"])
         _save(_empty_store())
@@ -148,7 +220,7 @@ def delete_all_pairs():
 
 
 def set_last_global_run(timestamp):
-    with _LOCK:
+    with _transaction():
         data = _load()
         data["last_global_run"] = timestamp
         _save(data)
@@ -157,7 +229,7 @@ def set_last_global_run(timestamp):
 
 def set_last_skip(reason):
     """record that a run was skipped (shown as a banner, no error)."""
-    with _LOCK:
+    with _transaction():
         data = _load()
         data["last_skip"] = reason
         _save(data)
@@ -165,7 +237,7 @@ def set_last_skip(reason):
 
 
 def clear_last_skip():
-    with _LOCK:
+    with _transaction():
         data = _load()
         if data["last_skip"]:
             data["last_skip"] = ""
