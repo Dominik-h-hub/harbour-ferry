@@ -13,6 +13,7 @@
 - FIX: run_lock is now used for all processes instead of single process.
 - FIX: recreate_collection_open() deletes the collection AFTER recreating it instead of before.
 - FIX: transaction() acts now as Context-Manager to ensure lock of transactions over multiple calls.
+- FIX: account_identity_changed() now handles username changes correctly.
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept

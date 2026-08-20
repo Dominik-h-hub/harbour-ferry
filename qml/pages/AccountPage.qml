@@ -26,6 +26,18 @@ Dialog {
     // saving will replace it and wipe the sync pairs.
     property bool switchesBackend: false
 
+    // What the stored account points at, kept to notice an edit of it.
+    property string storedUrl: ""
+    property string storedUser: ""
+
+    // Same backend, but the user is pointing it at another server or account.
+    // The sync pairs and the stored bisync state belong to the old one, so
+    // saving drops them - warn before, the way a backend switch does.
+    readonly property bool changesAccount:
+        page.accountExists && page.valuesRev >= 0
+        && (String(page.formValues["url"] || "") !== page.storedUrl
+            || String(page.formValues["user"] || "") !== page.storedUser)
+
     // Wording of the selected backend (Seafile: libraries, Nextcloud: folders).
     Terminology {
         id: terms
@@ -136,6 +148,16 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: page.changesAccount
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.errorColor
+                text: qsTr("Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.")
+            }
+
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.secondaryHighlightColor
@@ -203,6 +225,9 @@ Dialog {
                         // technical form when saving.
                         values["url"] = summary.display_url || summary.url;
                         values["user"] = summary.user;
+                        // Baseline for the "another account" warning above.
+                        page.storedUrl = String(values["url"] || "");
+                        page.storedUser = String(values["user"] || "");
                         values["use_2fa"] = summary.use_2fa;
                         call('config_manager.get_account_password', [],
                              function(info) {
@@ -216,6 +241,8 @@ Dialog {
                     }
                     page.accountExists = false;
                     page.tokenOnly = false;
+                    page.storedUrl = "";
+                    page.storedUser = "";
                     page.switchesBackend = !!(summary && summary.url);
                     page.formValues = values;
                     page.valuesRev++;

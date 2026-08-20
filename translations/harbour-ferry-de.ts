@@ -39,6 +39,10 @@
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
         <translation>Ein Wechsel des Backends ersetzt das gespeicherte Konto und löscht alle Sync-Paare - sie zeigen auf den alten Server.</translation>
     </message>
+    <message>
+        <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
+        <translation>Ein Wechsel von Server oder Benutzer bedeutet ein anderes Konto: Alle Sync-Paare und der gespeicherte Sync-Zustand werden gelöscht, da sie zum vorherigen Konto gehören.</translation>
+    </message>
 </context>
 <context>
     <name>AccountTestPage</name>

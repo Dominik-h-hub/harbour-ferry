@@ -442,6 +442,25 @@ def _reset_local_state(reason):
     return pairs
 
 
+def _account_identity(url, user):
+    """The pair that says which account a remote points at.
+
+    Compared on the rclone level - the values that end up in rclone.conf -
+    so a backend that rewrites the URL (Nextcloud builds the WebDAV endpoint
+    from what the user types) does not look changed on every save. Only a
+    trailing slash is normalised away; anything else is taken literally,
+    because the fields are prefilled from the stored account and every edit
+    is therefore deliberate.
+    """
+    return ((url or "").strip().rstrip("/"), (user or "").strip())
+
+
+def _account_identity_changed(existing, params):
+    """True when the saved values point at another server or user."""
+    return _account_identity(existing.get("url"), existing.get("user")) \
+        != _account_identity(params.get("url"), params.get("user"))
+
+
 def _account_info():
     """Account fields for the result page; never raises, empty when unknown."""
     try:
@@ -478,6 +497,14 @@ def setup_and_test(backend_id, values):
         switching = bool(stored_type) \
             and stored_type != backend.BACKEND["rclone_type"]
         update = bool(existing) and not switching
+        # Same backend, but another server or user behind the same remote
+        # name. The local sync state does not notice that by itself, so it
+        # has to go - see the reset below for what would happen otherwise.
+        # bool(url) guards the case where the stored config could not be
+        # read (summary carries only an error): unknown is not changed,
+        # and the pairs must not be dropped over an unreadable config.
+        account_changed = update and bool(existing.get("url")) \
+            and _account_identity_changed(existing, params)
 
         missing = [k for k in ("url", "user") if not params.get(k)]
         if not update and not values.get("pass"):
@@ -510,6 +537,18 @@ def setup_and_test(backend_id, values):
                       "ok": ok, "detail": message})
         if not ok:
             return _result(False, "Saving the account failed", message, steps)
+
+        if account_changed:
+            # Only now that the new account is actually stored. The bisync
+            # listings describe the remote side of the old account: reused
+            # against the new one, everything the old server had and the new
+            # one does not looks like a remote deletion - and bisync would
+            # propagate exactly that to the local folder.
+            removed_pairs = _reset_local_state("account change")
+            steps.append({"title": "Reset sync state", "ok": True,
+                          "detail": "server or user changed - removed %d sync"
+                                    " pair(s) and the stored bisync state"
+                                    % removed_pairs})
 
         _status("Encrypting configuration...")
         ok, message = _ensure_encrypted()

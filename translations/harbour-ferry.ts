@@ -39,6 +39,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../qml/pages/AccountPage.qml" line="156"/>
+        <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
         <location filename="../qml/pages/AccountPage.qml" line="242"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
         <translation type="unfinished"></translation>
