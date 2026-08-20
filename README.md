@@ -16,7 +16,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 <p align="center">
 <a href="https://github.com/Dominik-h-hub/harbour-ferry/releases"><img src="docs/images/get-it-on-logos/direct-rpm-download.png" alt="Direct RPM Download" height="55"></a>
-<a href="https://openrepos.net/content/domih/ferry-sync"><img src="docs/images/get-it-on-logos/get-it-on-openrepos.png" alt="Get it on OpenRepos" height="55"></a>
+<a href="https://openrepos.net/content/domih/ferry-sync-cloud-file-sync"><img src="docs/images/get-it-on-logos/get-it-on-openrepos.png" alt="Get it on OpenRepos" height="55"></a>
 <!-- <a href="https://store.jolla.com"><img src="docs/images/get-it-on-logos/get-it-on-jollaStore.png" alt="Get it on the Jolla Store" height="55"></a>-->
 <!-- <a href="https://sailfishos-chum.github.io/"><img src="docs/images/get-it-on-logos/get-it-on-chum.png" alt="Get it on CHUM" height="55"></a> -->
 
@@ -49,7 +49,7 @@ If you want to use a backend that is not yet implemented and it is on the list
 above, please [create an issue](https://github.com/Dominik-h-hub/harbour-ferry/issues)
 and I will add it.
 
-Adding one is deliberately cheap: every provider is a single Python module in
+Adding one new backend: every provider is a single Python module in
 [qml/utilities/backends/](qml/utilities/backends/). The account form, the
 wording of the remote browser ("libraries" vs. "folders") and the sync engine
 are all generated from that definition.
