@@ -8,13 +8,15 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Tue Jul 07 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
+* Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept
   in Sailfish Secrets, lock icons, works for browsing and sync pairs
 - Sync conflict detection with notification
 - First start opens the account setup automatically (wizard)
 - added German translation
 - Ship rclone MIT license notice; polished package description
+- ADDED: Nextcloud backend support
+- ADDED: Seafile backend support
 
 * Mon Jul 06 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.1-1
 - initial implementation of the Ferry Sync app
