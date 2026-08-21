@@ -16,6 +16,7 @@
 - FIX: account_identity_changed() now handles username changes correctly.
 - FIX: escape_glob() now handles single sync files correctly and only this file will be synced.
 - FIX: added supports_modtime to reduce errors in sync log.
+- FIX: ferry-sync-service was killed after 2 mins even if sync was still running.
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept
