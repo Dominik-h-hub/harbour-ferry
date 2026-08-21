@@ -232,8 +232,25 @@ def make_dir(path, name):
     return {"ok": True, "message": "Folder created"}
 
 
+def _forget_deleted_library(path, is_dir):
+    """Drop the encrypted-library registration of a purged top-level library.
+
+    The registry entry and the key in Sailfish Secrets would otherwise
+    outlive the library itself: a plain library later created under the same
+    name is still seen as encrypted, and build_target() routes it through a
+    connection string carrying the old key - so every transfer in it fails
+    for a reason the user cannot see. Only root entries are libraries; a
+    folder inside one is deleted with its library's key and keeps it.
+    """
+    library = (path or "").strip("/")
+    if not is_dir or not library or "/" in library:
+        return
+    if enc_libraries.is_encrypted(library):
+        enc_libraries.forget(library)
+
+
 def delete_entry(path, is_dir):
-    #Delete a remote file or folder (UI guards this with a remorse timer
+    # Delete a remote file or folder (UI guards this with a remorse timer)
     target = _remote_target(path)
     cmd = ["purge", target] if is_dir else ["deletefile", target]
     log("deleting %s (dir=%s)" % (target, is_dir))
@@ -241,6 +258,7 @@ def delete_entry(path, is_dir):
     if rc != 0:
         return {"ok": False, "message": config_manager.friendly_error(out),
                 "details": out[:400]}
+    _forget_deleted_library(path, is_dir)
     return {"ok": True, "message": "Deleted"}
 
 
