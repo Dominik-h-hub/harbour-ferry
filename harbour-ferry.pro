@@ -115,6 +115,6 @@ DISTFILES += qml/harbour-ferry.qml \
     helper/sync_helper.py \
     systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer \
-    rpm/harbour-ferry.changes.in \
+    rpm/harbour-ferry.changes \
     rpm/harbour-ferry.spec \
     harbour-ferry.desktop

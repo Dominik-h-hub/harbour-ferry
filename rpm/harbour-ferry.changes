@@ -19,6 +19,7 @@
 - FIX: ferry-sync-service was killed after 2 mins even if sync was still running.
 - FIX: encrypted libraries.json was not deleted successfully from cache in some cases.
 - FIX: introduced new pre-check for duplicate filenames within remote upload.
+- FIX: text editor keeps Save disabled until the file was loaded successfully.
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept

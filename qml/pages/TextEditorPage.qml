@@ -16,6 +16,7 @@ Page {
     property string fileName: ""
     property bool busy: false
     property string errorMessage: ""
+    property bool loaded: false
 
     SilicaFlickable {
         anchors.fill: parent
@@ -25,7 +26,7 @@ Page {
             busy: page.busy
             MenuItem {
                 text: qsTr("Save")
-                enabled: !page.busy
+                enabled: !page.busy && page.loaded
                 onClicked: python.save()
             }
         }
@@ -96,6 +97,7 @@ Page {
                     page.busy = false;
                     if (result.ok) {
                         editor.text = result.content;
+                        page.loaded = true;
                     } else {
                         page.errorMessage = result.message;
                     }
