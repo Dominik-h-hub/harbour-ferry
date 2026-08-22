@@ -3,7 +3,8 @@
  * left "Local syncs", right "Remote" (top level of the remote; tapping an
  * entry opens the remote browser). What that top level is called comes from
  * the backend: libraries on Seafile, folders on Nextcloud (Terminology.qml).
- * Custom tab bar for Qt 5.6 compatibility.
+ * Custom tab bar (Qt 5.6 compatible), pinned to the bottom of the page so
+ * the labels stay clear of the device notch.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -56,7 +57,7 @@ Page {
 
     Row {
         id: tabBar
-        anchors.top: parent.top
+        anchors.bottom: parent.bottom
         width: parent.width
         height: Theme.itemSizeMedium
         z: 1
@@ -78,7 +79,7 @@ Page {
                 }
 
                 Rectangle {
-                    anchors.bottom: parent.bottom
+                    anchors.top: parent.top
                     anchors.horizontalCenter: parent.horizontalCenter
                     width: parent.width - 2 * Theme.paddingLarge
                     height: Math.round(Theme.paddingSmall / 2) + 1
@@ -90,22 +91,32 @@ Page {
         }
     }
 
+    // Thin divider so list content scrolling up to the bar stays readable.
+    Rectangle {
+        anchors.bottom: tabBar.top
+        width: parent.width
+        height: 1
+        z: 1
+        color: Theme.secondaryColor
+        opacity: 0.4
+    }
+
     // --- Left tab: local syncs ----------------------------------------------
 
     SilicaListView {
         id: localView
         visible: page.currentTab === 0
-        anchors.top: tabBar.bottom
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: tabBar.top
         clip: true
         model: pairsModel
 
         header: Column {
             width: localView.width
 
-            Item { width: 1; height: Theme.paddingLarge * 2 }
+            Item { width: 1; height: Theme.itemSizeSmall }
 
             Label {
                 x: Theme.horizontalPageMargin
@@ -274,12 +285,15 @@ Page {
     SilicaListView {
         id: remoteView
         visible: page.currentTab === 1
-        anchors.top: tabBar.bottom
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors.bottom: tabBar.top
         clip: true
         model: libsModel
+
+        // Keeps the first entry clear of the status bar / notch area.
+        header: Item { width: remoteView.width; height: Theme.itemSizeSmall }
 
         PullDownMenu {
             MenuItem {

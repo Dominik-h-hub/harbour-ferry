@@ -287,134 +287,134 @@
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="65"/>
+        <location filename="../qml/pages/MainPage.qml" line="66"/>
         <source>Local syncs</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="65"/>
+        <location filename="../qml/pages/MainPage.qml" line="66"/>
         <source>Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="117"/>
+        <location filename="../qml/pages/MainPage.qml" line="128"/>
         <source>Last sync skipped: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="127"/>
+        <location filename="../qml/pages/MainPage.qml" line="138"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="136"/>
+        <location filename="../qml/pages/MainPage.qml" line="147"/>
         <source>Last full sync: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="144"/>
-        <location filename="../qml/pages/MainPage.qml" line="286"/>
+        <location filename="../qml/pages/MainPage.qml" line="155"/>
+        <location filename="../qml/pages/MainPage.qml" line="300"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="148"/>
+        <location filename="../qml/pages/MainPage.qml" line="159"/>
         <source>New sync pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="152"/>
+        <location filename="../qml/pages/MainPage.qml" line="163"/>
         <source>Sync now</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="160"/>
+        <location filename="../qml/pages/MainPage.qml" line="171"/>
         <source>No sync pairs yet</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="161"/>
+        <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>Pull down to create one</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="170"/>
+        <location filename="../qml/pages/MainPage.qml" line="181"/>
         <source>Deleting sync pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="236"/>
+        <location filename="../qml/pages/MainPage.qml" line="247"/>
         <source>Sync this pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="242"/>
+        <location filename="../qml/pages/MainPage.qml" line="253"/>
         <source>Force sync (confirm big change)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="248"/>
+        <location filename="../qml/pages/MainPage.qml" line="259"/>
         <source>Resume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="252"/>
+        <location filename="../qml/pages/MainPage.qml" line="263"/>
         <source>Show log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="257"/>
+        <location filename="../qml/pages/MainPage.qml" line="268"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="262"/>
+        <location filename="../qml/pages/MainPage.qml" line="273"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="299"/>
+        <location filename="../qml/pages/MainPage.qml" line="313"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="308"/>
+        <location filename="../qml/pages/MainPage.qml" line="322"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="360"/>
-        <location filename="../qml/pages/MainPage.qml" line="361"/>
+        <location filename="../qml/pages/MainPage.qml" line="374"/>
+        <location filename="../qml/pages/MainPage.qml" line="375"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="407"/>
+        <location filename="../qml/pages/MainPage.qml" line="421"/>
         <source>Paused - long-press to resume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="462"/>
+        <location filename="../qml/pages/MainPage.qml" line="476"/>
         <source>Synchronization started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="478"/>
+        <location filename="../qml/pages/MainPage.qml" line="492"/>
         <source>Sync pair deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="495"/>
+        <location filename="../qml/pages/MainPage.qml" line="509"/>
         <source>Welcome! Please set up your account first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="516"/>
+        <location filename="../qml/pages/MainPage.qml" line="530"/>
         <source>Sync skipped: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="518"/>
+        <location filename="../qml/pages/MainPage.qml" line="532"/>
         <source>Synchronization finished</source>
         <translation type="unfinished"></translation>
     </message>
@@ -865,27 +865,27 @@
 <context>
     <name>TextEditorPage</name>
     <message>
-        <location filename="../qml/pages/TextEditorPage.qml" line="27"/>
+        <location filename="../qml/pages/TextEditorPage.qml" line="28"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextEditorPage.qml" line="39"/>
+        <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextEditorPage.qml" line="57"/>
+        <location filename="../qml/pages/TextEditorPage.qml" line="58"/>
         <source>File content</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextEditorPage.qml" line="81"/>
+        <location filename="../qml/pages/TextEditorPage.qml" line="82"/>
         <source>Saved</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextEditorPage.qml" line="109"/>
+        <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
         <translation type="unfinished"></translation>
     </message>

@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Sat Aug 22 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.3-1
+- FIX: Moved Tab menu from top to bottom to avoid overlapping with jolla notch.
+
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-2
 - FIX: missing german translation parts
 - FIX: run_lock is now used for all processes instead of single process.
