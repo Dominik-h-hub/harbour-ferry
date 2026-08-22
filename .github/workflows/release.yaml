@@ -237,10 +237,10 @@ jobs:
 
             | Package | Description |
             |---|---|
-            | **aarch64** | App – 64-bit ARM devices (daemon RPM bundled for in-app install) |
-            | **armv7hl** | App – 32-bit ARM devices (daemon RPM bundled for in-app install) |
-            | **i486** | App – Emulator (daemon RPM bundled for in-app install) |
-            | **noarch (daemon)** | Background services (remote commands, tracking) – install alongside the app, or directly from the app's Settings page |
+            | **aarch64** | App – 64-bit ARM devices |
+            | **armv7hl** | App – 32-bit ARM devices |
+            | **i486** | App – Emulator |
+            | **noarch ** | Background services (remote commands, tracking) – install alongside the app, or directly from the app's Settings page |
 
             ### Changelog
 

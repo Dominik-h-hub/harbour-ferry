@@ -316,15 +316,44 @@ def download(path, name, is_dir):
     return {"ok": True, "id": transfer_id, "message": "Download started"}
 
 
+def _duplicate_basenames(paths):
+    """File names that appear more than once, in selection order.
+
+    The file browser keeps one selection across folder levels, so a
+    selection can hold files that differ only in their directory. Uploads
+    land flat in the remote directory, so those would silently overwrite
+    each other while the UI still reported every file as uploaded.
+    """
+    seen = set()
+    duplicates = []
+    for path in paths:
+        name = os.path.basename(path)
+        if name in seen:
+            if name not in duplicates:
+                duplicates.append(name)
+        else:
+            seen.add(name)
+    return duplicates
+
+
 def upload(local_paths, remote_dir):
     """Upload local files into the current remote directory.
 
     Files are transferred sequentially in one background job; progress
     events carry 'name (i/n)' info. Returns {ok, id}.
     """
-    paths = [p for p in (local_paths or []) if os.path.isfile(p)]
+    paths = []
+    for local_path in (local_paths or []):
+        if os.path.isfile(local_path) and local_path not in paths:
+            paths.append(local_path)
     if not paths:
         return {"ok": False, "message": "No files selected"}
+    duplicates = _duplicate_basenames(paths)
+    if duplicates:
+        return {"ok": False,
+                "message": "Same file name selected twice: %s - rename the "
+                           "files or upload them one at a time"
+                           % ", ".join(duplicates[:3])}
     transfer_id = _new_transfer_id()
     with _transfers_lock:
         _transfers[transfer_id] = None

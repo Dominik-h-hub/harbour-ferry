@@ -18,6 +18,7 @@
 - FIX: added supports_modtime to reduce errors in sync log.
 - FIX: ferry-sync-service was killed after 2 mins even if sync was still running.
 - FIX: encrypted libraries.json was not deleted successfully from cache in some cases.
+- FIX: introduced new pre-check for duplicate filenames within remote upload.
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-1
 - Encrypted libraries: password prompt on first access, key kept
@@ -32,6 +33,6 @@
 * Mon Jul 06 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.1-1
 - initial implementation of the Ferry Sync app
 - Built-in diagnostics page running the spike tests
-- systemd user service + timer with sailjail-wrapped sync helper
+- systemd user service + timer for the sync helper
 - Backend plugin with Seafile definition
 - Packaging prepared for bundled rclone binary
