@@ -1,0 +1,14 @@
+[Unit]
+Description=Ferry background sync helper (runs all sync pairs, writes diagnostics marker)
+
+[Service]
+Type=oneshot
+# No sailjail wrapper: sandboxing is disabled.
+ExecStart=/usr/bin/python3 /usr/share/harbour-ferry/helper/sync_helper.py
+# The helper drives a full bisync run over every pair, and the engine
+# already bounds each rclone call with its own RUN_TIMEOUT (1 h). A systemd
+# timeout on top of that would SIGTERM rclone mid-bisync and leave the
+# working listings half-written, forcing a --resync - without the engine
+# ever learning about it, because the kill skips _finish_run().
+# oneshot defaults to infinity anyway; stated explicitly so it stays.
+TimeoutStartSec=infinity

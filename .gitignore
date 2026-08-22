@@ -1,0 +1,49 @@
+# IDE / Editor
+/.idea/
+*.pro.user
+
+# sfdk Build-configurations
+/.sfdk/
+
+# qmake generated files
+Makefile
+.qmake.stash
+*.list
+
+# MOC / RCC generated files
+moc_*.cpp
+qrc_*.cpp
+*.moc
+
+# Generated testfiles
+tst_qml
+target_wrapper.sh
+tst_ssemanager
+
+# compilation output
+*.o
+
+# Binary
+/openHAB
+
+# RPM output
+/RPMS/
+
+/.claude/
+
+instructions.md
+currentState.md
+requirements.md
+
+/temp
+FindMy_v4.txt
+
+# rclone binaries (downloaded per rclone-binaries/README.md, not committed)
+/rclone-binaries/rclone-*
+
+# Device/emulator logs and screenshots shared for debugging
+logs.txt
+diagnose-*.txt
+# qmake writes the generated version module into the build dir (in-source
+# builds land here); the source of truth is rpm/harbour-ferry.spec.
+/_version.py

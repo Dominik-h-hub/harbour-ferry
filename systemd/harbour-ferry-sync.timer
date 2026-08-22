@@ -1,0 +1,13 @@
+[Unit]
+Description=Ferry periodic background sync timer
+
+[Timer]
+# Interval is reconfigured by the app; these are placeholder defaults.
+# The timer is NOT enabled by default — the diagnostics page starts the
+# service directly.
+OnBootSec=15min
+OnUnitActiveSec=30min
+Persistent=false
+
+[Install]
+WantedBy=timers.target

@@ -25,7 +25,7 @@
 name: Sailfish OS Release
 
 env:
-  sdkVersion: "5.2.0.15"
+  sdkVersion: "5.0.0.43"
 
 on:
   push:
@@ -65,11 +65,11 @@ jobs:
           if [[ "$TAG" == *-release ]]; then
             echo "type=release" >> "$GITHUB_OUTPUT"
             echo "prerelease=false" >> "$GITHUB_OUTPUT"
-            echo "📦 Release type: FULL RELEASE (tag: ${TAG})"
+            echo "Release type: FULL RELEASE (tag: ${TAG})"
           elif [[ "$TAG" == *-beta ]]; then
             echo "type=beta" >> "$GITHUB_OUTPUT"
             echo "prerelease=true" >> "$GITHUB_OUTPUT"
-            echo "📦 Release type: PRE-RELEASE / BETA (tag: ${TAG})"
+            echo "Release type: PRE-RELEASE / BETA (tag: ${TAG})"
           else
             echo "::error::Unexpected tag format: ${TAG} – expected *-release or *-beta"
             exit 1
@@ -100,7 +100,7 @@ jobs:
             echo "::error::Tag release number '${TAG_RELEASE_NUM}' does not match spec Release '${SPEC_RELEASE}'"
             exit 1
           fi
-          echo "✅ Tag ${TAG} is consistent with spec file (Version=${SPEC_VERSION}, Release=${SPEC_RELEASE})"
+          echo "OK - Tag ${TAG} is consistent with spec file (Version=${SPEC_VERSION}, Release=${SPEC_RELEASE})"
 
       - name: Verify release tag is on main branch
         if: steps.release-info.outputs.type == 'release'
@@ -108,7 +108,7 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           echo "Checking that tag '${TAG}' points to a commit on the main branch..."
           if git branch -r --contains "${GITHUB_SHA}" | grep -q 'origin/main'; then
-            echo "✅ Commit ${GITHUB_SHA} is on main branch"
+            echo "OK - Commit ${GITHUB_SHA} is on main branch"
           else
             echo "::error::Release tag '${TAG}' does not point to a commit on the main branch."
             echo "::error::Full releases (*-release) must be created from commits on main."
@@ -128,65 +128,23 @@ jobs:
           TAG="${GITHUB_REF_NAME}"
           echo "Checking if release '${TAG}' already exists..."
           if gh release view "$TAG" --repo "${{ github.repository }}" &>/dev/null; then
-            echo "::error::❌ Release '${TAG}' already exists!"
+            echo "::error::Release '${TAG}' already exists!"
             echo "::error::This can happen when a tag was force-pushed or the version in"
             echo "::error::rpm/harbour-ferry.spec was not bumped before creating a new tag."
             echo "::error::→ Bump Version/Release in the spec file, then create a new tag (e.g. v0.1-4-release)."
             exit 1
           fi
-          echo "✅ No existing release for '${TAG}' – proceeding."
+          echo "OK - No existing release for '${TAG}' – proceeding."
 
   # ──────────────────────────────────────────────
-  # Daemon job – builds the noarch background-service RPM FIRST so the app
-  # builds can bundle it (Settings sideload flow). Also attached separately
-  # to the GitHub release for OpenRepos / direct installation.
-  # ──────────────────────────────────────────────
-  daemon:
-    name: Build daemon RPM (noarch)
-    needs: validate
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
-
-      - name: Build harbour-ferry-daemon
-        run: |
-          set -euo pipefail
-          VERSION=$(grep '^Version:' rpm/harbour-ferry.spec | awk '{print $2}')
-          git archive --format=tar --prefix="harbour-ferry-daemon-${VERSION}/" HEAD \
-            | bzip2 > "harbour-ferry-daemon-${VERSION}.tar.bz2"
-          mkdir -p daemon-rpm/RPMS
-          docker run --rm -u 0:0 -v "$PWD:/work" \
-            coderus/sailfishos-platform-sdk:${{ env.sdkVersion }} \
-            bash -c "set -euo pipefail
-              rpmbuild -bb /work/daemon-rpm/harbour-ferry-daemon.spec \
-                --define '_sourcedir /work' \
-                --define '_rpmdir /work/daemon-rpm/RPMS' \
-                --define '_builddir /tmp/fmd-build'
-              # flatten the noarch/ subdir so the app spec's bundling glob finds the file
-              find /work/daemon-rpm/RPMS -mindepth 2 -name '*.rpm' -exec mv {} /work/daemon-rpm/RPMS/ \;
-              chmod -R a+rX /work/daemon-rpm/RPMS"
-          echo "Built:"
-          ls -la daemon-rpm/RPMS/*.noarch.rpm
-
-      - name: Upload daemon RPM artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: harbour-ferry-daemon-noarch
-          path: daemon-rpm/RPMS/*.noarch.rpm
-          retention-days: 30
-          if-no-files-found: error
-
-  # ──────────────────────────────────────────────
-  # Build job – only starts after validate + daemon pass
+  # Build job
   # Uses the CODeRUS Buildfish action for Sailfish OS 5.x
   # https://github.com/CODeRUS/github-sfos-build
   # Available SDK releases: https://hub.docker.com/r/coderus/sailfishos-platform-sdk/tags
   # ──────────────────────────────────────────────
   build:
     name: Build (${{ matrix.arch }})
-    needs: [validate, daemon]
+    needs: [validate]
     runs-on: ubuntu-latest
 
     strategy:
@@ -197,14 +155,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-
-      # The app spec auto-bundles the daemon RPM when it is present in
-      # daemon-rpm/RPMS/ at build time.
-      - name: Download daemon RPM (for bundling)
-        uses: actions/download-artifact@v4
-        with:
-          name: harbour-ferry-daemon-noarch
-          path: daemon-rpm/RPMS
 
       - name: Build RPM package
         uses: coderus/github-sfos-build@sfos5
@@ -233,7 +183,7 @@ jobs:
 
           NAME="harbour-ferry-${PACKAGE_VERSION}.${{ matrix.arch }}.rpm"
           echo "name=${NAME}" >> "$GITHUB_OUTPUT"
-          echo "📦 Artifact name: ${NAME}"
+          echo "Artifact name: ${NAME}"
 
       - name: Upload RPM artifacts
         uses: actions/upload-artifact@v4
@@ -287,10 +237,10 @@ jobs:
 
             | Package | Description |
             |---|---|
-            | **aarch64** | App – 64-bit ARM devices (daemon RPM bundled for in-app install) |
-            | **armv7hl** | App – 32-bit ARM devices (daemon RPM bundled for in-app install) |
-            | **i486** | App – Emulator (daemon RPM bundled for in-app install) |
-            | **noarch (daemon)** | Background services (remote commands, tracking) – install alongside the app, or directly from the app's Settings page |
+            | **aarch64** | App – 64-bit ARM devices |
+            | **armv7hl** | App – 32-bit ARM devices |
+            | **i486** | App – Emulator |
+            | **noarch ** | Background services (remote commands, tracking) – install alongside the app, or directly from the app's Settings page |
 
             ### Changelog
 

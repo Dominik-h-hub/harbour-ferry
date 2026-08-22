@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-ferry
+Exec=sailfish-qml harbour-ferry
+Name=FerrySync
+
+[X-Sailjail]
+# Sandboxing disabled: inside the jail the Sailfish Secrets daemon
+# socket is invisible, system binaries (systemctl, python3) cannot be
+# executed and the systemd D-Bus API is unreachable - background sync and
+# secrets storage are impossible sandboxed. rclone, network and config
+# encryption did work sandboxed.
+Sandboxing=Disabled

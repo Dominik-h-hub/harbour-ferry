@@ -1,70 +1,123 @@
 /*
-  Copyright (C) 2015 Jolla Ltd.
-  Contact: Thomas Perl <thomas.perl@jollamobile.com>
-  All rights reserved.
-
-  You may use this file under the terms of BSD license as follows:
-
-  Redistribution and use in source and binary forms, with or without
-  modification, are permitted provided that the following conditions are met:
-    * Redistributions of source code must retain the above copyright
-      notice, this list of conditions and the following disclaimer.
-    * Redistributions in binary form must reproduce the above copyright
-      notice, this list of conditions and the following disclaimer in the
-      documentation and/or other materials provided with the distribution.
-    * Neither the name of the Jolla Ltd nor the
-      names of its contributors may be used to endorse or promote products
-      derived from this software without specific prior written permission.
-
-  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE FOR
-  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*/
+ * Ferry - cover: sync status + "sync now" action.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import io.thp.pyotherside 1.4
+import io.thp.pyotherside 1.5
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: ("Plain Cover")
+    id: cover
+
+    property int pairCount: 0
+    property int failCount: 0
+    property string lastRun: ""
+    property bool syncing: false
+
+    onStatusChanged: {
+        if (status === Cover.Active) {
+            python.refresh();
+        }
+    }
+
+    // Round launcher icon (installed under /usr/share/icons/hicolor) displayed at the top of the cover.
+    Image {
+        id: appIcon
+        source: "image://theme/harbour-ferry"
+        anchors {
+            top: parent.top
+            topMargin: Theme.paddingLarge
+            horizontalCenter: parent.horizontalCenter
+        }
+        width: Math.round(parent.width * 0.5)
+        height: width
+        sourceSize.width: width
+        sourceSize.height: width
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+    }
+
+    Column {
+        anchors {
+            left: parent.left; right: parent.right
+            verticalCenter: parent.verticalCenter
+            verticalCenterOffset: Theme.paddingLarge
+            margins: Theme.paddingMedium
+        }
+        spacing: Theme.paddingSmall
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "FerrySync"
+            font.pixelSize: Theme.fontSizeMedium
+            color: Theme.primaryColor
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: cover.syncing ? qsTr("Syncing...")
+                : (cover.pairCount === 0 ? qsTr("No sync pairs")
+                : (cover.failCount > 0 ? qsTr("%1 failed").arg(cover.failCount)
+                                       : qsTr("%1 pairs OK").arg(cover.pairCount)))
+            color: cover.failCount > 0 ? "#ff6666" : Theme.secondaryHighlightColor
+            font.pixelSize: Theme.fontSizeSmall
+        }
+
+        Label {
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: cover.lastRun.length > 0
+            text: cover.lastRun
+            color: Theme.secondaryColor
+            font.pixelSize: Theme.fontSizeExtraSmall
+        }
     }
 
     CoverActionList {
-        id: coverAction
+        enabled: cover.pairCount > 0 && !cover.syncing
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-next"
-            onTriggered: python.call('coveractions.action_next', [], function(newstring) {
-                label.text = newstring;
-            });
-        }
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
-            onTriggered: python.call('coveractions.action_pause', [], function(newstring) {
-                label.text = newstring;
-            });
+            iconSource: "image://theme/icon-cover-sync"
+            onTriggered: {
+                cover.syncing = true;
+                python.call('sync_engine.run_all_async', [], function() {});
+            }
         }
     }
 
     Python {
         id: python
 
-        Component.onCompleted: {
-            addImportPath(Qt.resolvedUrl('.'));
-            importModule('coveractions', function () {});
+        function refresh() {
+            call('sync_pairs.get_store', [], function(store) {
+                cover.pairCount = store.pairs.length;
+                cover.lastRun = store.last_global_run || "";
+                var fails = 0;
+                for (var i = 0; i < store.pairs.length; i++) {
+                    if (store.pairs[i].last_ok === false) {
+                        fails++;
+                    }
+                }
+                cover.failCount = fails;
+            });
         }
+
+        Component.onCompleted: {
+            addImportPath(Qt.resolvedUrl('../utilities'));
+
+            setHandler('sync-all-finished', function(info) {
+                cover.syncing = false;
+                refresh();
+            });
+
+            importModule('sync_pairs', function() {
+                importModule('sync_engine', function() {
+                    refresh();
+                });
+            });
+        }
+
+        onError: console.log('[ferry] cover python error: ' + traceback)
     }
 }
-
-
