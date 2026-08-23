@@ -24,7 +24,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 ## Features
 
-- **Currently implemented backends**: **Seafile** and **Nextcloud**
+- **Currently implemented backends**: **Seafile**, **Nextcloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
 - **file browser for uploads** — all file types, multi-select
@@ -38,6 +38,21 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Translations**: EN, DE, NO
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
+
+### Backends: FTP/FTPS and SFTP
+
+Both are set up with a single server field; the port is optional
+(`host:2121`). FTP defaults to encrypted FTPS - put `ftp://` in front of the
+address to fall back to plain, unencrypted FTP. Two limits come from the
+protocols themselves:
+
+- **FTP carries no reliable modification times**, so a sync conflict keeps
+  both versions instead of preferring the newer file. rclone cannot compare
+  checksums over FTP either - a changed file of identical size is not
+  recognised as changed.
+- **SFTP** logs in with username and password (key files are not supported
+  yet) and does not verify the server's SSH host key.
+
 
 ## Supported Backends
 
