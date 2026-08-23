@@ -53,7 +53,6 @@ protocols themselves:
 - **SFTP** logs in with username and password (key files are not supported
   yet) and does not verify the server's SSH host key.
 
-
 ## Supported Backends
 
 For a full list of backends the engine can talk to, please refer to
