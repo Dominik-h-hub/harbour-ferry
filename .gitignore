@@ -47,3 +47,5 @@ diagnose-*.txt
 # qmake writes the generated version module into the build dir (in-source
 # builds land here); the source of truth is rpm/harbour-ferry.spec.
 /_version.py
+
+*__pycache__*
