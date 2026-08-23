@@ -18,6 +18,7 @@ Dialog {
     property bool settingsLoaded: false
     property string timerInfo: ""
     property bool modulesReady: false
+    property string appVersion: ""
 
     canAccept: settingsLoaded
     onAccepted: python.applyAll()
@@ -163,6 +164,122 @@ Dialog {
                 }
             }
 
+            // ── About ────────────────────────────────────
+            SectionHeader {
+                text: qsTr("About")
+            }
+
+            ListItem {
+                contentHeight: Theme.itemSizeMedium
+                _backgroundColor: "transparent"
+                highlighted: false
+
+                Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("App Version")
+                    color: Theme.primaryColor
+                }
+                Label {
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: page.appVersion !== "" ? page.appVersion : "?.?.?"
+                    color: Theme.secondaryColor
+                }
+            }
+
+            Separator {
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            ListItem {
+                contentHeight: Theme.itemSizeMedium
+
+                onClicked: Qt.openUrlExternally("https://github.com/Dominik-h-hub/harbour-ferry/issues")
+
+                Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Report a bug or request a feature")
+                    color: Theme.primaryColor
+                }
+                Image {
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "image://theme/icon-m-right"
+                    width: Theme.iconSizeSmall
+                    height: Theme.iconSizeSmall
+                }
+            }
+
+            Separator {
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            ListItem {
+                contentHeight: Theme.itemSizeMedium
+
+                onClicked: Qt.openUrlExternally("https://github.com/Dominik-h-hub/harbour-ferry/tree/main/translations")
+
+                Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Add a translation")
+                    color: Theme.primaryColor
+                }
+                Image {
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "image://theme/icon-m-right"
+                    width: Theme.iconSizeSmall
+                    height: Theme.iconSizeSmall
+                }
+            }
+
+            Separator {
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
+            ListItem {
+                contentHeight: Theme.itemSizeMedium
+
+                onClicked: Qt.openUrlExternally("https://github.com/Dominik-h-hub/harbour-ferry")
+
+                Label {
+                    anchors.left: parent.left
+                    anchors.leftMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    text: qsTr("Code Repository")
+                    color: Theme.primaryColor
+                }
+                Image {
+                    anchors.right: parent.right
+                    anchors.rightMargin: Theme.horizontalPageMargin
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: "image://theme/icon-m-right"
+                    width: Theme.iconSizeSmall
+                    height: Theme.iconSizeSmall
+                }
+            }
+
+            Separator {
+                width: parent.width
+                color: Theme.primaryColor
+                horizontalAlignment: Qt.AlignHCenter
+            }
+
             Item { width: 1; height: Theme.paddingLarge }
         }
 
@@ -226,6 +343,15 @@ Dialog {
 
         Component.onCompleted: {
             addImportPath(Qt.resolvedUrl('../utilities'));
+
+            // Separate from the chain below: version.py imports nothing
+            // else and the value never changes, so it must not delay the
+            // settings - and a failure here only costs the version label.
+            importModule('version', function() {
+                call('version.app_version_full', [], function(fullVersion) {
+                    page.appVersion = fullVersion;
+                });
+            });
 
             setHandler('account-result', function(result) {
                 // The result itself is shown on the AccountTestPage; here we

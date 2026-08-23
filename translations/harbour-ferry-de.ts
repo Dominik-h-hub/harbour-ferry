@@ -445,103 +445,123 @@
     <name>SettingsPage</name>
     <message>
         <source>Save</source>
-        <translation>Speichern</translation>
+        <translation type="unfinished">Speichern</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Einstellungen</translation>
+        <translation type="unfinished">Einstellungen</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation>Server</translation>
+        <translation type="unfinished">Server</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation>Konto</translation>
+        <translation type="unfinished">Konto</translation>
     </message>
     <message>
         <source>Not configured</source>
-        <translation>Nicht eingerichtet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Synchronization</source>
-        <translation>Synchronisation</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Background sync</source>
-        <translation>Hintergrund-Synchronisation</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Manual only</source>
-        <translation>Nur manuell</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every 5 minutes</source>
-        <translation>Alle 5 Minuten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every 15 minutes</source>
-        <translation>Alle 15 Minuten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every 30 minutes</source>
-        <translation>Alle 30 Minuten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every hour</source>
-        <translation>Jede Stunde</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every 6 hours</source>
-        <translation>Alle 6 Stunden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Every 12 hours</source>
-        <translation>Alle 12 Stunden</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Allowed network</source>
-        <translation>Erlaubtes Netzwerk</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wi-Fi only</source>
-        <translation>Nur WLAN</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Wi-Fi and mobile data</source>
-        <translation>WLAN und mobile Daten</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Sicherheitslimit: max. Löschungen pro Lauf</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Exclude patterns</source>
-        <translation>Ausschlussmuster</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Ein Muster pro Zeile; gilt für alle Ordner-Syncs. Änderungen lösen einen vollständigen Resync jedes Paares aus.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>e.g. *.tmp</source>
-        <translation>z. B. *.tmp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Support</source>
-        <translation>Support</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Diagnostics</source>
-        <translation>Diagnose</translation>
+        <translation type="unfinished">Diagnose</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>App Version</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Report a bug or request a feature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a translation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Code Repository</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Next run: %1</source>
-        <translation>Nächster Lauf: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Active</source>
-        <translation>Aktiv</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

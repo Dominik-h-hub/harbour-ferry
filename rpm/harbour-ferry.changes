@@ -12,6 +12,7 @@
 - FIX: Moved Tab menu from top to bottom to avoid overlapping with jolla notch.
 - ADDED: Norwegian translation provided by @fsilye
 - ADDED: FTP / SFTP backend support
+- ADDED: About section to settings page
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-2
 - FIX: missing german translation parts
