@@ -12,7 +12,7 @@ CONFIG += sailfishapp_qml
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
 CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-ferry-de.ts
+TRANSLATIONS += translations/harbour-ferry-*.ts
 
 # App version: rpm/harbour-ferry.spec is the single source of truth. qmake
 # reads Version/Release from it and generates _version.py, which is installed
@@ -101,6 +101,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/timer_manager.py \
     qml/utilities/enc_libraries.py \
     translations/harbour-ferry-de.ts \
+    translations/harbour-ferry-nb_NO.ts \
     qml/utilities/common.py \
     qml/utilities/version.py \
     qml/utilities/credential_store.py \
