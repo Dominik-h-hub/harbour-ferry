@@ -1,7 +1,8 @@
 /*
  * Ferry - sync pair editor.
- * Type selection folder/single file; local picker uses the own file
- * browser, remote picker uses the remote browser in picker mode.
+ * Mode selection two-way/upload only, type selection folder/single file
+ * (two-way only); local picker uses the own file browser, remote picker
+ * uses the remote browser in picker mode.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -18,7 +19,16 @@ Page {
     property string remotePath: ""
     property bool busy: false
 
+    function pairMode() {
+        return modeCombo.currentIndex === 1 ? "push" : "bisync";
+    }
+
     function pairType() {
+        // Uploading a single file makes no sense as a standing job, so the
+        // type combo is hidden in that mode - keep the value in step with it.
+        if (page.pairMode() !== "bisync") {
+            return "folder";
+        }
         return typeCombo.currentIndex === 1 ? "file" : "folder";
     }
 
@@ -45,8 +55,25 @@ Page {
             }
 
             ComboBox {
+                id: modeCombo
+                label: qsTr("Mode")
+                menu: ContextMenu {
+                    MenuItem { text: qsTr("Two-way sync") }
+                    MenuItem { text: qsTr("Upload only (one-way)") }
+                }
+                onCurrentIndexChanged: {
+                    if (page.pairMode() !== "bisync" && typeCombo.currentIndex === 1) {
+                        // Drops back to "folder" and clears the picked file
+                        // through the type combo's own handler.
+                        typeCombo.currentIndex = 0;
+                    }
+                }
+            }
+
+            ComboBox {
                 id: typeCombo
                 label: qsTr("Type")
+                visible: page.pairMode() === "bisync"
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Synchronize a folder") }
                     MenuItem { text: qsTr("Synchronize a single file") }
@@ -91,7 +118,9 @@ Page {
                 wrapMode: Text.WordWrap
                 font.pixelSize: Theme.fontSizeSmall
                 color: Theme.secondaryHighlightColor
-                text: qsTr("The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).")
+                text: page.pairMode() === "bisync"
+                    ? qsTr("The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).")
+                    : qsTr("New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.")
             }
 
             Label {
@@ -114,7 +143,8 @@ Page {
             page.busy = true;
             if (page.pairId === "") {
                 call('sync_pairs.add_pair',
-                     [page.pairType(), page.localPath, page.remotePath],
+                     [page.pairType(), page.localPath, page.remotePath,
+                      page.pairMode()],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair created"));
@@ -123,8 +153,11 @@ Page {
             } else {
                 call('sync_pairs.update_pair',
                      [page.pairId, { type: page.pairType(),
+                                     mode: page.pairMode(),
                                      local: page.localPath,
                                      remote: page.remotePath,
+                                     // A changed mode invalidates the stored
+                                     // bisync listings, so always start over.
                                      needs_resync: true }],
                      function() {
                     page.busy = false;
@@ -140,6 +173,9 @@ Page {
                 if (page.pairId !== "") {
                     call('sync_pairs.get_pair', [page.pairId], function(pair) {
                         if (pair) {
+                            // Mode first: it may reset the type combo, which
+                            // in turn clears the path set below.
+                            modeCombo.currentIndex = pair.mode === "push" ? 1 : 0;
                             typeCombo.currentIndex = pair.type === "file" ? 1 : 0;
                             page.localPath = pair.local;
                             page.remotePath = pair.remote;

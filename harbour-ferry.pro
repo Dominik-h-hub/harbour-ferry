@@ -1,4 +1,4 @@
-# Ferry — native Seafile client for Sailfish OS
+# FerrySync — native file sync client for Sailfish OS
 #
 # NOTICE:
 # Application name defined in TARGET has a corresponding QML filename.

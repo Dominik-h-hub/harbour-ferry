@@ -313,7 +313,7 @@
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="155"/>
-        <location filename="../qml/pages/MainPage.qml" line="300"/>
+        <location filename="../qml/pages/MainPage.qml" line="304"/>
         <source>Settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -343,78 +343,78 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="247"/>
+        <location filename="../qml/pages/MainPage.qml" line="251"/>
         <source>Sync this pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="253"/>
+        <location filename="../qml/pages/MainPage.qml" line="257"/>
         <source>Force sync (confirm big change)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="259"/>
+        <location filename="../qml/pages/MainPage.qml" line="263"/>
         <source>Resume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="263"/>
+        <location filename="../qml/pages/MainPage.qml" line="267"/>
         <source>Show log</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="268"/>
+        <location filename="../qml/pages/MainPage.qml" line="272"/>
         <source>Edit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="273"/>
+        <location filename="../qml/pages/MainPage.qml" line="277"/>
         <source>Delete</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="313"/>
+        <location filename="../qml/pages/MainPage.qml" line="317"/>
         <source>Refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="322"/>
+        <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="374"/>
-        <location filename="../qml/pages/MainPage.qml" line="375"/>
+        <location filename="../qml/pages/MainPage.qml" line="378"/>
+        <location filename="../qml/pages/MainPage.qml" line="379"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="421"/>
+        <location filename="../qml/pages/MainPage.qml" line="426"/>
         <source>Paused - long-press to resume</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="476"/>
+        <location filename="../qml/pages/MainPage.qml" line="481"/>
         <source>Synchronization started</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="492"/>
+        <location filename="../qml/pages/MainPage.qml" line="497"/>
         <source>Sync pair deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="509"/>
+        <location filename="../qml/pages/MainPage.qml" line="514"/>
         <source>Welcome! Please set up your account first.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="530"/>
+        <location filename="../qml/pages/MainPage.qml" line="535"/>
         <source>Sync skipped: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="532"/>
+        <location filename="../qml/pages/MainPage.qml" line="537"/>
         <source>Synchronization finished</source>
         <translation type="unfinished"></translation>
     </message>
@@ -723,73 +723,93 @@
 <context>
     <name>SyncPairEditorPage</name>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="32"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
         <source>Save</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="44"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>New sync pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="44"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>Edit sync pair</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="49"/>
-        <source>Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="51"/>
-        <source>Synchronize a folder</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="52"/>
-        <source>Synchronize a single file</source>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
+        <source>Mode</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
-        <source>Local file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
-        <source>Local folder</source>
+        <source>Two-way sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="76"/>
-        <source>Select</source>
+        <source>Upload only (one-way)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
+        <source>Type</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
+        <source>Synchronize a folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
+        <source>Synchronize a single file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <source>Local file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <source>Local folder</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
+        <source>Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
         <source>Remote folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="94"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
+        <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
         <source>Sync pair created</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="131"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
         <source>Sync pair updated</source>
         <translation type="unfinished"></translation>
     </message>

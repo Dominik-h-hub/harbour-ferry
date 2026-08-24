@@ -11,6 +11,7 @@
 
 import json
 import os
+import re
 import threading
 
 import backend_manager
@@ -132,9 +133,15 @@ def build_rclone_command(args):
     return [rclone, "--config", rclone_conf_path(), "--ask-password=false"] + args, env
 
 
-def friendly_error(output):
-    """Public alias for UI-facing error mapping."""
-    return _friendly_error(output)
+def friendly_error(output, fallback=None):
+    """Public alias for UI-facing error mapping.
+
+    fallback names the operation that failed ("Sync failed - ...") for the
+    case where nothing in the output is recognised; without it the message
+    stays generic. It used to read "Connection test failed" everywhere,
+    which was wrong for every caller except the connection test itself.
+    """
+    return _friendly_error(output, fallback)
 
 
 def _parse_json(output):
@@ -390,13 +397,43 @@ def test_connection(terms=None):
         details = ", ".join(names[:8]) + (" ..." if len(names) > 8 else "")
         log("connection test OK: %d entries (%s)" % (len(names), details))
         return True, message, details, names
-    friendly = _friendly_error(out)
+    friendly = _friendly_error(out, "Connection test failed - see details.")
     log("connection test FAILED (rc=%d): %s" % (rc, out[:500]))
     return False, friendly, out[:600], []
 
 
-def _friendly_error(output):
+# An unusable command line makes rclone print its usage text instead of a
+# server error. That text describes flags ("--password", "--ca-cert",
+# "--timeout") and therefore contains most of the words the checks below look
+# for, so it has to be recognised before them - and it is never something the
+# user can fix: Ferry built the wrong argument list.
+_USAGE_MARKERS = ("unknown flag", "unknown shorthand flag", "unknown command",
+                  "flag needs an argument", "invalid argument for")
+
+_GENERIC_ERROR = "The operation failed - see the details."
+
+
+def _usage_detail(output):
+    """The one line naming what rclone rejected, without the usage dump."""
+    lines = output.splitlines()
+    marker = "fatal error:"
+    for line in reversed(lines):
+        position = line.lower().find(marker)
+        if position >= 0:
+            return line[position + len(marker):].strip()
+    for line in reversed(lines):
+        lowered = line.lower()
+        if any(m in lowered for m in _USAGE_MARKERS):
+            return line.strip()
+    return "unsupported option"
+
+
+def _friendly_error(output, fallback=None):
     lowered = output.lower()
+    if any(marker in lowered for marker in _USAGE_MARKERS):
+        # Naming the rejected option is what makes a bug report usable.
+        return ("Internal error: rclone rejected the command (%s)."
+                " Please report this." % _usage_detail(output))
     if "no such host" in lowered or "name or service not known" in lowered:
         return "Server not found - please check the server URL."
     if "connection refused" in lowered:
@@ -405,10 +442,18 @@ def _friendly_error(output):
         return "TLS certificate problem - please check the server certificate."
     if "timeout" in lowered or "deadline exceeded" in lowered:
         return "Connection timed out - please check your network and the URL."
-    if "401" in lowered or "authentication" in lowered or "two-factor" in lowered \
-            or "login" in lowered or "password" in lowered:
+    if "no space left" in lowered or "insufficient storage" in lowered \
+            or "quota" in lowered:
+        return "Not enough space - the transfer was not completed."
+    if "permission denied" in lowered or re.search(r"\b403\b", lowered):
+        return "Access denied - the account may not have rights to this folder."
+    if re.search(r"\b401\b", lowered) or "authentication" in lowered \
+            or "two-factor" in lowered or "login" in lowered \
+            or "password" in lowered:
+        # \b401\b rather than a plain substring: a transfer log is full of byte
+        # counts, and "4013 Bytes" must not be read as an auth failure.
         return "Login failed - please check username, password and OTP."
-    return "Connection test failed - see details."
+    return fallback or _GENERIC_ERROR
 
 
 def _reset_local_state(reason):

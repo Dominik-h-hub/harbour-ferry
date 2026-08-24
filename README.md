@@ -24,11 +24,12 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 ## Features
 
+- **Two-way folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
+- **Upload only (one-way)** (`rclone copy`) per sync pair — pushes a local folder to the remote and never deletes anything there; for camera or document backups
 - **Currently implemented backends**: **Seafile**, **Nextcloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
 - **file browser for uploads** — all file types, multi-select
-- **Bidirectional folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
 - **Background sync via systemd user timer**: every 5 / 15 / 30 minutes, ... — or manual only
 - **Network rule**: Wi-Fi only or Wi-Fi and mobile data; runs are skipped when offline
 - **Safety limit against mass deletion**: a run that wants to delete unusually much is aborted and waits for your explicit confirmation ("Force sync")

@@ -227,7 +227,11 @@ Page {
                     font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                     truncationMode: TruncationMode.Fade
-                    text: remote_name + (last_run.length > 0 ? " - " + last_run : "")
+                    // The arrow marks a one-way pair; two-way pairs stay
+                    // unmarked, so the default case adds no noise.
+                    text: (pair_mode === "push" ? "→ " : "")
+                          + remote_name
+                          + (last_run.length > 0 ? " - " + last_run : "")
                 }
 
                 Label {
@@ -413,6 +417,7 @@ Page {
                     pairsModel.append({
                         pair_id: pair.id,
                         pair_type: pair.type,
+                        pair_mode: pair.mode === "push" ? "push" : "bisync",
                         local_name: baseName(pair.local),
                         remote_name: baseName(pair.remote),
                         last_run: pair.last_run || "",

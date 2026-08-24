@@ -445,123 +445,123 @@
     <name>SettingsPage</name>
     <message>
         <source>Save</source>
-        <translation type="unfinished">Speichern</translation>
+        <translation>Speichern</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Einstellungen</translation>
+        <translation>Einstellungen</translation>
     </message>
     <message>
         <source>Server</source>
-        <translation type="unfinished">Server</translation>
+        <translation>Server</translation>
     </message>
     <message>
         <source>Account</source>
-        <translation type="unfinished">Konto</translation>
+        <translation>Konto</translation>
     </message>
     <message>
         <source>Not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>nicht konfiguriert</translation>
     </message>
     <message>
         <source>Synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisierung</translation>
     </message>
     <message>
         <source>Background sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Hintergrund-Synchronisierung</translation>
     </message>
     <message>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur manuell</translation>
     </message>
     <message>
         <source>Every 5 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle 5 Minuten</translation>
     </message>
     <message>
         <source>Every 15 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle 15 Minuten</translation>
     </message>
     <message>
         <source>Every 30 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle 30 Minuten</translation>
     </message>
     <message>
         <source>Every hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Jede Stunde</translation>
     </message>
     <message>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle 6 Stunden</translation>
     </message>
     <message>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle 12 Stunden</translation>
     </message>
     <message>
         <source>Allowed network</source>
-        <translation type="unfinished"></translation>
+        <translation>Erlaubter Netzwerksync</translation>
     </message>
     <message>
         <source>Wi-Fi only</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Wi-Fi</translation>
     </message>
     <message>
         <source>Wi-Fi and mobile data</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi und mobile Daten</translation>
     </message>
     <message>
         <source>Safety limit: max. deletions per run</source>
-        <translation type="unfinished"></translation>
+        <translation>Sicherheitslimit: max. Löschungen pro Durchlauf</translation>
     </message>
     <message>
         <source>Exclude patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Ausschlussmuster</translation>
     </message>
     <message>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ein Pattern pro Zeile; gilt für alle Ordnersynchronisierungen. Änderungen lösen eine vollständige Resynchronisierung jedes Paares aus.</translation>
     </message>
     <message>
         <source>e.g. *.tmp</source>
-        <translation type="unfinished"></translation>
+        <translation>z.B. *.tmp</translation>
     </message>
     <message>
         <source>Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Support</translation>
     </message>
     <message>
         <source>Diagnostics</source>
-        <translation type="unfinished">Diagnose</translation>
+        <translation>Diagnose</translation>
     </message>
     <message>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Über</translation>
     </message>
     <message>
         <source>App Version</source>
-        <translation type="unfinished"></translation>
+        <translation>App-Version</translation>
     </message>
     <message>
         <source>Report a bug or request a feature</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler melden / Feature anfordern</translation>
     </message>
     <message>
         <source>Add a translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Übersetzung hinzufügen</translation>
     </message>
     <message>
         <source>Code Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Code-Repository</translation>
     </message>
     <message>
         <source>Next run: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Nächster Lauf: %1</translation>
     </message>
     <message>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv</translation>
     </message>
 </context>
 <context>
@@ -636,6 +636,22 @@
     <message>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation>Hinweis: Bei einer Synchronisation mit einer verschlüsselten Bibliothek (z. B. Seafile) muss die Bibliothek zuerst unter dem Remote-Tab entsperrt werden.</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modus</translation>
+    </message>
+    <message>
+        <source>Two-way sync</source>
+        <translation>Bidirektionaler Sync</translation>
+    </message>
+    <message>
+        <source>Upload only (one-way)</source>
+        <translation>Nur Hochladen (einseitig)</translation>
+    </message>
+    <message>
+        <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
+        <translation>Neue und geänderte Dateien werden in den Remote-Ordner hochgeladen. Ferry löscht niemals etwas auf der Remote-Seite. Änderungen auf der Remote-Seite werden nicht zurückkopiert.</translation>
     </message>
 </context>
 <context>

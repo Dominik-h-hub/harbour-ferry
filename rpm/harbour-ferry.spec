@@ -6,17 +6,26 @@ Name:       harbour-ferry
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    Bidirectional file sync client for Sailfish OS
+Summary:    File sync client for Sailfish OS
 Version:    0.3
 Release:    1
 Group:      Qt/Qt
 License:    Apache-2.0
-URL:        https://openrepos.net
+URL:        https://github.com/Dominik-h-hub/harbour-ferry
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   sailfishsilica-qt5 >= 0.10.9
 Requires:   pyotherside-qml-plugin-python3-qt5
-Requires:   python3-base
 Requires:   libsailfishapp-launcher
+
+# Harbour allows only a fixed set of dependencies. Both entries below are
+# picked up automatically and are not real requirements of this package:
+#   /usr/bin/env  from the "#!/usr/bin/env python3" shebangs - no packaged
+#                 module is ever executed directly, they all run through
+#                 pyotherside or an explicit "python3 <file>" call
+#   /bin/sh       from the %%post/%%postun scriptlets below
+# python3-base is not listed either: pyotherside-qml-plugin-python3-qt5
+# already pulls the interpreter in.
+%define __requires_exclude ^(/usr/bin/env|/bin/sh)$
 BuildRequires:  pkgconfig(sailfishapp) >= 1.0.2
 BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Qml)
@@ -27,8 +36,8 @@ BuildRequires:  desktop-file-utils
 %description
 Ferry is a native file sync client for Sailfish OS using rclone as the
 transfer and sync engine. Browse your libraries, upload and download
-files, and keep local folders synchronized bidirectionally - manually or
-on a schedule.
+files, and keep local folders in sync - two-way or upload only, manually
+or on a schedule.
 
 
 %prep
@@ -43,9 +52,19 @@ on a schedule.
 rm -rf %{buildroot}
 %qmake5_install
 
-# rclone is installed with mode 755 by the qmake install rule (arch-specific
-# binary picked automatically, see rclone-binaries/README.md).
-chmod 755 %{buildroot}%{_datadir}/%{name}/helper/sync_helper.py
+# Harbour requires every file below /usr/share to be non-executable, and
+# the exec bit arrives on its own: the build host's shared folder hands out
+# mode 755 for sources that are 644 in git. Normalising here is independent
+# of where the package is built. Directories keep their traversal bit.
+find %{buildroot}%{_datadir}/%{name} -type f -exec chmod 644 {} +
+
+# ...except rclone, which is executed directly. Its location still violates
+# the harbour rules (an ELF binary would have to be /usr/bin/harbour-ferry);
+# this package is built for OpenRepos, where that is allowed.
+chmod 755 %{buildroot}%{_datadir}/%{name}/bin/rclone
+
+# sync_helper.py needs no exec bit: the systemd unit starts it as an
+# argument of /usr/bin/python3, not through its shebang.
 
 desktop-file-install --delete-original       \
   --dir %{buildroot}%{_datadir}/applications             \
