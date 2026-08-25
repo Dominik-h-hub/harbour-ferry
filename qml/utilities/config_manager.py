@@ -17,6 +17,7 @@ import threading
 import backend_manager
 import common
 import credential_store
+import ssh_hostkey
 
 try:
     import pyotherside
@@ -101,6 +102,11 @@ def _rclone_env():
     password = credential_store.get_config_password(create=False)
     if password:
         env["RCLONE_CONFIG_PASS"] = password
+    # Host key verification for SFTP, for every rclone call this app makes.
+    # The remote written by backends/sftp.py carries the same setting; the
+    # environment covers accounts that were saved before it did - without it
+    # rclone would silently accept any host key on those (see ssh_hostkey).
+    env["RCLONE_SFTP_KNOWN_HOSTS_FILE"] = ssh_hostkey.ensure_file()
     return env
 
 
@@ -434,6 +440,17 @@ def _friendly_error(output, fallback=None):
         # Naming the rejected option is what makes a bug report usable.
         return ("Internal error: rclone rejected the command (%s)."
                 " Please report this." % _usage_detail(output))
+    # "knownhosts:" with the colon is the Go library's own error prefix -
+    # the option name known_hosts_file appears in a config dump as well and
+    # must not be read as a failure.
+    if "knownhosts: key mismatch" in lowered:
+        return ("The server's SSH host key has changed - Ferry did not send"
+                " your password. Ask the server's owner whether that was"
+                " intended; if the server was reinstalled, remove the account"
+                " and set it up again.")
+    if "knownhosts:" in lowered:
+        return ("The server's SSH host key is not trusted yet - please open"
+                " the account settings and save the account again.")
     if "no such host" in lowered or "name or service not known" in lowered:
         return "Server not found - please check the server URL."
     if "connection refused" in lowered:
@@ -454,6 +471,40 @@ def _friendly_error(output, fallback=None):
         # counts, and "4013 Bytes" must not be read as an auth failure.
         return "Login failed - please check username, password and OTP."
     return fallback or _GENERIC_ERROR
+
+
+def _verify_host_key(params):
+    """Check the SSH host key of the server the account points at.
+
+    Returns (ok, message, detail) for the step list. Trust on first use: the
+    first key seen is stored and its fingerprint reported, so the user can
+    compare it with the server's own. A key that does not match the stored
+    one stops the setup - that is what an intercepted connection looks like,
+    and it must not be waved through.
+    """
+    host = params.get("host")
+    port = params.get("port") or ssh_hostkey.DEFAULT_PORT
+    result = ssh_hostkey.check_host(host, port)
+    state = result["state"]
+    if state == "trusted":
+        return True, "", "known key %s" % result["fingerprint"]
+    if state == "new":
+        ssh_hostkey.trust(host, port, result["key_type"], result["key"])
+        return True, "", ("%s %s - trusted from now on. Please compare it with"
+                          " the fingerprint of your server."
+                          % (result["key_type"], result["fingerprint"]))
+    if state == "changed":
+        return (False,
+                "The server's SSH host key has changed - not connecting",
+                "expected %s, the server offered %s. Either the server was"
+                " reinstalled, or someone is intercepting the connection."
+                " If the change is genuine, remove the account and set it up"
+                " again." % (result["stored_fingerprint"],
+                             result["fingerprint"]))
+    return (False, "The server's SSH host key could not be checked",
+            "%s - the account was not saved, because without the host key"
+            " the password would go to an unverified server."
+            % result.get("error", "the server did not answer"))
 
 
 def _reset_local_state(reason):
@@ -561,6 +612,16 @@ def setup_and_test(backend_id, values):
                            "", steps)
         steps.append({"title": "Check input", "ok": True, "detail": "complete"})
 
+        if backend.BACKEND.get("verify_host_key"):
+            # Before anything is written: an unverified server must not cost
+            # the user the account that is currently stored.
+            _status("Checking the SSH host key...")
+            ok, message, detail = _verify_host_key(params)
+            steps.append({"title": "Verify SSH host key", "ok": ok,
+                          "detail": detail})
+            if not ok:
+                return _result(False, message, detail, steps)
+
         if switching:
             _status("Switching backend...")
             rc, out = _run_rclone(["config", "delete", REMOTE_NAME], timeout=30)
@@ -623,6 +684,8 @@ def delete_account():
             os.remove(path)
             removed.append(path)
     credential_store.delete_config_password()
+    # The trusted SSH host keys belong to the account that is going away.
+    ssh_hostkey.forget_all()
     invalidate_config_cache()
     pairs = _reset_local_state("account removed")
     log("account deleted (removed: %s, %d sync pair(s))"

@@ -108,6 +108,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/secrets_client.py \
     qml/utilities/backend_manager.py \
     qml/utilities/hostport.py \
+    qml/utilities/ssh_hostkey.py \
     qml/utilities/config_manager.py \
     qml/utilities/remote_browser.py \
     qml/utilities/diagnostics.py \

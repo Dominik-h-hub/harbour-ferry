@@ -11,9 +11,16 @@
 # mandatory for a new account (AccountPage.qml, canAccept), so a key-file
 # login could not be saved without changing the form itself.
 #
+# The server's SSH host key is verified against Ferry's own known_hosts file
+# (ssh_hostkey.py): without it rclone accepts whatever key it is offered, and
+# the password would go to anyone able to answer on that address. The file is
+# named in the remote's configuration below and, for accounts written before
+# this existed, in the environment of every rclone call (config_manager).
+#
 # SPDX-License-Identifier: Apache-2.0
 
 import hostport
+import ssh_hostkey
 
 BACKEND = {
     "id": "sftp",
@@ -29,6 +36,9 @@ BACKEND = {
     # precision and without needing shell access on the server. bisync
     # therefore gets --conflict-resolve newer.
     "supports_modtime": True,
+    # The account setup checks the SSH host key before it saves anything -
+    # see config_manager._verify_host_key.
+    "verify_host_key": True,
     # An SFTP root holds plain folders, no library concept.
     "terms": {"key": "folder", "one": "Folder", "many": "Folders"},
     # The account form in the UI is generated from these fields.
@@ -69,6 +79,8 @@ def build_rclone_config(values):
         "host": host,
         "port": str(port),
         "user": (values.get("user") or "").strip(),
+        # Without this rclone trusts any host key it is presented with.
+        "known_hosts_file": ssh_hostkey.ensure_file(),
         # Ferry's account identity - ignored by rclone itself.
         "url": hostport.join(_SCHEME, host, port),
     }

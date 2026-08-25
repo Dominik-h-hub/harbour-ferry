@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD041 -->
 <p align="center">
     <a href="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml"><img alt="GitHub Action" src="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml/badge.svg"></a>
-    <a href="https://hosted.weblate.org/projects/harbour-ferry/"><img alt="Crowdin" src="https://hosted.weblate.org/widget/harbour-ferry/svg-badge.svg?native=1"></a>    
+    <a href="https://hosted.weblate.org/projects/harbour-ferry/"><img alt="Crowdin" src="https://hosted.weblate.org/widget/harbour-ferry/svg-badge.svg?native=1"></a>
 <br>
     <img alt="Logo" src="icons/172x172/harbour-ferry.png" width="100">
     <br>
@@ -53,7 +53,10 @@ protocols themselves:
   checksums over FTP either - a changed file of identical size is not
   recognised as changed.
 - **SFTP** logs in with username and password (key files are not supported
-  yet) and does not verify the server's SSH host key.
+  yet). The server's SSH host key is verified: the key seen while
+  setting the account up is stored and its fingerprint shown, so it can
+  be compared with the server's own, and a server that later presents a
+  different key is refused instead of being given the password.
 
 ## Supported Backends
 
