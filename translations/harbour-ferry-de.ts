@@ -219,6 +219,18 @@
         <source>Internal error - see log</source>
         <translation>Interner Fehler - siehe Log</translation>
     </message>
+    <message>
+        <source>System files</source>
+        <translation>Systemdateien</translation>
+    </message>
+    <message>
+        <source>Hide hidden files</source>
+        <translation>Versteckte Dateien ausblenden</translation>
+    </message>
+    <message>
+        <source>Show hidden files</source>
+        <translation>Versteckte Dateien anzeigen</translation>
+    </message>
 </context>
 <context>
     <name>ImageViewerPage</name>

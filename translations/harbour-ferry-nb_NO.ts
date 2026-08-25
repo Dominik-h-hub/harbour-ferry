@@ -231,42 +231,58 @@
 <context>
     <name>FileBrowserPage</name>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="64"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
         <source>Select files</source>
         <translation>Velg filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="66"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
+        <source>System files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
         <source>Choose a folder</source>
         <translation>Velg en mappe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="67"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="79"/>
         <source>%1 selected</source>
         <translation>%1 valgt</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="68"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="80"/>
         <source>Local files</source>
         <translation>Lokale filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Add selection (%1)</source>
         <translation>Legg til utvalg (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
         <source>Select this folder</source>
         <translation>Velg denne mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <source>Hide hidden files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <source>Show hidden files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="116"/>
         <source>Empty folder</source>
         <translation>Tom mappe</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="207"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="232"/>
         <source>Internal error - see log</source>
         <translation>Intern feil – se loggen</translation>
     </message>

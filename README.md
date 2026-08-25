@@ -30,7 +30,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Currently implemented backends**: **Seafile**, **Nextcloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
-- **file browser for uploads** — all file types, multi-select
+- **file browser for uploads and sync pairs** — every folder below home, the SD card and the file system root; hidden files on demand, all file types, multi-select
 - **Background sync via systemd user timer**: every 5 / 15 / 30 minutes, ... — or manual only
 - **Network rule**: Wi-Fi only or Wi-Fi and mobile data; runs are skipped when offline
 - **Safety limit against mass deletion**: a run that wants to delete unusually much is aborted and waits for your explicit confirmation ("Force sync")

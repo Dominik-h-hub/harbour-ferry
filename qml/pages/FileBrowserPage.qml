@@ -1,7 +1,8 @@
 /*
  * Ferry - own local file browser.
- * All file types are selectable; the visible area is restricted to the
- * standard user folders and removable media (overview at the root).
+ * All file types are selectable. The overview lists the home folders, the
+ * removable media and the file system root; hidden entries appear on demand
+ * (pull-down).
  *
  * Modes:
  *  - "files":  multi-selection of files (upload), accept via pulley
@@ -24,6 +25,11 @@ Page {
     property string localPath: ""
     property string mode: "files"
     property var selectionStore: ({ paths: [] })
+    // Shared with every level of the stack, like the selection: the switch
+    // is about the browser, not about one folder, so going back must not
+    // land on a page that still hides what the deeper one showed.
+    property var viewState: ({ showHidden: false })
+    property bool showHidden: false
     property var onSelected: null
     property bool loading: false
     property string errorMessage: ""
@@ -47,9 +53,14 @@ Page {
     }
 
     onStatusChanged: {
-        // Selection may have changed on a deeper level.
+        // Selection and the hidden-files switch may have changed on a
+        // deeper level; both are shared across the whole stack.
         if (status === PageStatus.Active) {
             refreshSelCount();
+            if (page.showHidden !== page.viewState.showHidden) {
+                page.showHidden = page.viewState.showHidden;
+                python.reload();
+            }
         }
     }
 
@@ -62,14 +73,14 @@ Page {
 
         header: PageHeader {
             title: page.localPath === "" ? qsTr("Select files")
-                                         : page.localPath.split("/").pop()
+                 : (page.localPath === "/" ? qsTr("System files")
+                                           : page.localPath.split("/").pop())
             description: page.mode === "folder" ? qsTr("Choose a folder")
                        : (page.selCount > 0 ? qsTr("%1 selected").arg(page.selCount)
                                             : qsTr("Local files"))
         }
 
         PullDownMenu {
-            visible: page.mode === "files" || (page.mode === "folder" && page.localPath !== "")
             MenuItem {
                 visible: page.mode === "files"
                 text: qsTr("Add selection (%1)").arg(page.selCount)
@@ -87,6 +98,15 @@ Page {
                     if (page.onSelected) {
                         page.onSelected([page.localPath]);
                     }
+                }
+            }
+            MenuItem {
+                text: page.showHidden ? qsTr("Hide hidden files")
+                                      : qsTr("Show hidden files")
+                onClicked: {
+                    page.showHidden = !page.showHidden;
+                    page.viewState.showHidden = page.showHidden;
+                    python.reload();
                 }
             }
         }
@@ -116,7 +136,9 @@ Page {
                 anchors.rightMargin: Theme.horizontalPageMargin
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.verticalCenterOffset: (!is_dir && size >= 0) ? -Theme.paddingMedium : 0
-                text: name
+                // Only the file system root has a name of Ferry's own making,
+                // and that one belongs into the user's language.
+                text: special === "system" ? qsTr("System files") : name
                 truncationMode: TruncationMode.Fade
                 color: listItem.highlighted || selected ? Theme.highlightColor
                                                         : Theme.primaryColor
@@ -146,6 +168,8 @@ Page {
                         localPath: path,
                         mode: page.mode,
                         selectionStore: page.selectionStore,
+                        viewState: page.viewState,
+                        showHidden: page.showHidden,
                         onSelected: page.onSelected
                     });
                 } else if (page.mode === "file") {
@@ -188,9 +212,10 @@ Page {
                 }
             };
             if (page.localPath === "") {
-                call('file_browser.list_roots', [], handler);
+                call('file_browser.list_roots', [page.showHidden], handler);
             } else {
-                call('file_browser.list_dir', [page.localPath], handler);
+                call('file_browser.list_dir',
+                     [page.localPath, page.showHidden], handler);
             }
         }
 
