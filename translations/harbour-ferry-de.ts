@@ -25,7 +25,7 @@
     </message>
     <message>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Bei 2FA hat der Server ein Anmeldetoken ausgegeben; das Passwort selbst wird nicht gespeichert. Geben Sie es nur zur erneuten Authentifizierung erneut ein.</translation>
+        <translation>Bei 2FA hat der Server einen Login-Token ausgestellt; das Passwort selbst wird nicht gespeichert. Nur zur erneuten Anmeldung wieder eingeben.</translation>
     </message>
     <message>
         <source>Account removed</source>
