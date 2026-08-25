@@ -8,7 +8,7 @@ Name:       harbour-ferry
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    File sync client for Sailfish OS
 Version:    0.3
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    Apache-2.0
 URL:        https://github.com/Dominik-h-hub/harbour-ferry
@@ -38,6 +38,26 @@ Ferry is a native file sync client for Sailfish OS using rclone as the
 transfer and sync engine. Browse your libraries, upload and download
 files, and keep local folders in sync - two-way or upload only, manually
 or on a schedule.
+
+%if 0%{?_chum}
+Title: Ferry Sync (Cloud File Sync)
+Type: desktop-application
+DeveloperName: DominikH
+Categories:
+ - Utility
+ - Network
+Custom:
+  Repo: https://github.com/Dominik-h-hub/harbour-ferry
+PackageIcon: https://github.com/Dominik-h-hub/harbour-ferry/raw/main/icons/172x172/harbour-ferry.png
+Screenshots:
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/local-sync.png
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/remote-sync.png
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/new-syncpair.png
+Links:
+  Homepage: https://github.com/Dominik-h-hub/harbour-ferry
+  Help: https://forum.sailfishos.org/t/ferry-sync-cloud-file-sync/32278
+  Bugtracker: https://github.com/Dominik-h-hub/harbour-ferry/issues
+%endif
 
 
 %prep

@@ -1,0 +1,24 @@
+<services>
+  <!--
+    Reference copy of the _service file used for the OBS package in
+    SailfishOS:Chum. Upload it unchanged to the package
+
+      harbour-ferry   -> builds rpm/harbour-ferry.spec
+
+    tar_git derives Version and Release from the newest version-like tag
+    reachable from <branch> and rewrites the Version:/Release: lines of the
+    spec before building: v0.3-1-release -> Version 0.3, Release 1.
+    Bump <revision> to the new tag for every release.
+
+    Note on size: the repository carries one rclone binary per architecture
+    (rclone-binaries/, ~216 MB in total), all of which end up in the source
+    tarball OBS keeps per revision. The built RPM stays small - qmake installs
+    only the binary matching QT_ARCH (see harbour-ferry.pro) and rpm
+    compresses it to roughly 19 MB.
+  -->
+  <service name="tar_git">
+    <param name="url">https://github.com/Dominik-h-hub/harbour-ferry.git</param>
+    <param name="branch">main</param>
+    <param name="revision">v0.3-1-release</param>
+  </service>
+</services>
