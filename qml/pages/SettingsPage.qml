@@ -227,7 +227,7 @@ Dialog {
             ListItem {
                 contentHeight: Theme.itemSizeMedium
 
-                onClicked: Qt.openUrlExternally("https://github.com/Dominik-h-hub/harbour-ferry/tree/main/translations")
+                onClicked: Qt.openUrlExternally("https://hosted.weblate.org/projects/harbour-ferry/")
 
                 Label {
                     anchors.left: parent.left

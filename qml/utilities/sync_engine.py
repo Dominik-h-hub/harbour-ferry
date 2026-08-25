@@ -11,6 +11,8 @@
 #     --max-delete 50
 #   "push"   - one-way rclone copy local -> remote. copy never deletes on
 #     the destination, so none of the bisync safety machinery applies.
+#     Backends without modtimes need a second rclone pass to see changes
+#     that keep the file size - see _push_passes().
 # Single-file pairs sync the parent folder with an include filter (bisync
 # only - push always covers a whole folder).
 # Runs are strictly serial. Logs go to per-pair files.
@@ -25,6 +27,7 @@ import re
 import shutil
 import subprocess
 import threading
+import time
 
 try:
     import fcntl
@@ -62,6 +65,11 @@ _lock_fd = None
 _lock_depth = 0
 
 BUSY_REASON = "another sync run is already in progress"
+
+# Slack added to the catch-up window of a one-way pair (see _push_passes).
+# The device clock can drift between two runs, so the window starts a few
+# minutes before the last verified run rather than exactly at it.
+CATCHUP_MARGIN = 300
 
 
 class _RunLockBusy(Exception):
@@ -267,6 +275,46 @@ def _prepare_filters(pair):
     return path, content_hash, filters_changed
 
 
+def _push_passes(pair, args):
+    """The rclone runs of a one-way pair, in the order they have to happen.
+
+    A backend with modtimes needs one: rclone's default comparison (size and
+    modification time) sees every change a backup has to carry.
+
+    Without modtimes it needs two. Seafile has neither modtimes nor hashes,
+    FTP has modtimes only where the server supports MFMT - all rclone can
+    compare there is the file size, so an edit that leaves the byte length
+    unchanged would never be uploaded: the backup would silently keep the old
+    content while the run reports success. The local side does have modtimes,
+    and the changes rclone cannot see are exactly the files touched since the
+    last verified run - those go up first and unconditionally
+    (--ignore-times), which leaves the new and size-changed files to the size
+    pass. First is deliberate: afterwards the sizes match, so the second pass
+    does not send the same file again.
+    """
+    if _modtime_supported():
+        return [args]
+    size_pass = args + ["--size-only"]
+    catchup = args + ["--ignore-times"]
+    if not pair.get("last_run"):
+        # Nothing has been uploaded yet - the size pass sends the whole
+        # folder anyway, and re-sending it right after would be pointless.
+        log("backend without modtimes - first run, comparing by size")
+        return [size_pass]
+    try:
+        age = int(time.time() - float(pair["last_verified"])) + CATCHUP_MARGIN
+    except (KeyError, TypeError, ValueError):
+        # A pair last synced by a version that only compared sizes: what sits
+        # on the remote side cannot be trusted, so verify all of it once.
+        log("backend without modtimes and no verified run - re-uploading the"
+            " whole folder once")
+        return [catchup, size_pass]
+    age = max(age, CATCHUP_MARGIN)
+    log("backend without modtimes - re-uploading files changed in the last"
+        " %ds, then comparing by size" % age)
+    return [catchup + ["--max-age", "%ds" % age], size_pass]
+
+
 def _classify_failure(output, remote_path="", allow_resync=True):
     # A locked library is not a broken sync - the run never had a chance.
     # This also registers the library, so the next run is refused up front.
@@ -383,6 +431,7 @@ def _run_pair_locked(pair, force):
             args.append("--force")
             log("running with --force (single run only)")
         os.makedirs(_workdir(), exist_ok=True)
+        passes = [args]
     else:
         # One-way upload. copy (not sync) is deliberate: it never deletes on
         # the remote side, which is what a backup pair promises. That also
@@ -396,33 +445,38 @@ def _run_pair_locked(pair, force):
         args = ["copy", local_dir, remote_target,
                 "-v", "--stats", "0", "--stats-log-level", "NOTICE",
                 "--filter-from", filters_path]
-        if not _modtime_supported():
-            # rclone's default compares size and modification time. Where the
-            # backend has no usable modtimes (Seafile has none, FTP depends on
-            # the server) that comparison would re-upload the whole folder on
-            # every run, so fall back to the size comparison bisync uses.
-            args.append("--size-only")
-            log("backend without modtimes - comparing by size only")
+        passes = _push_passes(pair, args)
 
     os.makedirs(_logs_dir(), exist_ok=True)
     _rotate_log(pair_id)
 
+    started = time.time()
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     try:
-        cmd, env = config_manager.build_rclone_command(args)
+        commands = [config_manager.build_rclone_command(a) for a in passes]
     except RuntimeError as e:
         return _finish_run(pair_id, now, False, str(e), {"needs_resync": True})
 
+    rc = 0
     try:
         with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
-            # The remote target may carry the library key - never write it.
-            log_file.write("# ferry sync run %s\n# %s\n"
-                           % (now, common.mask_secrets(" ".join(args))))
-            log_file.flush()
-            proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
-                                  stderr=subprocess.STDOUT,
-                                  timeout=RUN_TIMEOUT, env=env)
-        rc = proc.returncode
+            log_file.write("# ferry sync run %s\n" % now)
+            for pass_args, (cmd, env) in zip(passes, commands):
+                # The remote target may carry the library key - never write it.
+                log_file.write("# %s\n"
+                               % common.mask_secrets(" ".join(pass_args)))
+                log_file.flush()
+                # RUN_TIMEOUT is the budget of the whole run: two passes must
+                # not be able to hold the run lock for twice as long.
+                left = RUN_TIMEOUT - (time.time() - started)
+                proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
+                                      stderr=subprocess.STDOUT,
+                                      timeout=max(left, 1), env=env)
+                rc = proc.returncode
+                if rc != 0:
+                    # The run is reported as failed either way, and a second
+                    # pass on a broken connection only costs time.
+                    break
     except subprocess.TimeoutExpired:
         return _finish_run(pair_id, now, False, "Sync timed out", {})
     except Exception as e:
@@ -450,6 +504,12 @@ def _run_pair_locked(pair, force):
                 notify.send("Ferry: sync conflict",
                             "%s - please review" % names)
                 return _finish_run(pair_id, now, True, message, extra)
+        else:
+            # Everything local is on the remote side as of this moment, so
+            # the next catch-up pass only has to look at what changed after
+            # it. The run's start, not its end: a file written while rclone
+            # was already listing may have been missed.
+            extra["last_verified"] = int(started)
         return _finish_run(pair_id, now, True, "OK", extra)
 
     kind, message = _classify_failure(output, pair["remote"],

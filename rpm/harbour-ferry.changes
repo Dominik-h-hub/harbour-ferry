@@ -14,6 +14,8 @@
 - ADDED: FTP / SFTP backend support
 - ADDED: About section to settings page
 - ADDED: OneWay sync mode (Push) for backup purposes
+- FIX: size and moditmes are now correctly used for backends which supports them
+- ADDED: Translations are now managed via Weblate
 
 * Thu Aug 20 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.2-2
 - FIX: missing german translation parts

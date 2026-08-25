@@ -1,7 +1,8 @@
 <!-- markdownlint-disable MD041 -->
 <p align="center">
     <a href="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml"><img alt="GitHub Action" src="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml/badge.svg"></a>
-    <br>
+    <a href="https://hosted.weblate.org/projects/harbour-ferry/"><img alt="Crowdin" src="https://hosted.weblate.org/widget/harbour-ferry/svg-badge.svg?native=1"></a>    
+<br>
     <img alt="Logo" src="icons/172x172/harbour-ferry.png" width="100">
     <br>
     <b>Ferry Sync for Sailfish OS</b><br>
@@ -36,7 +37,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Global exclude patterns**, editable line by line (`*.tmp`, `.thumbnails/**`, …)
 - **Per-run sync logs** viewable in the app, plus a permanent **diagnostics page** for support cases
 - **Cover action** "Sync now" with status at a glance
-- **Translations**: EN, DE, NO
+- **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
 
@@ -94,32 +95,9 @@ features, translations or documentation.
 
 ## Localization
 
-All language/regional translations are managed here [translations/*](translations/)
-in the GitHub repository.
-If you want to contribute translations, please submit them as pull requests
-against the `translations/harbour-ferry-{language-code}.ts` files directly.
+All language/regional translations are managed via [hosted.weblate.org](https://hosted.weblate.org/projects/harbour-ferry/)
 
-- Go to folder translations.
-- If there is a file with your language code, click on it and select the edit icon
-- If not:
-  - Click on harbour-ferry.ts file
-  - Select copy icon (Copy raw file)
-  - Go back, click Add file -> Create new file
-  - Enter harbour-ferry-xx.ts replacing xx with your language code as the name. For example, de for german
-  - Paste the copied file in the new file's contents
-- replace:
-
-  ```xml
-  <source>Save</source>
-  <translation type="unfinished"></translation>
-  ```
-
-  with the correct translation for your language (remove "type="unfinished" and add the translation in between the <translation> tags). For example, for german:
-
-  ```xml
-  <source>Save</source>
-  <translation>Speichern</translation>
-  ```
+If you want to contribute or create a new translations, please submit them via Weblate and don't submit them as pull requests.
 
 Thanks for your consideration and contribution!
 

@@ -6,7 +6,9 @@
 #   id, type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
 #   path; for "file" the file itself), remote (remote directory path),
 #   paused, needs_resync, filters_hash, last_run (ISO), last_ok
-#   (bool|None), last_message.
+#   (bool|None), last_message, last_verified (unix time of the last
+#   successful "push" run; sync_engine._push_passes() re-uploads what
+#   changed locally after it).
 #
 # SPDX-License-Identifier: Apache-2.0
 
