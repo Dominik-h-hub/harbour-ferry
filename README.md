@@ -1,7 +1,8 @@
 <!-- markdownlint-disable MD041 -->
 <p align="center">
     <a href="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml"><img alt="GitHub Action" src="https://github.com/Dominik-h-hub/harbour-ferry/actions/workflows/build.yaml/badge.svg"></a>
-    <br>
+    <a href="https://hosted.weblate.org/projects/harbour-ferry/"><img alt="Crowdin" src="https://hosted.weblate.org/widget/harbour-ferry/svg-badge.svg?native=1"></a>
+<br>
     <img alt="Logo" src="icons/172x172/harbour-ferry.png" width="100">
     <br>
     <b>Ferry Sync for Sailfish OS</b><br>
@@ -24,20 +25,39 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 ## Features
 
-- **Currently implemented backends**: **Seafile** and **Nextcloud**
+- **Two-way folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
+- **Upload only (one-way)** (`rclone copy`) per sync pair — pushes a local folder to the remote and never deletes anything there; for camera or document backups
+- **Currently implemented backends**: **Seafile**, **Nextcloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
-- **file browser for uploads** — all file types, multi-select
-- **Bidirectional folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
+- **file browser for uploads and sync pairs** — every folder below home, the SD card and the file system root; hidden files on demand, all file types, multi-select
 - **Background sync via systemd user timer**: every 5 / 15 / 30 minutes, ... — or manual only
 - **Network rule**: Wi-Fi only or Wi-Fi and mobile data; runs are skipped when offline
 - **Safety limit against mass deletion**: a run that wants to delete unusually much is aborted and waits for your explicit confirmation ("Force sync")
 - **Global exclude patterns**, editable line by line (`*.tmp`, `.thumbnails/**`, …)
 - **Per-run sync logs** viewable in the app, plus a permanent **diagnostics page** for support cases
 - **Cover action** "Sync now" with status at a glance
-- **Translations**: EN, DE
+- **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
+
+### Backends: FTP/FTPS and SFTP
+
+Both are set up with a single server field; the port is optional
+(`host:2121`). FTP defaults to encrypted FTPS - put `ftp://` in front of the
+address to fall back to plain, unencrypted FTP. What the protocols cost you:
+
+- **FTP carries no reliable modification times**, and rclone cannot compare
+  checksums over FTP either, so all a two-way pair can compare is the file
+  size: a conflict keeps both versions instead of preferring the newer file,
+  and a change that leaves the size untouched goes unnoticed. Upload-only
+  pairs do not have that gap - they re-upload everything that changed
+  locally since their last successful run, whatever the size says.
+- **SFTP** logs in with username and password; key files are not supported
+  yet. The server's SSH host key is verified: the key seen while
+  setting the account up is stored and its fingerprint shown, so it can
+  be compared with the server's own, and a server that later presents a
+  different key is refused instead of being given the password.
 
 ## Supported Backends
 
@@ -79,32 +99,9 @@ features, translations or documentation.
 
 ## Localization
 
-All language/regional translations are managed here [translations/*](translations/)
-in the GitHub repository.
-If you want to contribute translations, please submit them as pull requests
-against the `translations/harbour-ferry-{language-code}.ts` files directly.
+All language/regional translations are managed via [hosted.weblate.org](https://hosted.weblate.org/projects/harbour-ferry/)
 
-- Go to folder translations.
-- If there is a file with your language code, click on it and select the edit icon
-- If not:
-  - Click on harbour-ferry.ts file
-  - Select copy icon (Copy raw file)
-  - Go back, click Add file -> Create new file
-  - Enter harbour-ferry-xx.ts replacing xx with your language code as the name. For example, de for german
-  - Paste the copied file in the new file's contents
-- replace:
-
-  ```xml
-  <source>Save</source>
-  <translation type="unfinished"></translation>
-  ```
-
-  with the correct translation for your language (remove "type="unfinished" and add the translation in between the <translation> tags). For example, for german:
-
-  ```xml
-  <source>Save</source>
-  <translation>Speichern</translation>
-  ```
+If you want to contribute or create a new translations, please submit them via Weblate and don't submit them as pull requests.
 
 Thanks for your consideration and contribution!
 

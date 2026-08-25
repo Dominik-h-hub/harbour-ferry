@@ -12,3 +12,5 @@ Name=FerrySync
 # secrets storage are impossible sandboxed. rclone, network and config
 # encryption did work sandboxed.
 Sandboxing=Disabled
+OrganizationName=harbour-ferry
+ApplicationName=harbour-ferry

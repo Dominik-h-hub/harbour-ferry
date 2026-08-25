@@ -1,4 +1,4 @@
-# Ferry — native Seafile client for Sailfish OS
+# FerrySync — native file sync client for Sailfish OS
 #
 # NOTICE:
 # Application name defined in TARGET has a corresponding QML filename.
@@ -12,7 +12,7 @@ CONFIG += sailfishapp_qml
 SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 
 CONFIG += sailfishapp_i18n
-TRANSLATIONS += translations/harbour-ferry-de.ts
+TRANSLATIONS += translations/harbour-ferry-*.ts
 
 # App version: rpm/harbour-ferry.spec is the single source of truth. qmake
 # reads Version/Release from it and generates _version.py, which is installed
@@ -101,17 +101,22 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/timer_manager.py \
     qml/utilities/enc_libraries.py \
     translations/harbour-ferry-de.ts \
+    translations/harbour-ferry-nb_NO.ts \
     qml/utilities/common.py \
     qml/utilities/version.py \
     qml/utilities/credential_store.py \
     qml/utilities/secrets_client.py \
     qml/utilities/backend_manager.py \
+    qml/utilities/hostport.py \
+    qml/utilities/ssh_hostkey.py \
     qml/utilities/config_manager.py \
     qml/utilities/remote_browser.py \
     qml/utilities/diagnostics.py \
     qml/utilities/backends/__init__.py \
     qml/utilities/backends/seafile.py \
     qml/utilities/backends/nextcloud.py \
+    qml/utilities/backends/sftp.py \
+    qml/utilities/backends/ftp.py \
     helper/sync_helper.py \
     systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer \

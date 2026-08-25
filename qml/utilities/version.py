@@ -83,5 +83,14 @@ APP_VERSION, APP_RELEASE = _detect()
 APP_VERSION_FULL = APP_VERSION + ("-" + APP_RELEASE if APP_RELEASE else "")
 
 
+def app_version_full():
+    """The version string for the UI ("0.3-1").
+
+    PyOtherSide calls functions, not module attributes, so the QML side
+    needs this wrapper around APP_VERSION_FULL.
+    """
+    return APP_VERSION_FULL
+
+
 if __name__ == "__main__":
     print(APP_VERSION_FULL)

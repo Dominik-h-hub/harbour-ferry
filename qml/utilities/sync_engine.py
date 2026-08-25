@@ -1,14 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Ferry - bisync engine.
-# Runs rclone bisync per sync pair with the flag set from the requirements:
-#   --size-only -v --stats 0 --stats-log-level NOTICE
-#   --conflict-loser num, plus --conflict-resolve newer where the
-#   backend has modification times (see _modtime_supported)
-#   --resync on first run / after state errors
-#   --max-delete 50
-# Single-file pairs sync the parent folder with an include filter.
+# Ferry - sync engine.
+# Two modes per sync pair (see sync_pairs.pair_mode):
+#   "bisync" - rclone bisync with the flag set from the requirements:
+#     --size-only -v --stats 0 --stats-log-level NOTICE
+#     --conflict-loser num, plus --conflict-resolve newer where the
+#     backend has modification times (see _modtime_supported)
+#     --resync on first run / after state errors
+#     --max-delete 50
+#   "push"   - one-way rclone copy local -> remote. copy never deletes on
+#     the destination, so none of the bisync safety machinery applies.
+#     Backends without modtimes need a second rclone pass to see changes
+#     that keep the file size - see _push_passes().
+# Single-file pairs sync the parent folder with an include filter (bisync
+# only - push always covers a whole folder).
 # Runs are strictly serial. Logs go to per-pair files.
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -21,6 +27,7 @@ import re
 import shutil
 import subprocess
 import threading
+import time
 
 try:
     import fcntl
@@ -58,6 +65,11 @@ _lock_fd = None
 _lock_depth = 0
 
 BUSY_REASON = "another sync run is already in progress"
+
+# Slack added to the catch-up window of a one-way pair (see _push_passes).
+# The device clock can drift between two runs, so the window starts a few
+# minutes before the last verified run rather than exactly at it.
+CATCHUP_MARGIN = 300
 
 
 class _RunLockBusy(Exception):
@@ -263,7 +275,47 @@ def _prepare_filters(pair):
     return path, content_hash, filters_changed
 
 
-def _classify_failure(output, remote_path=""):
+def _push_passes(pair, args):
+    """The rclone runs of a one-way pair, in the order they have to happen.
+
+    A backend with modtimes needs one: rclone's default comparison (size and
+    modification time) sees every change a backup has to carry.
+
+    Without modtimes it needs two. Seafile has neither modtimes nor hashes,
+    FTP has modtimes only where the server supports MFMT - all rclone can
+    compare there is the file size, so an edit that leaves the byte length
+    unchanged would never be uploaded: the backup would silently keep the old
+    content while the run reports success. The local side does have modtimes,
+    and the changes rclone cannot see are exactly the files touched since the
+    last verified run - those go up first and unconditionally
+    (--ignore-times), which leaves the new and size-changed files to the size
+    pass. First is deliberate: afterwards the sizes match, so the second pass
+    does not send the same file again.
+    """
+    if _modtime_supported():
+        return [args]
+    size_pass = args + ["--size-only"]
+    catchup = args + ["--ignore-times"]
+    if not pair.get("last_run"):
+        # Nothing has been uploaded yet - the size pass sends the whole
+        # folder anyway, and re-sending it right after would be pointless.
+        log("backend without modtimes - first run, comparing by size")
+        return [size_pass]
+    try:
+        age = int(time.time() - float(pair["last_verified"])) + CATCHUP_MARGIN
+    except (KeyError, TypeError, ValueError):
+        # A pair last synced by a version that only compared sizes: what sits
+        # on the remote side cannot be trusted, so verify all of it once.
+        log("backend without modtimes and no verified run - re-uploading the"
+            " whole folder once")
+        return [catchup, size_pass]
+    age = max(age, CATCHUP_MARGIN)
+    log("backend without modtimes - re-uploading files changed in the last"
+        " %ds, then comparing by size" % age)
+    return [catchup + ["--max-age", "%ds" % age], size_pass]
+
+
+def _classify_failure(output, remote_path="", allow_resync=True):
     # A locked library is not a broken sync - the run never had a chance.
     # This also registers the library, so the next run is refused up front.
     library = enc_libraries.encrypted_library(output, remote_path)
@@ -271,20 +323,24 @@ def _classify_failure(output, remote_path=""):
         return "locked", ("Library %r is encrypted - unlock it in the remote"
                           " browser, then sync again" % library)
     lowered = output.lower()
-    if "--resync" in lowered or "cannot find prior" in lowered \
-            or "prior listing" in lowered or "empty prior" in lowered:
+    if allow_resync and ("--resync" in lowered or "cannot find prior" in lowered
+                         or "prior listing" in lowered
+                         or "empty prior" in lowered):
+        # One-way pairs have no prior listing to repair, so the flag would
+        # only be set and never cleared again.
         return "needs_resync", "Sync state invalid - the next run will resync"
     if "too many deletes" in lowered or "max-delete" in lowered \
             or "safety abort" in lowered:
         return "safety_abort", ("Sync stopped: unusually many changes detected "
                                 "(safety limit). Pair paused - review and sync "
                                 "manually.")
-    return "failed", config_manager.friendly_error(output)
+    return "failed", config_manager.friendly_error(
+        output, "Sync failed - open the log for details")
 
 
 def run_pair(pair_id, force=False, check_network=True):
-    """Run bisync for one pair. Blocking; call from a worker thread or via
-    run_pair_async. Returns the updated pair dict."""
+    """Run one pair in its configured mode. Blocking; call from a worker
+    thread or via run_pair_async. Returns the updated pair dict."""
     pair = sync_pairs.get_pair(pair_id)
     if pair is None:
         return {"ok": False, "message": "Pair not found"}
@@ -315,9 +371,12 @@ def run_pair(pair_id, force=False, check_network=True):
 
 def _run_pair_locked(pair, force):
     pair_id = pair["id"]
+    mode = sync_pairs.pair_mode(pair)
+    two_way = (mode == sync_pairs.MODE_BISYNC)
     _send("sync-status", {"pair": pair_id, "running": True, "message": "Syncing..."})
-    log("=== sync run start: %s (%s) %s <-> %s force=%s ==="
-        % (pair_id, pair["type"], pair["local"], pair["remote"], force))
+    log("=== sync run start: %s (%s %s) %s %s %s force=%s ==="
+        % (pair_id, mode, pair["type"], pair["local"],
+           "<->" if two_way else "->", pair["remote"], force))
 
     # An encrypted library without its key cannot be synced: bisync would
     # spend its retries on errors and leave half a listing behind.
@@ -347,50 +406,77 @@ def _run_pair_locked(pair, force):
         return _finish_run(pair_id,
                            datetime.datetime.now().strftime("%Y-%m-%d %H:%M"),
                            False, str(e), {})
-    resync = bool(pair.get("needs_resync")) or filters_changed
-    if filters_changed:
-        log("filters changed - forcing resync")
-
-    args = ["bisync", remote_target, local_dir,
-            "--size-only", "-v", "--stats", "0", "--stats-log-level", "NOTICE",
-            "--conflict-loser", "num",
-            "--max-delete", str(int(settings_manager.get("max_delete"))),
-            "--workdir", _workdir(),
-            "--filters-file", filters_path]
-    if _modtime_supported():
-        # the newer file wins, the older one stays as a numbered copy.
-        args += ["--conflict-resolve", "newer"]
+    if two_way:
+        resync = bool(pair.get("needs_resync")) or filters_changed
+        if filters_changed:
+            log("filters changed - forcing resync")
+        args = ["bisync", remote_target, local_dir,
+                "--size-only", "-v", "--stats", "0",
+                "--stats-log-level", "NOTICE",
+                "--conflict-loser", "num",
+                "--max-delete", str(int(settings_manager.get("max_delete"))),
+                "--workdir", _workdir(),
+                "--filters-file", filters_path]
+        if _modtime_supported():
+            # the newer file wins, the older one stays as a numbered copy.
+            args += ["--conflict-resolve", "newer"]
+        else:
+            # without modtimes there is no "newer" - both versions are
+            # kept as conflict copies and the user is notified about them below.
+            log("backend without modtimes - conflicts keep both versions")
+        if resync:
+            args.append("--resync")
+            log("running with --resync (first run or recovery)")
+        if force:
+            args.append("--force")
+            log("running with --force (single run only)")
+        os.makedirs(_workdir(), exist_ok=True)
+        passes = [args]
     else:
-        # without modtimes there is no "newer" - both versions are
-        # kept as conflict copies and the user is notified about them below.
-        log("backend without modtimes - conflicts keep both versions")
-    if resync:
-        args.append("--resync")
-        log("running with --resync (first run or recovery)")
-    if force:
-        args.append("--force")
-        log("running with --force (single run only)")
+        # One-way upload. copy (not sync) is deliberate: it never deletes on
+        # the remote side, which is what a backup pair promises. That also
+        # makes the bisync apparatus pointless here - there is no prior
+        # listing (--workdir, --resync), no conflict to resolve and nothing
+        # for --max-delete to guard. A filter change needs no resync either,
+        # only a fresh hash.
+        # --filter-from, not bisync's --filters-file: that flag exists only
+        # on the bisync subcommand, and copy aborts with "unknown flag".
+        # The rule file itself is the same in both cases.
+        args = ["copy", local_dir, remote_target,
+                "-v", "--stats", "0", "--stats-log-level", "NOTICE",
+                "--filter-from", filters_path]
+        passes = _push_passes(pair, args)
 
-    os.makedirs(_workdir(), exist_ok=True)
     os.makedirs(_logs_dir(), exist_ok=True)
     _rotate_log(pair_id)
 
+    started = time.time()
     now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     try:
-        cmd, env = config_manager.build_rclone_command(args)
+        commands = [config_manager.build_rclone_command(a) for a in passes]
     except RuntimeError as e:
         return _finish_run(pair_id, now, False, str(e), {"needs_resync": True})
 
+    rc = 0
     try:
         with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
-            # The remote target may carry the library key - never write it.
-            log_file.write("# ferry sync run %s\n# %s\n"
-                           % (now, common.mask_secrets(" ".join(args))))
-            log_file.flush()
-            proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
-                                  stderr=subprocess.STDOUT,
-                                  timeout=RUN_TIMEOUT, env=env)
-        rc = proc.returncode
+            log_file.write("# ferry sync run %s\n" % now)
+            for pass_args, (cmd, env) in zip(passes, commands):
+                # The remote target may carry the library key - never write it.
+                log_file.write("# %s\n"
+                               % common.mask_secrets(" ".join(pass_args)))
+                log_file.flush()
+                # RUN_TIMEOUT is the budget of the whole run: two passes must
+                # not be able to hold the run lock for twice as long.
+                left = RUN_TIMEOUT - (time.time() - started)
+                proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
+                                      stderr=subprocess.STDOUT,
+                                      timeout=max(left, 1), env=env)
+                rc = proc.returncode
+                if rc != 0:
+                    # The run is reported as failed either way, and a second
+                    # pass on a broken connection only costs time.
+                    break
     except subprocess.TimeoutExpired:
         return _finish_run(pair_id, now, False, "Sync timed out", {})
     except Exception as e:
@@ -398,27 +484,36 @@ def _run_pair_locked(pair, force):
 
     with open(log_path(pair_id), encoding="utf-8", errors="replace") as f:
         output = f.read()
-    log("bisync finished rc=%d, log %d bytes" % (rc, len(output)))
+    log("%s finished rc=%d, log %d bytes" % (args[0], rc, len(output)))
     if rc != 0:
         # Without this the reason lives only in the per-pair log file, and a
         # failed run is just an exit code in the app log.
-        log("bisync said: %s" % output[-900:].replace("\n", " | "))
+        log("%s said: %s" % (args[0], output[-900:].replace("\n", " | ")))
 
     if rc == 0:
-        extra = {"needs_resync": False, "filters_hash": filters_hash}
-        # Detect conflict copies created by --conflict-loser num and
-        # notify the user (action required - review the copies).
-        conflicts = sorted(set(re.findall(r"[^\s'\"]+\.conflict\d*", output)))
-        if conflicts:
-            names = ", ".join(os.path.basename(c) for c in conflicts[:5])
-            message = "OK - %d conflict file(s): %s" % (len(conflicts), names)
-            log("conflicts detected: %s" % names)
-            notify.send("Ferry: sync conflict",
-                        "%s - please review" % names)
-            return _finish_run(pair_id, now, True, message, extra)
+        extra = {"filters_hash": filters_hash}
+        if two_way:
+            extra["needs_resync"] = False
+            # Detect conflict copies created by --conflict-loser num and
+            # notify the user (action required - review the copies).
+            conflicts = sorted(set(re.findall(r"[^\s'\"]+\.conflict\d*", output)))
+            if conflicts:
+                names = ", ".join(os.path.basename(c) for c in conflicts[:5])
+                message = "OK - %d conflict file(s): %s" % (len(conflicts), names)
+                log("conflicts detected: %s" % names)
+                notify.send("Ferry: sync conflict",
+                            "%s - please review" % names)
+                return _finish_run(pair_id, now, True, message, extra)
+        else:
+            # Everything local is on the remote side as of this moment, so
+            # the next catch-up pass only has to look at what changed after
+            # it. The run's start, not its end: a file written while rclone
+            # was already listing may have been missed.
+            extra["last_verified"] = int(started)
         return _finish_run(pair_id, now, True, "OK", extra)
 
-    kind, message = _classify_failure(output, pair["remote"])
+    kind, message = _classify_failure(output, pair["remote"],
+                                      allow_resync=two_way)
     extra = {"filters_hash": filters_hash}
     if kind in ("needs_resync", "locked"):
         # Nothing was written - the next attempt has to start over.

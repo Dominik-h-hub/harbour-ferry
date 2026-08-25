@@ -3,9 +3,12 @@
 #
 # Ferry - sync pair storage.
 # Pairs are kept in a JSON file in the app data directory. Each pair:
-#   id, type ("folder"|"file"), local (absolute path; for "file" the file
-#   itself), remote (remote directory path), paused, needs_resync,
-#   filters_hash, last_run (ISO), last_ok (bool|None), last_message.
+#   id, type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
+#   path; for "file" the file itself), remote (remote directory path),
+#   paused, needs_resync, filters_hash, last_run (ISO), last_ok
+#   (bool|None), last_message, last_verified (unix time of the last
+#   successful "push" run; sync_engine._push_passes() re-uploads what
+#   changed locally after it).
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -23,6 +26,15 @@ except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
 import common
 
 log = common.make_logger("pairs")
+
+# Sync direction. "bisync" is rclone bisync as before, "push" a one-way
+# rclone copy from local to remote that never deletes on the remote side.
+# Pairs written before the mode existed carry no field at all, so readers
+# must go through pair_mode() instead of reading pair["mode"] directly -
+# a missing default would silently turn an old two-way pair into an upload.
+MODE_BISYNC = "bisync"
+MODE_PUSH = "push"
+MODES = (MODE_BISYNC, MODE_PUSH)
 
 _LOCK = threading.Lock()
 
@@ -151,6 +163,12 @@ def get_store():
         return _load()
 
 
+def pair_mode(pair):
+    """The sync direction of a pair; bisync for pairs stored without one."""
+    mode = (pair or {}).get("mode")
+    return mode if mode in MODES else MODE_BISYNC
+
+
 def get_pair(pair_id):
     for pair in list_pairs():
         if pair["id"] == pair_id:
@@ -158,10 +176,14 @@ def get_pair(pair_id):
     return None
 
 
-def add_pair(pair_type, local_path, remote_path):
+def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
+    if mode not in MODES:
+        log("unknown sync mode %r - storing as %s" % (mode, MODE_BISYNC))
+        mode = MODE_BISYNC
     pair = {
         "id": "pair-%d" % int(time.time() * 1000),
         "type": pair_type,
+        "mode": mode,
         "local": local_path,
         "remote": remote_path,
         "paused": False,
@@ -176,8 +198,9 @@ def add_pair(pair_type, local_path, remote_path):
         data["pairs"].append(pair)
         _save(data)
         stored = len(data["pairs"])
-    log("pair added: %s (%s) %s <-> %s (%d pair(s) stored)"
-        % (pair["id"], pair_type, local_path, remote_path, stored))
+    log("pair added: %s (%s %s) %s %s %s (%d pair(s) stored)"
+        % (pair["id"], mode, pair_type, local_path,
+           "<->" if mode == MODE_BISYNC else "->", remote_path, stored))
     return pair
 
 

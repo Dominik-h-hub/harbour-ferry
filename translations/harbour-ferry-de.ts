@@ -219,6 +219,18 @@
         <source>Internal error - see log</source>
         <translation>Interner Fehler - siehe Log</translation>
     </message>
+    <message>
+        <source>System files</source>
+        <translation>Systemdateien</translation>
+    </message>
+    <message>
+        <source>Hide hidden files</source>
+        <translation>Versteckte Dateien ausblenden</translation>
+    </message>
+    <message>
+        <source>Show hidden files</source>
+        <translation>Versteckte Dateien anzeigen</translation>
+    </message>
 </context>
 <context>
     <name>ImageViewerPage</name>
@@ -461,15 +473,15 @@
     </message>
     <message>
         <source>Not configured</source>
-        <translation>Nicht eingerichtet</translation>
+        <translation>nicht konfiguriert</translation>
     </message>
     <message>
         <source>Synchronization</source>
-        <translation>Synchronisation</translation>
+        <translation>Synchronisierung</translation>
     </message>
     <message>
         <source>Background sync</source>
-        <translation>Hintergrund-Synchronisation</translation>
+        <translation>Hintergrund-Synchronisierung</translation>
     </message>
     <message>
         <source>Manual only</source>
@@ -501,19 +513,19 @@
     </message>
     <message>
         <source>Allowed network</source>
-        <translation>Erlaubtes Netzwerk</translation>
+        <translation>Erlaubter Netzwerksync</translation>
     </message>
     <message>
         <source>Wi-Fi only</source>
-        <translation>Nur WLAN</translation>
+        <translation>Nur Wi-Fi</translation>
     </message>
     <message>
         <source>Wi-Fi and mobile data</source>
-        <translation>WLAN und mobile Daten</translation>
+        <translation>Wi-Fi und mobile Daten</translation>
     </message>
     <message>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Sicherheitslimit: max. Löschungen pro Lauf</translation>
+        <translation>Sicherheitslimit: max. Löschungen pro Durchlauf</translation>
     </message>
     <message>
         <source>Exclude patterns</source>
@@ -521,11 +533,11 @@
     </message>
     <message>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Ein Muster pro Zeile; gilt für alle Ordner-Syncs. Änderungen lösen einen vollständigen Resync jedes Paares aus.</translation>
+        <translation>Ein Pattern pro Zeile; gilt für alle Ordnersynchronisierungen. Änderungen lösen eine vollständige Resynchronisierung jedes Paares aus.</translation>
     </message>
     <message>
         <source>e.g. *.tmp</source>
-        <translation>z. B. *.tmp</translation>
+        <translation>z.B. *.tmp</translation>
     </message>
     <message>
         <source>Support</source>
@@ -534,6 +546,26 @@
     <message>
         <source>Diagnostics</source>
         <translation>Diagnose</translation>
+    </message>
+    <message>
+        <source>About</source>
+        <translation>Über</translation>
+    </message>
+    <message>
+        <source>App Version</source>
+        <translation>App-Version</translation>
+    </message>
+    <message>
+        <source>Report a bug or request a feature</source>
+        <translation>Fehler melden / Feature anfordern</translation>
+    </message>
+    <message>
+        <source>Add a translation</source>
+        <translation>Übersetzung hinzufügen</translation>
+    </message>
+    <message>
+        <source>Code Repository</source>
+        <translation>Code-Repository</translation>
     </message>
     <message>
         <source>Next run: %1</source>
@@ -616,6 +648,22 @@
     <message>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation>Hinweis: Bei einer Synchronisation mit einer verschlüsselten Bibliothek (z. B. Seafile) muss die Bibliothek zuerst unter dem Remote-Tab entsperrt werden.</translation>
+    </message>
+    <message>
+        <source>Mode</source>
+        <translation>Modus</translation>
+    </message>
+    <message>
+        <source>Two-way sync</source>
+        <translation>Bidirektionaler Sync</translation>
+    </message>
+    <message>
+        <source>Upload only (one-way)</source>
+        <translation>Nur Hochladen (einseitig)</translation>
+    </message>
+    <message>
+        <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
+        <translation>Neue und geänderte Dateien werden in den Remote-Ordner hochgeladen. Ferry löscht niemals etwas auf der Remote-Seite. Änderungen auf der Remote-Seite werden nicht zurückkopiert.</translation>
     </message>
 </context>
 <context>
