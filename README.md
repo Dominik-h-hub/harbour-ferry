@@ -45,15 +45,16 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 Both are set up with a single server field; the port is optional
 (`host:2121`). FTP defaults to encrypted FTPS - put `ftp://` in front of the
-address to fall back to plain, unencrypted FTP. Two limits come from the
-protocols themselves:
+address to fall back to plain, unencrypted FTP. What the protocols cost you:
 
-- **FTP carries no reliable modification times**, so a sync conflict keeps
-  both versions instead of preferring the newer file. rclone cannot compare
-  checksums over FTP either - a changed file of identical size is not
-  recognised as changed.
-- **SFTP** logs in with username and password (key files are not supported
-  yet). The server's SSH host key is verified: the key seen while
+- **FTP carries no reliable modification times**, and rclone cannot compare
+  checksums over FTP either, so all a two-way pair can compare is the file
+  size: a conflict keeps both versions instead of preferring the newer file,
+  and a change that leaves the size untouched goes unnoticed. Upload-only
+  pairs do not have that gap - they re-upload everything that changed
+  locally since their last successful run, whatever the size says.
+- **SFTP** logs in with username and password; key files are not supported
+  yet. The server's SSH host key is verified: the key seen while
   setting the account up is stored and its fingerprint shown, so it can
   be compared with the server's own, and a server that later presents a
   different key is refused instead of being given the password.
