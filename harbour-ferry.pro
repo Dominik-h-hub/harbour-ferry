@@ -14,23 +14,37 @@ SAILFISHAPP_ICONS = 86x86 108x108 128x128 172x172
 CONFIG += sailfishapp_i18n
 TRANSLATIONS += translations/harbour-ferry-*.ts
 
-# App version: rpm/harbour-ferry.spec is the single source of truth. qmake
-# reads Version/Release from it and generates _version.py, which is installed
-# next to the other Python modules and read back by qml/utilities/version.py.
-# Nothing in the Python code carries a hardcoded version.
+# App version: rpm/harbour-ferry.spec is the single source of truth, but it
+# reaches qmake in two different ways. RPM builds pass Version and Release in
+# on the command line (see %build in the spec) - the only way that works on
+# OBS, where tar_git strips rpm/ out of the source tarball and the build
+# service rewrites Release for its own bookkeeping. Builds that call qmake
+# directly (Qt Creator, plain sfdk qmake) read the spec themselves.
+# Either way the values end up in the generated _version.py, which is
+# installed next to the other Python modules and read back by
+# qml/utilities/version.py. Nothing in the Python code carries a hardcoded
+# version.
 SPEC_FILE = $$PWD/rpm/harbour-ferry.spec
-SPEC_LINES = $$cat($$SPEC_FILE, lines)
-SPEC_VERSION_LINE = $$find(SPEC_LINES, "^Version:")
-SPEC_RELEASE_LINE = $$find(SPEC_LINES, "^Release:")
-# The second replace drops the leading spaces of the spec column layout and
-# the CR of its CRLF line endings - only version characters survive.
-APP_VERSION = $$replace(SPEC_VERSION_LINE, "^Version:", "")
-APP_VERSION = $$replace(APP_VERSION, "[^0-9A-Za-z._+-]", "")
-APP_RELEASE = $$replace(SPEC_RELEASE_LINE, "^Release:", "")
-APP_RELEASE = $$replace(APP_RELEASE, "[^0-9A-Za-z._+-]", "")
-isEmpty(APP_VERSION): error("Could not read 'Version:' from $$SPEC_FILE")
-isEmpty(APP_RELEASE): error("Could not read 'Release:' from $$SPEC_FILE")
-message(Ferry version from spec: $${APP_VERSION}-$${APP_RELEASE})
+isEmpty(APP_VERSION)|isEmpty(APP_RELEASE) {
+    # Both values always come from the same source: a half-filled command line
+    # falls back to the spec for both rather than mixing them.
+    SPEC_LINES = $$cat($$SPEC_FILE, lines)
+    SPEC_VERSION_LINE = $$find(SPEC_LINES, "^Version:")
+    SPEC_RELEASE_LINE = $$find(SPEC_LINES, "^Release:")
+    # The second replace drops the leading spaces of the spec column layout and
+    # the CR of its CRLF line endings - only version characters survive.
+    APP_VERSION = $$replace(SPEC_VERSION_LINE, "^Version:", "")
+    APP_VERSION = $$replace(APP_VERSION, "[^0-9A-Za-z._+-]", "")
+    APP_RELEASE = $$replace(SPEC_RELEASE_LINE, "^Release:", "")
+    APP_RELEASE = $$replace(APP_RELEASE, "[^0-9A-Za-z._+-]", "")
+    isEmpty(APP_VERSION): error("No APP_VERSION given on the qmake command line and no 'Version:' readable from $$SPEC_FILE")
+    isEmpty(APP_RELEASE): error("No APP_RELEASE given on the qmake command line and no 'Release:' readable from $$SPEC_FILE")
+    message(Ferry version read from spec: $${APP_VERSION}-$${APP_RELEASE})
+} else {
+    APP_VERSION = $$replace(APP_VERSION, "[^0-9A-Za-z._+-]", "")
+    APP_RELEASE = $$replace(APP_RELEASE, "[^0-9A-Za-z._+-]", "")
+    message(Ferry version from qmake arguments: $${APP_VERSION}-$${APP_RELEASE})
+}
 
 GENERATED_VERSION_PY = $$OUT_PWD/_version.py
 VERSION_PY_CONTENT = \
