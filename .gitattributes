@@ -1,0 +1,13 @@
+# Line endings: the repository stores LF, and the working tree gets LF on every
+# platform. Everything here is built and run on Linux (Sailfish SDK, OBS) or
+# rewritten by Linux tools that only ever emit LF - lupdate regenerates the .ts
+# files on every build, Weblate commits them, the spec and the systemd units are
+# read by rpm and systemd. Without this file a Windows checkout with
+# core.autocrlf=true gets CRLF, those tools write LF back, and the files show up
+# as modified with an empty diff.
+* text=auto eol=lf
+
+# Never let any conversion near these.
+*.png binary
+*.svg text eol=lf
+rclone-binaries/* binary

@@ -64,7 +64,10 @@ Links:
 %setup -q -n %{name}-%{version}
 
 %build
-%qtc_qmake5
+# Version and Release travel to qmake on the command line: on OBS the source
+# tarball produced by tar_git contains no rpm/ directory, so harbour-ferry.pro
+# cannot read this file, and the build service rewrites Release anyway.
+%qtc_qmake5 APP_VERSION=%{version} APP_RELEASE=%{release}
 
 %qtc_make %{?_smp_mflags}
 
