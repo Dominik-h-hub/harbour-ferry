@@ -615,22 +615,22 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
         <source>Every 15 minutes</source>
-        <translation type="unfinished">Hvert 15. minutt</translation>
+        <translation>Hvert 15. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="103"/>
         <source>Every 30 minutes</source>
-        <translation type="unfinished">Hvert 30. minutt</translation>
+        <translation>Hvert 30. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="104"/>
         <source>Every hour</source>
-        <translation type="unfinished">Hver time</translation>
+        <translation>Hver time</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="105"/>
         <source>Every 6 hours</source>
-        <translation type="unfinished">Hver 6. time</translation>
+        <translation>Hver 6. time</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="106"/>
@@ -660,12 +660,12 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
         <source>Exclude patterns</source>
-        <translation type="unfinished">Ekskluderingsmønstre</translation>
+        <translation>Ekskluderingsmønstre</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation type="unfinished">Ett mønster per linje; gjelder for alle mappesynkroniseringer. Endringer utløser en fullstendig ny synkronisering av hvert par.</translation>
+        <translation>Ett mønster per linje; gjelder for alle mappesynkroniseringer. Endringer utløser en fullstendig ny synkronisering av hvert par.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
@@ -680,7 +680,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="162"/>
         <source>Diagnostics</source>
-        <translation type="unfinished">Diagnostikk</translation>
+        <translation>Diagnostikk</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="169"/>
@@ -705,7 +705,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="264"/>
         <source>Code Repository</source>
-        <translation type="unfinished">Koderepo</translation>
+        <translation>Koderepo</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
