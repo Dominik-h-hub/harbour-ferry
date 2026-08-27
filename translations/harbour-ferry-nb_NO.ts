@@ -655,7 +655,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikkerhetsgrense: maks. slettinger per kjøring</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
@@ -670,7 +670,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
         <source>e.g. *.tmp</source>
-        <translation type="unfinished"></translation>
+        <translation>f.eks. *.tmp</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="152"/>
