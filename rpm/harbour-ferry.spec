@@ -6,7 +6,7 @@ Name:       harbour-ferry
 %{!?qtc_qmake5:%define qtc_qmake5 %qmake5}
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
-Summary:    File sync client for Sailfish OS
+Summary:    File sync and cloud browser app for Sailfish OS
 Version:    0.3
 Release:    2
 Group:      Qt/Qt
