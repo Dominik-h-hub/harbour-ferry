@@ -239,7 +239,7 @@
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
         <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
         <source>System files</source>
-        <translation type="unfinished">Systemfiler</translation>
+        <translation>Systemfiler</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
@@ -610,7 +610,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Every 5 minutes</source>
-        <translation type="unfinished">Hvert 5. minutt</translation>
+        <translation>Hvert 5. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
