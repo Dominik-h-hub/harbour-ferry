@@ -319,8 +319,8 @@
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="138"/>
-        <source>Sync paused: unusually many changes - long-press the pair and choose 'Force sync' to confirm</source>
-        <translation>Sync angehalten: ungewöhnlich viele Änderungen - Paar lange drücken und 'Sync erzwingen' wählen</translation>
+        <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
+        <translation>Sync angehalten: ungewöhnlich viele Änderungen - Paar lange drücken und &apos;Sync erzwingen&apos; wählen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="147"/>
@@ -520,8 +520,8 @@
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
-        <source>Enter the password for '%1'. It is stored securely for future access.</source>
-        <translation>Passwort für '%1' eingeben. Es wird für zukünftige Zugriffe sicher gespeichert.</translation>
+        <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
+        <translation>Passwort für &apos;%1&apos; eingeben. Es wird für zukünftige Zugriffe sicher gespeichert.</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
@@ -791,7 +791,7 @@
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
-        <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).</source>
+        <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
         <translation>Die erste Synchronisation führt einen vollständigen Resync beider Seiten aus. Hinweis: Änderungen, die die Dateigröße unverändert lassen, werden nicht erkannt (Größenvergleich).</translation>
     </message>
     <message>
