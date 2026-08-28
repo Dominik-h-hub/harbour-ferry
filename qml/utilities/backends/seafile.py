@@ -4,6 +4,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from backends import INSECURE_TLS_FIELD
+
 BACKEND = {
     "id": "seafile",
     "display_name": "Seafile",
@@ -31,6 +33,7 @@ BACKEND = {
          "type": "switch", "secret": False, "default": False, "local": True},
         {"key": "otp", "label": "One-time code (OTP)", "type": "otp",
          "secret": True, "local": True, "visible_if": "use_2fa"},
+        dict(INSECURE_TLS_FIELD),
     ],
 }
 

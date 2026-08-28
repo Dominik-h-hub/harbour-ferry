@@ -8,6 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Fri Aug 28 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.4-1
+- ADDED: PCLOUD Backend support
+- FIXED: Accept self-signed certificates for backends
+
 * Tue Aug 25 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.3-2
 - ADDED: Preparation for CHUM release of app.
 - ADDED: Swedisch translation provided by @eson57

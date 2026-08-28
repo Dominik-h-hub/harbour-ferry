@@ -44,12 +44,12 @@
         <translation>Endring av tjener eller bruker betyr en annen konto: alle synkroniseringspar og den lagrede synkroniseringstilstanden slettes fordi de tilhører den forrige.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="269"/>
+        <location filename="../qml/pages/AccountPage.qml" line="281"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
         <translation>Konto fjernet, %1 synkroniseringspar slettet</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="270"/>
+        <location filename="../qml/pages/AccountPage.qml" line="282"/>
         <source>Account removed</source>
         <translation>Konto fjernet</translation>
     </message>
@@ -77,87 +77,97 @@
         <translation>Backend</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="50"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
+        <source>Certificate check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="55"/>
+        <source>Off - any certificate is accepted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="57"/>
         <source>Two-factor auth</source>
         <translation>Tofaktorautentisering</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="58"/>
         <source>On</source>
         <translation>På</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="58"/>
         <source>Off</source>
         <translation>Av</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="52"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="59"/>
         <source>Configuration</source>
         <translation>Oppsett</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="53"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="60"/>
         <source>Encrypted</source>
         <translation>Kryptert</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="61"/>
         <source>Not encrypted</source>
         <translation>Ikke kryptert</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="92"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="99"/>
         <source>Test again</source>
         <translation>Test på nytt</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="97"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="104"/>
         <source>Edit account</source>
         <translation>Rediger konto</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="108"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="115"/>
         <source>Connection test</source>
         <translation>Tilkoblingstest</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="109"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="116"/>
         <source>Running...</source>
         <translation>Kjører...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="117"/>
         <source>Successful</source>
         <translation>Vellykket</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="117"/>
         <source>Failed</source>
         <translation>Feilet</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="148"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="155"/>
         <source>Account</source>
         <translation>Konto</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="177"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="184"/>
         <source>Test details</source>
         <translation>Testdetaljer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="221"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="228"/>
         <source>Error output</source>
         <translation>Feilmeldinger (stderr)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="293"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="300"/>
         <source>Testing connection...</source>
         <translation>Tester tilkobling...</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="321"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="328"/>
         <source>Python error - see log</source>
         <translation>Python-feil – se loggen</translation>
     </message>

@@ -17,6 +17,7 @@ import threading
 import backend_manager
 import common
 import credential_store
+import settings_manager
 import ssh_hostkey
 
 try:
@@ -107,6 +108,18 @@ def _rclone_env():
     # environment covers accounts that were saved before it did - without it
     # rclone would silently accept any host key on those (see ssh_hostkey).
     env["RCLONE_SFTP_KNOWN_HOSTS_FILE"] = ssh_hostkey.ensure_file()
+    if settings_manager.get("insecure_tls"):
+        # The "Accept self-signed certificates" switch of the account form.
+        # Set here rather than written into the remote: this function feeds
+        # every rclone process the app starts - the config commands, the
+        # remote browser, the sync engine and the background helper - so the
+        # switch cannot be in effect for the setup and missing for a sync.
+        # Two variables, because they are two different checks: the global
+        # one covers everything speaking HTTPS (webdav/Nextcloud, Seafile),
+        # while rclone's ftp backend builds its own TLS configuration and
+        # only reads its own option.
+        env["RCLONE_NO_CHECK_CERTIFICATE"] = "true"
+        env["RCLONE_FTP_NO_CHECK_CERTIFICATE"] = "true"
     return env
 
 
@@ -289,6 +302,9 @@ def get_account_summary():
         "url": remote.get("url", ""),
         "user": remote.get("user", ""),
         "use_2fa": str(remote.get("2fa", "")).lower() == "true",
+        # Not part of the remote (see _rclone_env); read back from the app
+        # settings so the account form shows the state it is actually in.
+        "insecure_tls": bool(settings_manager.get("insecure_tls")),
         "encrypted": encrypted,
     }
     # Which backend module the remote belongs to (the account form preselects
@@ -305,10 +321,10 @@ def get_account_summary():
         # that the summary was asked for; repeating the whole account here
         # only fills the log.
         log("account summary: backend=%s vendor=%s id=%s url=%s user=%s"
-            " 2fa=%s encrypted=%s"
+            " 2fa=%s encrypted=%s insecure_tls=%s"
             % (summary["backend"], summary["vendor"], summary["backend_id"],
                summary["url"], summary["user"], summary["use_2fa"],
-               summary["encrypted"]))
+               summary["encrypted"], summary["insecure_tls"]))
     return summary
 
 
@@ -455,6 +471,15 @@ def _friendly_error(output, fallback=None):
         return "Server not found - please check the server URL."
     if "connection refused" in lowered:
         return "Connection refused - please check the URL and port."
+    if "unknown authority" in lowered or "self-signed" in lowered \
+            or "self signed" in lowered:
+        # The everyday case for a self-hosted server: the certificate is not
+        # signed by a public authority. Naming the switch is the whole point
+        # of the message - without it the error is a dead end.
+        return ("The server's certificate is not signed by a known authority."
+                " If this is your own server with a self-signed certificate,"
+                " switch on \"Accept self-signed certificates\" in the"
+                " account settings.")
     if "certificate" in lowered or "x509" in lowered:
         return "TLS certificate problem - please check the server certificate."
     if "timeout" in lowered or "deadline exceeded" in lowered:
@@ -612,6 +637,21 @@ def setup_and_test(backend_id, values):
                            "", steps)
         steps.append({"title": "Check input", "ok": True, "detail": "complete"})
 
+        # Before the first connection: the seafile state machine already logs
+        # in to fetch its auth token, and the connection test at the end runs
+        # against the same setting - saving it later would test something
+        # other than what the account ends up with. Backends without the
+        # switch (SFTP has no TLS) send no value, which turns it back off:
+        # the setting belongs to the account, and this is another one.
+        insecure_tls = bool(values.get("insecure_tls"))
+        settings_manager.set_setting("insecure_tls", insecure_tls)
+        if insecure_tls:
+            # Only worth a line when it is on - it is the one step here that
+            # gives something up, so it should be visible on the result page.
+            steps.append({"title": "Certificate check", "ok": True,
+                          "detail": "switched off - any certificate is"
+                                    " accepted for this account"})
+
         if backend.BACKEND.get("verify_host_key"):
             # Before anything is written: an unverified server must not cost
             # the user the account that is currently stored.
@@ -686,6 +726,9 @@ def delete_account():
     credential_store.delete_config_password()
     # The trusted SSH host keys belong to the account that is going away.
     ssh_hostkey.forget_all()
+    # So does a switched off certificate check: the next account must not
+    # silently inherit it.
+    settings_manager.set_setting("insecure_tls", False)
     invalidate_config_cache()
     pairs = _reset_local_state("account removed")
     log("account deleted (removed: %s, %d sync pair(s))"

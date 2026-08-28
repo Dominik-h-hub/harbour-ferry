@@ -7,6 +7,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from backends import INSECURE_TLS_FIELD
+
 try:
     from urllib.parse import quote
 except ImportError:  # pragma: no cover - Python 2 is not a target
@@ -41,6 +43,7 @@ BACKEND = {
         {"key": "user", "label": "Username", "type": "text", "secret": False},
         {"key": "pass", "label": "Password or app password (with 2FA)",
          "type": "password", "secret": True},
+        dict(INSECURE_TLS_FIELD),
     ],
 }
 

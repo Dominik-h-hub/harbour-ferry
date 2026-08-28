@@ -197,6 +197,9 @@ Dialog {
         id: switchComponent
         TextSwitch {
             text: field.label
+            // Backends may explain a switch (the certificate one warns about
+            // what it gives up); TextSwitch hides an empty description.
+            description: field.description || ""
             checked: !!page.formValues[field.key]
             onCheckedChanged: page.setValue(field.key, checked)
         }
@@ -229,6 +232,15 @@ Dialog {
                         page.storedUrl = String(values["url"] || "");
                         page.storedUser = String(values["user"] || "");
                         values["use_2fa"] = summary.use_2fa;
+                        // Not stored in the remote but in the app settings -
+                        // without this it would read "off" on every edit and
+                        // saving would quietly turn the check back on. Only
+                        // for a backend that offers the switch: values was
+                        // prefilled from fieldDefs above, so the key is the
+                        // test for whether this backend has TLS at all.
+                        if (values.hasOwnProperty("insecure_tls")) {
+                            values["insecure_tls"] = summary.insecure_tls;
+                        }
                         call('config_manager.get_account_password', [],
                              function(info) {
                             values["pass"] = info.password;

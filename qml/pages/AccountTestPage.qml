@@ -47,6 +47,13 @@ Page {
                    value: account.display_url || account.url});
         rows.push({label: qsTr("User"), value: account.user || ""});
         rows.push({label: qsTr("Backend"), value: account.backend || ""});
+        if (account.insecure_tls) {
+            // A row only for the switched off check: verifying the
+            // certificate is the normal case and needs no mention, not
+            // verifying it does.
+            rows.push({label: qsTr("Certificate check"),
+                       value: qsTr("Off - any certificate is accepted")});
+        }
         rows.push({label: qsTr("Two-factor auth"),
                    value: account.use_2fa ? qsTr("On") : qsTr("Off")});
         rows.push({label: qsTr("Configuration"),

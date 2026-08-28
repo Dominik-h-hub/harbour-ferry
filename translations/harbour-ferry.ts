@@ -44,12 +44,12 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="269"/>
+        <location filename="../qml/pages/AccountPage.qml" line="281"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="270"/>
+        <location filename="../qml/pages/AccountPage.qml" line="282"/>
         <source>Account removed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -77,87 +77,97 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="50"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
+        <source>Certificate check</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="55"/>
+        <source>Off - any certificate is accepted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/AccountTestPage.qml" line="57"/>
         <source>Two-factor auth</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="58"/>
         <source>On</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="58"/>
         <source>Off</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="52"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="59"/>
         <source>Configuration</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="53"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="60"/>
         <source>Encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="61"/>
         <source>Not encrypted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="92"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="99"/>
         <source>Test again</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="97"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="104"/>
         <source>Edit account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="108"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="115"/>
         <source>Connection test</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="109"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="116"/>
         <source>Running...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="117"/>
         <source>Successful</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="117"/>
         <source>Failed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="148"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="155"/>
         <source>Account</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="177"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="184"/>
         <source>Test details</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="221"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="228"/>
         <source>Error output</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="293"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="300"/>
         <source>Testing connection...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountTestPage.qml" line="321"/>
+        <location filename="../qml/pages/AccountTestPage.qml" line="328"/>
         <source>Python error - see log</source>
         <translation type="unfinished"></translation>
     </message>
