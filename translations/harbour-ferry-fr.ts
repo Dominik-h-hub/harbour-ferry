@@ -205,7 +205,7 @@
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport: </translation>
+        <translation>Rapport&#xa0;: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
@@ -310,7 +310,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="66"/>
         <source>Remote</source>
-        <translation type="unfinished">A distance</translation>
+        <translation>Distant</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="128"/>
@@ -690,7 +690,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="181"/>
         <source>App Version</source>
-        <translation>App Version</translation>
+        <translation>Version Application</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="208"/>
@@ -885,42 +885,42 @@
     <message>
         <location filename="../qml/pages/Terminology.qml" line="50"/>
         <source>Pull down to create a library</source>
-        <translation type="unfinished"></translation>
+        <translation>Dérouler pour créer une bibliothèque</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="51"/>
         <source>Pull down to create a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dérouler pour créer un dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="53"/>
         <source>The account has no libraries yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce compte n&apos;a pas encore de bibliothèques.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="54"/>
         <source>The account has no folders yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ce compte n&apos;a pas encore de dossiers.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="56"/>
         <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;enregistrement déclenche un test de connexion et affiche une page de résultat détaillé et les bibliothèques trouvées.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="57"/>
         <source>Saving runs the connection test and opens a result page with the details and the folders found.</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;enregistrement déclenche un test de connexion et affiche une page de résultat détaillé et les dossiers trouvées.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Libraries (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bibliothèques (%1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Folders (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossiers (%1)</translation>
     </message>
 </context>
 <context>
@@ -928,27 +928,27 @@
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="28"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrer</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditer</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="58"/>
         <source>File content</source>
-        <translation type="unfinished"></translation>
+        <translation>Contenu du fichier</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="82"/>
         <source>Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistré</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne - voir log</translation>
     </message>
 </context>
 <context>
@@ -956,12 +956,12 @@
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="32"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditer</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne - voir log</translation>
     </message>
 </context>
 </TS>
