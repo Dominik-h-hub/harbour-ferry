@@ -6,52 +6,52 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="77"/>
         <source>Remove account</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="79"/>
         <source>Removing account and all sync pairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer compte et toutes les synchronisations appairées</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="91"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Sauvegarder</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="92"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="97"/>
         <source>Backend</source>
-        <translation type="unfinished"></translation>
+        <translation>Backend</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="135"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avec A2F le serveur a émis un jeton de login;le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="145"/>
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Basculer sur un autre backend écrase le compte enregistré et supprime les synchros appairées car les adresses deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="155"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte&#xa0;: toutes les synchros appairées et les statuts de synchronisations enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="269"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Compte supprimé, %1 appairage(s) de synchronisation supprimé(s)</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="270"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Compte supprimé</translation>
     </message>
 </context>
 <context>
@@ -59,107 +59,107 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="21"/>
         <source>Saving account...</source>
-        <translation type="unfinished"></translation>
+        <translation>Enregistrement du compte...</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="46"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveur</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="48"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilisateur</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="49"/>
         <source>Backend</source>
-        <translation type="unfinished"></translation>
+        <translation>Backend</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="50"/>
         <source>Two-factor auth</source>
-        <translation type="unfinished"></translation>
+        <translation>A2F</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>On</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="51"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Off</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="52"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuration</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="53"/>
         <source>Encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Chiffré</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
         <source>Not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Non chiffré</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="92"/>
         <source>Test again</source>
-        <translation type="unfinished"></translation>
+        <translation>Retester</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="97"/>
         <source>Edit account</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditer compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="108"/>
         <source>Connection test</source>
-        <translation type="unfinished"></translation>
+        <translation>Test connexion</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="109"/>
         <source>Running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Exécution...</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
         <source>Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Succès</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="110"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="148"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="177"/>
         <source>Test details</source>
-        <translation type="unfinished"></translation>
+        <translation>Détails test</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="221"/>
         <source>Error output</source>
-        <translation type="unfinished"></translation>
+        <translation>Sortie erreur</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="293"/>
         <source>Testing connection...</source>
-        <translation type="unfinished"></translation>
+        <translation>Test connexion...</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="321"/>
         <source>Python error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur Python - voir log</translation>
     </message>
 </context>
 <context>
@@ -167,22 +167,22 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="60"/>
         <source>Syncing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisation...</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="61"/>
         <source>No sync pairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas d’appairages de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="62"/>
         <source>%1 failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Échec %1</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="63"/>
         <source>%1 pairs OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Appairages OK %1</translation>
     </message>
 </context>
 <context>
@@ -190,42 +190,42 @@
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="32"/>
         <source>Diagnostics</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagnostiques</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="33"/>
         <source>validation tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Tests de validation</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="41"/>
         <source>Tests running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Tests exécution...</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation type="unfinished"></translation>
+        <translation>Rapport: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
         <source>Run all tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Exécuter tous les tests</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="68"/>
         <source>No results yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore de résultats</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="69"/>
         <source>Pull down to run all tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Dérouler pour exécuter tous les tests</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
         <source>Python error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur Python - voir log</translation>
     </message>
 </context>
 <context>
@@ -233,58 +233,58 @@
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
         <source>Select files</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner fichiers</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
         <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
         <source>System files</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichiers système</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Choisir un dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="79"/>
         <source>%1 selected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 sélectionné(s)</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="80"/>
         <source>Local files</source>
-        <translation type="unfinished"></translation>
+        <translation>fichiers locaux</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Add selection (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ajouter la sélection (%1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
         <source>Select this folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner ce dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
         <source>Hide hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Masquer fichiers cachés</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Show hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Afficher fichiers cachés</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="116"/>
         <source>Empty folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier vide</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="232"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne - voir log</translation>
     </message>
 </context>
 <context>
@@ -292,12 +292,12 @@
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="37"/>
         <source>Image could not be displayed</source>
-        <translation type="unfinished"></translation>
+        <translation>L&apos;image ne peut être affichée</translation>
     </message>
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="85"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur interne - voir log</translation>
     </message>
 </context>
 <context>
@@ -305,134 +305,134 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="66"/>
         <source>Local syncs</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisations locales</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="66"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">A distance</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="128"/>
         <source>Last sync skipped: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dernière(s) synchronisation ignorée(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="138"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Pause synchronisation&#xa0;: modifications inhabituelles - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="147"/>
         <source>Last full sync: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Dernière(s) synchronisation(s) complète(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="155"/>
         <location filename="../qml/pages/MainPage.qml" line="304"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Paramètres</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="159"/>
         <source>New sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouvel appairage de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="163"/>
         <source>Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchroniser maintenant</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="171"/>
         <source>No sync pairs yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas encore d&apos;appairages de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>Pull down to create one</source>
-        <translation type="unfinished"></translation>
+        <translation>Dérouler pour en créer un</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="181"/>
         <source>Deleting sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer appairage de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="251"/>
         <source>Sync this pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchroniser cet appairage</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="257"/>
         <source>Force sync (confirm big change)</source>
-        <translation type="unfinished"></translation>
+        <translation>Forcer synchronisation (confirmer changement important)</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="263"/>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Reprendre</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="267"/>
         <source>Show log</source>
-        <translation type="unfinished"></translation>
+        <translation>Voir log</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="272"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Éditer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="277"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="317"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualiser</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier les paramètres du compte et dérouler pour actualiser</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="378"/>
         <location filename="../qml/pages/MainPage.qml" line="379"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="426"/>
         <source>Paused - long-press to resume</source>
-        <translation type="unfinished"></translation>
+        <translation>En pause - Appui long pour reprendre</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="481"/>
         <source>Synchronization started</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisation démarrée</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="497"/>
         <source>Sync pair deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Appairage synchronisation supprimé</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="514"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bienvenue&#x202f;! Merci de paramétrer votre compte pour commencer.</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="535"/>
         <source>Sync skipped: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisation ignorée&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="537"/>
         <source>Synchronization finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Synchronisation terminée</translation>
     </message>
 </context>
 <context>
@@ -440,43 +440,43 @@
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
         <source>Unlock library</source>
-        <translation type="unfinished"></translation>
+        <translation>Déverrouiller bibliothèque</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
         <source>Remote storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Stockage distant</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
         <source>Select this folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner ce dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
         <source>Upload here</source>
-        <translation type="unfinished"></translation>
+        <translation>Télécharger ici</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Actualiser</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
         <source>Empty folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Dossier vide</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérifier les paramètres du compte et dérouler pour actualiser</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
