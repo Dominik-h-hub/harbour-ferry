@@ -6,27 +6,27 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="77"/>
         <source>Remove account</source>
-        <translation type="unfinished"></translation>
+        <translation>Account verwijderen</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="79"/>
         <source>Removing account and all sync pairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Account en alle synchronisatieparen worden verwijderd</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="91"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="92"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Account</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="97"/>
         <source>Backend</source>
-        <translation type="unfinished"></translation>
+        <translation>Back-end</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="135"/>
