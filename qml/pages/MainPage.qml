@@ -23,6 +23,7 @@ Page {
     property bool anySafetyAbort: false
     property bool remoteLoaded: false
     property string remoteError: ""
+    property int remoteFileCount: 0
     // Separate from "loading": that one is shared with the sync pair
     // refresh, which runs right before the remote listing when the page
     // becomes active again.
@@ -324,7 +325,10 @@ Page {
             text: page.remoteError.length > 0 ? page.remoteError : terms.none
             hintText: page.remoteError.length > 0
                       ? qsTr("Check the account settings, then pull down to refresh")
-                      : terms.createHint
+                      : (page.remoteFileCount > 0
+                         ? qsTr("The connection works: the remote root holds %n file(s), which are not listed here",
+                                "", page.remoteFileCount)
+                         : terms.createHint)
         }
 
         delegate: BackgroundItem {
@@ -444,17 +448,26 @@ Page {
             page.remoteLoading = true;
             page.loading = true;
             page.remoteError = "";
+            page.remoteFileCount = 0;
             call('remote_browser.list_dir', [""], function(result) {
                 page.remoteLoading = false;
                 page.loading = false;
                 page.remoteLoaded = true;
                 libsModel.clear();
                 if (result.ok) {
+                    var files = 0;
                     for (var i = 0; i < result.entries.length; i++) {
                         if (result.entries[i].is_dir) {
                             libsModel.append(result.entries[i]);
+                        } else {
+                            files++;
                         }
                     }
+                    // Files in the root are not listed here. Counting them
+                    // lets the placeholder tell "the account works, the root
+                    // just has no folders" apart from "nothing came back",
+                    // which look identical on an empty screen.
+                    page.remoteFileCount = files;
                 } else {
                     page.remoteError = result.message;
                 }

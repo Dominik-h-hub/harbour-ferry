@@ -170,15 +170,36 @@ Dialog {
 
     Component {
         id: textComponent
-        TextField {
+        Column {
             width: column.width
-            label: field.label
-            placeholderText: field.placeholder || field.label
-            text: page.formValues[field.key] || ""
-            inputMethodHints: field.type === "url"
-                              ? Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
-                              : Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
-            onTextChanged: page.setValue(field.key, text)
+
+            TextField {
+                width: parent.width
+                label: field.label
+                placeholderText: field.placeholder || field.label
+                text: page.formValues[field.key] || ""
+                inputMethodHints: field.type === "url"
+                                  ? Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
+                                  : Qt.ImhNoAutoUppercase | Qt.ImhNoPredictiveText
+                onTextChanged: page.setValue(field.key, text)
+            }
+
+            // A backend may explain what belongs in the field - the WebDAV
+            // backends accept a server address as well as a full endpoint
+            // URL, and which one is needed is not something a label can say.
+            // Nothing is drawn for a field without a description.
+            Label {
+                x: Theme.horizontalPageMargin
+                width: parent.width - 2 * Theme.horizontalPageMargin
+                visible: !!field.description
+                // Text.Wrap, not WordWrap: a description may carry an
+                // example URL, which has no spaces to break at and would
+                // otherwise run off the screen.
+                wrapMode: Text.Wrap
+                font.pixelSize: Theme.fontSizeExtraSmall
+                color: Theme.secondaryHighlightColor
+                text: field.description || ""
+            }
         }
     }
 
@@ -223,10 +244,14 @@ Dialog {
                             && summary.backend_id === backendId) {
                         page.accountExists = true;
                         page.switchesBackend = false;
-                        // The short server URL, not the stored one: it is
-                        // what the user typed, and the backend rebuilds its
-                        // technical form when saving.
-                        values["url"] = summary.display_url || summary.url;
+                        // form_url, not display_url: whatever stands here is
+                        // saved again, so it has to rebuild the stored URL
+                        // exactly. It is the short server address wherever
+                        // the backend can rebuild it from that, and the full
+                        // technical URL where it cannot (a Nextcloud path
+                        // whose user ID came from the server). display_url
+                        // shortens unconditionally and is for reading only.
+                        values["url"] = summary.form_url || summary.url;
                         values["user"] = summary.user;
                         // Baseline for the "another account" warning above.
                         page.storedUrl = String(values["url"] || "");

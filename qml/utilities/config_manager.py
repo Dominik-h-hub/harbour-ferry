@@ -313,9 +313,14 @@ def get_account_summary():
         summary["backend"], summary["vendor"])
     # Backend wording for the UI: Seafile has libraries, Nextcloud folders.
     summary["terms"] = backend_manager.get_terms(summary["backend_id"])
-    # Short server URL for the UI; "url" keeps the value rclone works with.
+    # Three shapes of the same address, and they are not interchangeable:
+    # "url" is what rclone works with, "display_url" is the short read-only
+    # form for an overview line, and "form_url" is what the account form may
+    # show - it is saved again, so it has to rebuild "url" exactly.
     summary["display_url"] = backend_manager.display_url(
         summary["backend_id"], summary["url"])
+    summary["form_url"] = backend_manager.form_url(
+        summary["backend_id"], summary["url"], summary["user"])
     if not cached:
         # On a cache hit the "served from cache" line above already records
         # that the summary was asked for; repeating the whole account here
@@ -385,23 +390,59 @@ def test_connection_background():
     return True
 
 
-def _terms(terms=None):
+def _backend_info(backend_info=None):
+    """The BACKEND dict of the account, as far as it can be determined."""
+    if backend_info:
+        return backend_info
+    summary = get_account_summary() or {}
+    backend_id = summary.get("backend_id") or ""
+    if not backend_id:
+        return {}
+    try:
+        return backend_manager.get_backend(backend_id).BACKEND
+    except Exception as e:
+        log("backend definition for %r unavailable: %s" % (backend_id, e))
+        return {}
+
+
+def _terms(backend_info=None):
     """Container wording for the messages ("libraries" / "folders")."""
+    terms = (backend_info or {}).get("terms")
     if terms:
         return terms
     summary = get_account_summary() or {}
     return summary.get("terms") or backend_manager.DEFAULT_TERMS
 
 
-def test_connection(terms=None):
+# rclone answers a WebDAV path that does not exist on the server with a plain
+# "directory not found" - the same wording it uses for a folder that really
+# was deleted, which is why the message alone cannot say what to do. At the
+# root of a freshly saved account it always means the account's own path is
+# wrong, and only the backend knows what that path is made of
+# (BACKEND["not_found_hint"]).
+_NOT_FOUND_MARKERS = ("directory not found", "object not found",
+                      "couldn't find the directory")
+
+
+def _looks_like_missing_path(output):
+    lowered = output.lower()
+    return any(marker in lowered for marker in _NOT_FOUND_MARKERS) \
+        or bool(re.search(r"\b404\b", lowered))
+
+
+def test_connection(backend_info=None):
     """List the remote root.
 
     Returns (ok, message, details, entries) where entries is the list of
     top-level directory names on the remote - libraries on Seafile, plain
-    folders elsewhere. The wording of the message follows the backend
-    definition (BACKEND["terms"]).
+    folders elsewhere. The wording of the message and the hint for a missing
+    path follow the backend definition (BACKEND["terms"],
+    BACKEND["not_found_hint"]); without one they are looked up from the
+    stored account.
     """
     _status("Testing connection...")
+    info = _backend_info(backend_info)
+    words = _terms(info)
     rc, out = _run_rclone(["lsjson", "%s:" % REMOTE_NAME], timeout=90)
     if rc == 0:
         # lsjson prints a JSON array, possibly preceded by NOTICE log lines.
@@ -413,12 +454,31 @@ def test_connection(terms=None):
             except ValueError:
                 log("could not parse lsjson output")
         names = [e.get("Name", "?") for e in listing if e.get("IsDir")]
-        words = _terms(terms)
+        files = len(listing) - len(names)
         label = words["one"] if len(names) == 1 else words["many"]
         message = "Connection OK - %d %s found" % (len(names), label.lower())
         details = ", ".join(names[:8]) + (" ..." if len(names) > 8 else "")
-        log("connection test OK: %d entries (%s)" % (len(names), details))
+        if not names:
+            # The main page lists folders only, so an empty folder list looks
+            # exactly like a broken connection while the test says "OK". Say
+            # what was actually seen instead of leaving the user with a green
+            # tick and an empty screen.
+            message = "Connection OK - no %s found" % words["many"].lower()
+            details = ("the account works, but there are no %s in the remote"
+                       " root" % words["many"].lower())
+            if files:
+                details += (" - it holds %d file(s), and files in the root"
+                            " are not shown in the %s list"
+                            % (files, words["one"].lower()))
+        log("connection test OK: %d %s, %d file(s) (%s)"
+            % (len(names), words["many"].lower(), files, details))
         return True, message, details, names
+    if _looks_like_missing_path(out) and info.get("not_found_hint"):
+        # Authentication got through and the server answered - what failed is
+        # the path, so the login advice below would send the user the wrong
+        # way. Checked before _friendly_error() for that reason.
+        log("connection test FAILED (rc=%d): path not found: %s" % (rc, out[:500]))
+        return False, info["not_found_hint"], out[:600], []
     friendly = _friendly_error(out, "Connection test failed - see details.")
     log("connection test FAILED (rc=%d): %s" % (rc, out[:500]))
     return False, friendly, out[:600], []
@@ -433,6 +493,15 @@ _USAGE_MARKERS = ("unknown flag", "unknown shorthand flag", "unknown command",
                   "flag needs an argument", "invalid argument for")
 
 _GENERIC_ERROR = "The operation failed - see the details."
+
+# rclone's own wording when it cannot open rclone.conf. All three variants
+# ("...and not allowed to ask for password", "...incorrect password", "using
+# RCLONE_CONFIG_PASS env password, unable to decrypt configuration") carry
+# the word "password", which is why they have to be recognised before the
+# login rule in _friendly_error().
+_CONFIG_MARKERS = ("decrypt configuration", "decrypt config",
+                   "didn't find section in config file",
+                   "failed to load config")
 
 
 def _usage_detail(output):
@@ -456,6 +525,16 @@ def _friendly_error(output, fallback=None):
         # Naming the rejected option is what makes a bug report usable.
         return ("Internal error: rclone rejected the command (%s)."
                 " Please report this." % _usage_detail(output))
+    if any(marker in lowered for marker in _CONFIG_MARKERS):
+        # rclone could not read its own configuration - it never reached the
+        # server at all. Every one of these messages contains the word
+        # "password" ("unable to decrypt configuration and not allowed to ask
+        # for password"), so without this check they end up as "Login failed"
+        # below and send the user to change credentials that are fine.
+        return ("The stored configuration could not be read - its password is"
+                " not accessible in this session. Start the app from the"
+                " launcher; if that does not help, remove the account and set"
+                " it up again.")
     # "knownhosts:" with the colon is the Go library's own error prefix -
     # the option name known_hosts_file appears in a config dump as well and
     # must not be read as a failure.
@@ -489,6 +568,15 @@ def _friendly_error(output, fallback=None):
         return "Not enough space - the transfer was not completed."
     if "permission denied" in lowered or re.search(r"\b403\b", lowered):
         return "Access denied - the account may not have rights to this folder."
+    if _looks_like_missing_path(output):
+        # The server answered, so the login is not the problem - saying so
+        # keeps this out of the "check your password" dead end below. What
+        # exactly is missing depends on the caller, so the wording stays
+        # neutral here; the connection test replaces it with the backend's
+        # own hint (BACKEND["not_found_hint"]).
+        return ("The folder was not found on the server. It may have been"
+                " renamed or removed - if this is a new account, check the"
+                " server URL in the account settings.")
     if re.search(r"\b401\b", lowered) or "authentication" in lowered \
             or "two-factor" in lowered or "login" in lowered \
             or "password" in lowered:
@@ -563,7 +651,7 @@ def _reset_local_state(reason):
     return pairs
 
 
-def _account_identity(url, user):
+def _account_identity(backend, url, user):
     """The pair that says which account a remote points at.
 
     Compared on the rclone level - the values that end up in rclone.conf -
@@ -572,14 +660,26 @@ def _account_identity(url, user):
     trailing slash is normalised away; anything else is taken literally,
     because the fields are prefilled from the stored account and every edit
     is therefore deliberate.
+
+    A backend whose URL carries more than the address says so itself via an
+    account_identity() function: Nextcloud puts the user ID into the path,
+    and that ID is resolved from the server, so its spelling can change
+    without the account being another one.
     """
+    identity = getattr(backend, "account_identity", None)
+    if identity is not None:
+        try:
+            return identity(url, user)
+        except Exception as e:
+            log("account_identity() of backend %r failed: %s"
+                % (backend.BACKEND.get("id"), e))
     return ((url or "").strip().rstrip("/"), (user or "").strip())
 
 
-def _account_identity_changed(existing, params):
+def _account_identity_changed(backend, existing, params):
     """True when the saved values point at another server or user."""
-    return _account_identity(existing.get("url"), existing.get("user")) \
-        != _account_identity(params.get("url"), params.get("user"))
+    return _account_identity(backend, existing.get("url"), existing.get("user")) \
+        != _account_identity(backend, params.get("url"), params.get("user"))
 
 
 def _account_info():
@@ -597,6 +697,29 @@ def _result(ok, message, details, steps, libraries=None):
     return {"ok": bool(ok), "message": message, "details": details,
             "steps": steps, "libraries": libraries or [],
             "account": _account_info()}
+
+
+def _prepare_account(backend, values, params, insecure_tls):
+    """Run a backend's optional prepare_account() hook.
+
+    The hook may correct the rclone options against the live server before
+    they are written (Nextcloud resolves the user ID for the WebDAV path).
+    Returns (params, step); a backend without the hook, and any failure
+    inside it, leave params untouched - the hook is a correction, never a
+    condition for saving the account.
+    """
+    prepare = getattr(backend, "prepare_account", None)
+    if prepare is None:
+        return params, None
+    _status("Checking the account with the server...")
+    try:
+        prepared, step = prepare(values, params,
+                                 {"insecure_tls": bool(insecure_tls)})
+    except Exception as e:
+        log("prepare_account() of backend %r failed: %s"
+            % (backend.BACKEND.get("id"), e))
+        return params, None
+    return (prepared or params), step
 
 
 def setup_and_test(backend_id, values):
@@ -618,14 +741,6 @@ def setup_and_test(backend_id, values):
         switching = bool(stored_type) \
             and stored_type != backend.BACKEND["rclone_type"]
         update = bool(existing) and not switching
-        # Same backend, but another server or user behind the same remote
-        # name. The local sync state does not notice that by itself, so it
-        # has to go - see the reset below for what would happen otherwise.
-        # bool(url) guards the case where the stored config could not be
-        # read (summary carries only an error): unknown is not changed,
-        # and the pairs must not be dropped over an unreadable config.
-        account_changed = update and bool(existing.get("url")) \
-            and _account_identity_changed(existing, params)
 
         missing = [k for k in ("url", "user") if not params.get(k)]
         if not update and not values.get("pass"):
@@ -651,6 +766,24 @@ def setup_and_test(backend_id, values):
             steps.append({"title": "Certificate check", "ok": True,
                           "detail": "switched off - any certificate is"
                                     " accepted for this account"})
+
+        # Optional backend hook, run against the live server before anything
+        # is written: Nextcloud uses it to replace the login name in the
+        # WebDAV path with the account's real user ID. It comes after the
+        # certificate setting above because it connects, and before the
+        # identity check below because it is allowed to change the URL.
+        params, step = _prepare_account(backend, values, params, insecure_tls)
+        if step:
+            steps.append(step)
+
+        # Same backend, but another server or user behind the same remote
+        # name. The local sync state does not notice that by itself, so it
+        # has to go - see the reset below for what would happen otherwise.
+        # bool(url) guards the case where the stored config could not be
+        # read (summary carries only an error): unknown is not changed,
+        # and the pairs must not be dropped over an unreadable config.
+        account_changed = update and bool(existing.get("url")) \
+            and _account_identity_changed(backend, existing, params)
 
         if backend.BACKEND.get("verify_host_key"):
             # Before anything is written: an unverified server must not cost
@@ -704,8 +837,7 @@ def setup_and_test(backend_id, values):
             return _result(False, "Encrypting the configuration failed",
                            message, steps)
 
-        ok, message, details, libraries = test_connection(
-            backend.BACKEND.get("terms"))
+        ok, message, details, libraries = test_connection(backend.BACKEND)
         steps.append({"title": "Connection test", "ok": ok, "detail": message})
         return _result(ok, message, details, steps, libraries)
     except Exception as e:

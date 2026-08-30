@@ -45,6 +45,14 @@ Page {
         }
         rows.push({label: qsTr("Server"),
                    value: account.display_url || account.url});
+        if (account.url && account.url !== (account.display_url || account.url)) {
+            // The address rclone actually uses. It differs from the line
+            // above wherever a backend stores a technical URL (Nextcloud
+            // keeps the full WebDAV path), and that is exactly the value a
+            // failing connection has to be judged by - without it a bug
+            // report says nothing about where the app was pointed.
+            rows.push({label: qsTr("Full URL"), value: account.url});
+        }
         rows.push({label: qsTr("User"), value: account.user || ""});
         rows.push({label: qsTr("Backend"), value: account.backend || ""});
         if (account.insecure_tls) {
@@ -144,7 +152,10 @@ Page {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 visible: page.finished
-                wrapMode: Text.WordWrap
+                // Text.Wrap, not WordWrap: a backend's hint for a wrong
+                // path names an example URL, which has no spaces to break
+                // at and would otherwise run off the screen.
+                wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeLarge
                 color: page.ok ? page.okColor : page.failColor
                 text: page.message

@@ -11,6 +11,8 @@
 * Fri Aug 28 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.4-1
 - ADDED: PCLOUD Backend support
 - FIXED: Accept self-signed certificates for backends
+- FIXED: Check correct Nextcloud WebDAV url automatically, added some more description for URL configuration.
+- ADDED: Languages FR, NL, SV from weblate
 
 * Tue Aug 25 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.3-2
 - ADDED: Preparation for CHUM release of app.
