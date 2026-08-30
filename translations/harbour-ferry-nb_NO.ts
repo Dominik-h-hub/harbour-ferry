@@ -249,7 +249,7 @@
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
         <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
         <source>System files</source>
-        <translation type="unfinished"></translation>
+        <translation>Systemfiler</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
@@ -279,12 +279,12 @@
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
         <source>Hide hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke vis skjulte filer</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Show hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis skjulte filer</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="116"/>
@@ -580,152 +580,152 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="45"/>
         <source>Save</source>
-        <translation type="unfinished">Lagre</translation>
+        <translation>Lagre</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="46"/>
         <source>Settings</source>
-        <translation type="unfinished">Innstillinger</translation>
+        <translation>Innstillinger</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="49"/>
         <source>Server</source>
-        <translation type="unfinished">Tjener</translation>
+        <translation>Tjener</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="68"/>
         <source>Account</source>
-        <translation type="unfinished">Konto</translation>
+        <translation>Konto</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="88"/>
         <source>Not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke konfigurert</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="93"/>
         <source>Synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronisering</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="97"/>
         <source>Background sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Synkronisere i bakgrunnen</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="100"/>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Bare manuelt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Every 5 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvert 5. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
         <source>Every 15 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvert 15. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="103"/>
         <source>Every 30 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvert 30. minutt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="104"/>
         <source>Every hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Hver time</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="105"/>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Hver 6. time</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="106"/>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Hver 12. time</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="112"/>
         <source>Allowed network</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillatte nettverk</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="114"/>
         <source>Wi-Fi only</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun Wi-Fi</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="115"/>
         <source>Wi-Fi and mobile data</source>
-        <translation type="unfinished"></translation>
+        <translation>Wi-Fi og mobildata</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation type="unfinished"></translation>
+        <translation>Sikkerhetsgrense: maks. slettinger per kjøring</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
         <source>Exclude patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekskluderingsmønstre</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ett mønster per linje; gjelder for alle mappesynkroniseringer. Endringer utløser en fullstendig ny synkronisering av hvert par.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
         <source>e.g. *.tmp</source>
-        <translation type="unfinished"></translation>
+        <translation>f.eks. *.tmp</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="152"/>
         <source>Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukerstøtte</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="162"/>
         <source>Diagnostics</source>
-        <translation type="unfinished">Diagnostikk</translation>
+        <translation>Diagnostikk</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="169"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Om</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="181"/>
         <source>App Version</source>
-        <translation type="unfinished"></translation>
+        <translation>App-versjon</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="208"/>
         <source>Report a bug or request a feature</source>
-        <translation type="unfinished"></translation>
+        <translation>Rapporter en feil eller be om en funksjon</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="236"/>
         <source>Add a translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Legg til en oversettelse</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="264"/>
         <source>Code Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Koderepo</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Neste kjøring: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiv</translation>
     </message>
 </context>
 <context>
@@ -766,17 +766,17 @@
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Modus</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
         <source>Two-way sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Toveis synkronisering</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Upload only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bare opplasting (enveis)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
@@ -822,7 +822,7 @@
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nye og endrede filer lastes opp til den eksterne mappen. Ferry sletter aldri noe på den eksterne siden, og eksterne endringer kopieres aldri tilbake.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
