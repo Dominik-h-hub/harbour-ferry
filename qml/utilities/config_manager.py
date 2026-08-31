@@ -494,14 +494,7 @@ _USAGE_MARKERS = ("unknown flag", "unknown shorthand flag", "unknown command",
 
 _GENERIC_ERROR = "The operation failed - see the details."
 
-# rclone's own wording when it cannot open rclone.conf. All three variants
-# ("...and not allowed to ask for password", "...incorrect password", "using
-# RCLONE_CONFIG_PASS env password, unable to decrypt configuration") carry
-# the word "password", which is why they have to be recognised before the
-# login rule in _friendly_error().
-_CONFIG_MARKERS = ("decrypt configuration", "decrypt config",
-                   "didn't find section in config file",
-                   "failed to load config")
+_CONFIG_MARKERS = ("decrypt config",)
 
 
 def _usage_detail(output):
@@ -526,8 +519,8 @@ def _friendly_error(output, fallback=None):
         return ("Internal error: rclone rejected the command (%s)."
                 " Please report this." % _usage_detail(output))
     if any(marker in lowered for marker in _CONFIG_MARKERS):
-        # rclone could not read its own configuration - it never reached the
-        # server at all. Every one of these messages contains the word
+        # rclone could not decrypt its own configuration - it never reached
+        # the server at all. Every one of these messages contains the word
         # "password" ("unable to decrypt configuration and not allowed to ask
         # for password"), so without this check they end up as "Login failed"
         # below and send the user to change credentials that are fine.
@@ -759,87 +752,81 @@ def setup_and_test(backend_id, values):
         # switch (SFTP has no TLS) send no value, which turns it back off:
         # the setting belongs to the account, and this is another one.
         insecure_tls = bool(values.get("insecure_tls"))
+        previous_insecure_tls = bool(settings_manager.get("insecure_tls"))
         settings_manager.set_setting("insecure_tls", insecure_tls)
-        if insecure_tls:
-            # Only worth a line when it is on - it is the one step here that
-            # gives something up, so it should be visible on the result page.
-            steps.append({"title": "Certificate check", "ok": True,
-                          "detail": "switched off - any certificate is"
-                                    " accepted for this account"})
+        account_stored = False
+        try:
+            if insecure_tls:
+                steps.append({"title": "Certificate check", "ok": True,
+                              "detail": "switched off - any certificate is"
+                                        " accepted for this account"})
 
-        # Optional backend hook, run against the live server before anything
-        # is written: Nextcloud uses it to replace the login name in the
-        # WebDAV path with the account's real user ID. It comes after the
-        # certificate setting above because it connects, and before the
-        # identity check below because it is allowed to change the URL.
-        params, step = _prepare_account(backend, values, params, insecure_tls)
-        if step:
-            steps.append(step)
+            params, step = _prepare_account(backend, values, params,
+                                            insecure_tls)
+            if step:
+                steps.append(step)
 
-        # Same backend, but another server or user behind the same remote
-        # name. The local sync state does not notice that by itself, so it
-        # has to go - see the reset below for what would happen otherwise.
-        # bool(url) guards the case where the stored config could not be
-        # read (summary carries only an error): unknown is not changed,
-        # and the pairs must not be dropped over an unreadable config.
-        account_changed = update and bool(existing.get("url")) \
-            and _account_identity_changed(backend, existing, params)
+            account_changed = update and bool(existing.get("url")) \
+                and _account_identity_changed(backend, existing, params)
 
-        if backend.BACKEND.get("verify_host_key"):
-            # Before anything is written: an unverified server must not cost
-            # the user the account that is currently stored.
-            _status("Checking the SSH host key...")
-            ok, message, detail = _verify_host_key(params)
-            steps.append({"title": "Verify SSH host key", "ok": ok,
-                          "detail": detail})
+            if backend.BACKEND.get("verify_host_key"):
+                _status("Checking the SSH host key...")
+                ok, message, detail = _verify_host_key(params)
+                steps.append({"title": "Verify SSH host key", "ok": ok,
+                              "detail": detail})
+                if not ok:
+                    return _result(False, message, detail, steps)
+
+            if switching:
+                _status("Switching backend...")
+                rc, out = _run_rclone(["config", "delete", REMOTE_NAME],
+                                      timeout=30)
+                invalidate_config_cache()
+                if rc != 0:
+                    steps.append({"title": "Switch backend", "ok": False,
+                                  "detail": out[:300]})
+                    return _result(False, "Switching the backend failed",
+                                   out[:300], steps)
+                removed_pairs = _reset_local_state("backend switch")
+                steps.append({"title": "Switch backend", "ok": True,
+                              "detail": "replaced the previous %s remote,"
+                                        " removed %d sync pair(s)"
+                                        % (stored_type, removed_pairs)})
+
+            _status("Writing rclone configuration...")
+            ok, message = _run_config_state_machine(backend, params,
+                                                    values, update)
+            steps.append({"title": ("Update account" if update
+                                    else "Create account"),
+                          "ok": ok, "detail": message})
             if not ok:
-                return _result(False, message, detail, steps)
+                return _result(False, "Saving the account failed",
+                               message, steps)
+            account_stored = True
 
-        if switching:
-            _status("Switching backend...")
-            rc, out = _run_rclone(["config", "delete", REMOTE_NAME], timeout=30)
-            invalidate_config_cache()
-            if rc != 0:
-                steps.append({"title": "Switch backend", "ok": False,
-                              "detail": out[:300]})
-                return _result(False, "Switching the backend failed",
-                               out[:300], steps)
-            removed_pairs = _reset_local_state("backend switch")
-            steps.append({"title": "Switch backend", "ok": True,
-                          "detail": "replaced the previous %s remote,"
-                                    " removed %d sync pair(s)"
-                                    % (stored_type, removed_pairs)})
+            if account_changed:
+                removed_pairs = _reset_local_state("account change")
+                steps.append({"title": "Reset sync state", "ok": True,
+                              "detail": "server or user changed - removed %d"
+                              " sync pair(s) and the stored bisync"
+                              " state" % removed_pairs})
 
-        _status("Writing rclone configuration...")
-        ok, message = _run_config_state_machine(backend, params, values, update)
-        steps.append({"title": "Update account" if update else "Create account",
-                      "ok": ok, "detail": message})
-        if not ok:
-            return _result(False, "Saving the account failed", message, steps)
+            _status("Encrypting configuration...")
+            ok, message = _ensure_encrypted()
+            steps.append({"title": "Encrypt configuration", "ok": ok,
+                          "detail": message})
+            if not ok:
+                return _result(False, "Encrypting the configuration failed",
+                               message, steps)
 
-        if account_changed:
-            # Only now that the new account is actually stored. The bisync
-            # listings describe the remote side of the old account: reused
-            # against the new one, everything the old server had and the new
-            # one does not looks like a remote deletion - and bisync would
-            # propagate exactly that to the local folder.
-            removed_pairs = _reset_local_state("account change")
-            steps.append({"title": "Reset sync state", "ok": True,
-                          "detail": "server or user changed - removed %d sync"
-                                    " pair(s) and the stored bisync state"
-                                    % removed_pairs})
-
-        _status("Encrypting configuration...")
-        ok, message = _ensure_encrypted()
-        steps.append({"title": "Encrypt configuration", "ok": ok,
-                      "detail": message})
-        if not ok:
-            return _result(False, "Encrypting the configuration failed",
-                           message, steps)
-
-        ok, message, details, libraries = test_connection(backend.BACKEND)
-        steps.append({"title": "Connection test", "ok": ok, "detail": message})
-        return _result(ok, message, details, steps, libraries)
+            ok, message, details, libraries = test_connection(backend.BACKEND)
+            steps.append({"title": "Connection test", "ok": ok,
+                          "detail": message})
+            return _result(ok, message, details, steps, libraries)
+        finally:
+            if not account_stored:
+                settings_manager.set_setting("insecure_tls",
+                                             previous_insecure_tls)
     except Exception as e:
         log("setup_and_test unexpected error: %s" % e)
         steps.append({"title": "Unexpected error", "ok": False,

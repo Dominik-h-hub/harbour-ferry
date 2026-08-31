@@ -296,8 +296,9 @@ def prepare_account(values, params, context):
         # An edit that keeps the stored password: nothing to authenticate the
         # lookup with, and the stored URL already works or already does not.
         return params, None
+    server = _server_root(values.get("url"))
     user_id, reason = resolve_user_id(
-        values.get("url"), user, password,
+        server, user, password,
         insecure_tls=bool(context.get("insecure_tls")))
     if not user_id:
         # Not an error: the account is saved with the name as typed, which is
@@ -306,7 +307,7 @@ def prepare_account(values, params, context):
         return params, {"title": "Look up user ID", "ok": True,
                         "detail": "%s - using the name as typed" % reason}
     params = dict(params)
-    params["url"] = webdav_url(values.get("url"), user_id)
+    params["url"] = webdav_url(server, user_id)
     if user_id == user:
         return params, {"title": "Look up user ID", "ok": True,
                         "detail": user_id}
