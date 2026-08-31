@@ -131,6 +131,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/backends/nextcloud.py \
     qml/utilities/backends/sftp.py \
     qml/utilities/backends/ftp.py \
+    qml/utilities/backends/pcloud.py \
     helper/sync_helper.py \
     systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer \

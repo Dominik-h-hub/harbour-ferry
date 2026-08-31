@@ -110,28 +110,54 @@ def backend_id_for_remote(rclone_type, vendor=""):
     return ""
 
 
-def display_url(backend_id, url):
-    """The server URL to show in the UI, in the same shape for every backend.
-
-    Backends that store a technical URL (Nextcloud keeps the full WebDAV
-    path) shorten it back via a display_url() function in their module;
-    everything else is shown as stored.
-    """
+def _shortened(backend_id, url, function_name, args):
+    """Run a backend's URL shortener, falling back to the stored URL."""
     url = (url or "").strip().rstrip("/")
     if not url:
         return ""
     try:
-        shorten = getattr(get_backend(backend_id), "display_url", None)
+        shorten = getattr(get_backend(backend_id), function_name, None)
     except Exception as e:
-        log("display URL for %r unavailable: %s" % (backend_id, e))
+        log("%s for %r unavailable: %s" % (function_name, backend_id, e))
         return url
     if shorten is None:
         return url
     try:
-        return shorten(url) or url
+        return shorten(url, *args) or url
     except Exception as e:
-        log("display_url() of backend %r failed: %s" % (backend_id, e))
+        log("%s() of backend %r failed: %s" % (function_name, backend_id, e))
         return url
+
+
+def display_url(backend_id, url):
+    """The server URL to print in an overview, for any backend.
+
+    Backends that store a technical URL (Nextcloud keeps the full WebDAV
+    path) shorten it via a display_url() function in their module;
+    everything else is shown as stored. Read-only: nothing is saved back
+    from this value, which is what lets it drop parts of the URL - use
+    form_url() below wherever the value returns to the account form.
+    """
+    return _shortened(backend_id, url, "display_url", ())
+
+
+def form_url(backend_id, url, user=None):
+    """The stored URL as the account form should show and hand back.
+
+    Whatever the form shows is saved again, so this may only shorten when
+    the short form rebuilds the stored URL exactly. Nextcloud is the one
+    backend where that is not always true - its WebDAV path carries a user
+    ID resolved from the server - so it offers a form_url() of its own; for
+    every other backend the display form is exact and is used as it is.
+    """
+    backend_form_url = None
+    try:
+        backend_form_url = getattr(get_backend(backend_id), "form_url", None)
+    except Exception as e:
+        log("form URL for %r unavailable: %s" % (backend_id, e))
+    if backend_form_url is None:
+        return display_url(backend_id, url)
+    return _shortened(backend_id, url, "form_url", (user,))
 
 
 def get_fields(backend_id):

@@ -27,6 +27,11 @@ DEFAULTS = {
     "network_rule": "wifi",      # FR-19: "wifi" or "any"
     "excludes": [".thumbnails/**", "*.tmp", "*~", ".~lock*", ".cache/**"],
     "max_delete": 50,            # FR-14: percent
+    # Turns rclone's TLS certificate check off for the account (the
+    # "Accept self-signed certificates" switch in the account form).
+    # Lives here rather than in the rclone remote because it has to
+    # reach every rclone process, the background sync helper included.
+    "insecure_tls": False,
 }
 
 

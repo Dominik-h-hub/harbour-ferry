@@ -17,6 +17,8 @@
 
 import hostport
 
+from backends import INSECURE_TLS_FIELD
+
 BACKEND = {
     "id": "ftp",
     "display_name": "FTP / FTPS",
@@ -42,6 +44,7 @@ BACKEND = {
          "placeholder": "ftps://ftp.example.com"},
         {"key": "user", "label": "Username", "type": "text", "secret": False},
         {"key": "pass", "label": "Password", "type": "password", "secret": True},
+        dict(INSECURE_TLS_FIELD),
     ],
 }
 
