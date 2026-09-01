@@ -12,6 +12,7 @@
 - ADDED: new diagnostics-test: Configured account + remote listing
 - ADDED: Generic WebDAV Backend support
 - CHANGED: account form labels and descriptions are now translatable.
+- ADDED: Language ET from weblate
 
 * Fri Aug 28 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.4-1
 - ADDED: PCLOUD Backend support
