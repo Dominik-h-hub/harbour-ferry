@@ -12,6 +12,8 @@ import os
 
 import common
 
+from backends import REMOTE_MARKER_KEY
+
 log = common.make_logger("backends")
 
 _BACKENDS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "backends")
@@ -87,13 +89,27 @@ def list_backends():
     return result
 
 
-def backend_id_for_remote(rclone_type, vendor=""):
+def backend_id_for_remote(rclone_type, vendor="", remote=None):
     """Map a stored rclone remote back to the backend id that created it.
 
-    Several backends can share an rclone type (webdav serves Nextcloud and
-    others), so a backend may pin itself down further via "rclone_vendor".
+    Several backends share an rclone type (webdav serves Nextcloud, pCloud
+    and plain WebDAV servers), so a backend pins itself down further via
+    "rclone_vendor" and, where even that is not unique, via the marker Ferry
+    writes into the remote itself ("remote_marker", see
+    REMOTE_MARKER_KEY in backends/__init__.py). "remote" is the stored
+    option dict; without it only type and vendor can be compared.
+
+    The marker decides first, because it is the only evidence that says
+    which module actually wrote the remote. A remote saved before the marker
+    existed carries none, and is matched by type and vendor as before - the
+    fallback at the end, which is why the backends that need a marker do not
+    become unreachable for their own older accounts.
+
     Returns "" when no backend matches.
     """
+    remote = remote or {}
+    stored_marker = str(remote.get(REMOTE_MARKER_KEY) or "")
+    candidates = []
     for name in _module_names():
         try:
             info = get_backend(name).BACKEND
@@ -105,7 +121,20 @@ def backend_id_for_remote(rclone_type, vendor=""):
         expected_vendor = info.get("rclone_vendor", "")
         if expected_vendor and expected_vendor != vendor:
             continue
-        return info["id"]
+        marker = info.get("remote_marker", "")
+        if marker and marker == stored_marker:
+            return info["id"]
+        candidates.append((info["id"], marker))
+    # No marker matched: a backend that claims none is the one meant for a
+    # remote that carries none, and only if there is no such backend does an
+    # unmarked remote fall back to the first match of its type and vendor.
+    for backend_id, marker in candidates:
+        if not marker:
+            return backend_id
+    if candidates:
+        log("remote type=%r vendor=%r marker=%r matches no marker - using %r"
+            % (rclone_type, vendor, stored_marker, candidates[0][0]))
+        return candidates[0][0]
     log("no backend matches remote type=%r vendor=%r" % (rclone_type, vendor))
     return ""
 

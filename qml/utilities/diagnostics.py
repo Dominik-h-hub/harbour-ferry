@@ -9,6 +9,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import datetime
+import hashlib
 import importlib
 import json
 import os
@@ -21,6 +22,7 @@ import sys
 import threading
 import time
 import traceback
+import urllib.parse
 
 try:
     import pyotherside
@@ -30,6 +32,13 @@ except ImportError:
     HAVE_PYOTHERSIDE = False
 
 APP_NAME = "harbour-ferry"
+
+try:
+    import backend_manager
+except ImportError:
+    # A standalone run outside the app tree: the account test reports the
+    # missing module and every other test stays usable.
+    backend_manager = None
 
 try:
     # The version lives in rpm/harbour-ferry.spec and reaches Python through
@@ -602,6 +611,295 @@ def test_backends():
         return "FAIL", "\n".join(d)
 
 
+# ---------------------------------------------------------------------------
+# Configured account
+# ---------------------------------------------------------------------------
+
+# This report is written to ~/Downloads for users to send in, so the account
+# section has to describe the account without carrying it: no server, no
+# login, no folder names. What a support case needs is the *shape* of the
+# account - is the URL a DAV path, is the name in that path the login name,
+# does the root listing work - and every line below answers one of those
+# from a redacted value. Equal fingerprints mean equal values, which is all
+# the comparisons here need; differing ones are what tell a resolved
+# Nextcloud user ID apart from a login name that was never corrected.
+
+# Path segments that are backend structure rather than user data, and worth
+# reading in full: which of these the path is made of is exactly what
+# separates a working Nextcloud account from a broken one.
+_STRUCTURAL_PATH_SEGMENTS = frozenset([
+    "remote.php", "dav", "files", "webdav", "ocs", "v1.php", "v2.php",
+    "seafdav", "seafhttp",
+])
+
+
+def fingerprint(value):
+    """A short, stable, non-reversible stand-in for a value."""
+    return hashlib.sha256(value.encode("utf-8", "replace")).hexdigest()[:8]
+
+
+def redacted(value, label):
+    """What a report may say about a value it must not contain."""
+    if not value:
+        return "<no %s>" % label
+    return "<%s: %d chars, fp %s>" % (label, len(value), fingerprint(value))
+
+
+def compare_values(left, right):
+    """How two redacted values relate - the comparison, without the values."""
+    if left == right:
+        return "identical"
+    if left.lower() == right.lower():
+        return "same text, different capitalisation"
+    return "different"
+
+
+def scrubbed(text, secrets, limit=600):
+    """Program output with the account values taken out of it.
+
+    rclone quotes the full URL in most of its errors, and an error is the
+    most useful thing this section can carry - so it is scrubbed rather than
+    dropped. The longest values go first (the URL contains the host, the
+    host contains nothing else), and whatever still looks like a URL
+    afterwards is removed wholesale: a redirect target or a server message
+    may name an address this function was never told about.
+    """
+    for value, placeholder in sorted(secrets, key=lambda pair: -len(pair[0])):
+        if value:
+            text = text.replace(value, placeholder)
+    text = re.sub(r"https?://[^\s\"'<>]+", "<url redacted>", text)
+    return text[:limit]
+
+
+def describe_url(url):
+    """The account URL as lines a report may contain."""
+    parts = urllib.parse.urlsplit(url if "://" in url else "//" + url)
+    d = []
+    host = parts.hostname or ""
+    is_ip = bool(re.match(r"^[0-9]+(\.[0-9]+){3}$", host)) or ":" in host
+    d.append("URL scheme: %s%s"
+             % (parts.scheme or "none",
+                # sftp and ftp are encrypted or not by their own settings;
+                # only a WebDAV account spelled http:// is plainly wrong.
+                "  <-- plain HTTP, the password travels unencrypted"
+                if parts.scheme == "http" else ""))
+    if is_ip:
+        # An address has no name for a certificate to match and nothing for
+        # the resolver probe below to look up, which a reader would
+        # otherwise take for failures of the account.
+        d.append("URL host: %s (a literal IP address, port: %s)"
+                 % (redacted(host, "host"),
+                    parts.port if parts.port else "default"))
+    else:
+        labels = [label for label in host.split(".") if label]
+        d.append("URL host: %s (%d label(s), tld %r, port: %s)"
+                 % (redacted(host, "host"), len(labels),
+                    labels[-1] if len(labels) > 1 else "",
+                    parts.port if parts.port else "default"))
+    segments = [segment for segment in (parts.path or "").split("/") if segment]
+    if segments:
+        shown = []
+        for index, segment in enumerate(segments):
+            if segment.lower() in _STRUCTURAL_PATH_SEGMENTS:
+                shown.append(segment)
+            else:
+                shown.append(redacted(urllib.parse.unquote(segment),
+                                      "segment %d" % (index + 1)))
+        d.append("URL path: /%s" % "/".join(shown))
+    else:
+        d.append("URL path: none (the URL is a bare server address)")
+    return d, host, segments
+
+
+def account_shape(summary):
+    """The redacted description of the stored account, and its host."""
+    d = []
+    url = summary.get("url") or ""
+    user = summary.get("user") or ""
+    backend_id = summary.get("backend_id") or ""
+    d.append("backend: %s (rclone type=%r vendor=%r)"
+             % (backend_id or "unknown", summary.get("backend", ""),
+                summary.get("vendor", "")))
+    url_lines, host, segments = describe_url(url)
+    d.extend(url_lines)
+    d.append("login: %s (contains '@': %s)"
+             % (redacted(user, "login"), "@" in user))
+    d.append("rclone.conf encrypted: %s" % summary.get("encrypted"))
+    d.append("accept self-signed certificates: %s" % summary.get("insecure_tls"))
+
+    # The Nextcloud question. Its WebDAV path ends in the user ID; Ferry
+    # guesses that from the login name and corrects the guess by asking the
+    # server (backends/nextcloud.resolve_user_id). A path that is still the
+    # guess while the real ID differs is the one account shape that
+    # authenticates fine and lists nothing - and it is invisible in a log,
+    # because both values are names the report may not print.
+    if segments:
+        d.append("last URL path segment vs. login: %s"
+                 % compare_values(urllib.parse.unquote(segments[-1]), user))
+    if backend_manager is None:
+        return d, host
+    try:
+        # Only a backend that carries a name in its URL brings a form_url()
+        # of its own (see backend_manager.form_url) - and only there is
+        # there a guess that could be wrong. Asking the module rather than
+        # the backend id keeps this true for the next such backend.
+        module = backend_manager.get_backend(backend_id)
+    except Exception as e:
+        d.append("backend module %r not loadable: %s" % (backend_id, e))
+        return d, host
+    if hasattr(module, "form_url"):
+        # form_url() shortens exactly when the stored URL is what
+        # webdav_url(server, login) rebuilds - that is, when the name in the
+        # path is Ferry's own guess from the login and was never replaced by
+        # an ID resolved from the server.
+        display = backend_manager.display_url(backend_id, url)
+        form = backend_manager.form_url(backend_id, url, user)
+        d.append("name in the URL is Ferry's guess from the login (no user"
+                 " ID lookup ever corrected it): %s" % (form == display != url))
+    return d, host
+
+
+def resolver_probe(host):
+    """Whether this device can resolve the account host from Python.
+
+    rclone is a static Go binary with a resolver of its own and keeps
+    working where glibc's does not; the Nextcloud user ID lookup goes
+    through urllib and does not. When the two disagree, that lookup falls
+    back to the login name without an error, which then looks like a broken
+    account rather than broken name resolution - so the report asks both.
+    Returns (line for the report, resolved).
+    """
+    if not host:
+        return "host name resolution: no host to resolve", True
+    try:
+        socket.getaddrinfo(host, 443, proto=socket.IPPROTO_TCP)
+        return "host name resolution (Python/glibc): OK", True
+    except Exception as e:
+        return "host name resolution (Python/glibc) FAILED: %s" % e, False
+
+
+def test_account():
+    """The configured account, and what the server answers for it.
+
+    The one test that looks at the user's own account instead of the
+    device: the support cases this report exists for ("it connects but I
+    see no folders") are decided by the account's shape and by what
+    "rclone lsjson ferry:" answers, and neither is visible anywhere else.
+    Everything it prints is redacted - see the section comment above.
+    """
+    d = []
+    try:
+        import config_manager
+    except Exception as e:
+        d.append("config_manager not importable: %s" % e)
+        return "FAIL", "\n".join(d)
+
+    conf = config_manager.rclone_conf_path()
+    if not os.path.exists(conf):
+        d.append("no rclone.conf at %s" % conf)
+        d.append("no account is configured on this device - nothing to probe")
+        return "SKIP", "\n".join(d)
+    try:
+        summary = config_manager.get_account_summary()
+    except Exception as e:
+        d.append("reading the account failed: %s" % e)
+        return "FAIL", "\n".join(d)
+    if not summary:
+        d.append("rclone.conf exists but holds no %r remote"
+                 % config_manager.REMOTE_NAME)
+        return "SKIP", "\n".join(d)
+    if summary.get("error"):
+        # An encrypted config whose password is unreachable in this session
+        # lands here, and so does one rclone cannot parse.
+        d.append("the stored configuration could not be read: %s"
+                 % summary["error"])
+        return "FAIL", "\n".join(d)
+
+    shape, host = account_shape(summary)
+    d.extend(shape)
+    resolver_line, resolver_ok = resolver_probe(host)
+    d.append(resolver_line)
+
+    # Everything above describes what is stored. The probe below is what the
+    # app itself runs when it opens the main page or the remote browser, and
+    # it is the answer to the report the user actually sends: "it connects
+    # but I see no folders".
+    url = summary.get("url") or ""
+    user = summary.get("user") or ""
+    secrets = [(url, "<url redacted>"), (host, "<host redacted>"),
+               (user, "<login redacted>")]
+    remote = "%s:" % config_manager.REMOTE_NAME
+    rc, out = config_manager.run_rclone(["lsjson", remote], timeout=90,
+                                        log_args=False)
+    d.append("rclone lsjson %s -> rc=%d" % (remote, rc))
+    if rc != 0:
+        d.append("listing output: %s" % scrubbed(out, secrets))
+        if config_manager.looks_like_missing_path(out):
+            d.append("the server answered, but the path in the URL does not"
+                     " exist on it: the login works and the address does not"
+                     " (Nextcloud: the name in /remote.php/dav/files/<name>"
+                     " is not this account's user ID)")
+        return "FAIL", "\n".join(d)
+
+    start, end = out.find("["), out.rfind("]")
+    listing = []
+    if 0 <= start < end:
+        try:
+            listing = json.loads(out[start:end + 1])
+        except ValueError:
+            d.append("listing output could not be parsed as JSON: %s"
+                     % scrubbed(out, secrets, limit=300))
+            return "FAIL", "\n".join(d)
+    if not resolver_ok:
+        # rclone got through and Python did not: everything the app does
+        # over urllib is broken on this device while every rclone call
+        # works. For a Nextcloud account that is not cosmetic - the user ID
+        # lookup is one of those urllib calls, and its failure is a silent
+        # fallback to the login name (see backends/nextcloud.resolve_user_id).
+        d.append("NOTE: rclone reached the server but Python cannot resolve"
+                 " its name - the Nextcloud user ID lookup runs through"
+                 " Python and cannot work on this device, so the WebDAV path"
+                 " stays whatever was typed or guessed")
+
+    folders = [item for item in listing if item.get("IsDir")]
+    d.append("remote root: %d folder(s), %d file(s)"
+             % (len(folders), len(listing) - len(folders)))
+    if not folders:
+        # rc=0 means the server listed this path, so the path exists - which
+        # is the whole difference between "there is nothing to show" and the
+        # missing-path case above. The main page lists folders only, so on
+        # screen the two are indistinguishable and only this line separates
+        # them.
+        d.append("NOTE: the listing succeeded, so the URL points at a folder"
+                 " that exists - an empty result here means the remote root"
+                 " really holds no folders, not that the account is broken")
+
+    # A second angle on the same question: rclone asks the server for its
+    # quota, which a path that merely exists (a shared parent folder, an
+    # error page) does not answer. Informational - not every backend
+    # implements it.
+    rc_about, out_about = config_manager.run_rclone(
+        ["about", remote, "--json"], timeout=60, log_args=False)
+    if rc_about == 0:
+        d.append("rclone about %s -> rc=0: the server reported quota data,"
+                 " so the URL belongs to a real account" % remote)
+    else:
+        d.append("rclone about %s -> rc=%d: %s"
+                 % (remote, rc_about, scrubbed(out_about, secrets, limit=300)))
+
+    try:
+        import sync_pairs
+        pairs = sync_pairs.list_pairs()
+        d.append("sync pairs configured: %d" % len(pairs))
+        for index, pair in enumerate(pairs):
+            d.append("  pair %d: mode=%s remote=%s local=%s"
+                     % (index + 1, sync_pairs.pair_mode(pair),
+                        redacted(pair.get("remote_path") or "", "remote path"),
+                        redacted(pair.get("local_path") or "", "local path")))
+    except Exception as e:
+        d.append("sync pairs not readable: %s" % e)
+    return "PASS", "\n".join(d)
+
 def test_systemd_timer():
     d = []
     unit = "%s-sync.service" % APP_NAME
@@ -702,8 +1000,17 @@ TESTS = [
     ("Secrets store/get roundtrip", test_secrets_roundtrip),
     ("User folder access (Sailjail)", test_user_folders),
     ("Backend plugin discovery", test_backends),
+    ("Configured account + remote listing", test_account),
     ("systemd timer + sync helper", test_systemd_timer),
 ]
+
+
+def _summary_line(passed, failed, skipped, prefix="", suffix=""):
+    """The counts headline - skipped tests only appear when there are any."""
+    counts = "%d passed, %d failed" % (passed, failed)
+    if skipped:
+        counts += ", %d skipped" % skipped
+    return "%s%s of %d tests%s" % (prefix, counts, len(TESTS), suffix)
 
 
 def _write_report(summary):
@@ -738,7 +1045,7 @@ def _run_all_impl(qml_probe_info=None):
         log("QML module probes (from DiagnosticsPage):")
         for line in str(qml_probe_info).splitlines():
             log("    %s" % line)
-    passed = failed = 0
+    passed = failed = skipped = 0
     for name, func in TESTS:
         log("--- test started: %s ---" % name)
         send("test-started", {"name": name})
@@ -752,6 +1059,11 @@ def _run_all_impl(qml_probe_info=None):
             log("    %s" % line)
         if status == "PASS":
             passed += 1
+        elif status == "SKIP":
+            # Nothing to test rather than something that went wrong: a
+            # device without a configured account must not send in a report
+            # that says "1 failed" and points the reader at the wrong line.
+            skipped += 1
         else:
             failed += 1
         ui_details = details if len(details) <= UI_DETAIL_LIMIT \
@@ -759,8 +1071,9 @@ def _run_all_impl(qml_probe_info=None):
         send("test-result", {"name": name, "status": status, "details": ui_details})
         # Persist partial results after every test so an aborted run still
         # leaves a usable report on disk.
-        _write_report("IN PROGRESS (%d passed, %d failed so far)" % (passed, failed))
-    summary = "%d passed, %d failed of %d tests" % (passed, failed, len(TESTS))
+        _write_report(_summary_line(passed, failed, skipped, "IN PROGRESS: ",
+                                    " so far"))
+    summary = _summary_line(passed, failed, skipped)
     log("=== diagnostics finished: %s ===" % summary)
     report_path = _write_report(summary)
     send("finished", summary, report_path)

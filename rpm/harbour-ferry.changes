@@ -8,6 +8,10 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+ Tue Sep 01 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
+- ADDED: new diagnostics-test: Configured account + remote listing
+- ADDED: Generic WebDAV Backend support
+
 * Fri Aug 28 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.4-1
 - ADDED: PCLOUD Backend support
 - FIXED: Accept self-signed certificates for backends

@@ -23,6 +23,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+from backends import REMOTE_MARKER_KEY
+
 # pCloud runs two independent regions; an account exists in exactly one of
 # them and the other endpoint rejects its login. The form is prefilled with
 # the US host and names the EU one in its label.
@@ -34,11 +36,16 @@ BACKEND = {
     "id": "pcloud",
     "display_name": "pCloud (WebDAV)",
     "rclone_type": "webdav",
-    # Pins the remote to this backend module: nextcloud.py also writes
-    # webdav remotes and is told apart by its own vendor (see
-    # backend_manager.backend_id_for_remote). "other" is rclone's catch-all
-    # vendor - plain WebDAV without any server specific extension.
+    # nextcloud.py also writes webdav remotes and is told apart by its own
+    # vendor. "other" is rclone's catch-all vendor - plain WebDAV without any
+    # server specific extension - and webdav.py writes exactly the same type
+    # and vendor, so the marker below is what separates the two.
     "rclone_vendor": "other",
+    # Written into the remote so a stored account finds its way back to this
+    # module - see REMOTE_MARKER_KEY in backends/__init__.py. An account
+    # saved before this key existed carries no marker and is matched by type
+    # and vendor, which still lands here.
+    "remote_marker": "pcloud",
     # A second factor is not part of the WebDAV login: pCloud confirms such a
     # login by mail, so there is no code to type into the account form.
     "supports_2fa": False,
@@ -116,6 +123,9 @@ def build_rclone_config(values):
         "vendor": BACKEND["rclone_vendor"],
         # pCloud logs in with the account's email address.
         "user": (values.get("user") or "").strip(),
+        # Ferry's own key - ignored by rclone, read by
+        # backend_manager.backend_id_for_remote.
+        REMOTE_MARKER_KEY: BACKEND["remote_marker"],
     }
     password = values.get("pass") or ""
     if password:

@@ -30,3 +30,21 @@ INSECURE_TLS_FIELD = {
     "default": False,
     "local": True,
 }
+
+
+# Ferry's own key in a stored remote, naming the backend module that wrote
+# it. rclone ignores keys it does not know (the ftp and sftp backends store
+# their "url" the same way), so this costs nothing in the remote and settles
+# a question rclone cannot answer: several backends write an rclone remote
+# of type "webdav" with vendor "other" - a plain WebDAV server and pCloud's
+# gateway are the same thing to rclone - and mapping such a remote back to
+# the module that created it is what decides which account form, which
+# wording and which URL handling the app uses (backend_manager.
+# backend_id_for_remote).
+#
+# Only backends that share type and vendor with another one need to declare
+# a marker ("remote_marker" in their BACKEND, holding the backend id).
+# Nextcloud does not: its vendor is already unique. Remotes written before
+# this key existed carry no marker at all, which is why the matching falls
+# back to type and vendor.
+REMOTE_MARKER_KEY = "ferry_backend"
