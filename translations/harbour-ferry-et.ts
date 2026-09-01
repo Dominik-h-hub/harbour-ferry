@@ -1,57 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="nb_NO">
+<TS version="2.1" language="et">
 <context>
     <name>AccountPage</name>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="85"/>
+        <location filename="../qml/pages/AccountPage.qml" line="77"/>
         <source>Remove account</source>
-        <translation>Fjern konto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="87"/>
+        <location filename="../qml/pages/AccountPage.qml" line="79"/>
         <source>Removing account and all sync pairs</source>
-        <translation>Fjerner konto og alle synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="99"/>
+        <location filename="../qml/pages/AccountPage.qml" line="91"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="100"/>
+        <location filename="../qml/pages/AccountPage.qml" line="92"/>
         <source>Account</source>
-        <translation>Konto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="105"/>
+        <location filename="../qml/pages/AccountPage.qml" line="97"/>
         <source>Backend</source>
-        <translation>Backend</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="143"/>
+        <location filename="../qml/pages/AccountPage.qml" line="135"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Med 2FA utstedte tjeneren en innloggingstoken; selve passordet lagres ikke. Skriv det inn på nytt kun for å reautentisere.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="153"/>
+        <location filename="../qml/pages/AccountPage.qml" line="145"/>
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
-        <translation>Endring av backend erstatter den lagrede kontoen og sletter alle synkroniseringspar – de peker på den gamle tjeneren.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="163"/>
+        <location filename="../qml/pages/AccountPage.qml" line="155"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation>Endring av tjener eller bruker betyr en annen konto: alle synkroniseringspar og den lagrede synkroniseringstilstanden slettes fordi de tilhører den forrige.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="314"/>
+        <location filename="../qml/pages/AccountPage.qml" line="306"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
-        <translation>Konto fjernet, %1 synkroniseringspar slettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="315"/>
+        <location filename="../qml/pages/AccountPage.qml" line="307"/>
         <source>Account removed</source>
-        <translation>Konto fjernet</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -59,204 +59,121 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="21"/>
         <source>Saving account...</source>
-        <translation>Lagrer konto...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="46"/>
         <source>Server</source>
-        <translation>Tjener</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
         <source>Full URL</source>
-        <translation>Full URL</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="56"/>
         <source>User</source>
-        <translation>Bruker</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="57"/>
         <source>Backend</source>
-        <translation>Backend</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
         <source>Certificate check</source>
-        <translation>Sertifikatkontroll</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="63"/>
         <source>Off - any certificate is accepted</source>
-        <translation>Av – alle sertifikater godtas</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
         <source>Two-factor auth</source>
-        <translation>Tofaktorautentisering</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="66"/>
         <source>On</source>
-        <translation>På</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="66"/>
         <source>Off</source>
-        <translation>Av</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="67"/>
         <source>Configuration</source>
-        <translation>Oppsett</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="68"/>
         <source>Encrypted</source>
-        <translation>Kryptert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="69"/>
         <source>Not encrypted</source>
-        <translation>Ikke kryptert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="107"/>
         <source>Test again</source>
-        <translation>Test på nytt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="112"/>
         <source>Edit account</source>
-        <translation>Rediger konto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="123"/>
         <source>Connection test</source>
-        <translation>Tilkoblingstest</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="124"/>
         <source>Running...</source>
-        <translation>Kjører...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="125"/>
         <source>Successful</source>
-        <translation>Vellykket</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="125"/>
         <source>Failed</source>
-        <translation>Feilet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="166"/>
         <source>Account</source>
-        <translation>Konto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="195"/>
         <source>Test details</source>
-        <translation>Testdetaljer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="239"/>
         <source>Error output</source>
-        <translation>Feilmeldinger (stderr)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="311"/>
         <source>Testing connection...</source>
-        <translation>Tester tilkobling...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="339"/>
         <source>Python error - see log</source>
-        <translation>Python-feil – se loggen</translation>
-    </message>
-</context>
-<context>
-    <name>BackendFields</name>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="36"/>
-        <source>Server URL</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="39"/>
-        <source>Server (ftps:// - ftp:// is unencrypted)</source>
-        <extracomment>Account form, FTP. &quot;ftps://&quot; and &quot;ftp://&quot; are URL schemes and are typed exactly like this - please keep them as they are.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="42"/>
-        <source>Server (host or host:port)</source>
-        <extracomment>Account form, SFTP. The field takes either a plain server name or one with a port appended, as in &quot;sftp.example.com:2222&quot;.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="45"/>
-        <source>Server (EU region: %1)</source>
-        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="47"/>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="49"/>
-        <source>pCloud email address</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="51"/>
-        <source>Password</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="54"/>
-        <source>Password or app password (with 2FA)</source>
-        <extracomment>Account form, Nextcloud. An &quot;app password&quot; is Nextcloud&apos;s own term for the separate password a server with two-factor authentication issues per application.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="56"/>
-        <source>Two-factor authentication (2FA)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="59"/>
-        <source>One-time code (OTP)</source>
-        <extracomment>Account form, Seafile. OTP: the one-time code from an authenticator app.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="61"/>
-        <source>Accept self-signed certificates</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="76"/>
-        <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
-Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
-        <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="79"/>
-        <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
-Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
-        <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../qml/pages/BackendFields.qml" line="82"/>
-        <source>Only for a server whose certificate no public authority signed. Ferry then accepts any certificate. Use it only on a server you know.</source>
-        <extracomment>Account form, warning below the certificate switch. Shown for every backend that speaks TLS.</extracomment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -265,22 +182,22 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="60"/>
         <source>Syncing...</source>
-        <translation>Synkroniserer...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="61"/>
         <source>No sync pairs</source>
-        <translation>Ingen synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="62"/>
         <source>%1 failed</source>
-        <translation>%1 feilet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="63"/>
         <source>%1 pairs OK</source>
-        <translation>%1 par OK</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -288,42 +205,42 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="32"/>
         <source>Diagnostics</source>
-        <translation>Diagnostikk</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="33"/>
         <source>validation tests</source>
-        <translation>valideringstester</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="41"/>
         <source>Tests running...</source>
-        <translation>Tester kjører...</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport: </translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
         <source>Run all tests</source>
-        <translation>Kjør alle tester</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="68"/>
         <source>No results yet</source>
-        <translation>Ingen resultater ennå</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="69"/>
         <source>Pull down to run all tests</source>
-        <translation>Dra ned for å kjøre alle tester</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
         <source>Python error - see log</source>
-        <translation>Python-feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -331,58 +248,58 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
         <source>Select files</source>
-        <translation>Velg filer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
         <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
         <source>System files</source>
-        <translation>Systemfiler</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
         <source>Choose a folder</source>
-        <translation>Velg en mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="79"/>
         <source>%1 selected</source>
-        <translation>%1 valgt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="80"/>
         <source>Local files</source>
-        <translation>Lokale filer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Add selection (%1)</source>
-        <translation>Legg til utvalg (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
         <source>Select this folder</source>
-        <translation>Velg denne mappen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
         <source>Hide hidden files</source>
-        <translation>Ikke vis skjulte filer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Show hidden files</source>
-        <translation>Vis skjulte filer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="116"/>
         <source>Empty folder</source>
-        <translation>Tom mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="232"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -390,12 +307,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="37"/>
         <source>Image could not be displayed</source>
-        <translation>Bildet kunne ikke vises</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="85"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -403,104 +320,103 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
         <source>Local syncs</source>
-        <translation>Lokale synkroniseringer</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
         <source>Remote</source>
-        <translation>Ekstern</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="129"/>
         <source>Last sync skipped: %1</source>
-        <translation>Siste synkronisering hoppet over: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="139"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation>Synkronisering satt på pause: unormalt mange endringer – hold inne på paret og velg «Tving synkronisering» for å bekrefte</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="148"/>
         <source>Last full sync: %1</source>
-        <translation>Siste fullstendige synkronisering: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="156"/>
         <location filename="../qml/pages/MainPage.qml" line="305"/>
         <source>Settings</source>
-        <translation>Innstillinger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="160"/>
         <source>New sync pair</source>
-        <translation>Nytt synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="164"/>
         <source>Sync now</source>
-        <translation>Synkroniser nå</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>No sync pairs yet</source>
-        <translation>Ingen synkroniseringspar ennå</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="173"/>
         <source>Pull down to create one</source>
-        <translation>Dra ned for å opprette et</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="182"/>
         <source>Deleting sync pair</source>
-        <translation>Sletter synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="252"/>
         <source>Sync this pair</source>
-        <translation>Synkroniser dette paret</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="258"/>
         <source>Force sync (confirm big change)</source>
-        <translation>Tving synkronisering (bekreft stor endring)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="264"/>
         <source>Resume</source>
-        <translation>Gjenoppta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="268"/>
         <source>Show log</source>
-        <translation>Vis logg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="273"/>
         <source>Edit</source>
-        <translation>Rediger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="278"/>
         <source>Delete</source>
-        <translation>Slett</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Refresh</source>
-        <translation>Oppdater</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="327"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation>Sjekk kontoinnstillingene, dra deretter ned for å oppdatere</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation type="unfinished">
-            <numerusform></numerusform>
             <numerusform></numerusform>
         </translation>
     </message>
@@ -508,37 +424,37 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
         <location filename="../qml/pages/MainPage.qml" line="382"/>
         <location filename="../qml/pages/MainPage.qml" line="383"/>
         <source>Name</source>
-        <translation>Navn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="430"/>
         <source>Paused - long-press to resume</source>
-        <translation>Satt på pause – hold inne for å gjenoppta</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="494"/>
         <source>Synchronization started</source>
-        <translation>Synkronisering startet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Sync pair deleted</source>
-        <translation>Synkroniseringspar slettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="527"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation>Velkommen! Vennligst sett opp kontoen din først.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Sync skipped: %1</source>
-        <translation>Synkronisering hoppet over: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="550"/>
         <source>Synchronization finished</source>
-        <translation>Synkronisering fullført</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -546,129 +462,129 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
         <source>Unlock library</source>
-        <translation>Lås opp bibliotek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
         <source>Remote storage</source>
-        <translation>Ekstern lagring</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
         <source>Select this folder</source>
-        <translation>Velg denne mappen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
         <source>New folder</source>
-        <translation>Ny mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
         <source>Upload here</source>
-        <translation>Last opp hit</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
         <source>Refresh</source>
-        <translation>Oppdater</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
         <source>Empty folder</source>
-        <translation>Tom mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation>Sjekk kontoinnstillingene, dra deretter ned for å oppdatere</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
         <source>Pull down to create a folder</source>
-        <translation>Dra ned for å opprette en mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
         <source>Deleting %1</source>
-        <translation>Sletter %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
         <source>View</source>
-        <translation>Vis</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="219"/>
         <source>Edit</source>
-        <translation>Rediger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="224"/>
         <source>Download</source>
-        <translation>Last ned</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="228"/>
         <source>Delete</source>
-        <translation>Slett</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="284"/>
         <source>Unlock</source>
-        <translation>Lås opp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
         <source>Encrypted library</source>
-        <translation>Kryptert bibliotek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
-        <translation>Skriv inn passordet for &apos;%1&apos;. Det lagres trygt for fremtidig tilgang.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
         <source>Library password</source>
-        <translation>Bibliotekpassord</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="322"/>
         <source>Name</source>
-        <translation>Navn</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
         <source>Library is encrypted</source>
-        <translation>Biblioteket er kryptert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
         <source>Folder created</source>
-        <translation>Mappe opprettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="401"/>
         <source>Deleted</source>
-        <translation>Slettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
         <source>Uploading %1 file(s)</source>
-        <translation>Laster opp %1 fil(er)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
         <source>Downloading %1</source>
-        <translation>Laster ned %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -676,152 +592,152 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="45"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="46"/>
         <source>Settings</source>
-        <translation>Innstillinger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="49"/>
         <source>Server</source>
-        <translation>Tjener</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="68"/>
         <source>Account</source>
-        <translation>Konto</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="88"/>
         <source>Not configured</source>
-        <translation>Ikke konfigurert</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="93"/>
         <source>Synchronization</source>
-        <translation>Synkronisering</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="97"/>
         <source>Background sync</source>
-        <translation>Synkronisere i bakgrunnen</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="100"/>
         <source>Manual only</source>
-        <translation>Bare manuelt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Every 5 minutes</source>
-        <translation>Hvert 5. minutt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
         <source>Every 15 minutes</source>
-        <translation>Hvert 15. minutt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="103"/>
         <source>Every 30 minutes</source>
-        <translation>Hvert 30. minutt</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="104"/>
         <source>Every hour</source>
-        <translation>Hver time</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="105"/>
         <source>Every 6 hours</source>
-        <translation>Hver 6. time</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="106"/>
         <source>Every 12 hours</source>
-        <translation>Hver 12. time</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="112"/>
         <source>Allowed network</source>
-        <translation>Tillatte nettverk</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="114"/>
         <source>Wi-Fi only</source>
-        <translation>Kun Wi-Fi</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="115"/>
         <source>Wi-Fi and mobile data</source>
-        <translation>Wi-Fi og mobildata</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Sikkerhetsgrense: maks. slettinger per kjøring</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
         <source>Exclude patterns</source>
-        <translation>Ekskluderingsmønstre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Ett mønster per linje; gjelder for alle mappesynkroniseringer. Endringer utløser en fullstendig ny synkronisering av hvert par.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
         <source>e.g. *.tmp</source>
-        <translation>f.eks. *.tmp</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="152"/>
         <source>Support</source>
-        <translation>Brukerstøtte</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="162"/>
         <source>Diagnostics</source>
-        <translation>Diagnostikk</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="169"/>
         <source>About</source>
-        <translation>Om</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="181"/>
         <source>App Version</source>
-        <translation>App-versjon</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="208"/>
         <source>Report a bug or request a feature</source>
-        <translation>Rapporter en feil eller be om en funksjon</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="236"/>
         <source>Add a translation</source>
-        <translation>Legg til en oversettelse</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="264"/>
         <source>Code Repository</source>
-        <translation>Koderepo</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation>Neste kjøring: %1</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Active</source>
-        <translation>Aktiv</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -829,17 +745,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="23"/>
         <source>Refresh</source>
-        <translation>Oppdater</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="33"/>
         <source>Sync log</source>
-        <translation>Synkroniseringslogg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="80"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -847,93 +763,93 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>New sync pair</source>
-        <translation>Nytt synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>Edit sync pair</source>
-        <translation>Rediger synkroniseringspar</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
         <source>Mode</source>
-        <translation>Modus</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
         <source>Two-way sync</source>
-        <translation>Toveis synkronisering</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Upload only (one-way)</source>
-        <translation>Bare opplasting (enveis)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
         <source>Type</source>
-        <translation>Type</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
         <source>Synchronize a folder</source>
-        <translation>Synkroniser en mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Synchronize a single file</source>
-        <translation>Synkroniser en enkeltfil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
         <source>Local file</source>
-        <translation>Lokal fil</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
         <source>Local folder</source>
-        <translation>Lokal mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
         <source>Select</source>
-        <translation>Velg</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
         <source>Remote folder</source>
-        <translation>Ekstern mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation>Den første synkroniseringen kjører en full overføring mellom begge sider. Merk: Endringer som beholder filens størrelse identisk blir ikke oppdaget (sammenligning kun basert på størrelse).</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
-        <translation>Nye og endrede filer lastes opp til den eksterne mappen. Ferry sletter aldri noe på den eksterne siden, og eksterne endringer kopieres aldri tilbake.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation>Merk: Hvis du prøver å synkronisere til et kryptert bibliotek (f.eks. Seafile), må biblioteket først låses opp under fanen Ekstern.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
         <source>Sync pair created</source>
-        <translation>Synkroniseringspar opprettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
         <source>Sync pair updated</source>
-        <translation>Synkroniseringspar oppdatert</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -941,92 +857,92 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/Terminology.qml" line="40"/>
         <source>Library</source>
-        <translation>Bibliotek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="40"/>
         <source>Folder</source>
-        <translation>Mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="42"/>
         <source>Libraries</source>
-        <translation>Biblioteker</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="42"/>
         <source>Folders</source>
-        <translation>Mapper</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="45"/>
         <source>New library</source>
-        <translation>Nytt bibliotek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="46"/>
         <source>New folder</source>
-        <translation>Ny mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="47"/>
         <source>Library created</source>
-        <translation>Bibliotek opprettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="48"/>
         <source>Folder created</source>
-        <translation>Mappe opprettet</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No libraries</source>
-        <translation>Ingen biblioteker</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No folders</source>
-        <translation>Ingen mapper</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="50"/>
         <source>Pull down to create a library</source>
-        <translation>Dra ned for å opprette et bibliotek</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="51"/>
         <source>Pull down to create a folder</source>
-        <translation>Dra ned for å opprette en mappe</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="53"/>
         <source>The account has no libraries yet.</source>
-        <translation>Kontoen har ingen biblioteker ennå.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="54"/>
         <source>The account has no folders yet.</source>
-        <translation>Kontoen har ingen mapper ennå.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="56"/>
         <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
-        <translation>Når du lagrer, kjøres tilkoblingstesten og det åpnes en resultatside med detaljer og funnet biblioteker.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="57"/>
         <source>Saving runs the connection test and opens a result page with the details and the folders found.</source>
-        <translation>Når du lagrer, kjøres tilkoblingstesten og det åpnes en resultatside med detaljer og funnet mapper.</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Libraries (%1)</source>
-        <translation>Biblioteker (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Folders (%1)</source>
-        <translation>Mapper (%1)</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1034,27 +950,27 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="28"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
         <source>Edit</source>
-        <translation>Rediger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="58"/>
         <source>File content</source>
-        <translation>Filinnhold</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="82"/>
         <source>Saved</source>
-        <translation>Lagret</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1062,12 +978,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="32"/>
         <source>Edit</source>
-        <translation>Rediger</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
         <source>Internal error - see log</source>
-        <translation>Intern feil – se loggen</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
