@@ -69,7 +69,7 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
         <source>Full URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Full URL</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="56"/>
