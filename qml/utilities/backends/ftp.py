@@ -39,11 +39,14 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server (ftps:// - ftp:// is unencrypted)",
+        {"key": "url", "text_id": "server_ftp",
+         "label": "Server (ftps:// - ftp:// is unencrypted)",
          "type": "url", "secret": False,
          "placeholder": "ftps://ftp.example.com"},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password", "type": "password", "secret": True},
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
         dict(INSECURE_TLS_FIELD),
     ],
 }

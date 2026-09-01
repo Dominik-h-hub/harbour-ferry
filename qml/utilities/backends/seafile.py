@@ -25,13 +25,18 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server URL", "type": "url", "secret": False,
+        {"key": "url", "text_id": "server_url", "label": "Server URL",
+         "type": "url", "secret": False,
          "placeholder": "https://seafile.example.com"},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password", "type": "password", "secret": True},
-        {"key": "use_2fa", "label": "Two-factor authentication (2FA)",
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
+        {"key": "use_2fa", "text_id": "use_2fa",
+         "label": "Two-factor authentication (2FA)",
          "type": "switch", "secret": False, "default": False, "local": True},
-        {"key": "otp", "label": "One-time code (OTP)", "type": "otp",
+        {"key": "otp", "text_id": "otp", "label": "One-time code (OTP)",
+         "type": "otp",
          "secret": True, "local": True, "visible_if": "use_2fa"},
         dict(INSECURE_TLS_FIELD),
     ],

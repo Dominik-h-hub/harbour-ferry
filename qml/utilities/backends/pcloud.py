@@ -69,13 +69,19 @@ BACKEND = {
     # an existing account is edited and saved again (same reasoning as the
     # FTPS scheme in ftp.py).
     "config_fields": [
-        {"key": "url", "label": "Server (EU region: %s)" % EU_HOST,
+        {"key": "url", "text_id": "server_pcloud",
+         "label": "Server (EU region: %s)" % EU_HOST,
+         # Handed to the translated label as %1 rather than standing inside
+         # it: this is a server address, and a typo in any one translation
+         # would point the account at nothing.
+         "text_arg": EU_HOST,
          "type": "url", "secret": False, "default": US_URL,
          "placeholder": US_URL},
-        {"key": "user", "label": "pCloud email address", "type": "text",
+        {"key": "user", "text_id": "pcloud_email",
+         "label": "pCloud email address", "type": "text",
          "secret": False},
-        {"key": "pass", "label": "Password", "type": "password",
-         "secret": True},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
     ],
 }
 

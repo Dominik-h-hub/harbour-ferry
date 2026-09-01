@@ -2,6 +2,17 @@
 # Each module in this package defines one rclone backend via a BACKEND dict
 # and a build_rclone_config(values) function. Modules are discovered at
 # runtime; adding a file here makes the backend appear in the UI.
+#
+# Every field of BACKEND["config_fields"] carries a "text_id": the name under
+# which qml/pages/BackendFields.qml keeps the translated label and
+# description of that field. The English text stays here next to it and is
+# the fallback for a text_id that file does not know, so a backend added
+# later still shows a usable form before its wording is translated.
+#
+# It has to be that way round. lupdate has no Python parser and this package
+# is not in SOURCES, so a string that exists only here can never reach a .ts
+# file - it would stay English in every language, which is exactly what users
+# of the translated app were seeing on the account page.
 
 
 # Shared account form field for the TLS backends (webdav/Nextcloud, Seafile,
@@ -21,6 +32,7 @@
 #
 INSECURE_TLS_FIELD = {
     "key": "insecure_tls",
+    "text_id": "insecure_tls",
     "label": "Accept self-signed certificates",
     "description": "Only for a server whose certificate no public authority"
                    " signed. Ferry then accepts any certificate."

@@ -106,6 +106,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/pages/SyncPairEditorPage.qml \
     qml/pages/SyncLogPage.qml \
     qml/pages/Terminology.qml \
+    qml/pages/BackendFields.qml \
     qml/utilities/file_browser.py \
     qml/utilities/sync_pairs.py \
     qml/utilities/sync_engine.py \

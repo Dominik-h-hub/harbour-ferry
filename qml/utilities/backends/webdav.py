@@ -46,7 +46,8 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server URL", "type": "url", "secret": False,
+        {"key": "url", "text_id": "server_url_webdav",
+         "label": "Server URL", "type": "url", "secret": False,
          # The placeholder is one line inside the text field and cannot
          # wrap; everything that needs more room goes into the description
          # below the field (same reasoning as in nextcloud.py).
@@ -58,9 +59,10 @@ BACKEND = {
                         "Without a scheme Ferry uses https - put http:// in"
                         " front of the address for a server without TLS,"
                         " which sends the password in the clear."},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password", "type": "password",
-         "secret": True},
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
         dict(INSECURE_TLS_FIELD),
     ],
 }

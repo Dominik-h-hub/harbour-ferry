@@ -38,6 +38,14 @@ Dialog {
         && (String(page.formValues["url"] || "") !== page.storedUrl
             || String(page.formValues["user"] || "") !== page.storedUser)
 
+    // Translated labels and explanations for the generated form fields.
+    // The backend definition delivers a text_id per field; the English text
+    // it carries alongside is only the fallback for an id this file does
+    // not know (see BackendFields.qml).
+    BackendFields {
+        id: backendFields
+    }
+
     // Wording of the selected backend (Seafile: libraries, Nextcloud: folders).
     Terminology {
         id: terms
@@ -175,8 +183,8 @@ Dialog {
 
             TextField {
                 width: parent.width
-                label: field.label
-                placeholderText: field.placeholder || field.label
+                label: backendFields.label(field)
+                placeholderText: backendFields.placeholder(field)
                 text: page.formValues[field.key] || ""
                 inputMethodHints: field.type === "url"
                                   ? Qt.ImhUrlCharactersOnly | Qt.ImhNoPredictiveText
@@ -191,14 +199,14 @@ Dialog {
             Label {
                 x: Theme.horizontalPageMargin
                 width: parent.width - 2 * Theme.horizontalPageMargin
-                visible: !!field.description
+                visible: !!backendFields.description(field)
                 // Text.Wrap, not WordWrap: a description may carry an
                 // example URL, which has no spaces to break at and would
                 // otherwise run off the screen.
                 wrapMode: Text.Wrap
                 font.pixelSize: Theme.fontSizeExtraSmall
                 color: Theme.secondaryHighlightColor
-                text: field.description || ""
+                text: backendFields.description(field)
             }
         }
     }
@@ -207,8 +215,8 @@ Dialog {
         id: passwordComponent
         PasswordField {
             width: column.width
-            label: field.label
-            placeholderText: field.label
+            label: backendFields.label(field)
+            placeholderText: backendFields.placeholder(field)
             text: page.formValues[field.key] || ""
             onTextChanged: page.setValue(field.key, text)
         }
@@ -217,10 +225,10 @@ Dialog {
     Component {
         id: switchComponent
         TextSwitch {
-            text: field.label
+            text: backendFields.label(field)
             // Backends may explain a switch (the certificate one warns about
             // what it gives up); TextSwitch hides an empty description.
-            description: field.description || ""
+            description: backendFields.description(field)
             checked: !!page.formValues[field.key]
             onCheckedChanged: page.setValue(field.key, checked)
         }
