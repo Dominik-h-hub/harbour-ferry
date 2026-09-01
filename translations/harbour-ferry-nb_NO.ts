@@ -84,12 +84,12 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
         <source>Certificate check</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikatkontroll</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="63"/>
         <source>Off - any certificate is accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Av – alle sertifikater godtas</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
