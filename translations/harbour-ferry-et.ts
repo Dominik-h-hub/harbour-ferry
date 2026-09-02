@@ -6,27 +6,27 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="77"/>
         <source>Remove account</source>
-        <translation type="unfinished"></translation>
+        <translation>Eemalda kasutajakonto</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="79"/>
         <source>Removing account and all sync pairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Eemaldan kasutajakonto ja kõik sünkroonimispaarid</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="91"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="92"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajakonto</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="97"/>
         <source>Backend</source>
-        <translation type="unfinished"></translation>
+        <translation>Taustateenus</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="135"/>
@@ -109,72 +109,72 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="67"/>
         <source>Configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="68"/>
         <source>Encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Krüptitud</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="69"/>
         <source>Not encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Krüptimata</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="107"/>
         <source>Test again</source>
-        <translation type="unfinished"></translation>
+        <translation>Testi uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="112"/>
         <source>Edit account</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda kasutajakontot</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="123"/>
         <source>Connection test</source>
-        <translation type="unfinished"></translation>
+        <translation>Ühenduse test</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="124"/>
         <source>Running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Töös...</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="125"/>
         <source>Successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Õnnestus</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="125"/>
         <source>Failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei õnnestunud</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="166"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajakonto</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="195"/>
         <source>Test details</source>
-        <translation type="unfinished"></translation>
+        <translation>Testi üksikasjad</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="239"/>
         <source>Error output</source>
-        <translation type="unfinished"></translation>
+        <translation>Veaväljund</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="311"/>
         <source>Testing connection...</source>
-        <translation type="unfinished"></translation>
+        <translation>Testin ühenduse toimimist…</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="339"/>
         <source>Python error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Pythoni viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -182,17 +182,17 @@
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="60"/>
         <source>Syncing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimisel…</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="61"/>
         <source>No sync pairs</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimispaare ei leidu</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="62"/>
         <source>%1 failed</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 ei õnnestunud</translation>
     </message>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="63"/>
@@ -248,58 +248,58 @@
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
         <source>Select files</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali failid</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
         <location filename="../qml/pages/FileBrowserPage.qml" line="141"/>
         <source>System files</source>
-        <translation type="unfinished"></translation>
+        <translation>Süsteemifailid</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="78"/>
         <source>Choose a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="79"/>
         <source>%1 selected</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 on valitud</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="80"/>
         <source>Local files</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohalikud failid</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Add selection (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisa valik (%1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
         <source>Select this folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali see kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
         <source>Hide hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ära näita peidetud faile</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Show hidden files</source>
-        <translation type="unfinished"></translation>
+        <translation>Näita peidetud faile</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="116"/>
         <source>Empty folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Tühi kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="232"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -307,12 +307,12 @@
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="37"/>
         <source>Image could not be displayed</source>
-        <translation type="unfinished"></translation>
+        <translation>Pildi kuvamine ei õnnestunud</translation>
     </message>
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="85"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -320,7 +320,7 @@
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
         <source>Local syncs</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohalikud sünkroonimised</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>

@@ -6,12 +6,12 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="85"/>
         <source>Remove account</source>
-        <translation>Supprimer compte</translation>
+        <translation>Supprimer le compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="87"/>
         <source>Removing account and all sync pairs</source>
-        <translation>Supprimer compte et tous les appairages de synchronisation</translation>
+        <translation>Supprimer le compte et tous les appairages de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="99"/>
@@ -31,7 +31,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Avec A2F le serveur émet un jeton de login;le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
+        <translation>Avec A2F le serveur émet un jeton de connexion&#x202f;; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="153"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte : tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
+        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte&#xa0;: tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="314"/>
@@ -69,7 +69,7 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
         <source>Full URL</source>
-        <translation type="unfinished"></translation>
+        <translation>URL complète</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="56"/>
@@ -84,12 +84,12 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
         <source>Certificate check</source>
-        <translation type="unfinished"></translation>
+        <translation>Vérification du certificat</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="63"/>
         <source>Off - any certificate is accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Off – tout certificat est accepté</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
@@ -124,17 +124,17 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="107"/>
         <source>Test again</source>
-        <translation>Retester</translation>
+        <translation>Tester à nouveau</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="112"/>
         <source>Edit account</source>
-        <translation>Éditer compte</translation>
+        <translation>Éditer le compte</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="123"/>
         <source>Connection test</source>
-        <translation>Test connexion</translation>
+        <translation>Test de connexion</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="124"/>
@@ -159,22 +159,22 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="195"/>
         <source>Test details</source>
-        <translation>Détails test</translation>
+        <translation>Détails du test</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="239"/>
         <source>Error output</source>
-        <translation>Sortie erreur</translation>
+        <translation>Sortie d&apos;erreur</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="311"/>
         <source>Testing connection...</source>
-        <translation>Test connexion...</translation>
+        <translation>Test de la connexion...</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="339"/>
         <source>Python error - see log</source>
-        <translation>Erreur Python - voir log</translation>
+        <translation>Erreur Python - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -298,12 +298,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="41"/>
         <source>Tests running...</source>
-        <translation>Tests exécution...</translation>
+        <translation>Tests en cours...</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport : </translation>
+        <translation>Rapport&#xa0;: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
@@ -313,7 +313,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="68"/>
         <source>No results yet</source>
-        <translation>Pas encore de résultats</translation>
+        <translation>Aucun résultat pour l&apos;instant</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="69"/>
@@ -323,7 +323,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
         <source>Python error - see log</source>
-        <translation>Erreur Python - voir log</translation>
+        <translation>Erreur Python - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -331,7 +331,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="75"/>
         <source>Select files</source>
-        <translation>Sélectionner fichiers</translation>
+        <translation>Sélectionner des fichiers</translation>
     </message>
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="76"/>
@@ -382,7 +382,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/FileBrowserPage.qml" line="232"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -395,7 +395,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/ImageViewerPage.qml" line="85"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -403,7 +403,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
         <source>Local syncs</source>
-        <translation>Synchronisations locales</translation>
+        <translation>Synchros locales</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
@@ -413,17 +413,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="129"/>
         <source>Last sync skipped: %1</source>
-        <translation>Dernière(s) synchronisation ignorée(s) : %1</translation>
+        <translation>Dernière(s) synchronisation ignorée(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="139"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation>Pause synchronisation : modifications inhabituelles - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
+        <translation>Synchronisation suspendue&#xa0;: nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="148"/>
         <source>Last full sync: %1</source>
-        <translation>Dernière(s) synchronisation(s) complète(s) : %1</translation>
+        <translation>Dernière(s) synchronisation(s) complète(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="156"/>
@@ -474,7 +474,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="268"/>
         <source>Show log</source>
-        <translation>Voir log</translation>
+        <translation>Voir les journaux</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="273"/>
@@ -499,9 +499,9 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message numerus="yes">
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
+            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
         </translation>
     </message>
     <message>
@@ -528,12 +528,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="527"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation>Bienvenue ! Merci de paramétrer votre compte pour commencer.</translation>
+        <translation>Bienvenue&#x202f;! Merci de paramétrer votre compte pour commencer.</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Sync skipped: %1</source>
-        <translation>Synchronisation ignorée : %1</translation>
+        <translation>Synchronisation ignorée&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="550"/>
@@ -546,7 +546,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
         <source>Unlock library</source>
-        <translation>Déverrouiller bibliothèque</translation>
+        <translation>Déverrouiller la bibliothèque</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
@@ -582,7 +582,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation>Vérifier les paramètres du compte et dérouler pour actualiser</translation>
+        <translation>Vérifier les paramètres du compte, puis dérouler pour actualiser</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
@@ -592,7 +592,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
         <source>Deleting %1</source>
-        <translation>Suppression %1</translation>
+        <translation>Suppression de %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
@@ -627,12 +627,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
-        <translation>Saisir mot de passe pour &apos;%1&apos;. Stockage sécurisé pour futurs accès.</translation>
+        <translation>Saisissez le mot de passe pour &apos;%1&apos;. Il sera enregistré de manière sécurisée pour les prochaines connexions.</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
         <source>Library password</source>
-        <translation>Mot de passe bibliothèque</translation>
+        <translation>Mot de passe de la bibliothèque</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
@@ -658,17 +658,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
         <source>Uploading %1 file(s)</source>
-        <translation>Téléchargement %1 fichier(s)</translation>
+        <translation>Téléchargement de %1 fichier(s)</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
         <source>Downloading %1</source>
-        <translation>Téléchargement %1</translation>
+        <translation>Téléchargement de %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -711,37 +711,37 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="100"/>
         <source>Manual only</source>
-        <translation>Uniquement manuel</translation>
+        <translation>Manuel uniquement</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Every 5 minutes</source>
-        <translation>Chaque 5 minutes</translation>
+        <translation>Toutes les 5 minutes</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
         <source>Every 15 minutes</source>
-        <translation>Chaque 15 minutes</translation>
+        <translation>Toutes les 15 minutes</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="103"/>
         <source>Every 30 minutes</source>
-        <translation>Chaque 30 minutes</translation>
+        <translation>Toutes les 30 minutes</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="104"/>
         <source>Every hour</source>
-        <translation>Chaque heure</translation>
+        <translation>Toutes les heures</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="105"/>
         <source>Every 6 hours</source>
-        <translation>Chaque 6 heures</translation>
+        <translation>Toutes les 6 heures</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="106"/>
         <source>Every 12 hours</source>
-        <translation>Chaque 12 heures</translation>
+        <translation>Toutes les 12 heures</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="112"/>
@@ -761,17 +761,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Limite de sécurité : max. suppressions par exécution</translation>
+        <translation>Limite de sécurité&#xa0;: max. suppressions par exécution</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
         <source>Exclude patterns</source>
-        <translation>critères d&apos;exclusion</translation>
+        <translation>Critères d&apos;exclusion</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Un critère par ligne ; s&apos;applique sur tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
+        <translation>Un critère par ligne&#x202f;; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
@@ -791,12 +791,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="169"/>
         <source>About</source>
-        <translation>A propos</translation>
+        <translation>À propos</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="181"/>
         <source>App Version</source>
-        <translation>Version Application</translation>
+        <translation>Version de l&apos;application</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="208"/>
@@ -811,12 +811,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="264"/>
         <source>Code Repository</source>
-        <translation>Dépôt Code</translation>
+        <translation>Dépôt de code</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation>Prochaine exécution : %1</translation>
+        <translation>Prochaine exécution&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
@@ -834,12 +834,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="33"/>
         <source>Sync log</source>
-        <translation>Synchronisation log</translation>
+        <translation>Journaux de synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="80"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -887,7 +887,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Synchronize a single file</source>
-        <translation>Synchroniser un fichier</translation>
+        <translation>Synchroniser un seul fichier</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
@@ -913,7 +913,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note : les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
+        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note&#xa0;: les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
@@ -923,7 +923,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation>Note : Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
+        <translation>Note&#xa0;: Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
@@ -981,12 +981,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No libraries</source>
-        <translation>Pas de bibliothèques</translation>
+        <translation>Aucune bibliothèque</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No folders</source>
-        <translation>Pas de dossiers</translation>
+        <translation>Aucun dossier</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="50"/>
@@ -1054,7 +1054,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1067,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
         <source>Internal error - see log</source>
-        <translation>Erreur interne - voir log</translation>
+        <translation>Erreur interne - voir les journaux</translation>
     </message>
 </context>
 </TS>
