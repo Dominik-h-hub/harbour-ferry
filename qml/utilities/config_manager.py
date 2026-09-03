@@ -309,8 +309,11 @@ def get_account_summary():
     }
     # Which backend module the remote belongs to (the account form preselects
     # it, so an existing account is not silently rewritten to another type).
+    # The whole remote goes in, not just type and vendor: pCloud and a plain
+    # WebDAV server produce the same pair and are told apart by the marker
+    # Ferry stored in the remote itself.
     summary["backend_id"] = backend_manager.backend_id_for_remote(
-        summary["backend"], summary["vendor"])
+        summary["backend"], summary["vendor"], remote)
     # Backend wording for the UI: Seafile has libraries, Nextcloud folders.
     summary["terms"] = backend_manager.get_terms(summary["backend_id"])
     # Three shapes of the same address, and they are not interchangeable:
@@ -424,7 +427,13 @@ _NOT_FOUND_MARKERS = ("directory not found", "object not found",
                       "couldn't find the directory")
 
 
-def _looks_like_missing_path(output):
+def looks_like_missing_path(output):
+    """True when rclone failed because the path is not on the server.
+
+    Public because the diagnostics report classifies its own listing probe
+    with it - a report that says "the path does not exist" instead of
+    quoting an rclone line is what makes a support case readable.
+    """
     lowered = output.lower()
     return any(marker in lowered for marker in _NOT_FOUND_MARKERS) \
         or bool(re.search(r"\b404\b", lowered))
@@ -473,7 +482,7 @@ def test_connection(backend_info=None):
         log("connection test OK: %d %s, %d file(s) (%s)"
             % (len(names), words["many"].lower(), files, details))
         return True, message, details, names
-    if _looks_like_missing_path(out) and info.get("not_found_hint"):
+    if looks_like_missing_path(out) and info.get("not_found_hint"):
         # Authentication got through and the server answered - what failed is
         # the path, so the login advice below would send the user the wrong
         # way. Checked before _friendly_error() for that reason.
@@ -561,7 +570,7 @@ def _friendly_error(output, fallback=None):
         return "Not enough space - the transfer was not completed."
     if "permission denied" in lowered or re.search(r"\b403\b", lowered):
         return "Access denied - the account may not have rights to this folder."
-    if _looks_like_missing_path(output):
+    if looks_like_missing_path(output):
         # The server answered, so the login is not the problem - saying so
         # keeps this out of the "check your password" dead end below. What
         # exactly is missing depends on the caller, so the wording stays

@@ -45,10 +45,13 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server (host or host:port)", "type": "url",
+        {"key": "url", "text_id": "server_sftp",
+         "label": "Server (host or host:port)", "type": "url",
          "secret": False, "placeholder": "sftp.example.com"},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password", "type": "password", "secret": True},
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
     ],
 }
 

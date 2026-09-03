@@ -27,7 +27,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 - **Two-way folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
 - **Upload only (one-way)** (`rclone copy`) per sync pair — pushes a local folder to the remote and never deletes anything there; for camera or document backups
-- **Currently implemented backends**: **Seafile**, **Nextcloud**, **SFTP** and **FTP/FTPS**
+- **Currently implemented backends**: **Seafile**, **Nextcloud**, **WebDAV**, **pCloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
 - **file browser for uploads and sync pairs** — every folder below home, the SD card and the file system root; hidden files on demand, all file types, multi-select
@@ -37,7 +37,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Global exclude patterns**, editable line by line (`*.tmp`, `.thumbnails/**`, …)
 - **Per-run sync logs** viewable in the app, plus a permanent **diagnostics page** for support cases
 - **Cover action** "Sync now" with status at a glance
-- **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO, SV, FR, NL
+- **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO, SV, FR, NL, ET
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
 
@@ -58,6 +58,23 @@ address to fall back to plain, unencrypted FTP. What the protocols cost you:
   setting the account up is stored and its fingerprint shown, so it can
   be compared with the server's own, and a server that later presents a
   different key is refused instead of being given the password.
+
+### Backend: WebDAV
+
+For a server that speaks plain WebDAV with HTTP Basic authentication -
+Apache's `mod_dav`, nginx, dufs, `rclone serve webdav`, a NAS share. The
+whole address goes into one field, including the path the share is served
+under and a port where it is not the default of the scheme
+(`https://dav.example.com:8443/dav`); without a scheme Ferry uses `https`.
+Nextcloud and pCloud have their own entries in the backend list - they put
+their own conventions on top of WebDAV (the user ID in the path, fixed
+regional endpoints) and are set up there, not here.
+
+Plain WebDAV carries no modification times (rclone only sets them for the
+vendors that understand the `X-OC-Mtime` header), so a two-way pair compares
+sizes: a conflict keeps both versions instead of preferring the newer file.
+Upload-only pairs are not affected. A self-signed certificate is accepted
+via the switch in the account form.
 
 ## Supported Backends
 
