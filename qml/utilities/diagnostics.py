@@ -623,6 +623,8 @@ def test_backends():
 # from a redacted value. Equal fingerprints mean equal values, which is all
 # the comparisons here need; differing ones are what tell a resolved
 # Nextcloud user ID apart from a login name that was never corrected.
+# That is a comparison *within one report*, so the fingerprints are keyed
+# per run and the key never reaches the file - see fingerprint().
 
 # Path segments that are backend structure rather than user data, and worth
 # reading in full: which of these the path is made of is exactly what
@@ -632,10 +634,43 @@ _STRUCTURAL_PATH_SEGMENTS = frozenset([
     "seafdav", "seafhttp",
 ])
 
+# Suffixes that are not public DNS. A name ending in one of these resolves
+# only on the user's own network and can never hold a publicly trusted
+# certificate, which is a difference a support case has to see. *Which* one
+# it is, it does not: that is a piece of the server address, and this report
+# carries none - a suffix like "internal" or a branded gTLD names the
+# organisation as surely as the host label does. So the line below reports
+# the category and redacts the label, like every other label in the name.
+_PRIVATE_HOST_SUFFIXES = frozenset([
+    "local", "localdomain", "localhost", "lan", "home", "arpa", "internal",
+    "intranet", "corp", "private", "box", "test", "invalid", "example",
+    "onion", "i2p",
+])
+
+
+def host_suffix_kind(labels):
+    """What the end of a host name says about where it resolves."""
+    if len(labels) < 2:
+        return "a bare host name, not a public DNS name"
+    if labels[-1].lower() in _PRIVATE_HOST_SUFFIXES:
+        return "private/special-use suffix, not a public DNS name"
+    return "public DNS suffix"
+
+
+# Keyed once per process and never written to the report. A bare digest of
+# these values would not be a redaction: logins, host labels and folder
+# names come from a small enough space to walk through with a word list, and
+# the character count printed beside the fingerprint narrows it further - so
+# a report sitting in ~/Downloads would hand back the values it promises to
+# withhold. With a key nobody has, a fingerprint says only what the section
+# needs it to say: this value is the same one as that value.
+_FINGERPRINT_KEY = os.urandom(16)
+
 
 def fingerprint(value):
-    """A short, stable, non-reversible stand-in for a value."""
-    return hashlib.sha256(value.encode("utf-8", "replace")).hexdigest()[:8]
+    """A short stand-in for a value, comparable only within this report."""
+    return hashlib.sha256(
+        _FINGERPRINT_KEY + value.encode("utf-8", "replace")).hexdigest()[:8]
 
 
 def redacted(value, label):
@@ -692,9 +727,9 @@ def describe_url(url):
                     parts.port if parts.port else "default"))
     else:
         labels = [label for label in host.split(".") if label]
-        d.append("URL host: %s (%d label(s), tld %r, port: %s)"
+        d.append("URL host: %s (%d label(s), %s, port: %s)"
                  % (redacted(host, "host"), len(labels),
-                    labels[-1] if len(labels) > 1 else "",
+                    host_suffix_kind(labels),
                     parts.port if parts.port else "default"))
     segments = [segment for segment in (parts.path or "").split("/") if segment]
     if segments:

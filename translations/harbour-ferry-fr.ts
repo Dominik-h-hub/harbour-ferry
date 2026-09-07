@@ -31,7 +31,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Avec A2F le serveur émet un jeton de connexion&#x202f;; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
+        <translation>Avec A2F le serveur émet un jeton de connexion ; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="153"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte&#xa0;: tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
+        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte : tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="314"/>
@@ -303,7 +303,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport&#xa0;: </translation>
+        <translation>Rapport : </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
@@ -413,17 +413,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="129"/>
         <source>Last sync skipped: %1</source>
-        <translation>Dernière(s) synchronisation ignorée(s)&#xa0;: %1</translation>
+        <translation>Dernière(s) synchronisation ignorée(s) : %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="139"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation>Synchronisation suspendue&#xa0;: nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
+        <translation>Synchronisation suspendue : nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="148"/>
         <source>Last full sync: %1</source>
-        <translation>Dernière(s) synchronisation(s) complète(s)&#xa0;: %1</translation>
+        <translation>Dernière(s) synchronisation(s) complète(s) : %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="156"/>
@@ -500,8 +500,8 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
-            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
-            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
+            <numerusform>La connexion fonctionne : la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
+            <numerusform>La connexion fonctionne : la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
         </translation>
     </message>
     <message>
@@ -528,12 +528,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="527"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation>Bienvenue&#x202f;! Merci de paramétrer votre compte pour commencer.</translation>
+        <translation>Bienvenue ! Merci de paramétrer votre compte pour commencer.</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Sync skipped: %1</source>
-        <translation>Synchronisation ignorée&#xa0;: %1</translation>
+        <translation>Synchronisation ignorée : %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="550"/>
@@ -761,7 +761,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Limite de sécurité&#xa0;: max. suppressions par exécution</translation>
+        <translation>Limite de sécurité : max. suppressions par exécution</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
@@ -771,7 +771,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Un critère par ligne&#x202f;; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
+        <translation>Un critère par ligne ; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
@@ -816,7 +816,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation>Prochaine exécution&#xa0;: %1</translation>
+        <translation>Prochaine exécution : %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
@@ -913,7 +913,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note&#xa0;: les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
+        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note : les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
@@ -923,7 +923,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation>Note&#xa0;: Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
+        <translation>Note : Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>

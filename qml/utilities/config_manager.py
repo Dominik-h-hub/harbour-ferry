@@ -427,6 +427,36 @@ _NOT_FOUND_MARKERS = ("directory not found", "object not found",
                       "couldn't find the directory")
 
 
+# Failures that mean the run never reached the server, or lost it on the
+# way. What they have in common is that they say nothing about the files on
+# either side: no listing was compared, nothing was deleted, nothing is out
+# of step. A caller that runs on a schedule can simply try again.
+_UNREACHABLE_MARKERS = (
+    "client conn could not be established",   # http2: no connection at all
+    "dial tcp",
+    "connection refused",
+    "connection reset by peer",
+    "network is unreachable",
+    "no route to host",
+    "no such host",
+    "name or service not known",
+    "temporary failure in name resolution",
+    "server misbehaving",
+    "tls handshake timeout",
+    "i/o timeout",
+    "deadline exceeded",
+    "502 bad gateway",
+    "503 service unavailable",
+    "504 gateway timeout",
+)
+
+
+def looks_unreachable(output):
+    #True when rclone could not reach the server, or lost it mid-run.
+    lowered = output.lower()
+    return any(marker in lowered for marker in _UNREACHABLE_MARKERS)
+
+
 def looks_like_missing_path(output):
     """True when rclone failed because the path is not on the server.
 
@@ -552,6 +582,14 @@ def _friendly_error(output, fallback=None):
         return "Server not found - please check the server URL."
     if "connection refused" in lowered:
         return "Connection refused - please check the URL and port."
+    if looks_unreachable(lowered):
+        # Everything the list covers that has no message of its own above:
+        # a refused HTTP/2 handshake, a reset connection, a gateway error.
+        # Without this they fell through to the generic fallback, which sent
+        # the user to the log to find out that the phone had simply been
+        # offline.
+        return ("The server could not be reached - please check your network"
+                " connection and whether the server is online.")
     if "unknown authority" in lowered or "self-signed" in lowered \
             or "self signed" in lowered:
         # The everyday case for a self-hosted server: the certificate is not

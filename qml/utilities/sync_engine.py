@@ -315,7 +315,23 @@ def _push_passes(pair, args):
     return [catchup + ["--max-age", "%ds" % age], size_pass]
 
 
-def _classify_failure(output, remote_path="", allow_resync=True):
+def _rclone_output(log_text):
+    """The run log without the header lines this module writes itself.
+
+    The header quotes the command, so every two-way run carries the
+    literal "--max-delete" and every recovery run "--resync" - the very
+    words the classification below looks for. Matching them against the
+    header turned *every* failed bisync into a safety abort: a server
+    that could not be reached paused the pair for "unusually many
+    changes", and the pair then waited for a confirmation the user had no
+    reason to give. Only rclone's own lines may say what a failure was.
+    """
+    return "\n".join(line for line in log_text.splitlines()
+                      if not line.startswith("#"))
+
+
+def _classify_failure(log_text, remote_path="", allow_resync=True):
+    output = _rclone_output(log_text)
     # A locked library is not a broken sync - the run never had a chance.
     # This also registers the library, so the next run is refused up front.
     library = enc_libraries.encrypted_library(output, remote_path)
@@ -334,6 +350,13 @@ def _classify_failure(output, remote_path="", allow_resync=True):
         return "safety_abort", ("Sync stopped: unusually many changes detected "
                                 "(safety limit). Pair paused - review and sync "
                                 "manually.")
+    if config_manager.looks_unreachable(lowered):
+        # The run never got to the server, so no listing was compared and
+        # nothing is out of step - there is nothing here for the user to
+        # review or repair. Its own kind, so the pair keeps running and
+        # the message can say what actually happens next.
+        return "unreachable", ("Server not reachable - Ferry will try"
+                               " again at the next sync")
     return "failed", config_manager.friendly_error(
         output, "Sync failed - open the log for details")
 
@@ -521,11 +544,21 @@ def _run_pair_locked(pair, force):
     elif kind == "safety_abort":
         extra["paused"] = True
         extra["safety_abort"] = True
+    elif kind == "unreachable":
+        # Not a state the pair has to be rescued from - only a
+        # note that this run already reported the outage, so the
+        # ones that follow it can stay quiet.
+        extra["unreachable"] = True
     return _finish_run(pair_id, now, False, message, extra)
 
 
 def _finish_run(pair_id, timestamp, ok, message, extra_fields):
-    fields = {"last_run": timestamp, "last_ok": ok, "last_message": message}
+    previous = sync_pairs.get_pair(pair_id) or {}
+    unreachable = bool(extra_fields.get("unreachable"))
+    fields = {"last_run": timestamp, "last_ok": ok, "last_message": message,
+              # Every other outcome clears it, so the next outage is
+              # announced again rather than swallowed.
+              "unreachable": unreachable}
     if ok:
         fields["safety_abort"] = False
     fields.update(extra_fields)
@@ -537,6 +570,19 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
         if extra_fields.get("safety_abort"):
             notify.send("Ferry: sync stopped", "%s: unusually many changes "
                         "- confirmation required" % name)
+        elif unreachable:
+            # A server that stays away is one event, not one per
+            # scheduled run. The pair retries by itself, so
+            # repeating this every few minutes would say nothing
+            # new and only teach the user to swipe it away. The
+            # first run that cannot reach the server reports it;
+            # the rest wait for the state to change.
+            if previous.get("unreachable"):
+                log("pair %s still unreachable - already notified"
+                    % pair_id)
+            else:
+                notify.send("Ferry: sync failed",
+                            "%s: %s" % (name, message))
         else:
             notify.send("Ferry: sync failed", "%s: %s" % (name, message))
     _send("sync-status", {"pair": pair_id, "running": False,
