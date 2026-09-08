@@ -502,8 +502,8 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
-            <numerusform>Verbindung Ok: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
-            <numerusform>Verbindung Ok: Das Remote-Stammverzeichnis enthält %n Dateien, die hier nicht aufgeführt werden</numerusform>
+            <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
+            <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Dateien, die hier nicht aufgeführt werden</numerusform>
         </translation>
     </message>
     <message>
