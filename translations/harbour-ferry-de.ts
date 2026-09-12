@@ -244,7 +244,7 @@
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation>Serveradresse oder die vollständige WebDAV-URL, falls bekannt - eine einfache Serveradresse wurd automatisch um den WebDAV-Pfad des Kontos ergänzt.
+        <translation>Serveradresse oder die vollständige WebDAV-URL, falls bekannt - eine einfache Serveradresse wird automatisch um den WebDAV-Pfad des Kontos ergänzt.
 Beispiel: https://cloud.example.com/remote.php/dav/files/USERID</translation>
     </message>
     <message>
@@ -502,8 +502,8 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
-            <numerusform>Verbindung Ok: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
-            <numerusform>Verbindung Ok: Das Remote-Stammverzeichnis enthält %n Dateien, die hier nicht aufgeführt werden</numerusform>
+            <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
+            <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Dateien, die hier nicht aufgeführt werden</numerusform>
         </translation>
     </message>
     <message>
