@@ -108,6 +108,17 @@ def _rclone_env():
     # environment covers accounts that were saved before it did - without it
     # rclone would silently accept any host key on those (see ssh_hostkey).
     env["RCLONE_SFTP_KNOWN_HOSTS_FILE"] = ssh_hostkey.ensure_file()
+    algorithms = ssh_hostkey.trusted_algorithms()
+    if algorithms:
+        # Which of its host keys the server should present. Without this
+        # rclone asks for the algorithm its SSH library prefers, which is
+        # rarely the one Ferry trusted - see ssh_hostkey.key_algorithms.
+        # rclone reads an option from the environment *before* the config
+        # file, so this is more than the fallback for accounts written
+        # before the remote carried the option: it has to name something the
+        # stored keys can verify, which is why it comes out of the same file
+        # instead of being a fixed list.
+        env["RCLONE_SFTP_HOST_KEY_ALGORITHMS"] = algorithms
     if settings_manager.get("insecure_tls"):
         # The "Accept self-signed certificates" switch of the account form.
         # Set here rather than written into the remote: this function feeds
@@ -626,10 +637,28 @@ def _friendly_error(output, fallback=None):
     return fallback or _GENERIC_ERROR
 
 
+def _pin_host_key_algorithm(params, key_type):
+    """Ask the server for the key Ferry verified, not for its favourite one.
+
+    The server picks which host key to present from the algorithms the
+    client offers, and the trusted key is the only one Ferry can check
+    against - so the remote asks for that algorithm (ssh_hostkey.
+    key_algorithms explains why an RSA key means three of them). It is
+    written into params here rather than in backends/sftp.build_rclone_config
+    because that runs before the key is known: on first contact there is
+    nothing stored yet when the account is built.
+    """
+    option = ssh_hostkey.algorithms_option(key_type)
+    if option:
+        params["host_key_algorithms"] = option
+
+
 def _verify_host_key(params):
     """Check the SSH host key of the server the account points at.
 
-    Returns (ok, message, detail) for the step list. Trust on first use: the
+    Returns (ok, message, detail) for the step list and, when the key is
+    good, adds the matching host_key_algorithms to params - which is why
+    this runs before the configuration is written. Trust on first use: the
     first key seen is stored and its fingerprint reported, so the user can
     compare it with the server's own. A key that does not match the stored
     one stops the setup - that is what an intercepted connection looks like,
@@ -640,9 +669,14 @@ def _verify_host_key(params):
     result = ssh_hostkey.check_host(host, port)
     state = result["state"]
     if state == "trusted":
-        return True, "", "known key %s" % result["fingerprint"]
+        # The key on the wire is the stored one in this state, so its type
+        # is the stored key's type.
+        _pin_host_key_algorithm(params, result["key_type"])
+        return True, "", "known key %s %s" % (result["key_type"],
+                                              result["fingerprint"])
     if state == "new":
         ssh_hostkey.trust(host, port, result["key_type"], result["key"])
+        _pin_host_key_algorithm(params, result["key_type"])
         return True, "", ("%s %s - trusted from now on. Please compare it with"
                           " the fingerprint of your server."
                           % (result["key_type"], result["fingerprint"]))

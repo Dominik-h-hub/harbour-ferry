@@ -155,6 +155,52 @@ def stored_key(host, port):
     return None
 
 
+# --- which key the server should present ------------------------------------
+#
+# rclone hands the known_hosts file to x/crypto/ssh without deriving the host
+# key algorithms from it, and that library's default preference ends with
+# ssh-ed25519. On a server that offers ed25519 *and* ECDSA - an ordinary
+# OpenSSH installation - rclone therefore asks for the ECDSA key while the
+# check above pinned the ed25519 one, and every connection fails with
+# "knownhosts: key mismatch", deterministically and no matter how often the
+# account is removed and set up again. Naming the algorithm of the key that
+# was actually trusted is what makes the server present that key.
+
+def key_algorithms(key_type):
+    """The host key algorithms a stored key of this type can verify."""
+    if key_type == "ssh-rsa":
+        # known_hosts stores the key blob, and an RSA blob is "ssh-rsa"
+        # whatever signs with it; what is negotiated is the signature
+        # algorithm, and the rsa-sha2-* ones use the very same key. Asking
+        # for ssh-rsa alone would fail on OpenSSH 8.8 and newer, which no
+        # longer signs host keys with SHA-1.
+        return ["rsa-sha2-256", "rsa-sha2-512", "ssh-rsa"]
+    return [key_type] if key_type else []
+
+
+def algorithms_option(key_type):
+    """key_algorithms() as rclone writes it: a space separated list."""
+    return " ".join(key_algorithms(key_type))
+
+
+def trusted_algorithms():
+    """The algorithms of every trusted key, for the rclone environment.
+
+    The remote written by backends/sftp.py names the algorithm of the one
+    host it points at; accounts saved before that option existed do not, and
+    rclone reads the environment for those (config_manager._rclone_env).
+    Which host such a call will connect to is not known here, so every
+    trusted key contributes - Ferry keeps a single account, so that is
+    normally a single key anyway.
+    """
+    names = []
+    for _pattern, key_type, _key in _read_entries():
+        for name in key_algorithms(key_type):
+            if name not in names:
+                names.append(name)
+    return " ".join(names)
+
+
 def trust(host, port, key_type, key):
     """Store a host key as the trusted one, replacing any earlier entry."""
     pattern = host_pattern(host, port)

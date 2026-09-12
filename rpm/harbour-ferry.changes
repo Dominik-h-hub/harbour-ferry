@@ -8,12 +8,13 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
-* Tue Sep 01 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
+* Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing
 - ADDED: Generic WebDAV Backend support
 - CHANGED: account form labels and descriptions are now translatable.
 - ADDED: Language ET from weblate
 - FIX: server not reachable - will not stop sync anymore + error enhancements
+- FIX: SFTP on a server with several host key types no longer fails with "the server's SSH host key has changed"
 
 * Fri Aug 28 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.4-1
 - ADDED: PCLOUD Backend support
