@@ -706,9 +706,35 @@ def scrubbed(text, secrets, limit=600):
     return text[:limit]
 
 
+def port_note(parts):
+    """What the report may say about the port - which need not be a number.
+
+    urlsplit does not look at the port; .port parses it on every read and
+    raises when it is not digits, so both reads below go through here.
+    """
+    try:
+        return str(parts.port) if parts.port else "default"
+    except ValueError:
+        # Redacted like every other stored value: what the reader needs is
+        # that the port is unusable, not what was typed in its place.
+        text = parts.netloc.rpartition("@")[2].rpartition(":")[2]
+        return "%s  <-- not a number, rclone cannot use this URL" % redacted(
+            text, "port")
+
+
 def describe_url(url):
     """The account URL as lines a report may contain."""
-    parts = urllib.parse.urlsplit(url if "://" in url else "//" + url)
+    try:
+        parts = urllib.parse.urlsplit(url if "://" in url else "//" + url)
+    except ValueError as e:
+        # Account setup writes the configuration before it tests it (see
+        # config_manager.setup_and_test), so a URL nothing can parse -
+        # unbalanced brackets around an IPv6 address, say - is a shape this
+        # report has to meet. Diagnosing it is the job; falling over it and
+        # printing a traceback instead of the account section is not.
+        return (["URL: %s  <-- malformed, it cannot be parsed as an address"
+                 " (%s)" % (redacted(url, "url"), type(e).__name__)],
+                "", [])
     d = []
     host = parts.hostname or ""
     is_ip = bool(re.match(r"^[0-9]+(\.[0-9]+){3}$", host)) or ":" in host
@@ -723,14 +749,12 @@ def describe_url(url):
         # the resolver probe below to look up, which a reader would
         # otherwise take for failures of the account.
         d.append("URL host: %s (a literal IP address, port: %s)"
-                 % (redacted(host, "host"),
-                    parts.port if parts.port else "default"))
+                 % (redacted(host, "host"), port_note(parts)))
     else:
         labels = [label for label in host.split(".") if label]
         d.append("URL host: %s (%d label(s), %s, port: %s)"
                  % (redacted(host, "host"), len(labels),
-                    host_suffix_kind(labels),
-                    parts.port if parts.port else "default"))
+                    host_suffix_kind(labels), port_note(parts)))
     segments = [segment for segment in (parts.path or "").split("/") if segment]
     if segments:
         shown = []
