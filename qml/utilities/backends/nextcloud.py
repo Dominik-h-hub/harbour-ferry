@@ -56,7 +56,8 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server URL", "type": "url", "secret": False,
+        {"key": "url", "text_id": "server_url_nextcloud",
+         "label": "Server URL", "type": "url", "secret": False,
          # The placeholder is a single line inside the text field and cannot
          # wrap, so the long form goes into the description below the field
          # where it is readable in full - a WebDAV URL cut off after
@@ -67,8 +68,10 @@ BACKEND = {
                         " with the WebDAV path of your account.\n"
                         "Example: https://cloud.example.com"
                         "/remote.php/dav/files/USERID"},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password or app password (with 2FA)",
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password_app",
+         "label": "Password or app password (with 2FA)",
          "type": "password", "secret": True},
         dict(INSECURE_TLS_FIELD),
     ],

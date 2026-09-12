@@ -106,6 +106,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/pages/SyncPairEditorPage.qml \
     qml/pages/SyncLogPage.qml \
     qml/pages/Terminology.qml \
+    qml/pages/BackendFields.qml \
     qml/utilities/file_browser.py \
     qml/utilities/sync_pairs.py \
     qml/utilities/sync_engine.py \
@@ -132,6 +133,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/backends/sftp.py \
     qml/utilities/backends/ftp.py \
     qml/utilities/backends/pcloud.py \
+    qml/utilities/backends/webdav.py \
     helper/sync_helper.py \
     systemd/harbour-ferry-sync.service \
     systemd/harbour-ferry-sync.timer \

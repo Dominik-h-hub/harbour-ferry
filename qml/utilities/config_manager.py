@@ -108,6 +108,17 @@ def _rclone_env():
     # environment covers accounts that were saved before it did - without it
     # rclone would silently accept any host key on those (see ssh_hostkey).
     env["RCLONE_SFTP_KNOWN_HOSTS_FILE"] = ssh_hostkey.ensure_file()
+    algorithms = ssh_hostkey.trusted_algorithms()
+    if algorithms:
+        # Which of its host keys the server should present. Without this
+        # rclone asks for the algorithm its SSH library prefers, which is
+        # rarely the one Ferry trusted - see ssh_hostkey.key_algorithms.
+        # rclone reads an option from the environment *before* the config
+        # file, so this is more than the fallback for accounts written
+        # before the remote carried the option: it has to name something the
+        # stored keys can verify, which is why it comes out of the same file
+        # instead of being a fixed list.
+        env["RCLONE_SFTP_HOST_KEY_ALGORITHMS"] = algorithms
     if settings_manager.get("insecure_tls"):
         # The "Accept self-signed certificates" switch of the account form.
         # Set here rather than written into the remote: this function feeds
@@ -309,8 +320,11 @@ def get_account_summary():
     }
     # Which backend module the remote belongs to (the account form preselects
     # it, so an existing account is not silently rewritten to another type).
+    # The whole remote goes in, not just type and vendor: pCloud and a plain
+    # WebDAV server produce the same pair and are told apart by the marker
+    # Ferry stored in the remote itself.
     summary["backend_id"] = backend_manager.backend_id_for_remote(
-        summary["backend"], summary["vendor"])
+        summary["backend"], summary["vendor"], remote)
     # Backend wording for the UI: Seafile has libraries, Nextcloud folders.
     summary["terms"] = backend_manager.get_terms(summary["backend_id"])
     # Three shapes of the same address, and they are not interchangeable:
@@ -424,7 +438,43 @@ _NOT_FOUND_MARKERS = ("directory not found", "object not found",
                       "couldn't find the directory")
 
 
-def _looks_like_missing_path(output):
+# Failures that mean the run never reached the server, or lost it on the
+# way. What they have in common is that they say nothing about the files on
+# either side: no listing was compared, nothing was deleted, nothing is out
+# of step. A caller that runs on a schedule can simply try again.
+_UNREACHABLE_MARKERS = (
+    "client conn could not be established",   # http2: no connection at all
+    "dial tcp",
+    "connection refused",
+    "connection reset by peer",
+    "network is unreachable",
+    "no route to host",
+    "no such host",
+    "name or service not known",
+    "temporary failure in name resolution",
+    "server misbehaving",
+    "tls handshake timeout",
+    "i/o timeout",
+    "deadline exceeded",
+    "502 bad gateway",
+    "503 service unavailable",
+    "504 gateway timeout",
+)
+
+
+def looks_unreachable(output):
+    #True when rclone could not reach the server, or lost it mid-run.
+    lowered = output.lower()
+    return any(marker in lowered for marker in _UNREACHABLE_MARKERS)
+
+
+def looks_like_missing_path(output):
+    """True when rclone failed because the path is not on the server.
+
+    Public because the diagnostics report classifies its own listing probe
+    with it - a report that says "the path does not exist" instead of
+    quoting an rclone line is what makes a support case readable.
+    """
     lowered = output.lower()
     return any(marker in lowered for marker in _NOT_FOUND_MARKERS) \
         or bool(re.search(r"\b404\b", lowered))
@@ -473,7 +523,7 @@ def test_connection(backend_info=None):
         log("connection test OK: %d %s, %d file(s) (%s)"
             % (len(names), words["many"].lower(), files, details))
         return True, message, details, names
-    if _looks_like_missing_path(out) and info.get("not_found_hint"):
+    if looks_like_missing_path(out) and info.get("not_found_hint"):
         # Authentication got through and the server answered - what failed is
         # the path, so the login advice below would send the user the wrong
         # way. Checked before _friendly_error() for that reason.
@@ -543,6 +593,14 @@ def _friendly_error(output, fallback=None):
         return "Server not found - please check the server URL."
     if "connection refused" in lowered:
         return "Connection refused - please check the URL and port."
+    if looks_unreachable(lowered):
+        # Everything the list covers that has no message of its own above:
+        # a refused HTTP/2 handshake, a reset connection, a gateway error.
+        # Without this they fell through to the generic fallback, which sent
+        # the user to the log to find out that the phone had simply been
+        # offline.
+        return ("The server could not be reached - please check your network"
+                " connection and whether the server is online.")
     if "unknown authority" in lowered or "self-signed" in lowered \
             or "self signed" in lowered:
         # The everyday case for a self-hosted server: the certificate is not
@@ -561,7 +619,7 @@ def _friendly_error(output, fallback=None):
         return "Not enough space - the transfer was not completed."
     if "permission denied" in lowered or re.search(r"\b403\b", lowered):
         return "Access denied - the account may not have rights to this folder."
-    if _looks_like_missing_path(output):
+    if looks_like_missing_path(output):
         # The server answered, so the login is not the problem - saying so
         # keeps this out of the "check your password" dead end below. What
         # exactly is missing depends on the caller, so the wording stays
@@ -579,10 +637,28 @@ def _friendly_error(output, fallback=None):
     return fallback or _GENERIC_ERROR
 
 
+def _pin_host_key_algorithm(params, key_type):
+    """Ask the server for the key Ferry verified, not for its favourite one.
+
+    The server picks which host key to present from the algorithms the
+    client offers, and the trusted key is the only one Ferry can check
+    against - so the remote asks for that algorithm (ssh_hostkey.
+    key_algorithms explains why an RSA key means three of them). It is
+    written into params here rather than in backends/sftp.build_rclone_config
+    because that runs before the key is known: on first contact there is
+    nothing stored yet when the account is built.
+    """
+    option = ssh_hostkey.algorithms_option(key_type)
+    if option:
+        params["host_key_algorithms"] = option
+
+
 def _verify_host_key(params):
     """Check the SSH host key of the server the account points at.
 
-    Returns (ok, message, detail) for the step list. Trust on first use: the
+    Returns (ok, message, detail) for the step list and, when the key is
+    good, adds the matching host_key_algorithms to params - which is why
+    this runs before the configuration is written. Trust on first use: the
     first key seen is stored and its fingerprint reported, so the user can
     compare it with the server's own. A key that does not match the stored
     one stops the setup - that is what an intercepted connection looks like,
@@ -593,9 +669,14 @@ def _verify_host_key(params):
     result = ssh_hostkey.check_host(host, port)
     state = result["state"]
     if state == "trusted":
-        return True, "", "known key %s" % result["fingerprint"]
+        # The key on the wire is the stored one in this state, so its type
+        # is the stored key's type.
+        _pin_host_key_algorithm(params, result["key_type"])
+        return True, "", "known key %s %s" % (result["key_type"],
+                                              result["fingerprint"])
     if state == "new":
         ssh_hostkey.trust(host, port, result["key_type"], result["key"])
+        _pin_host_key_algorithm(params, result["key_type"])
         return True, "", ("%s %s - trusted from now on. Please compare it with"
                           " the fingerprint of your server."
                           % (result["key_type"], result["fingerprint"]))

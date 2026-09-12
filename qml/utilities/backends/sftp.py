@@ -17,6 +17,12 @@
 # named in the remote's configuration below and, for accounts written before
 # this existed, in the environment of every rclone call (config_manager).
 #
+# The remote also names the host key algorithm of the trusted key, which a
+# server offering several kinds of key needs to present the right one. It
+# cannot be set here - the key is not known until it has been read from the
+# server - so config_manager._verify_host_key adds it before the remote is
+# written.
+#
 # SPDX-License-Identifier: Apache-2.0
 
 import hostport
@@ -45,10 +51,13 @@ BACKEND = {
     # "key" doubles as the rclone option name where applicable; fields with
     # "local": True are UI-only (not passed to rclone as key=value).
     "config_fields": [
-        {"key": "url", "label": "Server (host or host:port)", "type": "url",
+        {"key": "url", "text_id": "server_sftp",
+         "label": "Server (host or host:port)", "type": "url",
          "secret": False, "placeholder": "sftp.example.com"},
-        {"key": "user", "label": "Username", "type": "text", "secret": False},
-        {"key": "pass", "label": "Password", "type": "password", "secret": True},
+        {"key": "user", "text_id": "username", "label": "Username",
+         "type": "text", "secret": False},
+        {"key": "pass", "text_id": "password", "label": "Password",
+         "type": "password", "secret": True},
     ],
 }
 

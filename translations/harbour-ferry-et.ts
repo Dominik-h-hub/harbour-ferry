@@ -4,52 +4,52 @@
 <context>
     <name>AccountPage</name>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="77"/>
+        <location filename="../qml/pages/AccountPage.qml" line="85"/>
         <source>Remove account</source>
         <translation>Eemalda kasutajakonto</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="79"/>
+        <location filename="../qml/pages/AccountPage.qml" line="87"/>
         <source>Removing account and all sync pairs</source>
         <translation>Eemaldan kasutajakonto ja kõik sünkroonimispaarid</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="91"/>
+        <location filename="../qml/pages/AccountPage.qml" line="99"/>
         <source>Save</source>
         <translation>Salvesta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="92"/>
+        <location filename="../qml/pages/AccountPage.qml" line="100"/>
         <source>Account</source>
         <translation>Kasutajakonto</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="97"/>
+        <location filename="../qml/pages/AccountPage.qml" line="105"/>
         <source>Backend</source>
         <translation>Taustateenus</translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="135"/>
+        <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="145"/>
+        <location filename="../qml/pages/AccountPage.qml" line="153"/>
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="155"/>
+        <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="306"/>
+        <location filename="../qml/pages/AccountPage.qml" line="314"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/AccountPage.qml" line="307"/>
+        <location filename="../qml/pages/AccountPage.qml" line="315"/>
         <source>Account removed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -79,7 +79,7 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="57"/>
         <source>Backend</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Taustateenus</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
@@ -178,6 +178,89 @@
     </message>
 </context>
 <context>
+    <name>BackendFields</name>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="36"/>
+        <source>Server URL</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="39"/>
+        <source>Server (ftps:// - ftp:// is unencrypted)</source>
+        <extracomment>Account form, FTP. &quot;ftps://&quot; and &quot;ftp://&quot; are URL schemes and are typed exactly like this - please keep them as they are.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="42"/>
+        <source>Server (host or host:port)</source>
+        <extracomment>Account form, SFTP. The field takes either a plain server name or one with a port appended, as in &quot;sftp.example.com:2222&quot;.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="45"/>
+        <source>Server (EU region: %1)</source>
+        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="47"/>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="49"/>
+        <source>pCloud email address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="51"/>
+        <source>Password</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="54"/>
+        <source>Password or app password (with 2FA)</source>
+        <extracomment>Account form, Nextcloud. An &quot;app password&quot; is Nextcloud&apos;s own term for the separate password a server with two-factor authentication issues per application.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="56"/>
+        <source>Two-factor authentication (2FA)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="59"/>
+        <source>One-time code (OTP)</source>
+        <extracomment>Account form, Seafile. OTP: the one-time code from an authenticator app.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="61"/>
+        <source>Accept self-signed certificates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="76"/>
+        <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
+Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
+        <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="79"/>
+        <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
+Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
+        <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/BackendFields.qml" line="82"/>
+        <source>Only for a server whose certificate no public authority signed. Ferry then accepts any certificate. Use it only on a server you know.</source>
+        <extracomment>Account form, warning below the certificate switch. Shown for every backend that speaks TLS.</extracomment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CoverPage</name>
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="60"/>
@@ -240,7 +323,7 @@
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
         <source>Python error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Pythoni viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -418,6 +501,7 @@
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation type="unfinished">
             <numerusform></numerusform>
+            <numerusform></numerusform>
         </translation>
     </message>
     <message>
@@ -472,7 +556,7 @@
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
         <source>Select this folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Vali see kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
@@ -493,7 +577,7 @@
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
         <source>Empty folder</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Tühi kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
@@ -584,7 +668,7 @@
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -592,7 +676,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="45"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="46"/>
@@ -607,7 +691,7 @@
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="68"/>
         <source>Account</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Kasutajakonto</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="88"/>
@@ -755,7 +839,7 @@
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="80"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -763,7 +847,7 @@
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
@@ -950,7 +1034,7 @@
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="28"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
@@ -970,7 +1054,7 @@
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -983,7 +1067,7 @@
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 </TS>
