@@ -182,82 +182,84 @@
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="36"/>
         <source>Server URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Server-URL</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="39"/>
         <source>Server (ftps:// - ftp:// is unencrypted)</source>
         <extracomment>Account form, FTP. &quot;ftps://&quot; and &quot;ftp://&quot; are URL schemes and are typed exactly like this - please keep them as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (ftps:// - ftp:// er ukryptert)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="42"/>
         <source>Server (host or host:port)</source>
         <extracomment>Account form, SFTP. The field takes either a plain server name or one with a port appended, as in &quot;sftp.example.com:2222&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (vert eller vert:port)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
         <source>Server (EU region: %1)</source>
         <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (EU-region: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Brukernavn</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="49"/>
         <source>pCloud email address</source>
-        <translation type="unfinished"></translation>
+        <translation>pCloud-e-postadresse</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="51"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Passord</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="54"/>
         <source>Password or app password (with 2FA)</source>
         <extracomment>Account form, Nextcloud. An &quot;app password&quot; is Nextcloud&apos;s own term for the separate password a server with two-factor authentication issues per application.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Passord eller app-passord (med 2FA)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="56"/>
         <source>Two-factor authentication (2FA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tofaktorautentisering (2FA)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="59"/>
         <source>One-time code (OTP)</source>
         <extracomment>Account form, Seafile. OTP: the one-time code from an authenticator app.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Engangskode (OTP)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="61"/>
         <source>Accept self-signed certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Godta selvsignerte sertifikater</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="76"/>
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Serveradressen, eller den fullstendige WebDAV-URLen hvis du kjenner den – Ferry fullfører en ren serveradresse med WebDAV-banen til kontoen din.
+Eksempel: https://sky.eksempel.no/remote.php/dav/files/BRUKERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
         <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Den fullstendige adressen til WebDAV-delingen, inkludert banen den betjenes under. Angi port kun dersom den avviker fra protokollens standard (https://dav.eksempel.no:8443/dav).
+Uten protokoll bruker Ferry https – sett http:// foran adressen for en server uten TLS, som sender passordet i klartekst.</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="82"/>
         <source>Only for a server whose certificate no public authority signed. Ferry then accepts any certificate. Use it only on a server you know.</source>
         <extracomment>Account form, warning below the certificate switch. Shown for every backend that speaks TLS.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Kun for en server der sertifikatet ikke er signert av en offentlig utsteder. Ferry godtar da alle sertifikater. Bruk dette kun på en server du kjenner.</translation>
     </message>
 </context>
 <context>
@@ -499,9 +501,9 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message numerus="yes">
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>Tilkoblingen fungerer: Ekstern rotmappe inneholder %n fil, som ikke vises her</numerusform>
+            <numerusform>Tilkoblingen fungerer: Ekstern rotmappe inneholder %n filer, som ikke vises her</numerusform>
         </translation>
     </message>
     <message>
