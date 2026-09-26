@@ -182,69 +182,70 @@
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="36"/>
         <source>Server URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Server-URL</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="39"/>
         <source>Server (ftps:// - ftp:// is unencrypted)</source>
         <extracomment>Account form, FTP. &quot;ftps://&quot; and &quot;ftp://&quot; are URL schemes and are typed exactly like this - please keep them as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (ftps:// - ftp:// is onversleuteld)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="42"/>
         <source>Server (host or host:port)</source>
         <extracomment>Account form, SFTP. The field takes either a plain server name or one with a port appended, as in &quot;sftp.example.com:2222&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (host of host:poort)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
         <source>Server (EU region: %1)</source>
         <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (EU-regio: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikersnaam</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="49"/>
         <source>pCloud email address</source>
-        <translation type="unfinished"></translation>
+        <translation>pCloud-e-mailadres</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="51"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Wachtwoord</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="54"/>
         <source>Password or app password (with 2FA)</source>
         <extracomment>Account form, Nextcloud. An &quot;app password&quot; is Nextcloud&apos;s own term for the separate password a server with two-factor authentication issues per application.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Wachtwoord of appwachtwoord (met 2FA)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="56"/>
         <source>Two-factor authentication (2FA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tweestapsverificatie (2FA)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="59"/>
         <source>One-time code (OTP)</source>
         <extracomment>Account form, Seafile. OTP: the one-time code from an authenticator app.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Eenmalige code (OTP)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="61"/>
         <source>Accept self-signed certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Zelfondertekende certificaten accepteren</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="76"/>
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Het serveradres, of de volledige WebDAV-URL als je die kent - Ferry vult een gewoon serveradres aan met het WebDAV-pad van je account.
+Bijvoorbeeld: https://cloud.example.com/remote.php/dav/files/USERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
