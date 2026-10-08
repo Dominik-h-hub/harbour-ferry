@@ -252,13 +252,14 @@ Bijvoorbeeld: https://cloud.example.com/remote.php/dav/files/USERID</translation
         <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Het volledige adres van de gedeelde WebDAV, inclusief het pad. Voeg enkel een poort toe als het niet de standaardpoort van het protocol is (https://dav.voorbeeld.com:8443/dav).
+Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server zonder TLS, die het wachtwoord onversleuteld verzendt.</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="82"/>
         <source>Only for a server whose certificate no public authority signed. Ferry then accepts any certificate. Use it only on a server you know.</source>
         <extracomment>Account form, warning below the certificate switch. Shown for every backend that speaks TLS.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Enkel voor een server waarvan het certificaat niet door een publieke autoriteit ondertekend is. Ferry accepteert in dat geval elk certificaat. Gebruik dit enkel bij een server die je kent.</translation>
     </message>
 </context>
 <context>
