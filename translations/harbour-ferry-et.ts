@@ -31,22 +31,22 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaheastmelise autentimise (2FA) puhul väljastab server sisselogimistunnuse; salasõna ennast ei salvestata. Sisesta see uuesti ainult uuesti autentimiseks.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="153"/>
         <source>Switching to another backend replaces the stored account and deletes all sync pairs - they point at the old server.</source>
-        <translation type="unfinished"></translation>
+        <translation>Teisele taustateenusele üleminek asendab salvestatud kasutajakonto ja kustutab kõik sünkroonimispaarid – need viitavad vanale serverile.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveri või kasutaja vahetamine tähendab alati teise konto kasutamist: kõik sünkroonimispaarid ja salvestatud sünkroonimisolekus kustutatakse (nad ju kirjeldavad eelmist seost).</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="314"/>
         <source>Account removed, %1 sync pair(s) deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajakonto on eemaldatud, %1 sünkroonimispaar(i) on kustutatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="315"/>
@@ -237,27 +237,29 @@
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="61"/>
         <source>Accept self-signed certificates</source>
-        <translation type="unfinished"></translation>
+        <translation>Usalda enda allkirjastatud sertifikaate</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="76"/>
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Serveri aadress või täielik WebDAV-i võrguaadress, kui see on teada – Ferry täiendab lihtsat serveri aadressi sinu konto WebDAV-i asukohaga.
+Näide: https://pilv.toredomeen.ee/remote.php/dav/files/KASUTAJATUNNUS</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
         <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>WebDAV-i põhise võrgukasuta täisaadress, sealhulgas kaust, mille all see on kättesaadav. Märgi port vaid juhul, kui see ei ole skeemi vaikimisi port (https://dav.toredomeen.ee:8443/dav).
+Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita serveri puhul, mis edastab salasõna krüptimata kujul, lisa aadressi ette http://.</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="82"/>
         <source>Only for a server whose certificate no public authority signed. Ferry then accepts any certificate. Use it only on a server you know.</source>
         <extracomment>Account form, warning below the certificate switch. Shown for every backend that speaks TLS.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ainult sellise serveri puhul, mille sertifikaati ei ole allkirjastanud ükski levinud sertifitseerimiskeskus. Sel juhul aktsepteerib Ferry mis tahes sertifikaati. Kasuta seda ainult serveri puhul, mida sa tõesti tead ja tunned.</translation>
     </message>
 </context>
 <context>
@@ -280,7 +282,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/cover/CoverPage.qml" line="63"/>
         <source>%1 pairs OK</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 paardub kenasti</translation>
     </message>
 </context>
 <context>
@@ -288,37 +290,37 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="32"/>
         <source>Diagnostics</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagnostika</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="33"/>
         <source>validation tests</source>
-        <translation type="unfinished"></translation>
+        <translation>õigsuse kontrollimise testid</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="41"/>
         <source>Tests running...</source>
-        <translation type="unfinished"></translation>
+        <translation>Testimine on töös…</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation type="unfinished"></translation>
+        <translation>Aruanne: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
         <source>Run all tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Käivita kõik testid</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="68"/>
         <source>No results yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Tulemusi veel pole</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="69"/>
         <source>Pull down to run all tests</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõikide testide käivitamiseks viipa ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
@@ -408,137 +410,137 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/MainPage.qml" line="67"/>
         <source>Remote</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaugseade</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="129"/>
         <source>Last sync skipped: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimane vahelejäetud sünkroonimine: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="139"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine on peatatud: ebatavaliselt palju muudatusi - vajuta pikalt soovitud paari ja kinnitamiseks vali „Sünkrooni sundkorras“</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="148"/>
         <source>Last full sync: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Viimane täismahus sünkroonimine: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="156"/>
         <location filename="../qml/pages/MainPage.qml" line="305"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="160"/>
         <source>New sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus sünkroonimispaar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="164"/>
         <source>Sync now</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkrooni kohe</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>No sync pairs yet</source>
-        <translation type="unfinished"></translation>
+        <translation>Ühtegi sünkroonimispaari veel pole</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="173"/>
         <source>Pull down to create one</source>
-        <translation type="unfinished"></translation>
+        <translation>Mõne lisamiseks tõmba ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="182"/>
         <source>Deleting sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustutan sünkroonimispaari</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="252"/>
         <source>Sync this pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkrooni see paar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="258"/>
         <source>Force sync (confirm big change)</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkrooni sundkorras (suuremate muudatuste kinnitamiseks)</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="264"/>
         <source>Resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Jätka</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="268"/>
         <source>Show log</source>
-        <translation type="unfinished"></translation>
+        <translation>Näita logi</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="273"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="278"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="327"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolli kasutajakonto seadistusi, seejärel viipa uuesti laadimiseks ülalt alla</translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/MainPage.qml" line="329"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
-        <translation type="unfinished">
-            <numerusform></numerusform>
-            <numerusform></numerusform>
+        <translation>
+            <numerusform>See ühendus toimib: kaugsüsteemi juurkaustas on %n fail, mida pole siin loendatud</numerusform>
+            <numerusform>See ühendus toimib: kaugsüsteemi juurkaustas on %n faili, mida pole siin loendatud</numerusform>
         </translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="382"/>
         <location filename="../qml/pages/MainPage.qml" line="383"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="430"/>
         <source>Paused - long-press to resume</source>
-        <translation type="unfinished"></translation>
+        <translation>Peatatud - jätkamiseks vajuta pikalt</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="494"/>
         <source>Synchronization started</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine algas</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Sync pair deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimispaar on kustutatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="527"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tere tulemast! Esmalt palun seadista oma kasutajakonto.</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Sync skipped: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine on jäetud vahele: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="550"/>
         <source>Synchronization finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine lõppes</translation>
     </message>
 </context>
 <context>
@@ -551,7 +553,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
         <source>Remote storage</source>
-        <translation type="unfinished"></translation>
+        <translation>Andmeruum kaugseadmes</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
@@ -562,17 +564,17 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
         <source>Upload here</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi siia üles</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
@@ -582,7 +584,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolli kasutajakonto seadistusi, seejärel viipa uuesti laadimiseks ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
@@ -681,12 +683,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="46"/>
         <source>Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistused</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="49"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="68"/>
@@ -852,73 +854,73 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>New sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus sünkroonimispaar</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
         <source>Edit sync pair</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda sünkroonimispaari</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
         <source>Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Režiim</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
         <source>Two-way sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Kahepoolne sünkroonimine</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Upload only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ainult üleslaadimine (ühepoolne)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
         <source>Type</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüüp</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
         <source>Synchronize a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkrooni kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Synchronize a single file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkrooni üksik fail</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
         <source>Local file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohalik fail</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
         <source>Local folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohalik kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
         <source>Select</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
         <source>Remote folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaugkaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation type="unfinished"></translation>
+        <translation>Esimene sünkroonimine käivitab täismahus sünkroonimise mõlema osapoole vahel. Palun arvesta, et kui muutmise käigus failisuurus ei muutu, siis need jäävad tuvastamata (suurusepõhine võrdlemine).</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uued ja muutunud failid laaditakse kaugkausta. Selle käigus mitte midagi ei kustutata kaugseadmest ja sealseid muudatusi kunagi ei kopeerita tagasi.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
@@ -928,12 +930,12 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
         <source>Sync pair created</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimispaar on loodud</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
         <source>Sync pair updated</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimispaar on uuendatud</translation>
     </message>
 </context>
 <context>
