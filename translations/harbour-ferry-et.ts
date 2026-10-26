@@ -589,37 +589,37 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
         <source>Pull down to create a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Kausta lisamiseks viipa ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
         <source>Deleting %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustutan: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
         <source>View</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaata</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="219"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="224"/>
         <source>Download</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="228"/>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="284"/>
         <source>Unlock</source>
-        <translation type="unfinished"></translation>
+        <translation>Ava lukustus</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
@@ -640,7 +640,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="322"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
@@ -650,22 +650,22 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
         <source>Folder created</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaust on lisatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="401"/>
         <source>Deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustutatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
         <source>Uploading %1 file(s)</source>
-        <translation type="unfinished"></translation>
+        <translation>Üleslaadimisel on %1 fail(i)</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
         <source>Downloading %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Allalaadimisel: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
@@ -698,132 +698,132 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="88"/>
         <source>Not configured</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole seadistatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="93"/>
         <source>Synchronization</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="97"/>
         <source>Background sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine taustal</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="100"/>
         <source>Manual only</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaid käsitsi</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="101"/>
         <source>Every 5 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Iga 5 minuti järel</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="102"/>
         <source>Every 15 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Iga 15 minuti järel</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="103"/>
         <source>Every 30 minutes</source>
-        <translation type="unfinished"></translation>
+        <translation>Iga 30 minuti järel</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="104"/>
         <source>Every hour</source>
-        <translation type="unfinished"></translation>
+        <translation>Kord tunnis</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="105"/>
         <source>Every 6 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Iga 6 tunni järel</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="106"/>
         <source>Every 12 hours</source>
-        <translation type="unfinished"></translation>
+        <translation>Iga 12 tunni järel</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="112"/>
         <source>Allowed network</source>
-        <translation type="unfinished"></translation>
+        <translation>Lubatud võrk</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="114"/>
         <source>Wi-Fi only</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaid WiFi</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="115"/>
         <source>Wi-Fi and mobile data</source>
-        <translation type="unfinished"></translation>
+        <translation>WiFi ja mobiilne andmeside</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation type="unfinished"></translation>
+        <translation>Ohutuspiirang: kustutamiste ülempiir käivituse koha</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
         <source>Exclude patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Välistussmustrid</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation type="unfinished"></translation>
+        <translation>Üks muster rea kohta; kehtib kõikidele sünkroonimiskaustadele. Muudab päästikut, mis käivitab iga paari uuesti sünkroonimise.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
         <source>e.g. *.tmp</source>
-        <translation type="unfinished"></translation>
+        <translation>nt. *.tmp</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="152"/>
         <source>Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajatugi</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="162"/>
         <source>Diagnostics</source>
-        <translation type="unfinished"></translation>
+        <translation>Diagnostika</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="169"/>
         <source>About</source>
-        <translation type="unfinished"></translation>
+        <translation>Rakenduse teave</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="181"/>
         <source>App Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Rakenduse versioon</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="208"/>
         <source>Report a bug or request a feature</source>
-        <translation type="unfinished"></translation>
+        <translation>Teata veast või koosta ettepanek täiendavaks arenduseks</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="236"/>
         <source>Add a translation</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisa tõlge</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="264"/>
         <source>Code Repository</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtekoodi hoidla</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Järgmine käivitus: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Active</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiivne</translation>
     </message>
 </context>
 <context>
@@ -831,12 +831,12 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="23"/>
         <source>Refresh</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="33"/>
         <source>Sync log</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimislogi</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="80"/>
@@ -1041,17 +1041,17 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="58"/>
         <source>File content</source>
-        <translation type="unfinished"></translation>
+        <translation>Faili sisu</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="82"/>
         <source>Saved</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvestatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
@@ -1064,7 +1064,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="32"/>
         <source>Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
