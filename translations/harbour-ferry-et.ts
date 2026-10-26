@@ -51,7 +51,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="315"/>
         <source>Account removed</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajakonto on eemaldatud</translation>
     </message>
 </context>
 <context>
@@ -59,27 +59,27 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="21"/>
         <source>Saving account...</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvestan kasutajakontot…</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="46"/>
         <source>Server</source>
-        <translation type="unfinished"></translation>
+        <translation>Server</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="54"/>
         <source>Full URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Täismahus võrguaadress</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="56"/>
         <source>User</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutaja</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="57"/>
         <source>Backend</source>
-        <translation type="unfinished">Taustateenus</translation>
+        <translation>Taustateenus</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
@@ -323,7 +323,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
         <source>Python error - see log</source>
-        <translation type="unfinished">Pythoni viga, lisateavet leiad logidest</translation>
+        <translation>Pythoni viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -556,7 +556,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
         <source>Select this folder</source>
-        <translation type="unfinished">Vali see kaust</translation>
+        <translation>Vali see kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
@@ -577,7 +577,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
         <source>Empty folder</source>
-        <translation type="unfinished">Tühi kaust</translation>
+        <translation>Tühi kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
@@ -668,7 +668,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -676,7 +676,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="45"/>
         <source>Save</source>
-        <translation type="unfinished">Salvesta</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="46"/>
@@ -691,7 +691,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="68"/>
         <source>Account</source>
-        <translation type="unfinished">Kasutajakonto</translation>
+        <translation>Kasutajakonto</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="88"/>
@@ -839,7 +839,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="80"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -847,7 +847,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
         <source>Save</source>
-        <translation type="unfinished">Salvesta</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
@@ -1034,7 +1034,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="28"/>
         <source>Save</source>
-        <translation type="unfinished">Salvesta</translation>
+        <translation>Salvesta</translation>
     </message>
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="40"/>
@@ -1054,7 +1054,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextEditorPage.qml" line="111"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 <context>
@@ -1067,7 +1067,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
     <message>
         <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
         <source>Internal error - see log</source>
-        <translation type="unfinished">Sisemine viga, lisateavet leiad logidest</translation>
+        <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
 </context>
 </TS>
