@@ -84,27 +84,27 @@
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="62"/>
         <source>Certificate check</source>
-        <translation type="unfinished"></translation>
+        <translation>Sertifikaadikontroll</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="63"/>
         <source>Off - any certificate is accepted</source>
-        <translation type="unfinished"></translation>
+        <translation>Pole kasutusel - kõik sertifikaadid sobivad</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="65"/>
         <source>Two-factor auth</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaheastmeline autentimine</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="66"/>
         <source>On</source>
-        <translation type="unfinished"></translation>
+        <translation>Sees</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="66"/>
         <source>Off</source>
-        <translation type="unfinished"></translation>
+        <translation>Väljas</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountTestPage.qml" line="67"/>
@@ -182,57 +182,57 @@
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="36"/>
         <source>Server URL</source>
-        <translation type="unfinished"></translation>
+        <translation>Serveri võrguaadress</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="39"/>
         <source>Server (ftps:// - ftp:// is unencrypted)</source>
         <extracomment>Account form, FTP. &quot;ftps://&quot; and &quot;ftp://&quot; are URL schemes and are typed exactly like this - please keep them as they are.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (ftps:// - ftp:// on krüptimata)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="42"/>
         <source>Server (host or host:port)</source>
         <extracomment>Account form, SFTP. The field takes either a plain server name or one with a port appended, as in &quot;sftp.example.com:2222&quot;.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (host või host:port)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
         <source>Server (EU region: %1)</source>
         <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Server (EL-i piirkonnas: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
         <source>Username</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajanimi</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="49"/>
         <source>pCloud email address</source>
-        <translation type="unfinished"></translation>
+        <translation>pCloud-i e-posti aadress</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="51"/>
         <source>Password</source>
-        <translation type="unfinished"></translation>
+        <translation>Salasõna</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="54"/>
         <source>Password or app password (with 2FA)</source>
         <extracomment>Account form, Nextcloud. An &quot;app password&quot; is Nextcloud&apos;s own term for the separate password a server with two-factor authentication issues per application.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Salasõna või rakenduse salasõna (2FA puhul)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="56"/>
         <source>Two-factor authentication (2FA)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaheastmeline autentimine (2FA)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="59"/>
         <source>One-time code (OTP)</source>
         <extracomment>Account form, Seafile. OTP: the one-time code from an authenticator app.</extracomment>
-        <translation type="unfinished"></translation>
+        <translation>Ühekordne kood (OTP)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="61"/>
