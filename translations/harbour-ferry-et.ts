@@ -320,7 +320,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="69"/>
         <source>Pull down to run all tests</source>
-        <translation>Kõikide testide käivitamiseks viipa ülalt alla</translation>
+        <translation>Kõikide testide käivitamiseks tõmba ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="182"/>
@@ -491,12 +491,12 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Refresh</source>
-        <translation>Laadi uuesti</translation>
+        <translation>Uuenda andmeid</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="327"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation>Kontrolli kasutajakonto seadistusi, seejärel viipa uuesti laadimiseks ülalt alla</translation>
+        <translation>Kontrolli kasutajakonto seadistusi, seejärel tõmba andmete uuendamiseks ülalt alla</translation>
     </message>
     <message numerus="yes">
         <location filename="../qml/pages/MainPage.qml" line="329"/>
@@ -548,7 +548,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
         <source>Unlock library</source>
-        <translation type="unfinished"></translation>
+        <translation>Ava varunduskogu lukustus</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
@@ -574,7 +574,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
         <source>Refresh</source>
-        <translation>Laadi uuesti</translation>
+        <translation>Uuenda andmeid</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
@@ -584,12 +584,12 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
         <source>Check the account settings, then pull down to refresh</source>
-        <translation>Kontrolli kasutajakonto seadistusi, seejärel viipa uuesti laadimiseks ülalt alla</translation>
+        <translation>Kontrolli kasutajakonto seadistusi, seejärel tõmba andmete uuendamiseks ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
         <source>Pull down to create a folder</source>
-        <translation>Kausta lisamiseks viipa ülalt alla</translation>
+        <translation>Kausta lisamiseks tõmba ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
@@ -624,17 +624,17 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
         <source>Encrypted library</source>
-        <translation type="unfinished"></translation>
+        <translation>Krüptitud varunduskogu</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisesta „%1“ kaugseadme salasõna. See salvestatakse järgnevaks kasutuseks turvalisel viisil.</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
         <source>Library password</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogu salasõna</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
@@ -645,7 +645,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
         <source>Library is encrypted</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogu on krüptitud</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
@@ -831,7 +831,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="23"/>
         <source>Refresh</source>
-        <translation>Laadi uuesti</translation>
+        <translation>Uuenda andmeid</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncLogPage.qml" line="33"/>
@@ -925,7 +925,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Märkus: kui proovid sünkroonida krüptitud varunduskogusse (nt. Seafile), siis peab varunduskogu lukustust kaugseadme vahekaardilt olema lukust lahti tehtud.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
@@ -943,92 +943,92 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/Terminology.qml" line="40"/>
         <source>Library</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogu</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="40"/>
         <source>Folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="42"/>
         <source>Libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogud</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="42"/>
         <source>Folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaustad</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="45"/>
         <source>New library</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus varunduskogu</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="46"/>
         <source>New folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus kaust</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="47"/>
         <source>Library created</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogu on loodud</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="48"/>
         <source>Folder created</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaust on loodud</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No libraries</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogusid pole</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="49"/>
         <source>No folders</source>
-        <translation type="unfinished"></translation>
+        <translation>Kausu pole</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="50"/>
         <source>Pull down to create a library</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogu lisamiseks tõmba ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="51"/>
         <source>Pull down to create a folder</source>
-        <translation type="unfinished"></translation>
+        <translation>Kausta lisamiseks tõmba ülalt alla</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="53"/>
         <source>The account has no libraries yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sellel kasutajakontol pole veel ühtegi varunduskogu seadistatud.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="54"/>
         <source>The account has no folders yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sellel kasutajakontol pole veel ühtegi kausta seadistatud.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="56"/>
         <source>Saving runs the connection test and opens a result page with the details and the libraries found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvestamisel käivitub ühenduse kontrollimise test ja avaneb tulemuste leht, kus on kirjas üksikasjad ja leitud varunduskogud.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="57"/>
         <source>Saving runs the connection test and opens a result page with the details and the folders found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvestamisel käivitub ühenduse kontrollimise test ja avaneb tulemuste leht, kus on kirjas üksikasjad ja leitud kaustad.</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Libraries (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Varunduskogud (%1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/Terminology.qml" line="61"/>
         <source>Folders (%1)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kaustad (%1)</translation>
     </message>
 </context>
 <context>
