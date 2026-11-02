@@ -622,6 +622,9 @@ def run_all_now():
         log("global sync run skipped: %s" % reason)
         return {"skipped": True, "reason": reason}
 
+    # One entry per pair for the command line helper, which turns them into
+    # its output and exit code. The UI ignores the return value.
+    results = []
     try:
         # Held across all pairs so the other runner cannot slip between them
         # and rewrite the pair store while this run is still going.
@@ -631,8 +634,10 @@ def run_all_now():
             for pair in pairs:
                 if pair.get("paused"):
                     log("skipping paused pair %s" % pair["id"])
+                    results.append(pair_result(pair, {"paused": True}))
                     continue
-                run_pair(pair["id"], check_network=False)
+                results.append(pair_result(
+                    pair, run_pair(pair["id"], check_network=False)))
             sync_pairs.clear_last_skip()
             timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
             sync_pairs.set_last_global_run(timestamp)
@@ -645,7 +650,29 @@ def run_all_now():
         return {"skipped": True, "reason": BUSY_REASON}
     _send("sync-all-finished", {"timestamp": timestamp})
     log("global sync run finished")
-    return {"skipped": False}
+    return {"skipped": False, "results": results}
+
+
+def pair_result(pair, outcome):
+    """Condense what run_pair() returned into {id, name, status, message}.
+
+    run_pair() answers with the updated pair after a run, but with a bare
+    {"skipped"/"ok", "message"} dict when it never got to run - status
+    tells the cases apart: "ok", "failed", "skipped" or "paused".
+    """
+    outcome = outcome or {}
+    if outcome.get("paused"):
+        status, message = "paused", "Paused"
+    elif outcome.get("skipped"):
+        status, message = "skipped", outcome.get("message", "")
+    elif "last_ok" in outcome:
+        status = "ok" if outcome.get("last_ok") else "failed"
+        message = outcome.get("last_message", "")
+    else:
+        status = "ok" if outcome.get("ok") else "failed"
+        message = outcome.get("message", "")
+    return {"id": pair.get("id", ""), "name": sync_pairs.display_name(pair),
+            "status": status, "message": message}
 
 
 def run_all_async():

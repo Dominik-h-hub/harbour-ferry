@@ -12,6 +12,7 @@
 - ADDED: rename files and folders in the remote browser
 - ADDED: My Backup support (settings, sync pairs, SSH host keys, encrypted library list)
 - ADDED: optional custom names for sync pairs
+- ADDED: trigger a sync from the command line - see README
 - FIX: single-file sync pairs no longer stop with "unusually many changes" on every change
 
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1

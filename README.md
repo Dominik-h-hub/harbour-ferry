@@ -90,6 +90,46 @@ Adding one new backend: every provider is a single Python module in
 wording of the remote browser ("libraries" vs. "folders") and the sync engine
 are all generated from that definition.
 
+### Triggering a sync from the command line
+
+Scripts, cron jobs or other (unsandboxed) apps can start a sync without
+opening Ferry. Run the commands as the device user (`defaultuser`), not as
+root. The same rules apply as for the background timer: the network rule is
+honored, paused pairs are left alone, and while a run is already in progress
+(in the app or in the background) the new one is skipped instead of running
+twice. There is deliberately no way to force a sync past the safety
+limit from here; that confirmation stays in the app.
+
+All sync pairs, through the background service:
+
+```sh
+systemctl --user start harbour-ferry-sync.service              # waits until done
+systemctl --user start --no-block harbour-ferry-sync.service   # returns at once
+```
+
+`systemctl` reports success either way; the result of each pair shows up in
+the app and in `journalctl --user -u harbour-ferry-sync.service`.
+
+For a single pair, or when a script needs the result, call the helper
+directly - from a terminal on the device, in your user session:
+
+```sh
+python3 /usr/share/harbour-ferry/helper/sync_helper.py                  # all pairs
+python3 /usr/share/harbour-ferry/helper/sync_helper.py --pair "Taxes"   # one pair
+```
+
+`--pair` takes the pair's name as shown in the app, or its id (from
+`journalctl` or the sync log). A name that several pairs share is refused -
+use the id then. The helper prints one result line per pair and exits with:
+
+| Exit code | Meaning |
+|---|---|
+| 0 | every pair that ran was synced (paused pairs do not count) |
+| 1 | at least one pair failed |
+| 2 | skipped: network rule, another run in progress, or the requested pair is paused |
+| 3 | `--pair` matched no pair, or more than one |
+| 64 | invalid arguments |
+
 ## Technical Information
 
 - Qt 5.6.3 (Sailfish OS Silica UI) + Python 3 backend via PyOtherSide — no C++,
