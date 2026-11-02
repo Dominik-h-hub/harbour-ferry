@@ -8,7 +8,8 @@
 #     --conflict-loser num, plus --conflict-resolve newer where the
 #     backend has modification times (see _modtime_supported)
 #     --resync on first run / after state errors
-#     --max-delete 50
+#     --max-delete 50 (folder pairs; single-file pairs run with --force
+#     instead, see _run_pair_locked)
 #   "push"   - one-way rclone copy local -> remote. copy never deletes on
 #     the destination, so none of the bisync safety machinery applies.
 #     Backends without modtimes need a second rclone pass to see changes
@@ -433,13 +434,21 @@ def _run_pair_locked(pair, force):
         resync = bool(pair.get("needs_resync")) or filters_changed
         if filters_changed:
             log("filters changed - forcing resync")
+        # bisync's safety checks are ratios over the files in scope, and a
+        # single-file pair has exactly one: every edit is "all files were
+        # changed", a delete is 100% deletes. Both would abort and pause
+        # the pair on every ordinary change, so they are switched off for
+        # file pairs - the include filter keeps --force to that one file.
+        single_file = pair["type"] == "file"
         args = ["bisync", remote_target, local_dir,
                 "--size-only", "-v", "--stats", "0",
                 "--stats-log-level", "NOTICE",
                 "--conflict-loser", "num",
-                "--max-delete", str(int(settings_manager.get("max_delete"))),
                 "--workdir", _workdir(),
                 "--filters-file", filters_path]
+        if not single_file:
+            args += ["--max-delete",
+                     str(int(settings_manager.get("max_delete")))]
         if _modtime_supported():
             # the newer file wins, the older one stays as a numbered copy.
             args += ["--conflict-resolve", "newer"]
@@ -450,7 +459,10 @@ def _run_pair_locked(pair, force):
         if resync:
             args.append("--resync")
             log("running with --resync (first run or recovery)")
-        if force:
+        if single_file:
+            args.append("--force")
+            log("single-file pair - running with --force, no safety ratios")
+        elif force:
             args.append("--force")
             log("running with --force (single run only)")
         os.makedirs(_workdir(), exist_ok=True)

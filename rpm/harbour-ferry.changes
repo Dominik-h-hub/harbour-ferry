@@ -11,6 +11,7 @@
 * Mon Nov 2 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.6-1
 - ADDED: rename files and folders in the remote browser
 - ADDED: My Backup support (settings, sync pairs, SSH host keys, encrypted library list)
+- FIX: single-file sync pairs no longer stop with "unusually many changes" on every change
 
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing
