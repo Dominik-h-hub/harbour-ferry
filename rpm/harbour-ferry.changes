@@ -8,6 +8,9 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Nov 2 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.6-1
+- ADDED: xx
+
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing
 - ADDED: Generic WebDAV Backend support
