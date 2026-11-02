@@ -546,129 +546,147 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
         <source>Unlock library</source>
         <translation>Lås upp biblioteket</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="77"/>
         <source>Remote storage</source>
         <translation>Fjärrlager</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="84"/>
         <source>Select this folder</source>
         <translation>Välj den här mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Ny mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
         <source>Upload here</source>
         <translation>Ladda upp här</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="132"/>
         <source>Refresh</source>
         <translation>Uppdatera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="142"/>
         <source>Empty folder</source>
         <translation>Tom mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="144"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kolla kontoinställningarna, dra sedan neråt för att uppdatera.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="146"/>
         <source>Pull down to create a folder</source>
         <translation>Dra neråt för att skapa en mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="155"/>
         <source>Deleting %1</source>
         <translation>Tar bort %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="214"/>
         <source>View</source>
         <translation>Visa</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="219"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="227"/>
         <source>Edit</source>
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="224"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="232"/>
         <source>Download</source>
         <translation>Ladda ner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="228"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="240"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
         <source>Delete</source>
         <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="284"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="300"/>
         <source>Unlock</source>
         <translation>Lås upp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="301"/>
         <source>Encrypted library</source>
         <translation>Krypterat bibliotek</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="309"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
         <translation>Ange lösenordet för &quot;%1&quot;. Det är säkert lagrat för framtida åtkomst.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="314"/>
         <source>Library password</source>
         <translation>Bibliotekslösenord</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="322"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="337"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="338"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
+        <source>New name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
         <source>Library is encrypted</source>
         <translation>Biblioteket är krypterat</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="436"/>
         <source>Folder created</source>
         <translation>Mapp skapad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="401"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="448"/>
         <source>Deleted</source>
         <translation>Borttaget</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
+        <source>Renamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
         <source>Uploading %1 file(s)</source>
         <translation>Laddar upp %1 fil(er)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="499"/>
         <source>Downloading %1</source>
         <translation>Laddar ner %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="580"/>
         <source>Internal error - see log</source>
         <translation>Internt fel - Se logg</translation>
     </message>
