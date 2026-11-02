@@ -429,7 +429,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="156"/>
-        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -459,47 +459,47 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Lösche Sync-Paar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="252"/>
+        <location filename="../qml/pages/MainPage.qml" line="265"/>
         <source>Sync this pair</source>
         <translation>Dieses Paar synchronisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="258"/>
+        <location filename="../qml/pages/MainPage.qml" line="271"/>
         <source>Force sync (confirm big change)</source>
         <translation>Sync erzwingen (große Änderung bestätigen)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="264"/>
+        <location filename="../qml/pages/MainPage.qml" line="277"/>
         <source>Resume</source>
         <translation>Fortsetzen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="268"/>
+        <location filename="../qml/pages/MainPage.qml" line="281"/>
         <source>Show log</source>
         <translation>Log anzeigen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="273"/>
+        <location filename="../qml/pages/MainPage.qml" line="286"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="278"/>
+        <location filename="../qml/pages/MainPage.qml" line="291"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="318"/>
+        <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="327"/>
+        <location filename="../qml/pages/MainPage.qml" line="340"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kontoeinstellungen prüfen, dann zum Aktualisieren nach unten ziehen</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="329"/>
+        <location filename="../qml/pages/MainPage.qml" line="342"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
             <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
@@ -507,38 +507,38 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="382"/>
-        <location filename="../qml/pages/MainPage.qml" line="383"/>
+        <location filename="../qml/pages/MainPage.qml" line="395"/>
+        <location filename="../qml/pages/MainPage.qml" line="396"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="430"/>
+        <location filename="../qml/pages/MainPage.qml" line="444"/>
         <source>Paused - long-press to resume</source>
         <translation>Pausiert - zum Fortsetzen lange drücken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="494"/>
+        <location filename="../qml/pages/MainPage.qml" line="508"/>
         <source>Synchronization started</source>
         <translation>Synchronisation gestartet</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="510"/>
+        <location filename="../qml/pages/MainPage.qml" line="524"/>
         <source>Sync pair deleted</source>
         <translation>Sync-Paar gelöscht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="527"/>
+        <location filename="../qml/pages/MainPage.qml" line="541"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Willkommen! Bitte richte zuerst dein Konto ein.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="548"/>
+        <location filename="../qml/pages/MainPage.qml" line="562"/>
         <source>Sync skipped: %1</source>
         <translation>Sync übersprungen: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="550"/>
+        <location filename="../qml/pages/MainPage.qml" line="564"/>
         <source>Synchronization finished</source>
         <translation>Synchronisation abgeschlossen</translation>
     </message>
@@ -865,93 +865,99 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
 <context>
     <name>SyncPairEditorPage</name>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="45"/>
         <source>Save</source>
         <translation>Speichern</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="57"/>
         <source>New sync pair</source>
         <translation>Neues Sync-Paar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="57"/>
         <source>Edit sync pair</source>
         <translation>Sync-Paar bearbeiten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="63"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="67"/>
+        <source>Name (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="90"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="93"/>
         <source>Synchronize a folder</source>
         <translation>Ordner synchronisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="94"/>
         <source>Synchronize a single file</source>
         <translation>Einzelne Datei synchronisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
         <source>Local file</source>
         <translation>Lokale Datei</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
         <source>Local folder</source>
         <translation>Lokaler Ordner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="104"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="118"/>
         <source>Select</source>
         <translation>Auswählen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="117"/>
         <source>Remote folder</source>
         <translation>Remote-Ordner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="137"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
         <translation>Die erste Synchronisation führt einen vollständigen Resync beider Seiten aus. Hinweis: Änderungen, die die Dateigröße unverändert lassen, werden nicht erkannt (Größenvergleich).</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="165"/>
         <source>Sync pair created</source>
         <translation>Sync-Paar erstellt</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="186"/>
         <source>Sync pair updated</source>
         <translation>Sync-Paar aktualisiert</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="147"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation>Hinweis: Bei einer Synchronisation mit einer verschlüsselten Bibliothek (z. B. Seafile) muss die Bibliothek zuerst unter dem Remote-Tab entsperrt werden.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="74"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="76"/>
         <source>Two-way sync</source>
         <translation>Bidirektionaler Sync</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="77"/>
         <source>Upload only (one-way)</source>
         <translation>Nur Hochladen (einseitig)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="138"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
         <translation>Neue und geänderte Dateien werden in den Remote-Ordner hochgeladen. Ferry löscht niemals etwas auf der Remote-Seite. Änderungen auf der Remote-Seite werden nicht zurückkopiert.</translation>
     </message>

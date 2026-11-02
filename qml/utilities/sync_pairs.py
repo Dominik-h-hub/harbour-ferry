@@ -3,7 +3,8 @@
 #
 # Ferry - sync pair storage.
 # Pairs are kept in a JSON file in the app data directory. Each pair:
-#   id, type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
+#   id, name (optional display name; empty = derived from the local path),
+#   type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
 #   path; for "file" the file itself), remote (remote directory path),
 #   paused, needs_resync, filters_hash, last_run (ISO), last_ok
 #   (bool|None), last_message, last_verified (unix time of the last
@@ -176,12 +177,25 @@ def get_pair(pair_id):
     return None
 
 
-def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
+def display_name(pair):
+    """The name shown for a pair: its own name, else the local base name.
+
+    Pairs written before names existed carry no field at all.
+    """
+    name = ((pair or {}).get("name") or "").strip()
+    if name:
+        return name
+    local = ((pair or {}).get("local") or "").rstrip("/")
+    return os.path.basename(local) or (pair or {}).get("id", "")
+
+
+def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name=""):
     if mode not in MODES:
         log("unknown sync mode %r - storing as %s" % (mode, MODE_BISYNC))
         mode = MODE_BISYNC
     pair = {
         "id": "pair-%d" % int(time.time() * 1000),
+        "name": (name or "").strip(),
         "type": pair_type,
         "mode": mode,
         "local": local_path,
@@ -205,6 +219,8 @@ def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
 
 
 def update_pair(pair_id, fields):
+    if "name" in fields:
+        fields = dict(fields, name=(fields["name"] or "").strip())
     with _transaction():
         data = _load()
         for pair in data["pairs"]:

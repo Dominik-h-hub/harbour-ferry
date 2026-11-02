@@ -218,7 +218,7 @@ Page {
 
                 Label {
                     width: parent.width
-                    text: local_name
+                    text: pair_name.length > 0 ? pair_name : local_name
                     truncationMode: TruncationMode.Fade
                     color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }
@@ -229,10 +229,23 @@ Page {
                     color: Theme.secondaryColor
                     truncationMode: TruncationMode.Fade
                     // The arrow marks a one-way pair; two-way pairs stay
-                    // unmarked, so the default case adds no noise.
-                    text: (pair_mode === "push" ? "→ " : "")
-                          + remote_name
-                          + (last_run.length > 0 ? " - " + last_run : "")
+                    // unmarked, so the default case adds no noise. A custom
+                    // name replaces the local name in the first line, so
+                    // both sides move here - with an arrow either way.
+                    text: pair_name.length > 0
+                          ? local_name + (pair_mode === "push" ? " → " : " ↔ ")
+                            + remote_name
+                          : (pair_mode === "push" ? "→ " : "") + remote_name
+                }
+
+                Label {
+                    // Own line: next to "local ↔ remote" it would fade out.
+                    width: parent.width
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: Theme.secondaryColor
+                    truncationMode: TruncationMode.Fade
+                    visible: last_run.length > 0
+                    text: last_run
                 }
 
                 Label {
@@ -422,6 +435,7 @@ Page {
                         pair_id: pair.id,
                         pair_type: pair.type,
                         pair_mode: pair.mode === "push" ? "push" : "bisync",
+                        pair_name: (pair.name || "").trim(),
                         local_name: baseName(pair.local),
                         remote_name: baseName(pair.remote),
                         last_run: pair.last_run || "",

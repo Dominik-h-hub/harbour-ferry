@@ -1,7 +1,7 @@
 /*
  * Ferry - sync pair editor.
- * Mode selection two-way/upload only, type selection folder/single file
- * (two-way only); local picker uses the own file browser, remote picker
+ * Optional display name, mode selection two-way/upload only, type
+ * selection folder/single file (two-way only); local picker uses the own file browser, remote picker
  * uses the remote browser in picker mode.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -18,6 +18,9 @@ Page {
     property string localPath: ""
     property string remotePath: ""
     property bool busy: false
+    // What the edited pair looked like when it was loaded (sync-relevant
+    // fields only), to tell a rename apart from a real change.
+    property var loadedPair: null
 
     function pairMode() {
         return modeCombo.currentIndex === 1 ? "push" : "bisync";
@@ -52,6 +55,18 @@ Page {
 
             PageHeader {
                 title: page.pairId === "" ? qsTr("New sync pair") : qsTr("Edit sync pair")
+            }
+
+            TextField {
+                id: nameField
+                width: parent.width
+                label: qsTr("Name (optional)")
+                // The automatic name shows what an empty field means.
+                placeholderText: page.localPath !== ""
+                                 ? page.localPath.replace(/\/+$/, "").split("/").pop()
+                                 : qsTr("Name (optional)")
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: focus = false
             }
 
             ComboBox {
@@ -144,21 +159,28 @@ Page {
             if (page.pairId === "") {
                 call('sync_pairs.add_pair',
                      [page.pairType(), page.localPath, page.remotePath,
-                      page.pairMode()],
+                      page.pairMode(), nameField.text.trim()],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair created"));
                     pageStack.pop();
                 });
             } else {
-                call('sync_pairs.update_pair',
-                     [page.pairId, { type: page.pairType(),
-                                     mode: page.pairMode(),
-                                     local: page.localPath,
-                                     remote: page.remotePath,
-                                     // A changed mode invalidates the stored
-                                     // bisync listings, so always start over.
-                                     needs_resync: true }],
+                var fields = { name: nameField.text.trim(),
+                               type: page.pairType(),
+                               mode: page.pairMode(),
+                               local: page.localPath,
+                               remote: page.remotePath };
+                var loaded = page.loadedPair;
+                if (!loaded || loaded.type !== fields.type
+                        || loaded.mode !== fields.mode
+                        || loaded.local !== fields.local
+                        || loaded.remote !== fields.remote) {
+                    // A changed mode or path invalidates the stored bisync
+                    // listings, so start over. A new name alone does not.
+                    fields.needs_resync = true;
+                }
+                call('sync_pairs.update_pair', [page.pairId, fields],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair updated"));
@@ -179,6 +201,11 @@ Page {
                             typeCombo.currentIndex = pair.type === "file" ? 1 : 0;
                             page.localPath = pair.local;
                             page.remotePath = pair.remote;
+                            nameField.text = pair.name || "";
+                            page.loadedPair = { type: page.pairType(),
+                                                mode: page.pairMode(),
+                                                local: pair.local,
+                                                remote: pair.remote };
                         }
                     });
                 }

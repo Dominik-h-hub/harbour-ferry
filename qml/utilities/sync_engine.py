@@ -398,8 +398,9 @@ def _run_pair_locked(pair, force):
     mode = sync_pairs.pair_mode(pair)
     two_way = (mode == sync_pairs.MODE_BISYNC)
     _send("sync-status", {"pair": pair_id, "running": True, "message": "Syncing..."})
-    log("=== sync run start: %s (%s %s) %s %s %s force=%s ==="
-        % (pair_id, mode, pair["type"], pair["local"],
+    log("=== sync run start: %s %r (%s %s) %s %s %s force=%s ==="
+        % (pair_id, sync_pairs.display_name(pair), mode, pair["type"],
+           pair["local"],
            "<->" if two_way else "->", pair["remote"], force))
 
     # An encrypted library without its key cannot be synced: bisync would
@@ -578,7 +579,7 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
     log("=== sync run end: %s ok=%s message=%s ===" % (pair_id, ok, message))
     if not ok:
         # Notifications only on failure / action required.
-        name = os.path.basename((pair or {}).get("local", "")) or pair_id
+        name = sync_pairs.display_name(pair) if pair else pair_id
         if extra_fields.get("safety_abort"):
             notify.send("Ferry: sync stopped", "%s: unusually many changes "
                         "- confirmation required" % name)
