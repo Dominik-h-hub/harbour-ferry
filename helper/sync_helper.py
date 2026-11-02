@@ -4,7 +4,7 @@
 # Ferry background sync helper.
 # Started by the systemd user timer; runs all sync pairs through the same
 # engine as the app (network rule and skip behavior included)
-# and exits afterwards. Also writes the diagnostics marker file.
+# and exits afterwards. Full runs also write the diagnostics marker file.
 #
 # Can be called from the command line as well:
 #   python3 /usr/share/harbour-ferry/helper/sync_helper.py [--pair ID|NAME]
@@ -155,9 +155,16 @@ def run_all():
 def main(argv=None):
     args = parse_args(sys.argv[1:] if argv is None else argv)
     log("helper started, pid=%d" % os.getpid())
-    write_marker()
+    # No app is listening; the run start/end and result lines say it all.
+    sync_engine.LOG_EVENTS = False
     try:
-        return run_one(args.pair) if args.pair else run_all()
+        if args.pair:
+            return run_one(args.pair)
+        # The marker proves the timer chain (service -> helper -> full run)
+        # works - the diagnostics page starts the unit exactly like this.
+        # A --pair call from a terminal proves nothing about it.
+        write_marker()
+        return run_all()
     except Exception as e:
         log("helper FAILED: %s" % e)
         return EXIT_FAILED

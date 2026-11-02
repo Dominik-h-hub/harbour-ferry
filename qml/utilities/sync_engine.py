@@ -144,10 +144,16 @@ def _exclusive_run():
                 _release_file_lock()
 
 
+# Without pyotherside the UI events are logged instead - useful on a dev
+# desktop, noise in the background helper, whose output already has the
+# run start/end lines and its own result lines. The helper switches it off.
+LOG_EVENTS = True
+
+
 def _send(event, payload):
     if HAVE_PYOTHERSIDE:
         pyotherside.send(event, payload)
-    else:
+    elif LOG_EVENTS:
         log("(event) %s: %r" % (event, payload))
 
 
