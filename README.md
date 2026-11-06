@@ -27,6 +27,7 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 - **Two-way folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
 - **Upload only (one-way)** (`rclone copy`) per sync pair — pushes a local folder to the remote and never deletes anything there; for camera or document backups
+- **Download only (one-way)** (`rclone copy`) per sync pair — pulls a remote folder onto the device and never deletes anything locally
 - **Currently implemented backends**: **Seafile**, **Nextcloud**, **WebDAV**, **pCloud**, **SFTP** and **FTP/FTPS**
 - **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
@@ -53,6 +54,8 @@ address to fall back to plain, unencrypted FTP. What the protocols cost you:
   and a change that leaves the size untouched goes unnoticed. Upload-only
   pairs do not have that gap - they re-upload everything that changed
   locally since their last successful run, whatever the size says.
+  Download-only pairs do: the server side has no times to go by, so they
+  compare sizes as well.
 - **SFTP** logs in with username and password; key files are not supported
   yet. The server's SSH host key is verified: the key seen while
   setting the account up is stored and its fingerprint shown, so it can
@@ -73,7 +76,9 @@ regional endpoints) and are set up there, not here.
 Plain WebDAV carries no modification times (rclone only sets them for the
 vendors that understand the `X-OC-Mtime` header), so a two-way pair compares
 sizes: a conflict keeps both versions instead of preferring the newer file.
-Upload-only pairs are not affected. A self-signed certificate is accepted
+Upload-only pairs are not affected; download-only pairs compare sizes too,
+so a server-side edit that keeps the size is not downloaded. A self-signed
+certificate is accepted
 via the switch in the account form.
 
 ## Supported Backends

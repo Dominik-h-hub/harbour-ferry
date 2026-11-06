@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # Ferry - sync engine.
-# Two modes per sync pair (see sync_pairs.pair_mode):
+# Three modes per sync pair (see sync_pairs.pair_mode):
 #   "bisync" - rclone bisync with the flag set from the requirements:
 #     --size-only -v --stats 0 --stats-log-level NOTICE
 #     --conflict-loser num, plus --conflict-resolve newer where the
@@ -14,8 +14,10 @@
 #     the destination, so none of the bisync safety machinery applies.
 #     Backends without modtimes need a second rclone pass to see changes
 #     that keep the file size - see _push_passes().
+#   "pull"   - one-way rclone copy remote -> local, never deleting locally.
+#     Without modtimes it can only compare sizes - see _pull_pass().
 # Single-file pairs sync the parent folder with an include filter (bisync
-# only - push always covers a whole folder).
+# only - push and pull always cover a whole folder).
 # Runs are strictly serial. Logs go to per-pair files.
 #
 # SPDX-License-Identifier: Apache-2.0
@@ -322,6 +324,24 @@ def _push_passes(pair, args):
     return [catchup + ["--max-age", "%ds" % age], size_pass]
 
 
+def _pull_pass(args):
+    """The rclone run of a download-only pair.
+
+    With modtimes, rclone's default comparison (size and modification time)
+    sees every remote change. Without them only the size is left, and
+    unlike an upload there is no way around it: the catch-up trick of
+    _push_passes() relies on the local modtimes of the *source*, and here
+    the source is the remote, which has none. An edit on the remote side
+    that keeps the byte length is therefore not downloaded - the same gap a
+    two-way pair has on such a backend. --size-only only states it
+    explicitly; rclone would fall back to it anyway.
+    """
+    if _modtime_supported():
+        return args
+    log("backend without modtimes - download compares by size")
+    return args + ["--size-only"]
+
+
 def _rclone_output(log_text):
     """The run log without the header lines this module writes itself.
 
@@ -407,7 +427,7 @@ def _run_pair_locked(pair, force):
     log("=== sync run start: %s %r (%s %s) %s %s %s force=%s ==="
         % (pair_id, sync_pairs.display_name(pair), mode, pair["type"],
            pair["local"],
-           "<->" if two_way else "->", pair["remote"], force))
+           sync_pairs.mode_arrow(mode), pair["remote"], force))
 
     # An encrypted library without its key cannot be synced: bisync would
     # spend its retries on errors and leave half a listing behind.
@@ -474,6 +494,15 @@ def _run_pair_locked(pair, force):
             log("running with --force (single run only)")
         os.makedirs(_workdir(), exist_ok=True)
         passes = [args]
+    elif mode == sync_pairs.MODE_PULL:
+        # One-way download - the mirror image of the upload below: copy
+        # never deletes on the local side, there is no prior listing and no
+        # conflict. A file that differs is overwritten with the remote
+        # version, local edits included
+        args = ["copy", remote_target, local_dir,
+                "-v", "--stats", "0", "--stats-log-level", "NOTICE",
+                "--filter-from", filters_path]
+        passes = [_pull_pass(args)]
     else:
         # One-way upload. copy (not sync) is deliberate: it never deletes on
         # the remote side, which is what a backup pair promises. That also
@@ -546,7 +575,7 @@ def _run_pair_locked(pair, force):
                 notify.send("Ferry: sync conflict",
                             "%s - please review" % names)
                 return _finish_run(pair_id, now, True, message, extra)
-        else:
+        elif mode == sync_pairs.MODE_PUSH:
             # Everything local is on the remote side as of this moment, so
             # the next catch-up pass only has to look at what changed after
             # it. The run's start, not its end: a file written while rclone

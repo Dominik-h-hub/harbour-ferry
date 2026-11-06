@@ -4,7 +4,7 @@
 # Ferry - sync pair storage.
 # Pairs are kept in a JSON file in the app data directory. Each pair:
 #   id, name (optional display name; empty = derived from the local path),
-#   type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
+#   type ("folder"|"file"), mode ("bisync"|"push"|"pull"), local (absolute
 #   path; for "file" the file itself), remote (remote directory path),
 #   paused, needs_resync, filters_hash, last_run (ISO), last_ok
 #   (bool|None), last_message, last_verified (unix time of the last
@@ -29,13 +29,23 @@ import common
 log = common.make_logger("pairs")
 
 # Sync direction. "bisync" is rclone bisync as before, "push" a one-way
-# rclone copy from local to remote that never deletes on the remote side.
-# Pairs written before the mode existed carry no field at all, so readers
-# must go through pair_mode() instead of reading pair["mode"] directly -
-# a missing default would silently turn an old two-way pair into an upload.
+# rclone copy from local to remote that never deletes on the remote side,
+# "pull" the same the other way round: remote to local, never deleting
+# locally. Pairs written before the mode existed carry no field at all, so
+# readers must go through pair_mode() instead of reading pair["mode"]
+# directly - a missing default would silently turn an old two-way pair into
+# an upload.
 MODE_BISYNC = "bisync"
 MODE_PUSH = "push"
-MODES = (MODE_BISYNC, MODE_PUSH)
+MODE_PULL = "pull"
+MODES = (MODE_BISYNC, MODE_PUSH, MODE_PULL)
+
+# Direction marker for log lines, local side on the left.
+_ARROWS = {MODE_BISYNC: "<->", MODE_PUSH: "->", MODE_PULL: "<-"}
+
+
+def mode_arrow(mode):
+    return _ARROWS.get(mode, "<->")
 
 _LOCK = threading.Lock()
 
@@ -214,7 +224,7 @@ def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name=""):
         stored = len(data["pairs"])
     log("pair added: %s (%s %s) %s %s %s (%d pair(s) stored)"
         % (pair["id"], mode, pair_type, local_path,
-           "<->" if mode == MODE_BISYNC else "->", remote_path, stored))
+           mode_arrow(mode), remote_path, stored))
     return pair
 
 

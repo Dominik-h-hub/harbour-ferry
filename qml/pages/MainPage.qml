@@ -51,6 +51,18 @@ Page {
         }
     }
 
+    // Direction between local (left) and remote (right); twoWay is what a
+    // two-way pair shows in that place.
+    function modeArrow(mode, twoWay) {
+        if (mode === "push") {
+            return "→";
+        }
+        if (mode === "pull") {
+            return "←";
+        }
+        return twoWay;
+    }
+
     ListModel { id: pairsModel }
     ListModel { id: libsModel }
 
@@ -228,14 +240,17 @@ Page {
                     font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                     truncationMode: TruncationMode.Fade
-                    // The arrow marks a one-way pair; two-way pairs stay
-                    // unmarked, so the default case adds no noise. A custom
-                    // name replaces the local name in the first line, so
-                    // both sides move here - with an arrow either way.
+                    // The arrow marks a one-way pair (→ upload, ← download);
+                    // two-way pairs stay unmarked, so the default case adds
+                    // no noise. A custom name replaces the local name in the
+                    // first line, so both sides move here - with an arrow
+                    // either way.
                     text: pair_name.length > 0
-                          ? local_name + (pair_mode === "push" ? " → " : " ↔ ")
+                          ? local_name + " " + page.modeArrow(pair_mode, "↔") + " "
                             + remote_name
-                          : (pair_mode === "push" ? "→ " : "") + remote_name
+                          : (pair_mode === "bisync" ? ""
+                                                    : page.modeArrow(pair_mode, "") + " ")
+                            + remote_name
                 }
 
                 Label {
@@ -434,7 +449,10 @@ Page {
                     pairsModel.append({
                         pair_id: pair.id,
                         pair_type: pair.type,
-                        pair_mode: pair.mode === "push" ? "push" : "bisync",
+                        // Unknown or missing modes are two-way, as in
+                        // sync_pairs.pair_mode().
+                        pair_mode: (pair.mode === "push" || pair.mode === "pull")
+                                   ? pair.mode : "bisync",
                         pair_name: (pair.name || "").trim(),
                         local_name: baseName(pair.local),
                         remote_name: baseName(pair.remote),

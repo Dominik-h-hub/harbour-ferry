@@ -1,7 +1,7 @@
 /*
  * Ferry - sync pair editor.
- * Optional display name, mode selection two-way/upload only, type
- * selection folder/single file (two-way only); local picker uses the own file browser, remote picker
+ * Optional display name, mode selection two-way/upload only/download only,
+ * type selection folder/single file (two-way only); local picker uses the own file browser, remote picker
  * uses the remote browser in picker mode.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -22,13 +22,17 @@ Page {
     // fields only), to tell a rename apart from a real change.
     property var loadedPair: null
 
+    // Mode combo entries in order; unknown modes load as two-way, as in
+    // sync_pairs.pair_mode().
+    readonly property var modes: ["bisync", "push", "pull"]
+
     function pairMode() {
-        return modeCombo.currentIndex === 1 ? "push" : "bisync";
+        return page.modes[modeCombo.currentIndex] || "bisync";
     }
 
     function pairType() {
-        // Uploading a single file makes no sense as a standing job, so the
-        // type combo is hidden in that mode - keep the value in step with it.
+        // A single file as a standing one-way job makes no sense, so the
+        // type combo is hidden in those modes - keep the value in step with it.
         if (page.pairMode() !== "bisync") {
             return "folder";
         }
@@ -75,6 +79,7 @@ Page {
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Two-way sync") }
                     MenuItem { text: qsTr("Upload only (one-way)") }
+                    MenuItem { text: qsTr("Download only (one-way)") }
                 }
                 onCurrentIndexChanged: {
                     if (page.pairMode() !== "bisync" && typeCombo.currentIndex === 1) {
@@ -135,7 +140,9 @@ Page {
                 color: Theme.secondaryHighlightColor
                 text: page.pairMode() === "bisync"
                     ? qsTr("The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).")
-                    : qsTr("New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.")
+                    : page.pairMode() === "push"
+                    ? qsTr("New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.")
+                    : qsTr("New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.")
             }
 
             Label {
@@ -197,7 +204,7 @@ Page {
                         if (pair) {
                             // Mode first: it may reset the type combo, which
                             // in turn clears the path set below.
-                            modeCombo.currentIndex = pair.mode === "push" ? 1 : 0;
+                            modeCombo.currentIndex = Math.max(0, page.modes.indexOf(pair.mode));
                             typeCombo.currentIndex = pair.type === "file" ? 1 : 0;
                             page.localPath = pair.local;
                             page.remotePath = pair.remote;
