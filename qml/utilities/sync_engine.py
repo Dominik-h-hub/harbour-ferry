@@ -28,6 +28,7 @@ import hashlib
 import os
 import re
 import shutil
+import signal
 import subprocess
 import threading
 import time
@@ -55,6 +56,20 @@ except ImportError:
 log = common.make_logger("sync")
 
 RUN_TIMEOUT = 3600
+
+# How long a run that hit RUN_TIMEOUT gets to stop by itself. rclone answers
+# SIGINT with a graceful shutdown - bisync finishes the step it is in, saves
+# its listings and removes its lock file. SIGKILL (what subprocess.run's own
+# timeout sends) skips all of that and leaves a lock behind that blocks every
+# later run of the pair.
+STOP_GRACE = 120
+
+# bisync's --max-lock. Without it a lock never expires (rclone writes an
+# expiry ~200 years ahead), so one interrupted run - app closed or killed,
+# device switched off, timeout - blocks the pair until the file is deleted by
+# hand. A running bisync renews its lock while it works, so a long run is not
+# cut short by this: only a lock nobody renews any more runs out.
+MAX_LOCK = "15m"
 
 # runs are strictly serial. Two independent runners exist - the app
 # process (manual "Sync now") and helper/sync_helper.py, started by the systemd
@@ -342,6 +357,91 @@ def _pull_pass(args):
     return args + ["--size-only"]
 
 
+def _run_rclone(cmd, log_file, env, timeout):
+    """Run one rclone pass and return its exit code.
+
+    Like subprocess.run(timeout=...), but a run that overstays is first asked
+    to stop (SIGINT, see STOP_GRACE) and only killed when it does not.
+    Raises subprocess.TimeoutExpired either way.
+    """
+    proc = subprocess.Popen(cmd, stdout=log_file, stderr=subprocess.STDOUT,
+                            env=env)
+    try:
+        return proc.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        log("rclone pid %d over time - asking it to stop" % proc.pid)
+        proc.send_signal(signal.SIGINT)
+        try:
+            proc.wait(timeout=STOP_GRACE)
+        except subprocess.TimeoutExpired:
+            log("rclone pid %d did not stop - killing it" % proc.pid)
+            proc.kill()
+            proc.wait()
+        raise
+    except BaseException:
+        # The caller is going away: do not leave an orphaned rclone behind.
+        proc.kill()
+        proc.wait()
+        raise
+
+
+# rclone colours its output; the lock path sits between escape sequences.
+_ANSI = re.compile(r"\x1b\[[0-9;]*m")
+_LOCK_FOUND = re.compile(r"prior lock file found:\s*(\S+?\.lck)")
+
+
+def _lock_files_in_log(log_text):
+    """The bisync lock files the pair's last run was blocked by.
+
+    Taken from rclone's own message rather than rebuilt from the pair's
+    paths: the session name rclone derives from both sides is its internal
+    business (and differs for encrypted libraries). Only .lck files directly
+    inside Ferry's own working directory qualify - nothing else is deleted.
+    """
+    workdir = os.path.realpath(_workdir())
+    found = []
+    for path in _LOCK_FOUND.findall(_ANSI.sub("", log_text)):
+        real = os.path.realpath(path)
+        if os.path.dirname(real) == workdir and real not in found:
+            found.append(real)
+    return found
+
+
+def delete_lock_file(pair_id):
+    """Remove the stale bisync lock that blocks a pair (context menu).
+
+    Taken under the run lock: while Ferry itself runs a sync, the lock may
+    well be a live one, and the user is told so instead.
+    """
+    if sync_pairs.get_pair(pair_id) is None:
+        return {"ok": False, "message": "Pair not found"}
+    removed = 0
+    try:
+        with _exclusive_run():
+            try:
+                with open(log_path(pair_id), encoding="utf-8",
+                          errors="replace") as f:
+                    paths = _lock_files_in_log(f.read())
+            except OSError:
+                paths = []
+            for path in paths:
+                try:
+                    os.remove(path)
+                    removed += 1
+                    log("pair %s: deleted lock file %s" % (pair_id, path))
+                except FileNotFoundError:
+                    log("pair %s: lock file %s already gone" % (pair_id, path))
+            sync_pairs.update_pair(pair_id, {
+                "lock_blocked": False,
+                "last_message": "Lock file deleted - sync again" if removed
+                                else "No lock file left - sync again"})
+    except _RunLockBusy:
+        return {"ok": False, "busy": True, "removed": 0,
+                "message": BUSY_REASON}
+    return {"ok": True, "busy": False, "removed": removed,
+            "message": "Lock file deleted" if removed else "No lock file found"}
+
+
 def _rclone_output(log_text):
     """The run log without the header lines this module writes itself.
 
@@ -359,6 +459,11 @@ def _rclone_output(log_text):
 
 def _classify_failure(log_text, remote_path="", allow_resync=True):
     output = _rclone_output(log_text)
+    if "prior lock file found" in output.lower():
+        # A lock left by an earlier run that never finished. A resync does
+        # not fix it and retrying will not either until the lock is gone.
+        return "lock_blocked", ("Blocked by the lock file of an interrupted"
+                                " run - long-press and delete the lock file")
     # A locked library is not a broken sync - the run never had a chance.
     # This also registers the library, so the next run is refused up front.
     library = enc_libraries.encrypted_library(output, remote_path)
@@ -472,7 +577,8 @@ def _run_pair_locked(pair, force):
                 "--stats-log-level", "NOTICE",
                 "--conflict-loser", "num",
                 "--workdir", _workdir(),
-                "--filters-file", filters_path]
+                "--filters-file", filters_path,
+                "--max-lock", MAX_LOCK]
         if not single_file:
             args += ["--max-delete",
                      str(int(settings_manager.get("max_delete")))]
@@ -540,10 +646,8 @@ def _run_pair_locked(pair, force):
                 # RUN_TIMEOUT is the budget of the whole run: two passes must
                 # not be able to hold the run lock for twice as long.
                 left = RUN_TIMEOUT - (time.time() - started)
-                proc = subprocess.run(common.encode_cmd(cmd), stdout=log_file,
-                                      stderr=subprocess.STDOUT,
-                                      timeout=max(left, 1), env=env)
-                rc = proc.returncode
+                rc = _run_rclone(common.encode_cmd(cmd), log_file, env,
+                                 max(left, 1))
                 if rc != 0:
                     # The run is reported as failed either way, and a second
                     # pass on a broken connection only costs time.
@@ -597,16 +701,22 @@ def _run_pair_locked(pair, force):
         # note that this run already reported the outage, so the
         # ones that follow it can stay quiet.
         extra["unreachable"] = True
+    elif kind == "lock_blocked":
+        # Shows the "Delete lock file" menu entry; announced once like an
+        # outage, not on every timer tick.
+        extra["lock_blocked"] = True
     return _finish_run(pair_id, now, False, message, extra)
 
 
 def _finish_run(pair_id, timestamp, ok, message, extra_fields):
     previous = sync_pairs.get_pair(pair_id) or {}
     unreachable = bool(extra_fields.get("unreachable"))
+    lock_blocked = bool(extra_fields.get("lock_blocked"))
     fields = {"last_run": timestamp, "last_ok": ok, "last_message": message,
               # Every other outcome clears it, so the next outage is
               # announced again rather than swallowed.
-              "unreachable": unreachable}
+              "unreachable": unreachable,
+              "lock_blocked": lock_blocked}
     if ok:
         fields["safety_abort"] = False
     fields.update(extra_fields)
@@ -631,6 +741,9 @@ def _finish_run(pair_id, timestamp, ok, message, extra_fields):
             else:
                 notify.send("Ferry: sync failed",
                             "%s: %s" % (name, message))
+        elif lock_blocked and previous.get("lock_blocked"):
+            log("pair %s still blocked by a lock file - already notified"
+                % pair_id)
         else:
             notify.send("Ferry: sync failed", "%s: %s" % (name, message))
     _send("sync-status", {"pair": pair_id, "running": False,

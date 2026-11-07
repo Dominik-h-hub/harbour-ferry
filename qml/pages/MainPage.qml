@@ -196,6 +196,12 @@ Page {
                 });
             }
 
+            function requestLockDeletion() {
+                remorseAction(qsTr("Deleting lock file"), function() {
+                    python.deleteLockFile(pair_id);
+                });
+            }
+
             Image {
                 id: typeIcon
                 x: Theme.horizontalPageMargin
@@ -291,6 +297,21 @@ Page {
                         visible: paused && !safety_abort
                         text: qsTr("Resume")
                         onClicked: python.resumePair(pair_id)
+                    }
+                    MenuItem {
+                        // Keeps the timer from retrying a pair that cannot
+                        // succeed right now; "Sync this pair" still works.
+                        visible: !paused
+                        text: qsTr("Pause sync")
+                        onClicked: python.pausePair(pair_id)
+                    }
+                    MenuItem {
+                        // Only offered when rclone named the lock that
+                        // blocked the last run - never a guess.
+                        visible: lock_blocked
+                        text: qsTr("Delete lock file")
+                        enabled: !running
+                        onClicked: listItem.requestLockDeletion()
                     }
                     MenuItem {
                         text: qsTr("Show log")
@@ -462,6 +483,7 @@ Page {
                                  : (pair.paused ? qsTr("Paused - long-press to resume") : ""),
                         paused: !!pair.paused,
                         safety_abort: !!pair.safety_abort,
+                        lock_blocked: !!pair.lock_blocked,
                         running: false,
                         last_ok: pair.last_ok === true ? "ok"
                                : (pair.last_ok === false ? "fail" : "never")
@@ -533,6 +555,23 @@ Page {
 
         function resumePair(pairId) {
             call('sync_pairs.update_pair', [pairId, { paused: false }], function() {
+                refresh();
+            });
+        }
+
+        function pausePair(pairId) {
+            call('sync_pairs.update_pair', [pairId, { paused: true }], function() {
+                refresh();
+            });
+        }
+
+        function deleteLockFile(pairId) {
+            call('sync_engine.delete_lock_file', [pairId], function(result) {
+                Notices.show(result.busy
+                             ? qsTr("A sync is running - try again when it has finished")
+                             : (!result.ok ? result.message
+                             : (result.removed > 0 ? qsTr("Lock file deleted")
+                                                   : qsTr("No lock file found"))));
                 refresh();
             });
         }

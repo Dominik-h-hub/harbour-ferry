@@ -429,7 +429,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="168"/>
-        <location filename="../qml/pages/MainPage.qml" line="333"/>
+        <location filename="../qml/pages/MainPage.qml" line="354"/>
         <source>Settings</source>
         <translation>Einstellungen</translation>
     </message>
@@ -459,47 +459,77 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Lösche Sync-Paar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="280"/>
+        <location filename="../qml/pages/MainPage.qml" line="286"/>
         <source>Sync this pair</source>
         <translation>Dieses Paar synchronisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="286"/>
+        <location filename="../qml/pages/MainPage.qml" line="292"/>
         <source>Force sync (confirm big change)</source>
         <translation>Sync erzwingen (große Änderung bestätigen)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="292"/>
+        <location filename="../qml/pages/MainPage.qml" line="298"/>
         <source>Resume</source>
         <translation>Fortsetzen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="296"/>
+        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <source>Pause sync</source>
+        <translation>Sync pausieren</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="312"/>
+        <source>Delete lock file</source>
+        <translation>Lock-Datei löschen</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="200"/>
+        <source>Deleting lock file</source>
+        <translation>Lösche Lock-Datei</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="573"/>
+        <source>Lock file deleted</source>
+        <translation>Lock-Datei gelöscht</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="574"/>
+        <source>No lock file found</source>
+        <translation>Keine Lock-Datei gefunden</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="571"/>
+        <source>A sync is running - try again when it has finished</source>
+        <translation>Ein Sync läuft gerade – bitte nach dessen Ende erneut versuchen</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="317"/>
         <source>Show log</source>
         <translation>Log anzeigen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="301"/>
+        <location filename="../qml/pages/MainPage.qml" line="322"/>
         <source>Edit</source>
         <translation>Bearbeiten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="306"/>
+        <location filename="../qml/pages/MainPage.qml" line="327"/>
         <source>Delete</source>
         <translation>Löschen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="346"/>
+        <location filename="../qml/pages/MainPage.qml" line="367"/>
         <source>Refresh</source>
         <translation>Aktualisieren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="355"/>
+        <location filename="../qml/pages/MainPage.qml" line="376"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kontoeinstellungen prüfen, dann zum Aktualisieren nach unten ziehen</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="357"/>
+        <location filename="../qml/pages/MainPage.qml" line="378"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
             <numerusform>Verbindung OK: Das Remote-Stammverzeichnis enthält %n Datei, die hier nicht aufgeführt wird</numerusform>
@@ -507,38 +537,38 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="410"/>
-        <location filename="../qml/pages/MainPage.qml" line="411"/>
+        <location filename="../qml/pages/MainPage.qml" line="431"/>
+        <location filename="../qml/pages/MainPage.qml" line="432"/>
         <source>Name</source>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="462"/>
+        <location filename="../qml/pages/MainPage.qml" line="483"/>
         <source>Paused - long-press to resume</source>
         <translation>Pausiert - zum Fortsetzen lange drücken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="526"/>
+        <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Synchronization started</source>
         <translation>Synchronisation gestartet</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="542"/>
+        <location filename="../qml/pages/MainPage.qml" line="581"/>
         <source>Sync pair deleted</source>
         <translation>Sync-Paar gelöscht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="559"/>
+        <location filename="../qml/pages/MainPage.qml" line="598"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Willkommen! Bitte richte zuerst dein Konto ein.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="580"/>
+        <location filename="../qml/pages/MainPage.qml" line="619"/>
         <source>Sync skipped: %1</source>
         <translation>Sync übersprungen: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="582"/>
+        <location filename="../qml/pages/MainPage.qml" line="621"/>
         <source>Synchronization finished</source>
         <translation>Synchronisation abgeschlossen</translation>
     </message>

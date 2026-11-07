@@ -15,6 +15,9 @@
 - ADDED: trigger a sync from the command line - see README
 - ADDED: new sync mode "Download only (one-way)" - remote to device, never deletes locally
 - FIX: single-file sync pairs no longer stop with "unusually many changes" on every change
+- ADDED: context menu "Pause sync" for sync pairs
+- ADDED: context menu "Delete lock file" when a sync pair is blocked
+- FIX: lock file of an interrupted two-way sync no longer blocks the pair forever
 
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing

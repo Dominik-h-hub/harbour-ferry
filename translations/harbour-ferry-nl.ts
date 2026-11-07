@@ -429,7 +429,7 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="168"/>
-        <location filename="../qml/pages/MainPage.qml" line="333"/>
+        <location filename="../qml/pages/MainPage.qml" line="354"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
@@ -459,47 +459,62 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         <translation>Synchronisatiepaar wordt verwijderd</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="280"/>
+        <location filename="../qml/pages/MainPage.qml" line="200"/>
+        <source>Deleting lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="286"/>
         <source>Sync this pair</source>
         <translation>Dit paar synchroniseren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="286"/>
+        <location filename="../qml/pages/MainPage.qml" line="292"/>
         <source>Force sync (confirm big change)</source>
         <translation>Gedwongen synchroniseren (grote wijziging bevestigen)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="292"/>
+        <location filename="../qml/pages/MainPage.qml" line="298"/>
         <source>Resume</source>
         <translation>Hervatten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="296"/>
+        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <source>Pause sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="312"/>
+        <source>Delete lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="317"/>
         <source>Show log</source>
         <translation>Logboek tonen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="301"/>
+        <location filename="../qml/pages/MainPage.qml" line="322"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="306"/>
+        <location filename="../qml/pages/MainPage.qml" line="327"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="346"/>
+        <location filename="../qml/pages/MainPage.qml" line="367"/>
         <source>Refresh</source>
         <translation>Vernieuwen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="355"/>
+        <location filename="../qml/pages/MainPage.qml" line="376"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Controleer de accountinstellingen, en trek dan omlaag om te vernieuwen</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="357"/>
+        <location filename="../qml/pages/MainPage.qml" line="378"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
             <numerusform>De verbinding werkt: de externe root bevat %n bestand, dat hier niet wordt weergegeven</numerusform>
@@ -507,38 +522,53 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="410"/>
-        <location filename="../qml/pages/MainPage.qml" line="411"/>
+        <location filename="../qml/pages/MainPage.qml" line="431"/>
+        <location filename="../qml/pages/MainPage.qml" line="432"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="462"/>
+        <location filename="../qml/pages/MainPage.qml" line="483"/>
         <source>Paused - long-press to resume</source>
         <translation>Gepauzeerd - houd lang ingedrukt om te hervatten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="526"/>
+        <location filename="../qml/pages/MainPage.qml" line="548"/>
         <source>Synchronization started</source>
         <translation>Synchronisatie gestart</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="542"/>
+        <location filename="../qml/pages/MainPage.qml" line="571"/>
+        <source>A sync is running - try again when it has finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="573"/>
+        <source>Lock file deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="574"/>
+        <source>No lock file found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="581"/>
         <source>Sync pair deleted</source>
         <translation>Synchronisatiepaar verwijderd</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="559"/>
+        <location filename="../qml/pages/MainPage.qml" line="598"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Welkom! Stel eerst je account in.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="580"/>
+        <location filename="../qml/pages/MainPage.qml" line="619"/>
         <source>Sync skipped: %1</source>
         <translation>Synchronisatie overgeslagen: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="582"/>
+        <location filename="../qml/pages/MainPage.qml" line="621"/>
         <source>Synchronization finished</source>
         <translation>Synchronisatie voltooid</translation>
     </message>
