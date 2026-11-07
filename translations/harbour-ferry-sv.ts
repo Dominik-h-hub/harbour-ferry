@@ -546,7 +546,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Lås upp biblioteket</translation>
     </message>
@@ -561,13 +561,13 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <translation>Välj den här mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Ny mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Ladda upp här</translation>
     </message>

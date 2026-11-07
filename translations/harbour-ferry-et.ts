@@ -546,7 +546,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Ava varunduskogu lukustus</translation>
     </message>
@@ -561,13 +561,13 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <translation>Vali see kaust</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Uus kaust</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Laadi siia üles</translation>
     </message>

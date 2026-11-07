@@ -89,6 +89,16 @@ Page {
                 }
             }
             MenuItem {
+                // Listing and mkdir work in a locked library, so a user can
+                // get here without anything having failed yet - the entry
+                // must not wait for the app to notice the encryption.
+                visible: !page.pickerMode && page.canUnlock
+                text: qsTr("Unlock library")
+                enabled: !page.loading
+                onClicked: python.askLibraryPassword(
+                               page.remotePath.split("/")[0], null)
+            }
+            MenuItem {
                 visible: !page.pickerMode
                 text: page.remotePath === "" ? terms.createTitle
                                              : qsTr("New folder")
@@ -117,16 +127,6 @@ Page {
                         }
                     });
                 }
-            }
-            MenuItem {
-                // Listing and mkdir work in a locked library, so a user can
-                // get here without anything having failed yet - the entry
-                // must not wait for the app to notice the encryption.
-                visible: !page.pickerMode && page.canUnlock
-                text: qsTr("Unlock library")
-                enabled: !page.loading
-                onClicked: python.askLibraryPassword(
-                               page.remotePath.split("/")[0], null)
             }
             MenuItem {
                 text: qsTr("Refresh")

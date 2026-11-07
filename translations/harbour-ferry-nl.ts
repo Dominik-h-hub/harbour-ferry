@@ -546,7 +546,7 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Bibliotheek ontgrendelen</translation>
     </message>
@@ -561,13 +561,13 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         <translation>Deze map selecteren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Nieuwe map</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Hier uploaden</translation>
     </message>

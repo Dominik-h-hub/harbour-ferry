@@ -543,7 +543,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation type="unfinished"></translation>
     </message>
@@ -558,13 +558,13 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation type="unfinished"></translation>
     </message>

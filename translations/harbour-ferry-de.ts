@@ -546,7 +546,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="126"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Bibliothek entsperren</translation>
     </message>
@@ -561,13 +561,13 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Diesen Ordner auswählen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="94"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Neuer Ordner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="107"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Hierher hochladen</translation>
     </message>
