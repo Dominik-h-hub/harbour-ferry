@@ -1131,7 +1131,7 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         <translation>Bewerken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Interne fout - bekijk het logboek</translation>
     </message>

@@ -48,7 +48,7 @@ Page {
     }
 
     function isTextFile(name) {
-        return /\.txt$/i.test(name);
+        return /\.(txt|md)$/i.test(name);
     }
 
     function isImageFile(name) {

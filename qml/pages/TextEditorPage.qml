@@ -1,5 +1,5 @@
 /*
- * Ferry - plain text editor for remote .txt files.
+ * Ferry - plain text editor for remote .txt and .md files.
  * Save via the pull-down menu; the page stays open while saving.
  *
  * SPDX-License-Identifier: Apache-2.0

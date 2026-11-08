@@ -1131,7 +1131,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <translation>Rediger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Intern feil – se loggen</translation>
     </message>

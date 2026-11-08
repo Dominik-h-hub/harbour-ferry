@@ -1131,7 +1131,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <translation>Éditer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Erreur interne - voir les journaux</translation>
     </message>

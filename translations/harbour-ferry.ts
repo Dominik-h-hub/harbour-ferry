@@ -1128,7 +1128,7 @@ Without a scheme Ferry uses https - put http:// in front of the address for a se
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation type="unfinished"></translation>
     </message>

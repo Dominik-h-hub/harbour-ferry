@@ -1131,7 +1131,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <translation>Muuda</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Sisemine viga, lisateavet leiad logidest</translation>
     </message>
