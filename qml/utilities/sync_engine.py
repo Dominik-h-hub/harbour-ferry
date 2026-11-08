@@ -471,7 +471,12 @@ def _classify_failure(log_text, remote_path="", allow_resync=True):
         return "locked", ("Library %r is encrypted - unlock it in the remote"
                           " browser, then sync again" % library)
     lowered = output.lower()
-    if allow_resync and ("--resync" in lowered or "cannot find prior" in lowered
+    # Only rclone's own verdict counts. A bare "--resync" also matches
+    # "Error is retryable without --resync due to --resilient mode", i.e.
+    # exactly the case where no resync is needed.
+    if allow_resync and ("must run --resync" in lowered
+                         or "run --resync to recover" in lowered
+                         or "cannot find prior" in lowered
                          or "prior listing" in lowered
                          or "empty prior" in lowered):
         # One-way pairs have no prior listing to repair, so the flag would
@@ -578,7 +583,14 @@ def _run_pair_locked(pair, force):
                 "--conflict-loser", "num",
                 "--workdir", _workdir(),
                 "--filters-file", filters_path,
-                "--max-lock", MAX_LOCK]
+                "--max-lock", MAX_LOCK,
+                # A dropped connection (router reconnect, flaky Wi-Fi) must
+                # not end in "Must run --resync": a resync is a union copy,
+                # and if its listing of the remote fails mid-way every local
+                # file looks new and is uploaded again. --resilient makes such
+                # errors retryable on the next normal run, --recover lets an
+                # interrupted run (timeout, SIGINT) continue without a resync.
+                "--resilient", "--recover"]
         if not single_file:
             args += ["--max-delete",
                      str(int(settings_manager.get("max_delete")))]

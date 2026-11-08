@@ -18,6 +18,7 @@
 - ADDED: context menu "Pause sync" for sync pairs
 - ADDED: context menu "Delete lock file" when a sync pair is blocked
 - FIX: lock file of an interrupted two-way sync no longer blocks the pair forever
+- FIX: a dropped connection during a two-way sync no longer forces a full resync (re-upload of all files)
 
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing
