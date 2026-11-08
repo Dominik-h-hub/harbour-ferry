@@ -71,6 +71,11 @@ STOP_GRACE = 120
 # cut short by this: only a lock nobody renews any more runs out.
 MAX_LOCK = "15m"
 
+# Budget of the reachability probe in front of a resync (_remote_listable).
+# A flat listing of one folder answers in seconds; anything slower means the
+# connection is not in a state to carry a resync either.
+PROBE_TIMEOUT = 60
+
 # runs are strictly serial. Two independent runners exist - the app
 # process (manual "Sync now") and helper/sync_helper.py, started by the systemd
 # timer - so a thread lock alone is not enough: both could drive rclone bisync
@@ -457,6 +462,35 @@ def _rclone_output(log_text):
                       if not line.startswith("#"))
 
 
+def _remote_listable(remote_target):
+    """Quick check that the remote answers, run in front of a resync.
+
+    A resync is a union copy: if the server drops out while it lists the
+    remote side, every local file looks new and is uploaded again. A flat
+    lsf of the target costs a second or two and keeps a resync from starting
+    into a connection that is already down (router reconnect, no Wi-Fi yet).
+    It cannot rule out a drop *during* the resync - --resilient/--recover
+    keep that from ending in yet another resync.
+
+    Returns (ok, output). Only an unreachable server or a probe that runs
+    out of time counts as a failure; anything else (e.g. the remote folder
+    does not exist yet on a first run) is left to bisync to report.
+    """
+    cmd, env = config_manager.build_rclone_command(
+        ["lsf", remote_target, "--max-depth", "1", "--low-level-retries", "2"])
+    try:
+        proc = subprocess.run(common.encode_cmd(cmd), env=env,
+                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                              timeout=PROBE_TIMEOUT)
+    except subprocess.TimeoutExpired:
+        # lsf takes no lock, so killing it (what run() does) is harmless.
+        return False, "listing probe timed out after %ds" % PROBE_TIMEOUT
+    output = proc.stdout.decode("utf-8", errors="replace")
+    if proc.returncode != 0 and config_manager.looks_unreachable(output):
+        return False, output
+    return True, output
+
+
 def _classify_failure(log_text, remote_path="", allow_resync=True):
     output = _rclone_output(log_text)
     if "prior lock file found" in output.lower():
@@ -645,6 +679,27 @@ def _run_pair_locked(pair, force):
         commands = [config_manager.build_rclone_command(a) for a in passes]
     except RuntimeError as e:
         return _finish_run(pair_id, now, False, str(e), {"needs_resync": True})
+
+    if two_way and resync:
+        try:
+            reachable, probe_output = _remote_listable(remote_target)
+        except Exception as e:
+            reachable, probe_output = False, "listing probe failed: %s" % e
+        if not reachable:
+            # needs_resync stays set, so the next run probes and tries again.
+            log("pair %s: resync not started - remote listing probe failed: %s"
+                % (pair_id, probe_output[-400:].replace("\n", " | ")))
+            with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
+                log_file.write("# ferry sync run %s\n" % now)
+                log_file.write("# resync not started - remote listing probe"
+                               " failed\n")
+                log_file.write(common.mask_secrets(probe_output))
+            return _finish_run(pair_id, now, False,
+                               "Server not reachable - Ferry will try"
+                               " again at the next sync",
+                               # filters_hash is left alone on purpose: a
+                               # filter change still forces the resync.
+                               {"unreachable": True})
 
     rc = 0
     try:
