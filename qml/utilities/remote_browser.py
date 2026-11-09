@@ -313,6 +313,34 @@ def _name_state(path):
     return state, out
 
 
+def _exact_name_state(parent, name):
+    """Check whether `parent` holds an entry named exactly `name`.
+
+    For case-only renames (Report.txt -> report.txt), where a stat of the new
+    name cannot tell the source itself (case-insensitive server) from a
+    second entry (case-sensitive server, e.g. SFTP). The parent listing
+    returns the names as the server stores them, so an exact match is a
+    different entry than the source and moveto would overwrite or merge it.
+
+    Returns ("free" | "taken" | "error", output) like _name_state; anything
+    that is not a clean, parseable listing is "error".
+    """
+    rc, out = config_manager.run_rclone(
+        ["lsjson", _remote_target(parent)], timeout=90, log_args=False)
+    state = "error"
+    if rc == 0:
+        start, end = (out or "").find("["), (out or "").rfind("]")
+        if 0 <= start < end:
+            try:
+                names = [item.get("Name") for item in
+                         json.loads(out[start:end + 1])]
+                state = "taken" if name in names else "free"
+            except (ValueError, AttributeError):
+                log("could not parse lsjson output of %r" % parent)
+    log("exact name check: %r in %r is %s (rc=%d)" % (name, parent, state, rc))
+    return state, out
+
+
 def rename_entry(path, new_name, is_dir):
     """Rename a remote file or folder in place (server-side move).
 
@@ -344,20 +372,25 @@ def rename_entry(path, new_name, is_dir):
                 "message": "Used by a sync pair - remove the sync pair first"}
     parent = path.rsplit("/", 1)[0] if not at_root else ""
     new_path = _join(parent, new_name)
-    # A case-only rename finds the entry itself on case-insensitive servers.
-    if new_name.lower() != old_name.lower():
+    # The destination is always checked - moveto would overwrite a file or
+    # merge into a folder. A stat of a case-only rename (Report.txt ->
+    # report.txt) finds the source itself on case-insensitive servers, so
+    # that case looks for the exact name in the parent listing instead.
+    if new_name.lower() == old_name.lower():
+        state, out = _exact_name_state(parent, new_name)
+    else:
         state, out = _name_state(new_path)
-        if state == "taken":
-            log("rename refused: %r already exists" % new_path)
-            return {"ok": False,
-                    "message": "An entry with this name already exists"}
-        if state == "error":
-            log("rename aborted: name check failed: %s" % out[:400])
-            # Goes through _failure so a locked library still leads to the
-            # unlock dialog.
-            result = _failure(out, path)
-            result["details"] = out[:400]
-            return result
+    if state == "taken":
+        log("rename refused: %r already exists" % new_path)
+        return {"ok": False,
+                "message": "An entry with this name already exists"}
+    if state == "error":
+        log("rename aborted: name check failed: %s" % (out or "")[:400])
+        # Goes through _failure so a locked library still leads to the
+        # unlock dialog.
+        result = _failure(out, path)
+        result["details"] = (out or "")[:400]
+        return result
     source, destination = _remote_target(path), _remote_target(new_path)
     log("renaming %s -> %s (dir=%s)" % (source, destination, is_dir))
     rc, out = config_manager.run_rclone(["moveto", source, destination],
