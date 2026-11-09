@@ -36,8 +36,10 @@ BuildRequires:  desktop-file-utils
 %description
 Ferry is a native file sync client for Sailfish OS using rclone as the
 transfer and sync engine. Browse your libraries, upload and download
-files, and keep local folders in sync - two-way or upload only, manually
+files, and keep local folders in sync - two-way, download or upload only, manually
 or on a schedule.
+
+For already implemented or supported backends, please have a look at the github-repository.
 
 %if 0%{?_chum}
 Title: Ferry Sync (Cloud File Sync)

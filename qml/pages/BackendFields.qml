@@ -41,8 +41,8 @@ QtObject {
             //: Account form, SFTP. The field takes either a plain server name or one with a port appended, as in "sftp.example.com:2222".
             return qsTr("Server (host or host:port)");
         case "server_pcloud":
-            //: Account form, pCloud. %1 is the server address of pCloud's European region; the field's own default is the American one.
-            return qsTr("Server (EU region: %1)").arg(field.text_arg || "");
+            //: Account form, pCloud. %1 is the server address of pCloud's American (US) region; the field's own default is the European one.
+            return qsTr("Server (US region: %1)").arg(field.text_arg || "");
         case "username":
             return qsTr("Username");
         case "pcloud_email":

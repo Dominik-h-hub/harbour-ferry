@@ -198,9 +198,9 @@
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
-        <source>Server (EU region: %1)</source>
-        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation>Server (EU-regio: %1)</translation>
+        <source>Server (US region: %1)</source>
+        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s American (US) region; the field&apos;s own default is the European one.</extracomment>
+        <translation>Server (VS-regio: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
