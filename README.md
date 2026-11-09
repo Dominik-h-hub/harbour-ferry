@@ -30,15 +30,17 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 - **Download only (one-way)** (`rclone copy`) per sync pair — pulls a remote folder onto the device and never deletes anything locally
 - **Do not transfer again** (option for one-way pairs) — files already transferred are remembered and not transferred again
 - **Currently implemented backends**: **Seafile**, **Nextcloud**, **WebDAV**, **pCloud**, **SFTP** and **FTP/FTPS**
-- **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
+- **Remote browser**: navigate your libraries/folders, create folders, upload, download, rename and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
 - **file browser for uploads and sync pairs** — every folder below home, the SD card and the file system root; hidden files on demand, all file types, multi-select
 - **Background sync via systemd user timer**: every 5 / 15 / 30 minutes, ... — or manual only
+- **Pause a sync pair** from its context menu; paused pairs are skipped by the timer and the command line
 - **Network rule**: Wi-Fi only or Wi-Fi and mobile data; runs are skipped when offline
 - **Safety limit against mass deletion**: a run that wants to delete unusually much is aborted and waits for your explicit confirmation ("Force sync")
 - **Global exclude patterns**, editable line by line (`*.tmp`, `.thumbnails/**`, …)
 - **Per-run sync logs** viewable in the app, plus a permanent **diagnostics page** for support cases
 - **Cover action** "Sync now" with status at a glance
+- **My Backup support**: settings, sync pairs, SSH host keys, the list of encrypted libraries and the "Do not transfer again" lists are included in Sailfish OS backups
 - **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO, SV, FR, NL, ET
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>

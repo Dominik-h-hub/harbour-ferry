@@ -461,7 +461,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
         <source>Resetting transfer list</source>
-        <translation type="unfinished"></translation>
+        <translation>Übertragungsliste wird zurückgesetzt</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="292"/>
@@ -512,7 +512,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Transfer missing files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehlende Dateien erneut übertragen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
@@ -566,7 +566,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/MainPage.qml" line="600"/>
         <source>Missing files are transferred at the next sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehlende Dateien werden beim nächsten Sync übertragen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="607"/>
@@ -662,7 +662,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenennen</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
@@ -699,7 +699,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
         <source>New name</source>
-        <translation type="unfinished"></translation>
+        <translation>Neuer Name</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
@@ -719,7 +719,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Umbenannt</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
@@ -929,12 +929,12 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Name (optional)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nur Herunterladen (einseitig)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
@@ -954,17 +954,17 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
         <source>Do not transfer files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Dateien nicht erneut übertragen</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
         <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereits hochgeladene Dateien werden nicht erneut hochgeladen, auch wenn sie auf der Remote-Seite gelöscht wurden. Ändert sich die Größe einer Datei auf dem Smartphone, wird sie erneut hochgeladen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
         <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bereits heruntergeladene Dateien werden nicht erneut heruntergeladen, auch wenn sie auf dem Smartphone gelöscht wurden. Ändert sich die Größe einer Datei auf der Remote-Seite, wird sie erneut heruntergeladen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
@@ -995,7 +995,7 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue und geänderte Dateien werden aus dem Remote-Ordner heruntergeladen. Ferry löscht niemals etwas auf dem Gerät und lokale Änderungen werden nie hochgeladen - eine lokale Datei, die von der Remote-Version abweicht, wird mit dieser überschrieben.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="185"/>
