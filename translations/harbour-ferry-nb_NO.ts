@@ -357,22 +357,22 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <translation>Lokale filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Legg til utvalg (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Velg denne mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Ikke vis skjulte filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Vis skjulte filer</translation>
     </message>

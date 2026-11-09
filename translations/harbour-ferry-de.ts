@@ -351,12 +351,12 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Lokale Dateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Auswahl hinzufügen (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Diesen Ordner auswählen</translation>
     </message>
@@ -377,12 +377,12 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Systemdateien</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Versteckte Dateien ausblenden</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Versteckte Dateien anzeigen</translation>
     </message>

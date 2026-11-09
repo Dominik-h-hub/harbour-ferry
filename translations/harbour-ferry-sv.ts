@@ -357,22 +357,22 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <translation>Lokala filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Lägg till markerat (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Välj den här mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Dölj dolda filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Visa dolda filer</translation>
     </message>

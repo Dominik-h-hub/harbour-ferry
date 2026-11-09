@@ -357,22 +357,22 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         <translation>Lokale bestanden</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Selectie toevoegen (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Deze map selecteren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Verborgen bestanden verbergen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Verborgen bestanden tonen</translation>
     </message>

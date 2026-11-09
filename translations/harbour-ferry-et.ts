@@ -357,22 +357,22 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <translation>Kohalikud failid</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Lisa valik (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Vali see kaust</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Ära näita peidetud faile</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Näita peidetud faile</translation>
     </message>

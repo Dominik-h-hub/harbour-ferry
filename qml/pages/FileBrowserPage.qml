@@ -82,6 +82,15 @@ Page {
 
         PullDownMenu {
             MenuItem {
+                text: page.showHidden ? qsTr("Hide hidden files")
+                                      : qsTr("Show hidden files")
+                onClicked: {
+                    page.showHidden = !page.showHidden;
+                    page.viewState.showHidden = page.showHidden;
+                    python.reload();
+                }
+            }
+            MenuItem {
                 visible: page.mode === "files"
                 text: qsTr("Add selection (%1)").arg(page.selCount)
                 enabled: page.selCount > 0
@@ -98,15 +107,6 @@ Page {
                     if (page.onSelected) {
                         page.onSelected([page.localPath]);
                     }
-                }
-            }
-            MenuItem {
-                text: page.showHidden ? qsTr("Hide hidden files")
-                                      : qsTr("Show hidden files")
-                onClicked: {
-                    page.showHidden = !page.showHidden;
-                    page.viewState.showHidden = page.showHidden;
-                    python.reload();
                 }
             }
         }
