@@ -115,6 +115,7 @@ DISTFILES += qml/harbour-ferry.qml \
     qml/utilities/notify.py \
     qml/utilities/timer_manager.py \
     qml/utilities/enc_libraries.py \
+    qml/utilities/transfer_list.py \
     translations/harbour-ferry-de.ts \
     translations/harbour-ferry-nb_NO.ts \
     qml/utilities/common.py \

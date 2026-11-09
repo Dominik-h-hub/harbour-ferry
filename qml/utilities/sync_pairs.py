@@ -9,7 +9,8 @@
 #   paused, needs_resync, filters_hash, last_run (ISO), last_ok
 #   (bool|None), last_message, last_verified (unix time of the last
 #   successful "push" run; sync_engine._push_passes() re-uploads what
-#   changed locally after it).
+#   changed locally after it), skip_transferred (push/pull only: files
+#   already transferred are not transferred again - see transfer_list).
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -25,6 +26,7 @@ except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
     fcntl = None
 
 import common
+import transfer_list
 
 log = common.make_logger("pairs")
 
@@ -199,7 +201,14 @@ def display_name(pair):
     return os.path.basename(local) or (pair or {}).get("id", "")
 
 
-def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name=""):
+# A transfer list only describes the pair it was built for: other paths,
+# another direction or the option switched off and on again make it
+# meaningless, so a change of any of these drops it.
+_TRANSFER_LIST_KEYS = ("type", "mode", "local", "remote", "skip_transferred")
+
+
+def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name="",
+             skip_transferred=False):
     if mode not in MODES:
         log("unknown sync mode %r - storing as %s" % (mode, MODE_BISYNC))
         mode = MODE_BISYNC
@@ -216,6 +225,8 @@ def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name=""):
         "last_run": "",
         "last_ok": None,
         "last_message": "",
+        # Two-way pairs have nothing to skip - bisync keeps its own listing.
+        "skip_transferred": bool(skip_transferred) and mode != MODE_BISYNC,
     }
     with _transaction():
         data = _load()
@@ -235,9 +246,13 @@ def update_pair(pair_id, fields):
         data = _load()
         for pair in data["pairs"]:
             if pair["id"] == pair_id:
+                stale = any(key in fields and fields[key] != pair.get(key)
+                            for key in _TRANSFER_LIST_KEYS)
                 pair.update(fields)
                 _save(data)
                 log("pair %s updated: %s" % (pair_id, sorted(fields.keys())))
+                if stale:
+                    transfer_list.delete(pair_id)
                 return pair
     log("pair %s not found for update" % pair_id)
     return None
@@ -249,6 +264,7 @@ def delete_pair(pair_id):
         before = len(data["pairs"])
         data["pairs"] = [p for p in data["pairs"] if p["id"] != pair_id]
         _save(data)
+    transfer_list.delete(pair_id)
     log("pair %s deleted (%d -> %d)" % (pair_id, before, len(data["pairs"])))
     return True
 
@@ -264,6 +280,7 @@ def delete_all_pairs():
         data = _load()
         removed = len(data["pairs"])
         _save(_empty_store())
+    transfer_list.delete_all()
     log("all sync pairs deleted (%d)" % removed)
     return removed
 

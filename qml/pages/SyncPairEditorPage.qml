@@ -1,7 +1,8 @@
 /*
  * Ferry - sync pair editor.
  * Optional display name, mode selection two-way/upload only/download only,
- * type selection folder/single file (two-way only); local picker uses the own file browser, remote picker
+ * type selection folder/single file (two-way only), "do not transfer again"
+ * switch (one-way only); local picker uses the own file browser, remote picker
  * uses the remote browser in picker mode.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -104,6 +105,17 @@ Page {
                 }
             }
 
+            TextSwitch {
+                id: skipSwitch
+                // bisync keeps its own listing; only one-way pairs have
+                // something to remember.
+                visible: page.pairMode() !== "bisync"
+                text: qsTr("Do not transfer files again")
+                description: page.pairMode() === "push"
+                    ? qsTr("Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.")
+                    : qsTr("Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.")
+            }
+
             ValueButton {
                 label: page.pairType() === "file" ? qsTr("Local file") : qsTr("Local folder")
                 value: page.localPath !== "" ? page.localPath : qsTr("Select")
@@ -166,7 +178,8 @@ Page {
             if (page.pairId === "") {
                 call('sync_pairs.add_pair',
                      [page.pairType(), page.localPath, page.remotePath,
-                      page.pairMode(), nameField.text.trim()],
+                      page.pairMode(), nameField.text.trim(),
+                      page.pairMode() !== "bisync" && skipSwitch.checked],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair created"));
@@ -177,7 +190,9 @@ Page {
                                type: page.pairType(),
                                mode: page.pairMode(),
                                local: page.localPath,
-                               remote: page.remotePath };
+                               remote: page.remotePath,
+                               skip_transferred: page.pairMode() !== "bisync"
+                                                 && skipSwitch.checked };
                 var loaded = page.loadedPair;
                 if (!loaded || loaded.type !== fields.type
                         || loaded.mode !== fields.mode
@@ -209,6 +224,7 @@ Page {
                             page.localPath = pair.local;
                             page.remotePath = pair.remote;
                             nameField.text = pair.name || "";
+                            skipSwitch.checked = !!pair.skip_transferred;
                             page.loadedPair = { type: page.pairType(),
                                                 mode: page.pairMode(),
                                                 local: pair.local,

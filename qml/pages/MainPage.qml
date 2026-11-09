@@ -196,6 +196,12 @@ Page {
                 });
             }
 
+            function requestTransferReset() {
+                remorseAction(qsTr("Resetting transfer list"), function() {
+                    python.resetTransferList(pair_id);
+                });
+            }
+
             function requestLockDeletion() {
                 remorseAction(qsTr("Deleting lock file"), function() {
                     python.deleteLockFile(pair_id);
@@ -312,6 +318,14 @@ Page {
                         text: qsTr("Delete lock file")
                         enabled: !running
                         onClicked: listItem.requestLockDeletion()
+                    }
+                    MenuItem {
+                        // The next run compares every file against the
+                        // destination again and transfers what is missing.
+                        visible: skip_transferred
+                        text: qsTr("Transfer missing files again")
+                        enabled: !running
+                        onClicked: listItem.requestTransferReset()
                     }
                     MenuItem {
                         text: qsTr("Show log")
@@ -484,6 +498,8 @@ Page {
                         paused: !!pair.paused,
                         safety_abort: !!pair.safety_abort,
                         lock_blocked: !!pair.lock_blocked,
+                        skip_transferred: !!pair.skip_transferred
+                                          && (pair.mode === "push" || pair.mode === "pull"),
                         running: false,
                         last_ok: pair.last_ok === true ? "ok"
                                : (pair.last_ok === false ? "fail" : "never")
@@ -572,6 +588,16 @@ Page {
                              : (!result.ok ? result.message
                              : (result.removed > 0 ? qsTr("Lock file deleted")
                                                    : qsTr("No lock file found"))));
+                refresh();
+            });
+        }
+
+        function resetTransferList(pairId) {
+            call('sync_engine.reset_transfer_list', [pairId], function(result) {
+                Notices.show(result.busy
+                             ? qsTr("A sync is running - try again when it has finished")
+                             : (!result.ok ? result.message
+                                           : qsTr("Missing files are transferred at the next sync")));
                 refresh();
             });
         }

@@ -429,7 +429,7 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="168"/>
-        <location filename="../qml/pages/MainPage.qml" line="354"/>
+        <location filename="../qml/pages/MainPage.qml" line="368"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
     </message>
@@ -460,61 +460,71 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
+        <source>Resetting transfer list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="206"/>
         <source>Deleting lock file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="286"/>
+        <location filename="../qml/pages/MainPage.qml" line="292"/>
         <source>Sync this pair</source>
         <translation>Dit paar synchroniseren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="292"/>
+        <location filename="../qml/pages/MainPage.qml" line="298"/>
         <source>Force sync (confirm big change)</source>
         <translation>Gedwongen synchroniseren (grote wijziging bevestigen)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="298"/>
+        <location filename="../qml/pages/MainPage.qml" line="304"/>
         <source>Resume</source>
         <translation>Hervatten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <location filename="../qml/pages/MainPage.qml" line="311"/>
         <source>Pause sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="312"/>
+        <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Delete lock file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="317"/>
+        <location filename="../qml/pages/MainPage.qml" line="326"/>
+        <source>Transfer missing files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Show log</source>
         <translation>Logboek tonen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="322"/>
+        <location filename="../qml/pages/MainPage.qml" line="336"/>
         <source>Edit</source>
         <translation>Bewerken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="327"/>
+        <location filename="../qml/pages/MainPage.qml" line="341"/>
         <source>Delete</source>
         <translation>Verwijderen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="367"/>
+        <location filename="../qml/pages/MainPage.qml" line="381"/>
         <source>Refresh</source>
         <translation>Vernieuwen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="376"/>
+        <location filename="../qml/pages/MainPage.qml" line="390"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Controleer de accountinstellingen, en trek dan omlaag om te vernieuwen</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="378"/>
+        <location filename="../qml/pages/MainPage.qml" line="392"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
             <numerusform>De verbinding werkt: de externe root bevat %n bestand, dat hier niet wordt weergegeven</numerusform>
@@ -522,53 +532,59 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="431"/>
-        <location filename="../qml/pages/MainPage.qml" line="432"/>
+        <location filename="../qml/pages/MainPage.qml" line="445"/>
+        <location filename="../qml/pages/MainPage.qml" line="446"/>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="483"/>
+        <location filename="../qml/pages/MainPage.qml" line="497"/>
         <source>Paused - long-press to resume</source>
         <translation>Gepauzeerd - houd lang ingedrukt om te hervatten</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="548"/>
+        <location filename="../qml/pages/MainPage.qml" line="564"/>
         <source>Synchronization started</source>
         <translation>Synchronisatie gestart</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="571"/>
+        <location filename="../qml/pages/MainPage.qml" line="587"/>
+        <location filename="../qml/pages/MainPage.qml" line="598"/>
         <source>A sync is running - try again when it has finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="573"/>
+        <location filename="../qml/pages/MainPage.qml" line="589"/>
         <source>Lock file deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="574"/>
+        <location filename="../qml/pages/MainPage.qml" line="590"/>
         <source>No lock file found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="581"/>
+        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <source>Missing files are transferred at the next sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="607"/>
         <source>Sync pair deleted</source>
         <translation>Synchronisatiepaar verwijderd</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="598"/>
+        <location filename="../qml/pages/MainPage.qml" line="624"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Welkom! Stel eerst je account in.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="619"/>
+        <location filename="../qml/pages/MainPage.qml" line="645"/>
         <source>Sync skipped: %1</source>
         <translation>Synchronisatie overgeslagen: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="621"/>
+        <location filename="../qml/pages/MainPage.qml" line="647"/>
         <source>Synchronization finished</source>
         <translation>Synchronisatie voltooid</translation>
     </message>
@@ -895,109 +911,124 @@ Zonder protocol gebruikt Ferry https; zet http:// voor het adres van een server 
 <context>
     <name>SyncPairEditorPage</name>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="49"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="50"/>
         <source>Save</source>
         <translation>Opslaan</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>New sync pair</source>
         <translation>Nieuw synchronisatiepaar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Edit sync pair</source>
         <translation>Synchronisatiepaar bewerken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="67"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="71"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Mode</source>
         <translation>Modus</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="80"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="81"/>
         <source>Two-way sync</source>
         <translation>Tweerichtingssynchronisatie</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="81"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="82"/>
         <source>Upload only (one-way)</source>
         <translation>Enkel uploaden (éénrichting)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="82"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="95"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="98"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="99"/>
         <source>Synchronize a folder</source>
         <translation>Synchroniseer een map</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="99"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="100"/>
         <source>Synchronize a single file</source>
         <translation>Synchroniseer een bestand</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="108"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
+        <source>Do not transfer files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
+        <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
+        <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local file</source>
         <translation>Lokaal bestand</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="108"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local folder</source>
         <translation>Lokale map</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="109"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="121"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="135"/>
         <source>Select</source>
         <translation>Selecteren</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="134"/>
         <source>Remote folder</source>
         <translation>Externe map</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="142"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="154"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
         <translation>De eerste synchronisatie voert een volledige synchronisatie uit tussen beide zijden. Merk op dat wijzigingen waarbij de grootte van een bestand identiek blijft, niet opgemerkt wordt (vergelijking enkel gebaseerd op grootte).</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="144"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="156"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
         <translation>Nieuwe en gewijzigde bestanden worden geüpload naar de externe map. Ferry verwijdert nooit iets aan de externe zijde, en wijzigingen aan de externe zijde worden nooit teruggekopieerd.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="145"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="154"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation>Merk op dat als je een versleutelde bibliotheek probeert te synchroniseren (bv. Seafile), de bibliotheek eerst ontgrendeld moet worden via het tabblad Extern.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="172"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="185"/>
         <source>Sync pair created</source>
         <translation>Synchronisatiepaar aangemaakt</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="193"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="208"/>
         <source>Sync pair updated</source>
         <translation>Synchronisatiepaar bijgewerkt</translation>
     </message>

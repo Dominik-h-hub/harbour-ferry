@@ -21,6 +21,7 @@
 - FIX: a dropped connection during a two-way sync no longer forces a full resync (re-upload of all files)
 - FIX: a resync no longer starts while the server is unreachable
 - ADDED: view and edit .md files in the remote browser
+- ADDED: option "Do not transfer again" for one-way sync pairs - files deleted on the other side are not transferred again
 
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing

@@ -25,6 +25,7 @@
 import contextlib
 import datetime
 import hashlib
+import json
 import os
 import re
 import shutil
@@ -46,6 +47,7 @@ import network
 import notify
 import settings_manager
 import sync_pairs
+import transfer_list
 
 try:
     import pyotherside
@@ -207,6 +209,10 @@ def reset_state():
         if os.path.isdir(path):
             shutil.rmtree(path, ignore_errors=True)
             removed.append(os.path.basename(path))
+    # The transfer lists describe the old account's destination as well.
+    if os.path.isdir(transfer_list.list_dir()):
+        transfer_list.delete_all()
+        removed.append(os.path.basename(transfer_list.list_dir()))
     log("sync state reset (removed: %s)" % (removed or "nothing"))
     return removed
 
@@ -362,6 +368,160 @@ def _pull_pass(args):
     return args + ["--size-only"]
 
 
+# Up to this many files a run with a transfer list looks each one up on the
+# destination (--no-traverse) instead of listing the destination folder: a
+# handful of new photos against a folder of thousands is answered in seconds
+# instead of minutes. A first run, a reset or a big batch lists as usual.
+NO_TRAVERSE_MAX = 500
+
+# Sigils of rclone's --combined report that mean "the destination now has
+# this file": = identical already, + was missing and was copied, * differed
+# and was copied. A failed copy is reported a second time with "!".
+_REPORT_DONE = "=+*"
+_REPORT_FAILED = "!"
+
+
+def _rclone_list(path, filters_path, log_file, timeout):
+    """Recursive file listing of one side as (rc, {relative path: size}).
+
+    rclone's messages go to the run log; the listing itself is parsed. The
+    same rclone filter file as the copy applies, so both sides see the same
+    set of files.
+    """
+    args = ["lsjson", path, "-R", "--files-only", "--no-modtime",
+            "--no-mimetype", "--filter-from", filters_path]
+    log_file.write("# %s\n" % common.mask_secrets(" ".join(args)))
+    log_file.flush()
+    cmd, env = config_manager.build_rclone_command(args)
+    # lsjson takes no lock, so the hard kill of run()'s timeout is harmless.
+    proc = subprocess.run(common.encode_cmd(cmd), env=env,
+                          stdout=subprocess.PIPE, stderr=log_file,
+                          timeout=max(timeout, 1))
+    if proc.returncode != 0:
+        return proc.returncode, None
+    try:
+        entries = json.loads(proc.stdout.decode("utf-8", errors="replace"))
+    except ValueError as e:
+        log_file.write("# listing unreadable: %s\n" % e)
+        return 1, None
+    return 0, {e["Path"]: e.get("Size", -1) for e in entries
+               if isinstance(e, dict) and "Path" in e}
+
+
+def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
+                   deadline):
+    """One-way copy that transfers every file only once (skip_transferred).
+
+    The source side is listed and compared against the pair's transfer list
+    (transfer_list): only files that are not in it, or whose size changed
+    since, go to rclone - via --files-from-raw, so the destination is not
+    searched for anything else. A file deleted on the destination therefore
+    stays deleted. Source files that are gone drop out of the list, so a
+    file that comes back later counts as new.
+
+    Without a list (first run, reset) every source file is a candidate and
+    rclone compares them against the destination as usual: what is there
+    already is only recorded, what is missing is copied.
+
+    The list is updated from rclone's --combined report, not from the exit
+    code: a run that fails half way still records every file that made it,
+    and a file that failed stays a candidate. Always --size-only - "path and
+    size" is what the list stores, and comparing modtimes on top would copy
+    a file again that the list says is done.
+
+    Returns rclone's exit code.
+    """
+    pair_id = pair["id"]
+    rc, source = _rclone_list(src, filters_path, log_file,
+                              deadline - time.time())
+    if rc != 0:
+        # An incomplete listing must not thin out the list.
+        return rc
+    known = transfer_list.load(pair_id)
+    first = known is None
+    done = {path: size for path, size in (known or {}).items()
+            if path in source}
+    dropped = len(known or {}) - len(done)
+    candidates = []
+    for path, size in sorted(source.items()):
+        if done.get(path) == size:
+            continue
+        if "\n" in path or "\r" in path:
+            # One path per line in the file list - such a name cannot be
+            # expressed there.
+            log_file.write("# skipped, line break in name: %r\n" % path)
+            continue
+        candidates.append(path)
+    log_file.write("# transfer list: %s, %d source file(s), %d already"
+                   " transferred, %d to check, %d dropped\n"
+                   % ("none yet - comparing with the destination" if first
+                      else "%d entries" % len(known),
+                      len(source), len(done), len(candidates), dropped))
+    if not candidates:
+        transfer_list.save(pair_id, done)
+        log_file.write("# nothing new to transfer\n")
+        return 0
+
+    os.makedirs(transfer_list.tmp_dir(), exist_ok=True)
+    files_from = os.path.join(transfer_list.tmp_dir(), "%s.files" % pair_id)
+    report = os.path.join(transfer_list.tmp_dir(), "%s.report" % pair_id)
+    with open(files_from, "w", encoding="utf-8") as f:
+        f.write("".join("%s\n" % path for path in candidates))
+    if os.path.exists(report):
+        os.remove(report)
+    args = ["copy", src, dst] + base_args + [
+        "--size-only", "--files-from-raw", files_from, "--combined", report]
+    if not first and len(candidates) <= NO_TRAVERSE_MAX:
+        args.append("--no-traverse")
+    log_file.write("# %s\n" % common.mask_secrets(" ".join(args)))
+    log_file.flush()
+    cmd, env = config_manager.build_rclone_command(args)
+    rc = None
+    try:
+        rc = _run_rclone(common.encode_cmd(cmd), log_file, env,
+                         max(deadline - time.time(), 1))
+    finally:
+        # Also after a timeout: what made it is recorded either way.
+        recorded = _record_report(report, source, done)
+        transfer_list.save(pair_id, done)
+        log_file.write("# transfer list updated: %d file(s) recorded, %d"
+                       " entries\n" % (recorded, len(done)))
+        for path in (files_from, report):
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+    return rc
+
+
+def _record_report(report, source, done):
+    """Add every file rclone reports as present on the destination to done.
+
+    Returns how many were added. A file reported as failed is left out even
+    if it was also reported as copied.
+    """
+    ok, failed = set(), set()
+    try:
+        with open(report, encoding="utf-8", errors="replace") as f:
+            for line in f:
+                line = line.rstrip("\n")
+                if len(line) < 3 or line[1] != " ":
+                    continue
+                sigil, path = line[0], line[2:]
+                if sigil in _REPORT_DONE:
+                    ok.add(path)
+                elif sigil in _REPORT_FAILED:
+                    failed.add(path)
+    except FileNotFoundError:
+        return 0
+    added = 0
+    for path in ok - failed:
+        if path in source:
+            done[path] = source[path]
+            added += 1
+    return added
+
+
 def _run_rclone(cmd, log_file, env, timeout):
     """Run one rclone pass and return its exit code.
 
@@ -445,6 +605,26 @@ def delete_lock_file(pair_id):
                 "message": BUSY_REASON}
     return {"ok": True, "busy": False, "removed": removed,
             "message": "Lock file deleted" if removed else "No lock file found"}
+
+
+def reset_transfer_list(pair_id):
+    """Forget which files a one-way pair already transferred (context menu).
+
+    The next run compares every file against the destination again and
+    transfers what is missing there. Taken under the run lock: a run in
+    progress would write its list back right after.
+    """
+    if sync_pairs.get_pair(pair_id) is None:
+        return {"ok": False, "busy": False, "message": "Pair not found"}
+    try:
+        with _exclusive_run():
+            transfer_list.delete(pair_id)
+            sync_pairs.update_pair(pair_id, {
+                "last_message": "Transfer list reset - missing files are"
+                                " transferred at the next sync"})
+    except _RunLockBusy:
+        return {"ok": False, "busy": True, "message": BUSY_REASON}
+    return {"ok": True, "busy": False, "message": "Transfer list reset"}
 
 
 def _rclone_output(log_text):
@@ -655,6 +835,7 @@ def _run_pair_locked(pair, force):
                 "-v", "--stats", "0", "--stats-log-level", "NOTICE",
                 "--filter-from", filters_path]
         passes = [_pull_pass(args)]
+        once = (remote_target, local_dir)
     else:
         # One-way upload. copy (not sync) is deliberate: it never deletes on
         # the remote side, which is what a backup pair promises. That also
@@ -669,6 +850,14 @@ def _run_pair_locked(pair, force):
                 "-v", "--stats", "0", "--stats-log-level", "NOTICE",
                 "--filter-from", filters_path]
         passes = _push_passes(pair, args)
+        once = (local_dir, remote_target)
+    if two_way or not pair.get("skip_transferred"):
+        once = None
+    else:
+        # _transfer_once() builds its own rclone runs; the passes above are
+        # only the plain copy it replaces.
+        passes = []
+        log("transfer list in use - files already transferred are skipped")
 
     os.makedirs(_logs_dir(), exist_ok=True)
     _rotate_log(pair_id)
@@ -705,6 +894,14 @@ def _run_pair_locked(pair, force):
     try:
         with open(log_path(pair_id), "w", encoding="utf-8") as log_file:
             log_file.write("# ferry sync run %s\n" % now)
+            if once:
+                # The filter is applied by the listing; the copy itself gets
+                # an explicit file list and only the shared output flags.
+                rc = _transfer_once(pair, once[0], once[1],
+                                    ["-v", "--stats", "0",
+                                     "--stats-log-level", "NOTICE"],
+                                    filters_path, log_file,
+                                    started + RUN_TIMEOUT)
             for pass_args, (cmd, env) in zip(passes, commands):
                 # The remote target may carry the library key - never write it.
                 log_file.write("# %s\n"
