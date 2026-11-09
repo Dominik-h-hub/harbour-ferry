@@ -92,6 +92,8 @@ def find_pair(key):
     Returns (pair, error). A name that several pairs share is refused rather
     than guessed - syncing the wrong pair is worse than syncing none.
     """
+    if not key.strip():
+        return None, "--pair needs an id or a name, got an empty value"
     pairs = sync_pairs.list_pairs()
     for pair in pairs:
         if pair.get("id") == key:
@@ -158,7 +160,9 @@ def main(argv=None):
     # No app is listening; the run start/end and result lines say it all.
     sync_engine.LOG_EVENTS = False
     try:
-        if args.pair:
+        # "is not None": --pair "" (e.g. an empty shell variable) must stay a
+        # lookup that fails, not fall through to syncing every pair.
+        if args.pair is not None:
             return run_one(args.pair)
         # The marker proves the timer chain (service -> helper -> full run)
         # works - the diagnostics page starts the unit exactly like this.
