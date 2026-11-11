@@ -979,7 +979,7 @@ def _run_pair_locked(pair, force):
                 notify.send("Ferry: sync conflict",
                             "%s - please review" % names)
                 return _finish_run(pair_id, now, True, message, extra)
-        elif mode == sync_pairs.MODE_PUSH:
+        elif mode == sync_pairs.MODE_PUSH and not once:
             # Everything local is on the remote side as of this moment, so
             # the next catch-up pass only has to look at what changed after
             # it. The run's start, not its end: a file written while rclone
