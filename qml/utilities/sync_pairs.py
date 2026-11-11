@@ -207,6 +207,20 @@ def display_name(pair):
 _TRANSFER_LIST_KEYS = ("type", "mode", "local", "remote", "skip_transferred")
 
 
+def transfer_rev(pair):
+    """Revision of the settings a transfer list is valid for.
+
+    Bumped by update_pair whenever one of _TRANSFER_LIST_KEYS changes. Deleting
+    the list alone is not enough: a run that started before the edit still
+    holds the old settings and saves its list after the edit. That list
+    carries the old revision and transfer_list.load() ignores it.
+    """
+    try:
+        return int((pair or {}).get("transfer_rev") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
 def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name="",
              skip_transferred=False):
     if mode not in MODES:
@@ -249,9 +263,13 @@ def update_pair(pair_id, fields):
                 stale = any(key in fields and fields[key] != pair.get(key)
                             for key in _TRANSFER_LIST_KEYS)
                 pair.update(fields)
+                if stale:
+                    pair["transfer_rev"] = transfer_rev(pair) + 1
                 _save(data)
                 log("pair %s updated: %s" % (pair_id, sorted(fields.keys())))
                 if stale:
+                    # The revision bump is what invalidates a list a running
+                    # sync saves later; deleting just tidies up now.
                     transfer_list.delete(pair_id)
                 return pair
     log("pair %s not found for update" % pair_id)

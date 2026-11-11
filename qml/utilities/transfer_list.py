@@ -7,7 +7,13 @@
 # sync_engine._transfer_once): a file in this list is not transferred again,
 # even after it was deleted on the destination side - unless its size on the
 # source side changes. One JSON file per pair:
-#   {"version": 1, "files": {"<path relative to the source root>": <size>}}
+#   {"version": 1, "rev": <n>, "files": {"<path relative to the source root>": <size>}}
+#
+# "rev" is the pair's transfer_rev (sync_pairs) the list was built for. An
+# edit of the pair's paths/direction bumps it, so a run that started before
+# the edit and saves its results afterwards writes a list that load() then
+# ignores - those results describe the old destination. A missing "rev"
+# counts as 0, the value of pairs that were never edited that way.
 #
 # It lives in its own directory so My Backup can take the whole directory
 # (harbour-ferry.desktop, BackupPathList): without it, a restored device would
@@ -39,12 +45,13 @@ def _path(pair_id):
     return os.path.join(list_dir(), "%s.json" % pair_id)
 
 
-def load(pair_id):
+def load(pair_id, rev=0):
     """The stored {path: size} dict, or None when there is no list yet.
 
     None and {} mean different things: None is a first run (or a reset),
     which compares against the destination; {} is a list that is simply
-    empty because the source is.
+    empty because the source is. A list built for another revision of the
+    pair (see the header) is None as well.
     """
     path = _path(pair_id)
     try:
@@ -62,15 +69,21 @@ def load(pair_id):
     if not isinstance(files, dict):
         log("transfer list %s has no file table - starting over" % path)
         return None
+    stored_rev = data.get("rev", 0)
+    if stored_rev != rev:
+        log("transfer list %s is for revision %r, pair is at %r - starting"
+            " over" % (path, stored_rev, rev))
+        return None
     return files
 
 
-def save(pair_id, files):
+def save(pair_id, files, rev=0):
+    """Store the list, tagged with the pair revision it was built for."""
     path = _path(pair_id)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
-        json.dump({"version": _VERSION, "files": files}, f,
+        json.dump({"version": _VERSION, "rev": rev, "files": files}, f,
                   ensure_ascii=False, separators=(",", ":"))
     os.replace(tmp, path)
 

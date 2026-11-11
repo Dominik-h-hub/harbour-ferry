@@ -432,12 +432,16 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
     Returns rclone's exit code.
     """
     pair_id = pair["id"]
+    # The revision of the settings this run uses (src/dst come from the same
+    # snapshot). If the pair is edited while the run is going, the list saved
+    # below carries this old revision and the next run ignores it.
+    rev = sync_pairs.transfer_rev(pair)
     rc, source = _rclone_list(src, filters_path, log_file,
                               deadline - time.time())
     if rc != 0:
         # An incomplete listing must not thin out the list.
         return rc
-    known = transfer_list.load(pair_id)
+    known = transfer_list.load(pair_id, rev)
     first = known is None
     done = {path: size for path, size in (known or {}).items()
             if path in source}
@@ -458,7 +462,7 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
                       else "%d entries" % len(known),
                       len(source), len(done), len(candidates), dropped))
     if not candidates:
-        transfer_list.save(pair_id, done)
+        transfer_list.save(pair_id, done, rev)
         log_file.write("# nothing new to transfer\n")
         return 0
 
@@ -483,7 +487,7 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
     finally:
         # Also after a timeout: what made it is recorded either way.
         recorded = _record_report(report, source, done)
-        transfer_list.save(pair_id, done)
+        transfer_list.save(pair_id, done, rev)
         log_file.write("# transfer list updated: %d file(s) recorded, %d"
                        " entries\n" % (recorded, len(done)))
         for path in (files_from, report):
