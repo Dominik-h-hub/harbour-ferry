@@ -1109,7 +1109,7 @@ def pair_result(pair, outcome):
     tells the cases apart: "ok", "failed", "skipped" or "paused".
     """
     outcome = outcome or {}
-    if outcome.get("paused"):
+    if outcome.get("paused") and "last_ok" not in outcome:
         status, message = "paused", "Paused"
     elif outcome.get("skipped"):
         status, message = "skipped", outcome.get("message", "")
