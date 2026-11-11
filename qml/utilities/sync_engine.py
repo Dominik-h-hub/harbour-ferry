@@ -408,6 +408,31 @@ def _rclone_list(path, filters_path, log_file, timeout):
                if isinstance(e, dict) and "Path" in e}
 
 
+class _UnlistableNames(Exception):
+    """Source files the --files-from-raw list cannot express (line break in
+    the name). Raised after everything else was copied and recorded, so the
+    run fails with a message naming the file instead of reporting OK while
+    that file is never backed up."""
+
+    def __init__(self, names):
+        self.names = names
+        first = os.path.basename(names[0]).replace("\n", "\\n") \
+                                          .replace("\r", "\\r")
+        more = " (+%d more)" % (len(names) - 1) if len(names) > 1 else ""
+        super().__init__("File name with a line break cannot be transferred"
+                         " - please rename: %s%s" % (first, more))
+
+
+def _check_unlistable(rc, names, log_file):
+    if names:
+        log_file.write("# NOT transferred, line break in name - rename"
+                       " these: %s\n" % ", ".join(repr(n) for n in names))
+        if rc == 0:
+            # A failed copy already fails the run with rclone's own reason.
+            raise _UnlistableNames(names)
+    return rc
+
+
 def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
                    deadline):
     """One-way copy that transfers every file only once (skip_transferred).
@@ -447,13 +472,15 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
             if path in source}
     dropped = len(known or {}) - len(done)
     candidates = []
+    unlistable = []
     for path, size in sorted(source.items()):
         if done.get(path) == size:
             continue
         if "\n" in path or "\r" in path:
             # One path per line in the file list - such a name cannot be
-            # expressed there.
-            log_file.write("# skipped, line break in name: %r\n" % path)
+            # expressed there. The other files still go; the run then fails
+            # (_check_unlistable) so this one is not silently left behind.
+            unlistable.append(path)
             continue
         candidates.append(path)
     log_file.write("# transfer list: %s, %d source file(s), %d already"
@@ -464,7 +491,7 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
     if not candidates:
         transfer_list.save(pair_id, done, rev)
         log_file.write("# nothing new to transfer\n")
-        return 0
+        return _check_unlistable(0, unlistable, log_file)
 
     os.makedirs(transfer_list.tmp_dir(), exist_ok=True)
     files_from = os.path.join(transfer_list.tmp_dir(), "%s.files" % pair_id)
@@ -495,7 +522,7 @@ def _transfer_once(pair, src, dst, base_args, filters_path, log_file,
                 os.remove(path)
             except OSError:
                 pass
-    return rc
+    return _check_unlistable(rc, unlistable, log_file)
 
 
 def _record_report(report, source, done):
@@ -922,6 +949,11 @@ def _run_pair_locked(pair, force):
                     break
     except subprocess.TimeoutExpired:
         return _finish_run(pair_id, now, False, "Sync timed out", {})
+    except _UnlistableNames as e:
+        # Everything else was copied; only the named file(s) are missing.
+        log("pair %s: %s" % (pair_id, e))
+        return _finish_run(pair_id, now, False, str(e),
+                           {"filters_hash": filters_hash})
     except Exception as e:
         return _finish_run(pair_id, now, False, "Sync failed to start: %s" % e, {})
 
