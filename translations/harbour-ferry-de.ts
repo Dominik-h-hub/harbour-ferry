@@ -494,18 +494,18 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Lösche Lock-Datei</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="589"/>
+        <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
         <translation>Lock-Datei gelöscht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="590"/>
+        <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
         <translation>Keine Lock-Datei gefunden</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="587"/>
-        <location filename="../qml/pages/MainPage.qml" line="598"/>
+        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
         <translation>Ein Sync läuft gerade – bitte nach dessen Ende erneut versuchen</translation>
     </message>
@@ -554,37 +554,37 @@ Ohne Schema verwendet Ferry https - stelle der Adresse http:// voran, wenn der S
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="497"/>
+        <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Paused - long-press to resume</source>
         <translation>Pausiert - zum Fortsetzen lange drücken</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="564"/>
+        <location filename="../qml/pages/MainPage.qml" line="577"/>
         <source>Synchronization started</source>
         <translation>Synchronisation gestartet</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
         <translation>Fehlende Dateien werden beim nächsten Sync übertragen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="607"/>
+        <location filename="../qml/pages/MainPage.qml" line="620"/>
         <source>Sync pair deleted</source>
         <translation>Sync-Paar gelöscht</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="624"/>
+        <location filename="../qml/pages/MainPage.qml" line="637"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Willkommen! Bitte richte zuerst dein Konto ein.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="645"/>
+        <location filename="../qml/pages/MainPage.qml" line="658"/>
         <source>Sync skipped: %1</source>
         <translation>Sync übersprungen: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="647"/>
+        <location filename="../qml/pages/MainPage.qml" line="660"/>
         <source>Synchronization finished</source>
         <translation>Synchronisation abgeschlossen</translation>
     </message>

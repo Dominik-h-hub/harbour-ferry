@@ -538,53 +538,53 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="497"/>
+        <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Paused - long-press to resume</source>
         <translation>Pausad - Långtryck för att återuppta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="564"/>
+        <location filename="../qml/pages/MainPage.qml" line="577"/>
         <source>Synchronization started</source>
         <translation>Synkronisering startad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="587"/>
-        <location filename="../qml/pages/MainPage.qml" line="598"/>
+        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="589"/>
+        <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="590"/>
+        <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="607"/>
+        <location filename="../qml/pages/MainPage.qml" line="620"/>
         <source>Sync pair deleted</source>
         <translation>Synkpar borttaget</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="624"/>
+        <location filename="../qml/pages/MainPage.qml" line="637"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Välkommen! Konfigurera ditt konto först.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="645"/>
+        <location filename="../qml/pages/MainPage.qml" line="658"/>
         <source>Sync skipped: %1</source>
         <translation>Synk skippad: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="647"/>
+        <location filename="../qml/pages/MainPage.qml" line="660"/>
         <source>Synchronization finished</source>
         <translation>Synkronisering slutförd</translation>
     </message>

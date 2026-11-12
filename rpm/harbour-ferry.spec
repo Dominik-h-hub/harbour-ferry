@@ -55,6 +55,9 @@ Screenshots:
  - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/local-sync.png
  - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/remote-sync.png
  - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/new-syncpair.png
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/settings-1.png
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/account-1.png
+ - https://github.com/Dominik-h-hub/harbour-ferry/raw/main/docs/images/remote-download.png
 Links:
   Homepage: https://github.com/Dominik-h-hub/harbour-ferry
   Help: https://forum.sailfishos.org/t/ferry-sync-cloud-file-sync/32278
