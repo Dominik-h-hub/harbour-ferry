@@ -9,6 +9,7 @@
 # - Summary of changes
 
 * Mon Nov 2 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.6-1
+- CHANGED: sync pairs in the local syncs - sorted by name
 - ADDED: rename files and folders in the remote browser
 - ADDED: My Backup support (settings, sync pairs, SSH host keys, encrypted library list)
 - ADDED: optional custom names for sync pairs

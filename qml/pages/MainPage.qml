@@ -476,8 +476,21 @@ Page {
                 page.skipBanner = store.last_skip || "";
                 var abort = false;
                 pairsModel.clear();
-                for (var i = 0; i < store.pairs.length; i++) {
-                    var pair = store.pairs[i];
+                // Sorted by the name shown in the list (own name, else the
+                // local base name), case-insensitive; the id keeps pairs
+                // with the same name in a stable order.
+                var pairs = store.pairs.slice(0);
+                pairs.sort(function(a, b) {
+                    var na = ((a.name || "").trim() || baseName(a.local || "")).toLowerCase();
+                    var nb = ((b.name || "").trim() || baseName(b.local || "")).toLowerCase();
+                    var c = na.localeCompare(nb);
+                    if (c !== 0) {
+                        return c;
+                    }
+                    return String(a.id).localeCompare(String(b.id));
+                });
+                for (var i = 0; i < pairs.length; i++) {
+                    var pair = pairs[i];
                     if (pair.safety_abort) {
                         abort = true;
                     }
