@@ -461,12 +461,12 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
         <source>Resetting transfer list</source>
-        <translation type="unfinished"></translation>
+        <translation>Återställer överföringslistan</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="206"/>
         <source>Deleting lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Tar bort låsfilen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="292"/>
@@ -486,17 +486,17 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/MainPage.qml" line="311"/>
         <source>Pause sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Pausa synkroniseringen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Delete lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>T bort låsfilen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Transfer missing files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Överför saknade filer igen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
@@ -551,22 +551,22 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <location filename="../qml/pages/MainPage.qml" line="600"/>
         <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
-        <translation type="unfinished"></translation>
+        <translation>En synk körs redan - Försök igen när den är klar</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Låsfilen borttagen</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen låsfil hittades</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Saknade filer överförs vid nästa synkronisering</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="620"/>
@@ -662,7 +662,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Byt namn</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
@@ -699,7 +699,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
         <source>New name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nytt namn</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
@@ -719,7 +719,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Namnbyte klart</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
@@ -929,7 +929,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Namn (frivilligt)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
@@ -949,7 +949,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Endast nedladdning (en väg)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
@@ -969,17 +969,17 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
         <source>Do not transfer files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Överför inte filer igen</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
         <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filer som redan har laddats upp laddas inte upp igen, även efter att de har tagits bort på den fjärranslutna sidan. En fil vars storlek förändras på enheten laddas upp på nytt.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
         <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filer som redan har laddats ner laddas inte ner igen, även efter att de har tagits bort på enheten. En fil vars storlek ändras på fjärrsidan laddas däremot ner igen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
@@ -1015,7 +1015,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nya och ändrade filer laddas ner från den fjärranslutna mappen. Ferry raderar aldrig någonting på enheten, och lokala ändringar laddas aldrig upp – En lokal fil som skiljer sig från den fjärranslutna skrivs över med den fjärranslutna versionen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
