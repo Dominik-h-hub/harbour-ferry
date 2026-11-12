@@ -8,6 +8,23 @@
 # * date Author's Name <author's email> version-release
 # - Summary of changes
 
+* Mon Nov 2 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.6-1
+- CHANGED: sync pairs in the local syncs - sorted by name
+- ADDED: rename files and folders in the remote browser
+- ADDED: My Backup support (settings, sync pairs, SSH host keys, encrypted library list)
+- ADDED: optional custom names for sync pairs
+- ADDED: trigger a sync from the command line - see README
+- ADDED: new sync mode "Download only (one-way)" - remote to device, never deletes locally
+- FIX: single-file sync pairs no longer stop with "unusually many changes" on every change
+- ADDED: context menu "Pause sync" for sync pairs
+- ADDED: context menu "Delete lock file" when a sync pair is blocked
+- FIX: lock file of an interrupted two-way sync no longer blocks the pair forever
+- FIX: a dropped connection during a two-way sync no longer forces a full resync (re-upload of all files)
+- FIX: a resync no longer starts while the server is unreachable
+- ADDED: view and edit .md files in the remote browser
+- ADDED: option "Do not transfer again" for one-way sync pairs - files deleted on the other side are not transferred again
+- CHANGED: "Show/Hide hidden files" moved to top
+
 * Sat Sep 12 2026 Dominik Heidinger <dominikh@atomicmail.io> 0.5-1
 - ADDED: new diagnostics-test: Configured account + remote listing
 - ADDED: Generic WebDAV Backend support

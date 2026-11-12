@@ -4,6 +4,7 @@
  * folders on Nextcloud (wording from Terminology.qml) - and navigates
  * into it via the page stack.
  * Downloads go to ~/Downloads; deletion is guarded by a remorse timer.
+ * Files and folders can be renamed in place (not libraries at the root).
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -47,7 +48,7 @@ Page {
     }
 
     function isTextFile(name) {
-        return /\.txt$/i.test(name);
+        return /\.(txt|md)$/i.test(name);
     }
 
     function isImageFile(name) {
@@ -88,6 +89,16 @@ Page {
                 }
             }
             MenuItem {
+                // Listing and mkdir work in a locked library, so a user can
+                // get here without anything having failed yet - the entry
+                // must not wait for the app to notice the encryption.
+                visible: !page.pickerMode && page.canUnlock
+                text: qsTr("Unlock library")
+                enabled: !page.loading
+                onClicked: python.askLibraryPassword(
+                               page.remotePath.split("/")[0], null)
+            }
+            MenuItem {
                 visible: !page.pickerMode
                 text: page.remotePath === "" ? terms.createTitle
                                              : qsTr("New folder")
@@ -118,16 +129,6 @@ Page {
                 }
             }
             MenuItem {
-                // Listing and mkdir work in a locked library, so a user can
-                // get here without anything having failed yet - the entry
-                // must not wait for the app to notice the encryption.
-                visible: !page.pickerMode && page.canUnlock
-                text: qsTr("Unlock library")
-                enabled: !page.loading
-                onClicked: python.askLibraryPassword(
-                               page.remotePath.split("/")[0], null)
-            }
-            MenuItem {
                 text: qsTr("Refresh")
                 enabled: !page.loading
                 onClicked: python.reload()
@@ -153,6 +154,13 @@ Page {
             function requestDeletion() {
                 remorseAction(qsTr("Deleting %1").arg(name), function() {
                     python.deleteEntry(path, is_dir);
+                });
+            }
+
+            function requestRename() {
+                var dialog = pageStack.push(renameDialog, { oldName: name });
+                dialog.accepted.connect(function() {
+                    python.renameEntry(path, dialog.newName, is_dir, false);
                 });
             }
 
@@ -223,6 +231,14 @@ Page {
                     MenuItem {
                         text: qsTr("Download")
                         onClicked: python.download(path, name, is_dir)
+                    }
+                    MenuItem {
+                        // Seafile libraries cannot be renamed server-side by
+                        // rclone, and an encrypted library's key is stored
+                        // under its name - the backend refuses it as well.
+                        visible: !(page.remotePath === "" && terms.key === "library")
+                        text: qsTr("Rename")
+                        onClicked: listItem.requestRename()
                     }
                     MenuItem {
                         text: qsTr("Delete")
@@ -328,6 +344,37 @@ Page {
         }
     }
 
+    Component {
+        id: renameDialog
+        Dialog {
+            property string oldName: ""
+            property string newName: renameField.text.trim()
+
+            canAccept: newName.length > 0 && newName.indexOf("/") < 0
+                       && newName !== "." && newName !== ".."
+                       && newName !== oldName
+
+            Column {
+                width: parent.width
+                DialogHeader {
+                    acceptText: qsTr("Rename")
+                    title: qsTr("Rename")
+                }
+                TextField {
+                    id: renameField
+                    width: parent.width
+                    label: qsTr("New name")
+                    placeholderText: qsTr("New name")
+                    text: oldName
+                    focus: true
+                    EnterKey.enabled: canAccept
+                    EnterKey.iconSource: "image://theme/icon-m-enter-accept"
+                    EnterKey.onClicked: accept()
+                }
+            }
+        }
+    }
+
     Python {
         id: python
 
@@ -400,6 +447,32 @@ Page {
             call('remote_browser.delete_entry', [path, isDir], function(result) {
                 Notices.show(result.ok ? qsTr("Deleted") : result.message);
                 reload();
+            });
+        }
+
+        // retried: one-shot guard so a wrong key cannot loop between the
+        // unlock dialog and the rename.
+        function renameEntry(path, newName, isDir, retried) {
+            page.loading = true;
+            call('remote_browser.rename_entry', [path, newName, isDir], function(result) {
+                if (!result.ok && result.encrypted && result.library && !retried) {
+                    page.loading = false;
+                    Notices.show(result.message);
+                    askLibraryPassword(result.library, function() {
+                        renameEntry(path, newName, isDir, true);
+                    });
+                    return;
+                }
+                if (result.unchanged) {
+                    page.loading = false;
+                    return;
+                }
+                Notices.show(result.ok ? qsTr("Renamed") : result.message);
+                if (!result.ok) {
+                    page.loading = false;
+                } else {
+                    reload();
+                }
             });
         }
 

@@ -12,3 +12,9 @@ ExecStart=/usr/bin/python3 /usr/share/harbour-ferry/helper/sync_helper.py
 # ever learning about it, because the kill skips _finish_run().
 # oneshot defaults to infinity anyway; stated explicitly so it stays.
 TimeoutStartSec=infinity
+# The helper's exit codes are for scripts calling it directly (1 = a pair
+# failed, 2 = skipped, 3 = pair not found). For the unit none of them is a
+# failure: a failed pair is reported in the app, and a non-zero
+# "systemctl start" would make the diagnostics page start the unit a
+# second time via D-Bus.
+SuccessExitStatus=1 2 3

@@ -3,12 +3,14 @@
 #
 # Ferry - sync pair storage.
 # Pairs are kept in a JSON file in the app data directory. Each pair:
-#   id, type ("folder"|"file"), mode ("bisync"|"push"), local (absolute
+#   id, name (optional display name; empty = derived from the local path),
+#   type ("folder"|"file"), mode ("bisync"|"push"|"pull"), local (absolute
 #   path; for "file" the file itself), remote (remote directory path),
 #   paused, needs_resync, filters_hash, last_run (ISO), last_ok
 #   (bool|None), last_message, last_verified (unix time of the last
 #   successful "push" run; sync_engine._push_passes() re-uploads what
-#   changed locally after it).
+#   changed locally after it), skip_transferred (push/pull only: files
+#   already transferred are not transferred again - see transfer_list).
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -24,17 +26,28 @@ except ImportError:  # pragma: no cover - POSIX only, absent on dev desktops
     fcntl = None
 
 import common
+import transfer_list
 
 log = common.make_logger("pairs")
 
 # Sync direction. "bisync" is rclone bisync as before, "push" a one-way
-# rclone copy from local to remote that never deletes on the remote side.
-# Pairs written before the mode existed carry no field at all, so readers
-# must go through pair_mode() instead of reading pair["mode"] directly -
-# a missing default would silently turn an old two-way pair into an upload.
+# rclone copy from local to remote that never deletes on the remote side,
+# "pull" the same the other way round: remote to local, never deleting
+# locally. Pairs written before the mode existed carry no field at all, so
+# readers must go through pair_mode() instead of reading pair["mode"]
+# directly - a missing default would silently turn an old two-way pair into
+# an upload.
 MODE_BISYNC = "bisync"
 MODE_PUSH = "push"
-MODES = (MODE_BISYNC, MODE_PUSH)
+MODE_PULL = "pull"
+MODES = (MODE_BISYNC, MODE_PUSH, MODE_PULL)
+
+# Direction marker for log lines, local side on the left.
+_ARROWS = {MODE_BISYNC: "<->", MODE_PUSH: "->", MODE_PULL: "<-"}
+
+
+def mode_arrow(mode):
+    return _ARROWS.get(mode, "<->")
 
 _LOCK = threading.Lock()
 
@@ -176,12 +189,46 @@ def get_pair(pair_id):
     return None
 
 
-def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
+def display_name(pair):
+    """The name shown for a pair: its own name, else the local base name.
+
+    Pairs written before names existed carry no field at all.
+    """
+    name = ((pair or {}).get("name") or "").strip()
+    if name:
+        return name
+    local = ((pair or {}).get("local") or "").rstrip("/")
+    return os.path.basename(local) or (pair or {}).get("id", "")
+
+
+# A transfer list only describes the pair it was built for: other paths,
+# another direction or the option switched off and on again make it
+# meaningless, so a change of any of these drops it.
+_TRANSFER_LIST_KEYS = ("type", "mode", "local", "remote", "skip_transferred")
+
+
+def transfer_rev(pair):
+    """Revision of the settings a transfer list is valid for.
+
+    Bumped by update_pair whenever one of _TRANSFER_LIST_KEYS changes. Deleting
+    the list alone is not enough: a run that started before the edit still
+    holds the old settings and saves its list after the edit. That list
+    carries the old revision and transfer_list.load() ignores it.
+    """
+    try:
+        return int((pair or {}).get("transfer_rev") or 0)
+    except (TypeError, ValueError):
+        return 0
+
+
+def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC, name="",
+             skip_transferred=False):
     if mode not in MODES:
         log("unknown sync mode %r - storing as %s" % (mode, MODE_BISYNC))
         mode = MODE_BISYNC
     pair = {
         "id": "pair-%d" % int(time.time() * 1000),
+        "name": (name or "").strip(),
         "type": pair_type,
         "mode": mode,
         "local": local_path,
@@ -192,6 +239,8 @@ def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
         "last_run": "",
         "last_ok": None,
         "last_message": "",
+        # Two-way pairs have nothing to skip - bisync keeps its own listing.
+        "skip_transferred": bool(skip_transferred) and mode != MODE_BISYNC,
     }
     with _transaction():
         data = _load()
@@ -200,18 +249,28 @@ def add_pair(pair_type, local_path, remote_path, mode=MODE_BISYNC):
         stored = len(data["pairs"])
     log("pair added: %s (%s %s) %s %s %s (%d pair(s) stored)"
         % (pair["id"], mode, pair_type, local_path,
-           "<->" if mode == MODE_BISYNC else "->", remote_path, stored))
+           mode_arrow(mode), remote_path, stored))
     return pair
 
 
 def update_pair(pair_id, fields):
+    if "name" in fields:
+        fields = dict(fields, name=(fields["name"] or "").strip())
     with _transaction():
         data = _load()
         for pair in data["pairs"]:
             if pair["id"] == pair_id:
+                stale = any(key in fields and fields[key] != pair.get(key)
+                            for key in _TRANSFER_LIST_KEYS)
                 pair.update(fields)
+                if stale:
+                    pair["transfer_rev"] = transfer_rev(pair) + 1
                 _save(data)
                 log("pair %s updated: %s" % (pair_id, sorted(fields.keys())))
+                if stale:
+                    # The revision bump is what invalidates a list a running
+                    # sync saves later; deleting just tidies up now.
+                    transfer_list.delete(pair_id)
                 return pair
     log("pair %s not found for update" % pair_id)
     return None
@@ -223,6 +282,7 @@ def delete_pair(pair_id):
         before = len(data["pairs"])
         data["pairs"] = [p for p in data["pairs"] if p["id"] != pair_id]
         _save(data)
+    transfer_list.delete(pair_id)
     log("pair %s deleted (%d -> %d)" % (pair_id, before, len(data["pairs"])))
     return True
 
@@ -238,6 +298,7 @@ def delete_all_pairs():
         data = _load()
         removed = len(data["pairs"])
         _save(_empty_store())
+    transfer_list.delete_all()
     log("all sync pairs deleted (%d)" % removed)
     return removed
 

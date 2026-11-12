@@ -31,7 +31,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Avec A2F le serveur émet un jeton de connexion&#x202f;; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
+        <translation>Avec A2F le serveur émet un jeton de connexion ; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="153"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte&#xa0;: tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
+        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte : tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="314"/>
@@ -198,9 +198,9 @@
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
-        <source>Server (EU region: %1)</source>
-        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation>Serveur (région UE&#xa0;: %1)</translation>
+        <source>Server (US region: %1)</source>
+        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s American (US) region; the field&apos;s own default is the European one.</extracomment>
+        <translation>Serveur (région US : %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
@@ -244,8 +244,8 @@
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation>L&apos;adresse du serveur, ou l&apos;URL WebDAV complète si vous la connaissez&#x202f;; Ferry complète une simple adresse de serveur avec le chemin WebDAV de votre compte.
-Exemple&#xa0;: https://cloud.example.com/remote.php/dav/files/USERID</translation>
+        <translation>L&apos;adresse du serveur, ou l&apos;URL WebDAV complète si vous la connaissez ; Ferry complète une simple adresse de serveur avec le chemin WebDAV de votre compte.
+Exemple : https://cloud.example.com/remote.php/dav/files/USERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
@@ -253,7 +253,7 @@ Exemple&#xa0;: https://cloud.example.com/remote.php/dav/files/USERID</translatio
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
         <translation>L&apos;adresse complète du partage WebDAV, incluant le chemin d&apos;accès. N&apos;indiquez le port que s&apos;il diffère de celui par défaut pour le protocole utilisé (https://dav.example.com:8443/dav).
-En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez http:// devant l&apos;adresse pour un serveur sans TLS, ce qui entraîne l&apos;envoi du mot de passe en clair.</translation>
+En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:// devant l&apos;adresse pour un serveur sans TLS, ce qui entraîne l&apos;envoi du mot de passe en clair.</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="82"/>
@@ -305,7 +305,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport&#xa0;: </translation>
+        <translation>Rapport : </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
@@ -357,22 +357,22 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
         <translation>Fichiers locaux</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Ajouter la sélection (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Sélectionner ce dossier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Masquer fichiers cachés</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Afficher fichiers cachés</translation>
     </message>
@@ -403,142 +403,188 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="67"/>
+        <location filename="../qml/pages/MainPage.qml" line="79"/>
         <source>Local syncs</source>
         <translation>Synchros locales</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="67"/>
+        <location filename="../qml/pages/MainPage.qml" line="79"/>
         <source>Remote</source>
         <translation>Distant</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="129"/>
+        <location filename="../qml/pages/MainPage.qml" line="141"/>
         <source>Last sync skipped: %1</source>
-        <translation>Dernière(s) synchronisation ignorée(s)&#xa0;: %1</translation>
+        <translation>Dernière(s) synchronisation ignorée(s) : %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="139"/>
+        <location filename="../qml/pages/MainPage.qml" line="151"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation>Synchronisation suspendue&#xa0;: nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
+        <translation>Synchronisation suspendue : nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="148"/>
+        <location filename="../qml/pages/MainPage.qml" line="160"/>
         <source>Last full sync: %1</source>
-        <translation>Dernière(s) synchronisation(s) complète(s)&#xa0;: %1</translation>
+        <translation>Dernière(s) synchronisation(s) complète(s) : %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="156"/>
-        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <location filename="../qml/pages/MainPage.qml" line="168"/>
+        <location filename="../qml/pages/MainPage.qml" line="368"/>
         <source>Settings</source>
         <translation>Paramètres</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="160"/>
+        <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>New sync pair</source>
         <translation>Nouvel appairage</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="164"/>
+        <location filename="../qml/pages/MainPage.qml" line="176"/>
         <source>Sync now</source>
         <translation>Synchroniser maintenant</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="172"/>
+        <location filename="../qml/pages/MainPage.qml" line="184"/>
         <source>No sync pairs yet</source>
         <translation>Pas encore d&apos;appairages</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="173"/>
+        <location filename="../qml/pages/MainPage.qml" line="185"/>
         <source>Pull down to create one</source>
         <translation>Dérouler pour en créer un</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="182"/>
+        <location filename="../qml/pages/MainPage.qml" line="194"/>
         <source>Deleting sync pair</source>
         <translation>Supprimer appairage</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="252"/>
+        <location filename="../qml/pages/MainPage.qml" line="200"/>
+        <source>Resetting transfer list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="206"/>
+        <source>Deleting lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="292"/>
         <source>Sync this pair</source>
         <translation>Synchroniser cet appairage</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="258"/>
+        <location filename="../qml/pages/MainPage.qml" line="298"/>
         <source>Force sync (confirm big change)</source>
         <translation>Forcer synchronisation (confirmer changement important)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="264"/>
+        <location filename="../qml/pages/MainPage.qml" line="304"/>
         <source>Resume</source>
         <translation>Reprendre</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="268"/>
+        <location filename="../qml/pages/MainPage.qml" line="311"/>
+        <source>Pause sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="318"/>
+        <source>Delete lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="326"/>
+        <source>Transfer missing files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Show log</source>
         <translation>Voir les journaux</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="273"/>
+        <location filename="../qml/pages/MainPage.qml" line="336"/>
         <source>Edit</source>
         <translation>Éditer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="278"/>
+        <location filename="../qml/pages/MainPage.qml" line="341"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="318"/>
+        <location filename="../qml/pages/MainPage.qml" line="381"/>
         <source>Refresh</source>
         <translation>Actualiser</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="327"/>
+        <location filename="../qml/pages/MainPage.qml" line="390"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Vérifier les paramètres du compte et dérouler pour actualiser</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="329"/>
+        <location filename="../qml/pages/MainPage.qml" line="392"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
-            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
-            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
+            <numerusform>La connexion fonctionne : la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
+            <numerusform>La connexion fonctionne : la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="382"/>
-        <location filename="../qml/pages/MainPage.qml" line="383"/>
+        <location filename="../qml/pages/MainPage.qml" line="445"/>
+        <location filename="../qml/pages/MainPage.qml" line="446"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="430"/>
+        <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Paused - long-press to resume</source>
         <translation>En pause - Appui long pour reprendre</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="494"/>
+        <location filename="../qml/pages/MainPage.qml" line="577"/>
         <source>Synchronization started</source>
         <translation>Synchronisation démarrée</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="510"/>
+        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="611"/>
+        <source>A sync is running - try again when it has finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="602"/>
+        <source>Lock file deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="603"/>
+        <source>No lock file found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="613"/>
+        <source>Missing files are transferred at the next sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="620"/>
         <source>Sync pair deleted</source>
         <translation>Appairage supprimé</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="527"/>
+        <location filename="../qml/pages/MainPage.qml" line="637"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation>Bienvenue&#x202f;! Merci de paramétrer votre compte pour commencer.</translation>
+        <translation>Bienvenue ! Merci de paramétrer votre compte pour commencer.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="548"/>
+        <location filename="../qml/pages/MainPage.qml" line="658"/>
         <source>Sync skipped: %1</source>
-        <translation>Synchronisation ignorée&#xa0;: %1</translation>
+        <translation>Synchronisation ignorée : %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="550"/>
+        <location filename="../qml/pages/MainPage.qml" line="660"/>
         <source>Synchronization finished</source>
         <translation>Synchronisation terminée</translation>
     </message>
@@ -546,129 +592,147 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Déverrouiller la bibliothèque</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="77"/>
         <source>Remote storage</source>
         <translation>Stockage distant</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="84"/>
         <source>Select this folder</source>
         <translation>Sélectionner ce dossier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Nouveau dossier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Télécharger ici</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="132"/>
         <source>Refresh</source>
         <translation>Actualiser</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="142"/>
         <source>Empty folder</source>
         <translation>Dossier vide</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="144"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Vérifier les paramètres du compte, puis dérouler pour actualiser</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="146"/>
         <source>Pull down to create a folder</source>
         <translation>Dérouler pour créer un dossier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="155"/>
         <source>Deleting %1</source>
         <translation>Suppression de %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="214"/>
         <source>View</source>
         <translation>Voir</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="219"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="227"/>
         <source>Edit</source>
         <translation>Éditer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="224"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="232"/>
         <source>Download</source>
         <translation>Télécharger</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="228"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="240"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
         <source>Delete</source>
         <translation>Supprimer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="284"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="300"/>
         <source>Unlock</source>
         <translation>Déverrouiller</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="301"/>
         <source>Encrypted library</source>
         <translation>Bibliothèque chiffrée</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="309"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
         <translation>Saisissez le mot de passe pour &apos;%1&apos;. Il sera enregistré de manière sécurisée pour les prochaines connexions.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="314"/>
         <source>Library password</source>
         <translation>Mot de passe de la bibliothèque</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="322"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="337"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="338"/>
         <source>Name</source>
         <translation>Nom</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
+        <source>New name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
         <source>Library is encrypted</source>
         <translation>La bibliothèque est chiffrée</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="436"/>
         <source>Folder created</source>
         <translation>Dossier créé</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="401"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="448"/>
         <source>Deleted</source>
         <translation>Supprimé</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
+        <source>Renamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
         <source>Uploading %1 file(s)</source>
         <translation>Téléchargement de %1 fichier(s)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="499"/>
         <source>Downloading %1</source>
         <translation>Téléchargement de %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="580"/>
         <source>Internal error - see log</source>
         <translation>Erreur interne - voir les journaux</translation>
     </message>
@@ -763,7 +827,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Limite de sécurité&#xa0;: max. suppressions par exécution</translation>
+        <translation>Limite de sécurité : max. suppressions par exécution</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
@@ -773,7 +837,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Un critère par ligne&#x202f;; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
+        <translation>Un critère par ligne ; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
@@ -818,7 +882,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation>Prochaine exécution&#xa0;: %1</translation>
+        <translation>Prochaine exécution : %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
@@ -847,93 +911,124 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
 <context>
     <name>SyncPairEditorPage</name>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="50"/>
         <source>Save</source>
         <translation>Enregistrer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>New sync pair</source>
         <translation>Nouvel appairage</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Edit sync pair</source>
         <translation>Éditer appairage</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
+        <source>Name (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Mode</source>
         <translation>Mode</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="81"/>
         <source>Two-way sync</source>
         <translation>Synchro 2 sens</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="82"/>
         <source>Upload only (one-way)</source>
         <translation>Téléchargement uniquement (1 sens)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
+        <source>Download only (one-way)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
         <source>Type</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="99"/>
         <source>Synchronize a folder</source>
         <translation>Synchroniser un dossier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="100"/>
         <source>Synchronize a single file</source>
         <translation>Synchroniser un seul fichier</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
+        <source>Do not transfer files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
+        <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
+        <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local file</source>
         <translation>Fichier local</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local folder</source>
         <translation>Dossier local</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="121"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="135"/>
         <source>Select</source>
         <translation>Sélectionner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="134"/>
         <source>Remote folder</source>
         <translation>Dossier distant</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="154"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note&#xa0;: les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
+        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note : les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="156"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
         <translation>Les fichiers nouveaux et modifiés sont téléchargés sur le dossier distant. Ferry ne supprime jamais rien dans le dossier distant et les changements dans le dossier distant ne sont jamais copiés en retour.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
-        <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation>Note&#xa0;: Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
+        <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
+        <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
+        <translation>Note : Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="185"/>
         <source>Sync pair created</source>
         <translation>Appairage créé</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="208"/>
         <source>Sync pair updated</source>
         <translation>Appairage mis à jour</translation>
     </message>
@@ -1067,7 +1162,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez 
         <translation>Éditer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Erreur interne - voir les journaux</translation>
     </message>

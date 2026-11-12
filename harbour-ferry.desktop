@@ -14,3 +14,13 @@ Name=FerrySync
 Sandboxing=Disabled
 OrganizationName=harbour-ferry
 ApplicationName=harbour-ferry
+
+[X-HarbourBackup]
+# Only what is still useful after a restore. Left out on purpose:
+# rclone.conf (encrypted, its password lives in Sailfish Secrets and is not
+# part of the backup), config-pass (plain-text fallback password), bisync/
+# (stale prior listings would turn missing local files into remote deletes;
+# without them the next run resyncs) and logs, caches, filters and locks.
+# transferred/ is in: without it a restored device would transfer again
+# everything that was deliberately deleted on the destination side.
+BackupPathList=.config/harbour-ferry/harbour-ferry/settings.json:.config/harbour-ferry/harbour-ferry/known_hosts:.local/share/harbour-ferry/harbour-ferry/sync-pairs.json:.local/share/harbour-ferry/harbour-ferry/encrypted-libraries.json:.local/share/harbour-ferry/harbour-ferry/transferred

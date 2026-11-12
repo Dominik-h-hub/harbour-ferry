@@ -51,6 +51,18 @@ Page {
         }
     }
 
+    // Direction between local (left) and remote (right); twoWay is what a
+    // two-way pair shows in that place.
+    function modeArrow(mode, twoWay) {
+        if (mode === "push") {
+            return "→";
+        }
+        if (mode === "pull") {
+            return "←";
+        }
+        return twoWay;
+    }
+
     ListModel { id: pairsModel }
     ListModel { id: libsModel }
 
@@ -184,6 +196,18 @@ Page {
                 });
             }
 
+            function requestTransferReset() {
+                remorseAction(qsTr("Resetting transfer list"), function() {
+                    python.resetTransferList(pair_id);
+                });
+            }
+
+            function requestLockDeletion() {
+                remorseAction(qsTr("Deleting lock file"), function() {
+                    python.deleteLockFile(pair_id);
+                });
+            }
+
             Image {
                 id: typeIcon
                 x: Theme.horizontalPageMargin
@@ -218,7 +242,7 @@ Page {
 
                 Label {
                     width: parent.width
-                    text: local_name
+                    text: pair_name.length > 0 ? pair_name : local_name
                     truncationMode: TruncationMode.Fade
                     color: listItem.highlighted ? Theme.highlightColor : Theme.primaryColor
                 }
@@ -228,11 +252,27 @@ Page {
                     font.pixelSize: Theme.fontSizeSmall
                     color: Theme.secondaryColor
                     truncationMode: TruncationMode.Fade
-                    // The arrow marks a one-way pair; two-way pairs stay
-                    // unmarked, so the default case adds no noise.
-                    text: (pair_mode === "push" ? "→ " : "")
-                          + remote_name
-                          + (last_run.length > 0 ? " - " + last_run : "")
+                    // The arrow marks a one-way pair (→ upload, ← download);
+                    // two-way pairs stay unmarked, so the default case adds
+                    // no noise. A custom name replaces the local name in the
+                    // first line, so both sides move here - with an arrow
+                    // either way.
+                    text: pair_name.length > 0
+                          ? local_name + " " + page.modeArrow(pair_mode, "↔") + " "
+                            + remote_name
+                          : (pair_mode === "bisync" ? ""
+                                                    : page.modeArrow(pair_mode, "") + " ")
+                            + remote_name
+                }
+
+                Label {
+                    // Own line: next to "local ↔ remote" it would fade out.
+                    width: parent.width
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                    color: Theme.secondaryColor
+                    truncationMode: TruncationMode.Fade
+                    visible: last_run.length > 0
+                    text: last_run
                 }
 
                 Label {
@@ -263,6 +303,29 @@ Page {
                         visible: paused && !safety_abort
                         text: qsTr("Resume")
                         onClicked: python.resumePair(pair_id)
+                    }
+                    MenuItem {
+                        // Keeps the timer from retrying a pair that cannot
+                        // succeed right now; "Sync this pair" still works.
+                        visible: !paused
+                        text: qsTr("Pause sync")
+                        onClicked: python.pausePair(pair_id)
+                    }
+                    MenuItem {
+                        // Only offered when rclone named the lock that
+                        // blocked the last run - never a guess.
+                        visible: lock_blocked
+                        text: qsTr("Delete lock file")
+                        enabled: !running
+                        onClicked: listItem.requestLockDeletion()
+                    }
+                    MenuItem {
+                        // The next run compares every file against the
+                        // destination again and transfers what is missing.
+                        visible: skip_transferred
+                        text: qsTr("Transfer missing files again")
+                        enabled: !running
+                        onClicked: listItem.requestTransferReset()
                     }
                     MenuItem {
                         text: qsTr("Show log")
@@ -413,15 +476,32 @@ Page {
                 page.skipBanner = store.last_skip || "";
                 var abort = false;
                 pairsModel.clear();
-                for (var i = 0; i < store.pairs.length; i++) {
-                    var pair = store.pairs[i];
+                // Sorted by the name shown in the list (own name, else the
+                // local base name), case-insensitive; the id keeps pairs
+                // with the same name in a stable order.
+                var pairs = store.pairs.slice(0);
+                pairs.sort(function(a, b) {
+                    var na = ((a.name || "").trim() || baseName(a.local || "")).toLowerCase();
+                    var nb = ((b.name || "").trim() || baseName(b.local || "")).toLowerCase();
+                    var c = na.localeCompare(nb);
+                    if (c !== 0) {
+                        return c;
+                    }
+                    return String(a.id).localeCompare(String(b.id));
+                });
+                for (var i = 0; i < pairs.length; i++) {
+                    var pair = pairs[i];
                     if (pair.safety_abort) {
                         abort = true;
                     }
                     pairsModel.append({
                         pair_id: pair.id,
                         pair_type: pair.type,
-                        pair_mode: pair.mode === "push" ? "push" : "bisync",
+                        // Unknown or missing modes are two-way, as in
+                        // sync_pairs.pair_mode().
+                        pair_mode: (pair.mode === "push" || pair.mode === "pull")
+                                   ? pair.mode : "bisync",
+                        pair_name: (pair.name || "").trim(),
                         local_name: baseName(pair.local),
                         remote_name: baseName(pair.remote),
                         last_run: pair.last_run || "",
@@ -430,6 +510,9 @@ Page {
                                  : (pair.paused ? qsTr("Paused - long-press to resume") : ""),
                         paused: !!pair.paused,
                         safety_abort: !!pair.safety_abort,
+                        lock_blocked: !!pair.lock_blocked,
+                        skip_transferred: !!pair.skip_transferred
+                                          && (pair.mode === "push" || pair.mode === "pull"),
                         running: false,
                         last_ok: pair.last_ok === true ? "ok"
                                : (pair.last_ok === false ? "fail" : "never")
@@ -501,6 +584,33 @@ Page {
 
         function resumePair(pairId) {
             call('sync_pairs.update_pair', [pairId, { paused: false }], function() {
+                refresh();
+            });
+        }
+
+        function pausePair(pairId) {
+            call('sync_pairs.update_pair', [pairId, { paused: true }], function() {
+                refresh();
+            });
+        }
+
+        function deleteLockFile(pairId) {
+            call('sync_engine.delete_lock_file', [pairId], function(result) {
+                Notices.show(result.busy
+                             ? qsTr("A sync is running - try again when it has finished")
+                             : (!result.ok ? result.message
+                             : (result.removed > 0 ? qsTr("Lock file deleted")
+                                                   : qsTr("No lock file found"))));
+                refresh();
+            });
+        }
+
+        function resetTransferList(pairId) {
+            call('sync_engine.reset_transfer_list', [pairId], function(result) {
+                Notices.show(result.busy
+                             ? qsTr("A sync is running - try again when it has finished")
+                             : (!result.ok ? result.message
+                                           : qsTr("Missing files are transferred at the next sync")));
                 refresh();
             });
         }

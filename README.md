@@ -27,19 +27,25 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 - **Two-way folder sync** (`rclone bisync`) per sync pair — whole folder or just a single file
 - **Upload only (one-way)** (`rclone copy`) per sync pair — pushes a local folder to the remote and never deletes anything there; for camera or document backups
+- **Download only (one-way)** (`rclone copy`) per sync pair — pulls a remote folder onto the device and never deletes anything locally
+- **Do not transfer again** (option for one-way pairs) — files already transferred are remembered and not transferred again
 - **Currently implemented backends**: **Seafile**, **Nextcloud**, **WebDAV**, **pCloud**, **SFTP** and **FTP/FTPS**
-- **Remote browser**: navigate your libraries/folders, create folders, upload, download and delete
+- **Remote browser**: navigate your libraries/folders, create folders, upload, download, rename and delete
 - **Open files directly on the device**: built-in text viewer, text editor and image viewer
 - **file browser for uploads and sync pairs** — every folder below home, the SD card and the file system root; hidden files on demand, all file types, multi-select
 - **Background sync via systemd user timer**: every 5 / 15 / 30 minutes, ... — or manual only
+- **Pause a sync pair** from its context menu; paused pairs are skipped by the timer and the command line
 - **Network rule**: Wi-Fi only or Wi-Fi and mobile data; runs are skipped when offline
 - **Safety limit against mass deletion**: a run that wants to delete unusually much is aborted and waits for your explicit confirmation ("Force sync")
 - **Global exclude patterns**, editable line by line (`*.tmp`, `.thumbnails/**`, …)
 - **Per-run sync logs** viewable in the app, plus a permanent **diagnostics page** for support cases
 - **Cover action** "Sync now" with status at a glance
+- **My Backup support**: settings, sync pairs, SSH host keys, the list of encrypted libraries and the "Do not transfer again" lists are included in Sailfish OS backups
 - **Translations via [Weblate](https://hosted.weblate.org/projects/harbour-ferry/)**: EN, DE, NO, SV, FR, NL, ET
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
+
+For more screenshots, see [docs/images/](docs/images/) in the GitHub repository.
 
 ### Backends: FTP/FTPS and SFTP
 
@@ -53,6 +59,8 @@ address to fall back to plain, unencrypted FTP. What the protocols cost you:
   and a change that leaves the size untouched goes unnoticed. Upload-only
   pairs do not have that gap - they re-upload everything that changed
   locally since their last successful run, whatever the size says.
+  Download-only pairs do: the server side has no times to go by, so they
+  compare sizes as well.
 - **SFTP** logs in with username and password; key files are not supported
   yet. The server's SSH host key is verified: the key seen while
   setting the account up is stored and its fingerprint shown, so it can
@@ -73,7 +81,9 @@ regional endpoints) and are set up there, not here.
 Plain WebDAV carries no modification times (rclone only sets them for the
 vendors that understand the `X-OC-Mtime` header), so a two-way pair compares
 sizes: a conflict keeps both versions instead of preferring the newer file.
-Upload-only pairs are not affected. A self-signed certificate is accepted
+Upload-only pairs are not affected; download-only pairs compare sizes too,
+so a server-side edit that keeps the size is not downloaded. A self-signed
+certificate is accepted
 via the switch in the account form.
 
 ## Supported Backends
@@ -89,6 +99,46 @@ Adding one new backend: every provider is a single Python module in
 [qml/utilities/backends/](qml/utilities/backends/). The account form, the
 wording of the remote browser ("libraries" vs. "folders") and the sync engine
 are all generated from that definition.
+
+### Triggering a sync from the command line
+
+Scripts, cron jobs or other (unsandboxed) apps can start a sync without
+opening Ferry. Run the commands as the device user (`defaultuser`), not as
+root. The same rules apply as for the background timer: the network rule is
+honored, paused pairs are left alone, and while a run is already in progress
+(in the app or in the background) the new one is skipped instead of running
+twice. There is deliberately no way to force a sync past the safety
+limit from here; that confirmation stays in the app.
+
+All sync pairs, through the background service:
+
+```sh
+systemctl --user start harbour-ferry-sync.service              # waits until done
+systemctl --user start --no-block harbour-ferry-sync.service   # returns at once
+```
+
+`systemctl` reports success either way; the result of each pair shows up in
+the app and in `journalctl --user -u harbour-ferry-sync.service`.
+
+For a single pair, or when a script needs the result, call the helper
+directly - from a terminal on the device, in your user session:
+
+```sh
+python3 /usr/share/harbour-ferry/helper/sync_helper.py                  # all pairs
+python3 /usr/share/harbour-ferry/helper/sync_helper.py --pair "Taxes"   # one pair
+```
+
+`--pair` takes the pair's name as shown in the app, or its id (from
+`journalctl` or the sync log). A name that several pairs share is refused -
+use the id then. The helper prints one result line per pair and exits with:
+
+| Exit code | Meaning |
+|---|---|
+| 0 | every pair that ran was synced (paused pairs do not count) |
+| 1 | at least one pair failed |
+| 2 | skipped: network rule, another run in progress, or the requested pair is paused |
+| 3 | `--pair` matched no pair, or more than one |
+| 64 | invalid arguments |
 
 ## Technical Information
 

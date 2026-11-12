@@ -1,5 +1,5 @@
 /*
- * Ferry - plain text viewer for remote .txt files.
+ * Ferry - plain text viewer for remote .txt and .md files.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -58,6 +58,9 @@ Page {
                 width: parent.width - 2 * Theme.horizontalPageMargin
                 visible: page.errorMessage.length === 0
                 wrapMode: Text.WrapAnywhere
+                // Shown as typed: AutoText would render a file that merely
+                // looks like HTML (common in Markdown) as rich text.
+                textFormat: Text.PlainText
                 font.pixelSize: Theme.fontSizeSmall
                 font.family: "monospace"
                 color: Theme.primaryColor

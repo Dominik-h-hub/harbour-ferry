@@ -3,8 +3,8 @@
 #
 # Ferry - remote browser backend.
 # Lists remote directories via rclone lsjson, downloads to ~/Downloads with
-# progress events, deletes remote entries and creates folders. Talks only
-# to the generic remote name.
+# progress events, deletes and renames remote entries and creates folders.
+# Talks only to the generic remote name.
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -21,6 +21,7 @@ import backend_manager
 import common
 import config_manager
 import enc_libraries
+import sync_pairs
 
 try:
     import pyotherside
@@ -260,6 +261,146 @@ def delete_entry(path, is_dir):
                 "details": out[:400]}
     _forget_deleted_library(path, is_dir)
     return {"ok": True, "message": "Deleted"}
+
+
+def _top_level_is_library():
+    """Whether the root entries of the remote are libraries (Seafile)."""
+    summary = config_manager.get_account_summary() or {}
+    terms = backend_manager.get_terms(summary.get("backend_id") or "")
+    return (terms or {}).get("key") == "library"
+
+
+def _pairs_using(path):
+    """Sync pairs whose remote side is path or lies inside it.
+
+    Renaming such an entry pulls the remote side away under the pair: a
+    bisync run would see every file as deleted on the remote and a push
+    pair would quietly upload everything again under the old name.
+    """
+    path = (path or "").strip("/")
+    affected = []
+    for pair in sync_pairs.list_pairs():
+        remote = (pair.get("remote") or "").strip("/")
+        if pair.get("type") == "file":
+            # A file pair stores the remote directory; the file itself
+            # carries the local file name.
+            remote = _join(remote, os.path.basename(pair.get("local") or ""))
+        if remote == path or remote.startswith(path + "/"):
+            affected.append(pair)
+    return affected
+
+
+# rclone exit codes for "directory not found" and "file not found".
+_RC_NOT_FOUND = (3, 4)
+
+
+def _name_state(path):
+    """Check whether a remote name is taken (rclone lsjson --stat).
+
+    Returns ("free" | "taken" | "error", output). Only a clear "not found"
+    counts as free: a network or server error says nothing about the name,
+    and treating it as free could let moveto overwrite an existing entry.
+    """
+    rc, out = config_manager.run_rclone(
+        ["lsjson", "--stat", _remote_target(path)], timeout=60, log_args=False)
+    if rc == 0:
+        state = "taken"
+    elif rc in _RC_NOT_FOUND or "not found" in (out or "").lower():
+        state = "free"
+    else:
+        state = "error"
+    log("name check: %r is %s (rc=%d)" % (path, state, rc))
+    return state, out
+
+
+def _exact_name_state(parent, name):
+    """Check whether `parent` holds an entry named exactly `name`.
+
+    For case-only renames (Report.txt -> report.txt), where a stat of the new
+    name cannot tell the source itself (case-insensitive server) from a
+    second entry (case-sensitive server, e.g. SFTP). The parent listing
+    returns the names as the server stores them, so an exact match is a
+    different entry than the source and moveto would overwrite or merge it.
+
+    Returns ("free" | "taken" | "error", output) like _name_state; anything
+    that is not a clean, parseable listing is "error".
+    """
+    rc, out = config_manager.run_rclone(
+        ["lsjson", _remote_target(parent)], timeout=90, log_args=False)
+    state = "error"
+    if rc == 0:
+        start, end = (out or "").find("["), (out or "").rfind("]")
+        if 0 <= start < end:
+            try:
+                names = [item.get("Name") for item in
+                         json.loads(out[start:end + 1])]
+                state = "taken" if name in names else "free"
+            except (ValueError, AttributeError):
+                log("could not parse lsjson output of %r" % parent)
+    log("exact name check: %r in %r is %s (rc=%d)" % (name, parent, state, rc))
+    return state, out
+
+
+def rename_entry(path, new_name, is_dir):
+    """Rename a remote file or folder in place (server-side move).
+
+    rclone moveto overwrites an existing file and merges into an existing
+    folder, so the new name is checked first - a rename must never destroy
+    or mix data.
+    """
+    path = (path or "").strip("/")
+    new_name = (new_name or "").strip()
+    old_name = path.rsplit("/", 1)[-1]
+    if not new_name:
+        return {"ok": False, "message": "Name must not be empty"}
+    if "/" in new_name or new_name in (".", ".."):
+        return {"ok": False, "message": "Name contains invalid characters"}
+    if new_name == old_name:
+        return {"ok": True, "unchanged": True, "message": "Name unchanged"}
+    at_root = "/" not in path
+    if at_root and _top_level_is_library():
+        # rclone cannot rename a Seafile library server-side, and an
+        # encrypted library's key is stored under its name.
+        log("rename refused: %r is a library" % path)
+        return {"ok": False,
+                "message": "Libraries cannot be renamed in the app"}
+    pairs = _pairs_using(path)
+    if pairs:
+        log("rename refused: %r is used by sync pair(s) %s"
+            % (path, [p.get("id") for p in pairs]))
+        return {"ok": False,
+                "message": "Used by a sync pair - remove the sync pair first"}
+    parent = path.rsplit("/", 1)[0] if not at_root else ""
+    new_path = _join(parent, new_name)
+    # The destination is always checked - moveto would overwrite a file or
+    # merge into a folder. A stat of a case-only rename (Report.txt ->
+    # report.txt) finds the source itself on case-insensitive servers, so
+    # that case looks for the exact name in the parent listing instead.
+    if new_name.lower() == old_name.lower():
+        state, out = _exact_name_state(parent, new_name)
+    else:
+        state, out = _name_state(new_path)
+    if state == "taken":
+        log("rename refused: %r already exists" % new_path)
+        return {"ok": False,
+                "message": "An entry with this name already exists"}
+    if state == "error":
+        log("rename aborted: name check failed: %s" % (out or "")[:400])
+        # Goes through _failure so a locked library still leads to the
+        # unlock dialog.
+        result = _failure(out, path)
+        result["details"] = (out or "")[:400]
+        return result
+    source, destination = _remote_target(path), _remote_target(new_path)
+    log("renaming %s -> %s (dir=%s)" % (source, destination, is_dir))
+    rc, out = config_manager.run_rclone(["moveto", source, destination],
+                                        timeout=300, log_args=False)
+    if rc != 0:
+        log("rename failed (rc=%d): %s" % (rc, out[:400]))
+        result = _failure(out, path)
+        result["details"] = out[:400]
+        return result
+    return {"ok": True, "path": new_path, "message": "Renamed"}
 
 
 def _downloads_dir():

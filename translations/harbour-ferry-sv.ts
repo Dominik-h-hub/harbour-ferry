@@ -198,9 +198,9 @@
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
-        <source>Server (EU region: %1)</source>
-        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s European region; the field&apos;s own default is the American one.</extracomment>
-        <translation>Server (EU region: %1)</translation>
+        <source>Server (US region: %1)</source>
+        <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s American (US) region; the field&apos;s own default is the European one.</extracomment>
+        <translation>Server (US region: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
@@ -357,22 +357,22 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <translation>Lokala filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="95"/>
         <source>Add selection (%1)</source>
         <translation>Lägg till markerat (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="96"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
         <source>Select this folder</source>
         <translation>Välj den här mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="85"/>
         <source>Hide hidden files</source>
         <translation>Dölj dolda filer</translation>
     </message>
     <message>
-        <location filename="../qml/pages/FileBrowserPage.qml" line="105"/>
+        <location filename="../qml/pages/FileBrowserPage.qml" line="86"/>
         <source>Show hidden files</source>
         <translation>Visa dolda filer</translation>
     </message>
@@ -403,103 +403,128 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
 <context>
     <name>MainPage</name>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="67"/>
+        <location filename="../qml/pages/MainPage.qml" line="79"/>
         <source>Local syncs</source>
         <translation>Lokala synkningar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="67"/>
+        <location filename="../qml/pages/MainPage.qml" line="79"/>
         <source>Remote</source>
         <translation>Fjärr</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="129"/>
+        <location filename="../qml/pages/MainPage.qml" line="141"/>
         <source>Last sync skipped: %1</source>
         <translation>Senaste synk överhoppad: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="139"/>
+        <location filename="../qml/pages/MainPage.qml" line="151"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
         <translation>Synk pausad: ovanligt många ändringar - håll nere paret och välj &quot;Tvinga synk&quot; för att bekräfta.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="148"/>
+        <location filename="../qml/pages/MainPage.qml" line="160"/>
         <source>Last full sync: %1</source>
         <translation>Senaste fulla synk: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="156"/>
-        <location filename="../qml/pages/MainPage.qml" line="305"/>
+        <location filename="../qml/pages/MainPage.qml" line="168"/>
+        <location filename="../qml/pages/MainPage.qml" line="368"/>
         <source>Settings</source>
         <translation>Inställningar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="160"/>
+        <location filename="../qml/pages/MainPage.qml" line="172"/>
         <source>New sync pair</source>
         <translation>Nytt synkpar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="164"/>
+        <location filename="../qml/pages/MainPage.qml" line="176"/>
         <source>Sync now</source>
         <translation>Synka nu</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="172"/>
+        <location filename="../qml/pages/MainPage.qml" line="184"/>
         <source>No sync pairs yet</source>
         <translation>Inga synkpar ännu</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="173"/>
+        <location filename="../qml/pages/MainPage.qml" line="185"/>
         <source>Pull down to create one</source>
         <translation>Dra neråt för att skapa ett</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="182"/>
+        <location filename="../qml/pages/MainPage.qml" line="194"/>
         <source>Deleting sync pair</source>
         <translation>Tar bort synkpar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="252"/>
+        <location filename="../qml/pages/MainPage.qml" line="200"/>
+        <source>Resetting transfer list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="206"/>
+        <source>Deleting lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="292"/>
         <source>Sync this pair</source>
         <translation>Synka det här paret</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="258"/>
+        <location filename="../qml/pages/MainPage.qml" line="298"/>
         <source>Force sync (confirm big change)</source>
         <translation>Tvinga synk (bekräftar stora förändringar)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="264"/>
+        <location filename="../qml/pages/MainPage.qml" line="304"/>
         <source>Resume</source>
         <translation>Återuppta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="268"/>
+        <location filename="../qml/pages/MainPage.qml" line="311"/>
+        <source>Pause sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="318"/>
+        <source>Delete lock file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="326"/>
+        <source>Transfer missing files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="331"/>
         <source>Show log</source>
         <translation>Visa logg</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="273"/>
+        <location filename="../qml/pages/MainPage.qml" line="336"/>
         <source>Edit</source>
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="278"/>
+        <location filename="../qml/pages/MainPage.qml" line="341"/>
         <source>Delete</source>
         <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="318"/>
+        <location filename="../qml/pages/MainPage.qml" line="381"/>
         <source>Refresh</source>
         <translation>Uppdatera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="327"/>
+        <location filename="../qml/pages/MainPage.qml" line="390"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kolla kontoinställningarna, dra sedan neråt för att uppdatera</translation>
     </message>
     <message numerus="yes">
-        <location filename="../qml/pages/MainPage.qml" line="329"/>
+        <location filename="../qml/pages/MainPage.qml" line="392"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
             <numerusform>Anslutningen fungerar: den fjärranslutna roten innehåller %n fil, som inte listas här</numerusform>
@@ -507,38 +532,59 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         </translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="382"/>
-        <location filename="../qml/pages/MainPage.qml" line="383"/>
+        <location filename="../qml/pages/MainPage.qml" line="445"/>
+        <location filename="../qml/pages/MainPage.qml" line="446"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="430"/>
+        <location filename="../qml/pages/MainPage.qml" line="510"/>
         <source>Paused - long-press to resume</source>
         <translation>Pausad - Långtryck för att återuppta</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="494"/>
+        <location filename="../qml/pages/MainPage.qml" line="577"/>
         <source>Synchronization started</source>
         <translation>Synkronisering startad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="510"/>
+        <location filename="../qml/pages/MainPage.qml" line="600"/>
+        <location filename="../qml/pages/MainPage.qml" line="611"/>
+        <source>A sync is running - try again when it has finished</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="602"/>
+        <source>Lock file deleted</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="603"/>
+        <source>No lock file found</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="613"/>
+        <source>Missing files are transferred at the next sync</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/MainPage.qml" line="620"/>
         <source>Sync pair deleted</source>
         <translation>Synkpar borttaget</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="527"/>
+        <location filename="../qml/pages/MainPage.qml" line="637"/>
         <source>Welcome! Please set up your account first.</source>
         <translation>Välkommen! Konfigurera ditt konto först.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="548"/>
+        <location filename="../qml/pages/MainPage.qml" line="658"/>
         <source>Sync skipped: %1</source>
         <translation>Synk skippad: %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/MainPage.qml" line="550"/>
+        <location filename="../qml/pages/MainPage.qml" line="660"/>
         <source>Synchronization finished</source>
         <translation>Synkronisering slutförd</translation>
     </message>
@@ -546,129 +592,147 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
 <context>
     <name>RemoteBrowserPage</name>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="125"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="96"/>
         <source>Unlock library</source>
         <translation>Lås upp biblioteket</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="76"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="77"/>
         <source>Remote storage</source>
         <translation>Fjärrlager</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="83"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="84"/>
         <source>Select this folder</source>
         <translation>Välj den här mappen</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="93"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="316"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="104"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="332"/>
         <source>New folder</source>
         <translation>Ny mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="106"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="117"/>
         <source>Upload here</source>
         <translation>Ladda upp här</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="131"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="132"/>
         <source>Refresh</source>
         <translation>Uppdatera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="141"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="142"/>
         <source>Empty folder</source>
         <translation>Tom mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="143"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="144"/>
         <source>Check the account settings, then pull down to refresh</source>
         <translation>Kolla kontoinställningarna, dra sedan neråt för att uppdatera.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="145"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="146"/>
         <source>Pull down to create a folder</source>
         <translation>Dra neråt för att skapa en mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="154"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="155"/>
         <source>Deleting %1</source>
         <translation>Tar bort %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="206"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="214"/>
         <source>View</source>
         <translation>Visa</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="219"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="227"/>
         <source>Edit</source>
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="224"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="232"/>
         <source>Download</source>
         <translation>Ladda ner</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="228"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="240"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
+        <source>Rename</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
         <source>Delete</source>
         <translation>Ta bort</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="284"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="300"/>
         <source>Unlock</source>
         <translation>Lås upp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="285"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="301"/>
         <source>Encrypted library</source>
         <translation>Krypterat bibliotek</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="293"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="309"/>
         <source>Enter the password for &apos;%1&apos;. It is stored securely for future access.</source>
         <translation>Ange lösenordet för &quot;%1&quot;. Det är säkert lagrat för framtida åtkomst.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="298"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="314"/>
         <source>Library password</source>
         <translation>Bibliotekslösenord</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="321"/>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="322"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="337"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="338"/>
         <source>Name</source>
         <translation>Namn</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="347"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
+        <source>New name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
         <source>Library is encrypted</source>
         <translation>Biblioteket är krypterat</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="389"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="436"/>
         <source>Folder created</source>
         <translation>Mapp skapad</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="401"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="448"/>
         <source>Deleted</source>
         <translation>Borttaget</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="412"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
+        <source>Renamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
         <source>Uploading %1 file(s)</source>
         <translation>Laddar upp %1 fil(er)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="426"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="499"/>
         <source>Downloading %1</source>
         <translation>Laddar ner %1</translation>
     </message>
     <message>
-        <location filename="../qml/pages/RemoteBrowserPage.qml" line="507"/>
+        <location filename="../qml/pages/RemoteBrowserPage.qml" line="580"/>
         <source>Internal error - see log</source>
         <translation>Internt fel - Se logg</translation>
     </message>
@@ -847,93 +911,124 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
 <context>
     <name>SyncPairEditorPage</name>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="42"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="50"/>
         <source>Save</source>
         <translation>Spara</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>New sync pair</source>
         <translation>Nytt synkpar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="54"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
         <source>Edit sync pair</source>
         <translation>Redigera synkpar</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="59"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
+        <source>Name (optional)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
         <source>Mode</source>
         <translation>Läge</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="61"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="81"/>
         <source>Two-way sync</source>
         <translation>Tvåvägssynk</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="62"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="82"/>
         <source>Upload only (one-way)</source>
         <translation>Endast uppladdning (en väg)</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="75"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
+        <source>Download only (one-way)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="78"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="99"/>
         <source>Synchronize a folder</source>
         <translation>Synkronisera en mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="100"/>
         <source>Synchronize a single file</source>
         <translation>Synkronisera en singelfil</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
+        <source>Do not transfer files again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
+        <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
+        <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local file</source>
         <translation>Lokal fil</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="88"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
         <source>Local folder</source>
         <translation>Lokal mapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="89"/>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="103"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="121"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="135"/>
         <source>Select</source>
         <translation>Välj</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="102"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="134"/>
         <source>Remote folder</source>
         <translation>Fjärrmapp</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="122"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="154"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
         <translation>Den första synkroniseringen kör en fullständig återställning mellan båda sidorna. Observera: ändringar som behåller en fils storlek oförändrad upptäcks inte (endast jämförelse av storlek).</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="123"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="156"/>
         <source>New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.</source>
         <translation>Nya och ändrade filer laddas upp till den fjärranslutna mappen. Ferry raderar aldrig något på den fjärranslutna sidan, och fjärrändringar kopieras aldrig tillbaka.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="132"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
+        <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
         <translation>OBS! Om du försöker synkronisera med ett krypterat bibliotek (t.ex. Seafile), måste biblioteket först låsas upp under fliken fjärranslutning.</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="150"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="185"/>
         <source>Sync pair created</source>
         <translation>Synkpar skapat</translation>
     </message>
     <message>
-        <location filename="../qml/pages/SyncPairEditorPage.qml" line="164"/>
+        <location filename="../qml/pages/SyncPairEditorPage.qml" line="208"/>
         <source>Sync pair updated</source>
         <translation>Synkpar uppdaterat</translation>
     </message>
@@ -1067,7 +1162,7 @@ Utan protokoll använder Ferry https - sätt http:// framför adressen för en s
         <translation>Redigera</translation>
     </message>
     <message>
-        <location filename="../qml/pages/TextViewerPage.qml" line="105"/>
+        <location filename="../qml/pages/TextViewerPage.qml" line="108"/>
         <source>Internal error - see log</source>
         <translation>Internt fel - Se logg</translation>
     </message>

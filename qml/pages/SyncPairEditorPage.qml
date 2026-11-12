@@ -1,7 +1,8 @@
 /*
  * Ferry - sync pair editor.
- * Mode selection two-way/upload only, type selection folder/single file
- * (two-way only); local picker uses the own file browser, remote picker
+ * Optional display name, mode selection two-way/upload only/download only,
+ * type selection folder/single file (two-way only), "do not transfer again"
+ * switch (one-way only); local picker uses the own file browser, remote picker
  * uses the remote browser in picker mode.
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -18,14 +19,21 @@ Page {
     property string localPath: ""
     property string remotePath: ""
     property bool busy: false
+    // What the edited pair looked like when it was loaded (sync-relevant
+    // fields only), to tell a rename apart from a real change.
+    property var loadedPair: null
+
+    // Mode combo entries in order; unknown modes load as two-way, as in
+    // sync_pairs.pair_mode().
+    readonly property var modes: ["bisync", "push", "pull"]
 
     function pairMode() {
-        return modeCombo.currentIndex === 1 ? "push" : "bisync";
+        return page.modes[modeCombo.currentIndex] || "bisync";
     }
 
     function pairType() {
-        // Uploading a single file makes no sense as a standing job, so the
-        // type combo is hidden in that mode - keep the value in step with it.
+        // A single file as a standing one-way job makes no sense, so the
+        // type combo is hidden in those modes - keep the value in step with it.
         if (page.pairMode() !== "bisync") {
             return "folder";
         }
@@ -54,12 +62,25 @@ Page {
                 title: page.pairId === "" ? qsTr("New sync pair") : qsTr("Edit sync pair")
             }
 
+            TextField {
+                id: nameField
+                width: parent.width
+                label: qsTr("Name (optional)")
+                // The automatic name shows what an empty field means.
+                placeholderText: page.localPath !== ""
+                                 ? page.localPath.replace(/\/+$/, "").split("/").pop()
+                                 : qsTr("Name (optional)")
+                EnterKey.iconSource: "image://theme/icon-m-enter-close"
+                EnterKey.onClicked: focus = false
+            }
+
             ComboBox {
                 id: modeCombo
                 label: qsTr("Mode")
                 menu: ContextMenu {
                     MenuItem { text: qsTr("Two-way sync") }
                     MenuItem { text: qsTr("Upload only (one-way)") }
+                    MenuItem { text: qsTr("Download only (one-way)") }
                 }
                 onCurrentIndexChanged: {
                     if (page.pairMode() !== "bisync" && typeCombo.currentIndex === 1) {
@@ -82,6 +103,17 @@ Page {
                     // The picked local path no longer matches the type.
                     page.localPath = "";
                 }
+            }
+
+            TextSwitch {
+                id: skipSwitch
+                // bisync keeps its own listing; only one-way pairs have
+                // something to remember.
+                visible: page.pairMode() !== "bisync"
+                text: qsTr("Do not transfer files again")
+                description: page.pairMode() === "push"
+                    ? qsTr("Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.")
+                    : qsTr("Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.")
             }
 
             ValueButton {
@@ -120,7 +152,9 @@ Page {
                 color: Theme.secondaryHighlightColor
                 text: page.pairMode() === "bisync"
                     ? qsTr("The first synchronization runs a full resync between both sides. Note: changes that keep a file's size identical are not detected (size-only comparison).")
-                    : qsTr("New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.")
+                    : page.pairMode() === "push"
+                    ? qsTr("New and changed files are uploaded to the remote folder. Ferry never deletes anything on the remote side, and remote changes are never copied back.")
+                    : qsTr("New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.")
             }
 
             Label {
@@ -144,21 +178,31 @@ Page {
             if (page.pairId === "") {
                 call('sync_pairs.add_pair',
                      [page.pairType(), page.localPath, page.remotePath,
-                      page.pairMode()],
+                      page.pairMode(), nameField.text.trim(),
+                      page.pairMode() !== "bisync" && skipSwitch.checked],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair created"));
                     pageStack.pop();
                 });
             } else {
-                call('sync_pairs.update_pair',
-                     [page.pairId, { type: page.pairType(),
-                                     mode: page.pairMode(),
-                                     local: page.localPath,
-                                     remote: page.remotePath,
-                                     // A changed mode invalidates the stored
-                                     // bisync listings, so always start over.
-                                     needs_resync: true }],
+                var fields = { name: nameField.text.trim(),
+                               type: page.pairType(),
+                               mode: page.pairMode(),
+                               local: page.localPath,
+                               remote: page.remotePath,
+                               skip_transferred: page.pairMode() !== "bisync"
+                                                 && skipSwitch.checked };
+                var loaded = page.loadedPair;
+                if (!loaded || loaded.type !== fields.type
+                        || loaded.mode !== fields.mode
+                        || loaded.local !== fields.local
+                        || loaded.remote !== fields.remote) {
+                    // A changed mode or path invalidates the stored bisync
+                    // listings, so start over. A new name alone does not.
+                    fields.needs_resync = true;
+                }
+                call('sync_pairs.update_pair', [page.pairId, fields],
                      function() {
                     page.busy = false;
                     Notices.show(qsTr("Sync pair updated"));
@@ -175,10 +219,16 @@ Page {
                         if (pair) {
                             // Mode first: it may reset the type combo, which
                             // in turn clears the path set below.
-                            modeCombo.currentIndex = pair.mode === "push" ? 1 : 0;
+                            modeCombo.currentIndex = Math.max(0, page.modes.indexOf(pair.mode));
                             typeCombo.currentIndex = pair.type === "file" ? 1 : 0;
                             page.localPath = pair.local;
                             page.remotePath = pair.remote;
+                            nameField.text = pair.name || "";
+                            skipSwitch.checked = !!pair.skip_transferred;
+                            page.loadedPair = { type: page.pairType(),
+                                                mode: page.pairMode(),
+                                                local: pair.local,
+                                                remote: pair.remote };
                         }
                     });
                 }

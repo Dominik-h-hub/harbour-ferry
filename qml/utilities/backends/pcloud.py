@@ -27,10 +27,11 @@ from backends import REMOTE_MARKER_KEY
 
 # pCloud runs two independent regions; an account exists in exactly one of
 # them and the other endpoint rejects its login. The form is prefilled with
-# the US host and names the EU one in its label.
+# the EU host and names the US one in its label.
 US_HOST = "webdav.pcloud.com"
 EU_HOST = "ewebdav.pcloud.com"
 US_URL = "https://" + US_HOST
+EU_URL = "https://" + EU_HOST
 
 BACKEND = {
     "id": "pcloud",
@@ -70,13 +71,13 @@ BACKEND = {
     # FTPS scheme in ftp.py).
     "config_fields": [
         {"key": "url", "text_id": "server_pcloud",
-         "label": "Server (EU region: %s)" % EU_HOST,
+         "label": "Server (US region: %s)" % US_HOST,
          # Handed to the translated label as %1 rather than standing inside
          # it: this is a server address, and a typo in any one translation
          # would point the account at nothing.
-         "text_arg": EU_HOST,
-         "type": "url", "secret": False, "default": US_URL,
-         "placeholder": US_URL},
+         "text_arg": US_HOST,
+         "type": "url", "secret": False, "default": EU_URL,
+         "placeholder": EU_URL},
         {"key": "user", "text_id": "pcloud_email",
          "label": "pCloud email address", "type": "text",
          "secret": False},
@@ -102,7 +103,7 @@ def normalize_url(raw_url):
     """
     url = (raw_url or "").strip().rstrip("/")
     if not url:
-        return US_URL
+        return EU_URL
     if "://" not in url:
         url = "https://" + url
     return url
