@@ -45,6 +45,8 @@ Ferry Sync is a native file sync and cloud browser app for Sailfish OS: connect 
 
 <img src="docs/images/local-sync.png" alt="Local Sync" width=200px> <img src="docs/images/remote-sync.png" alt="Remote Sync" width=200px> <img src="docs/images/settings-1.png" alt="Settings view" width=200px>
 
+For more screenshots, see [docs/images/](docs/images/) in the GitHub repository.
+
 ### Backends: FTP/FTPS and SFTP
 
 Both are set up with a single server field; the port is optional
