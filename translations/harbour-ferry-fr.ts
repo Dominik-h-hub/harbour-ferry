@@ -31,7 +31,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="143"/>
         <source>With 2FA the server issued a login token; the password itself is not stored. Enter it again only to re-authenticate.</source>
-        <translation>Avec A2F le serveur émet un jeton de connexion ; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
+        <translation>Avec A2F le serveur émet un jeton de connexion&#x202f;; le mot de passe lui-même n&apos;est pas stocké. Ré-entrer le uniquement pour une ré-authentification.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="153"/>
@@ -41,7 +41,7 @@
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="163"/>
         <source>Changing the server or user means another account: all sync pairs and the stored sync state are deleted, because they describe the previous one.</source>
-        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte : tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
+        <translation>Changer de serveur ou d&apos;utilisateur signifie changer de compte&#xa0;: tous les appairages et les statuts de synchronisation enregistrés sont supprimés, car leurs descriptions deviennent invalides.</translation>
     </message>
     <message>
         <location filename="../qml/pages/AccountPage.qml" line="314"/>
@@ -200,7 +200,7 @@
         <location filename="../qml/pages/BackendFields.qml" line="45"/>
         <source>Server (US region: %1)</source>
         <extracomment>Account form, pCloud. %1 is the server address of pCloud&apos;s American (US) region; the field&apos;s own default is the European one.</extracomment>
-        <translation>Serveur (région US : %1)</translation>
+        <translation>Serveur (région US&#xa0;: %1)</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="47"/>
@@ -244,8 +244,8 @@
         <source>The server address, or the full WebDAV URL if you know it - Ferry completes a plain server address with the WebDAV path of your account.
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
-        <translation>L&apos;adresse du serveur, ou l&apos;URL WebDAV complète si vous la connaissez ; Ferry complète une simple adresse de serveur avec le chemin WebDAV de votre compte.
-Exemple : https://cloud.example.com/remote.php/dav/files/USERID</translation>
+        <translation>L&apos;adresse du serveur, ou l&apos;URL WebDAV complète si vous la connaissez&#x202f;; Ferry complète une simple adresse de serveur avec le chemin WebDAV de votre compte.
+Exemple&#xa0;: https://cloud.example.com/remote.php/dav/files/USERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
@@ -253,7 +253,7 @@ Exemple : https://cloud.example.com/remote.php/dav/files/USERID</translation>
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
         <translation>L&apos;adresse complète du partage WebDAV, incluant le chemin d&apos;accès. N&apos;indiquez le port que s&apos;il diffère de celui par défaut pour le protocole utilisé (https://dav.example.com:8443/dav).
-En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:// devant l&apos;adresse pour un serveur sans TLS, ce qui entraîne l&apos;envoi du mot de passe en clair.</translation>
+En l&apos;absence de protocole spécifié, Ferry utilise https&#x202f;; ajoutez http:// devant l&apos;adresse pour un serveur sans TLS, ce qui entraîne l&apos;envoi du mot de passe en clair.</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="82"/>
@@ -305,7 +305,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="51"/>
         <source>Report: </source>
-        <translation>Rapport : </translation>
+        <translation>Rapport&#xa0;: </translation>
     </message>
     <message>
         <location filename="../qml/pages/DiagnosticsPage.qml" line="60"/>
@@ -415,17 +415,17 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/MainPage.qml" line="141"/>
         <source>Last sync skipped: %1</source>
-        <translation>Dernière(s) synchronisation ignorée(s) : %1</translation>
+        <translation>Dernière(s) synchronisation ignorée(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="151"/>
         <source>Sync paused: unusually many changes - long-press the pair and choose &apos;Force sync&apos; to confirm</source>
-        <translation>Synchronisation suspendue : nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
+        <translation>Synchronisation suspendue&#xa0;: nombre inhabituel de modifications - Appui long sur l&apos;appairage et choisir &apos;Forcer synchronisation&apos; pour confirmer</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="160"/>
         <source>Last full sync: %1</source>
-        <translation>Dernière(s) synchronisation(s) complète(s) : %1</translation>
+        <translation>Dernière(s) synchronisation(s) complète(s)&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="168"/>
@@ -461,12 +461,12 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
         <source>Resetting transfer list</source>
-        <translation type="unfinished"></translation>
+        <translation>Réinitialisation de la liste des transferts</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="206"/>
         <source>Deleting lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Suppression du fichier de verrouillage</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="292"/>
@@ -486,17 +486,17 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/MainPage.qml" line="311"/>
         <source>Pause sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Suspendre la synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Delete lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer le fichier de verrouillage</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Transfer missing files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Transférer à nouveau les fichiers manquants</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
@@ -527,8 +527,8 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <location filename="../qml/pages/MainPage.qml" line="392"/>
         <source>The connection works: the remote root holds %n file(s), which are not listed here</source>
         <translation>
-            <numerusform>La connexion fonctionne : la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
-            <numerusform>La connexion fonctionne : la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
+            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichier, qui n&apos;est pas listé ici</numerusform>
+            <numerusform>La connexion fonctionne&#xa0;: la racine distante contient %n fichiers, qui ne sont pas listés ici</numerusform>
         </translation>
     </message>
     <message>
@@ -551,22 +551,22 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <location filename="../qml/pages/MainPage.qml" line="600"/>
         <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Une synchronisation est en cours&#x202f;; réessayez une fois qu’elle sera terminée</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Fichier de verrouillage supprimé</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
-        <translation type="unfinished"></translation>
+        <translation>Aucun fichier de verrouillage trouvé</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers manquants seront transférés lors de la prochaine synchronisation</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="620"/>
@@ -576,12 +576,12 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/MainPage.qml" line="637"/>
         <source>Welcome! Please set up your account first.</source>
-        <translation>Bienvenue ! Merci de paramétrer votre compte pour commencer.</translation>
+        <translation>Bienvenue&#x202f;! Merci de paramétrer votre compte pour commencer.</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="658"/>
         <source>Sync skipped: %1</source>
-        <translation>Synchronisation ignorée : %1</translation>
+        <translation>Synchronisation ignorée&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="660"/>
@@ -662,7 +662,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommer</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
@@ -699,7 +699,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
         <source>New name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nouveau nom</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
@@ -719,7 +719,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Renommé</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
@@ -827,7 +827,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="129"/>
         <source>Safety limit: max. deletions per run</source>
-        <translation>Limite de sécurité : max. suppressions par exécution</translation>
+        <translation>Limite de sécurité&#xa0;: max. suppressions par exécution</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="133"/>
@@ -837,7 +837,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="141"/>
         <source>One pattern per line; applies to all folder syncs. Changes trigger a full resync of each pair.</source>
-        <translation>Un critère par ligne ; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
+        <translation>Un critère par ligne&#x202f;; s&apos;applique à tous les dossier synchronisés. Les modifications déclenchent une resynchronisation complète de chaque appairage.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="149"/>
@@ -882,7 +882,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
         <source>Next run: %1</source>
-        <translation>Prochaine exécution : %1</translation>
+        <translation>Prochaine exécution&#xa0;: %1</translation>
     </message>
     <message>
         <location filename="../qml/pages/SettingsPage.qml" line="317"/>
@@ -929,7 +929,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nom (facultatif)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
@@ -944,12 +944,12 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="82"/>
         <source>Upload only (one-way)</source>
-        <translation>Téléchargement uniquement (1 sens)</translation>
+        <translation>Envoi uniquement (sens unique)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Téléchargement uniquement (sens unique)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
@@ -969,17 +969,17 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
         <source>Do not transfer files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ne pas transférer à nouveau les fichiers</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
         <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers déjà envoyés ne sont pas envoyés à nouveau, même s&apos;ils ont été supprimés de l&apos;emplacement distant. Un fichier dont la taille change sur l&apos;appareil est envoyé à nouveau.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
         <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers déjà téléchargés ne sont pas téléchargés à nouveau, même s&apos;ils ont été supprimés de l&apos;appareil. Un fichier dont la taille change sur l&apos;emplacement distant est téléchargé à nouveau.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
@@ -1005,7 +1005,7 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="154"/>
         <source>The first synchronization runs a full resync between both sides. Note: changes that keep a file&apos;s size identical are not detected (size-only comparison).</source>
-        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note : les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
+        <translation>La première synchronisation déclenche une resynchronisation complète dans les deux sens. Note&#xa0;: les fichiers dont la taille est identique ne seront pas détectés (comparaison par taille uniquement).</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="156"/>
@@ -1015,12 +1015,12 @@ En l&apos;absence de protocole spécifié, Ferry utilise https ; ajoutez http:
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les fichiers nouveaux ou modifiés sont téléchargés depuis le dossier distant. Ferry ne supprime jamais rien sur l&apos;appareil, et les modifications locales ne sont jamais envoyées&#x202f;; si un fichier local diffère de la version distante, il est écrasé par cette dernière.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
         <source>Note: If you try to sync to an encrypted library (e.g. Seafile), the library must be unlocked first under remote tab.</source>
-        <translation>Note : Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
+        <translation>Note&#xa0;: Si vous tentez de synchroniser vers une bibliothèque chiffrée (par ex. Seafile), la bibliothèque doit être déverrouillée au préalable via l&apos;onglet Distant.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="185"/>
