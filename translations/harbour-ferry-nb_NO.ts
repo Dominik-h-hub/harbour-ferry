@@ -461,12 +461,12 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
         <source>Resetting transfer list</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilbakestiller overføringslisten</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="206"/>
         <source>Deleting lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Sletter låsefil</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="292"/>
@@ -486,17 +486,17 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/MainPage.qml" line="311"/>
         <source>Pause sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Sett synkronisering på pause</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Delete lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Slett låsefil</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Transfer missing files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Overfør manglende filer på nytt</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
@@ -551,22 +551,22 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <location filename="../qml/pages/MainPage.qml" line="600"/>
         <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
-        <translation type="unfinished"></translation>
+        <translation>En synkronisering pågår – prøv igjen når den er ferdig</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Låsefil slettet</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingen låsefil funnet</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Manglende filer overføres ved neste synkronisering</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="620"/>
@@ -662,7 +662,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Endre navn</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
@@ -699,7 +699,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
         <source>New name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nytt navn</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
@@ -719,7 +719,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Endret navn</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
@@ -929,7 +929,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Navn (valgfritt)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
@@ -949,7 +949,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Kun nedlasting (enveis)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
@@ -969,17 +969,17 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
         <source>Do not transfer files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ikke overfør filer på nytt</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
         <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filer som allerede er lastet opp, lastes ikke opp på nytt, selv etter at de er slettet på den eksterne siden. En fil som endrer størrelse på enheten, lastes opp på nytt.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
         <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filer som allerede er lastet ned, lastes ikke ned på nytt, selv etter at de er slettet på enheten. En fil som endrer størrelse på den eksterne siden, lastes ned på nytt.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
@@ -1015,7 +1015,7 @@ Uten protokoll bruker Ferry https – sett http:// foran adressen for en server 
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nye og endrede filer lastes ned fra den eksterne mappen. Ferry sletter aldri noe på enheten, og lokale endringer lastes aldri opp – en lokal fil som avviker fra den eksterne, overskrives med den eksterne versjonen.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
