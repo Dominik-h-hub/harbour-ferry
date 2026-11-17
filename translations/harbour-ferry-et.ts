@@ -461,12 +461,12 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/MainPage.qml" line="200"/>
         <source>Resetting transfer list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtestan failiedastuste loendit</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="206"/>
         <source>Deleting lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustutan lukustusfaili</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="292"/>
@@ -486,17 +486,17 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/MainPage.qml" line="311"/>
         <source>Pause sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Peata sünkroonimine</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="318"/>
         <source>Delete lock file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuat lukustusfail</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="326"/>
         <source>Transfer missing files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Edasta puuduvad failid uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="331"/>
@@ -551,22 +551,22 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <location filename="../qml/pages/MainPage.qml" line="600"/>
         <location filename="../qml/pages/MainPage.qml" line="611"/>
         <source>A sync is running - try again when it has finished</source>
-        <translation type="unfinished"></translation>
+        <translation>Sünkroonimine on pooleli - peale selle lõppemist proovi uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="602"/>
         <source>Lock file deleted</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukustusfail on kustutatud</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="603"/>
         <source>No lock file found</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukustusfaili ei leidu</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="613"/>
         <source>Missing files are transferred at the next sync</source>
-        <translation type="unfinished"></translation>
+        <translation>Puuduolevad failid edastatakse järgmisel sünkroonimisel</translation>
     </message>
     <message>
         <location filename="../qml/pages/MainPage.qml" line="620"/>
@@ -662,7 +662,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="360"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="361"/>
         <source>Rename</source>
-        <translation type="unfinished"></translation>
+        <translation>Muuda nime</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="244"/>
@@ -699,7 +699,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="366"/>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="367"/>
         <source>New name</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus nimi</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="394"/>
@@ -719,7 +719,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="470"/>
         <source>Renamed</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi on muudetud</translation>
     </message>
     <message>
         <location filename="../qml/pages/RemoteBrowserPage.qml" line="485"/>
@@ -929,7 +929,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="68"/>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="72"/>
         <source>Name (optional)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nimi (kui tahad lisada)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="79"/>
@@ -949,7 +949,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="83"/>
         <source>Download only (one-way)</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaid allalaadimine (ühes suunas)</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="96"/>
@@ -969,17 +969,17 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="113"/>
         <source>Do not transfer files again</source>
-        <translation type="unfinished"></translation>
+        <translation>Ära edasta faile uuesti</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="115"/>
         <source>Files already uploaded are not uploaded again, even after they were deleted on the remote side. A file whose size changes on the device is uploaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Juba üles laaditud faile ei laadita uuesti üles, isegi kui need on kaugserveris kustutatud. Fail, mille suurus seadmes muutub, laaditakse uuesti üles.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="116"/>
         <source>Files already downloaded are not downloaded again, even after they were deleted on the device. A file whose size changes on the remote side is downloaded again.</source>
-        <translation type="unfinished"></translation>
+        <translation>Juba allalaaditud faile ei laadita uuesti alla, isegi kui need seadmest kustutati. Fail, mille suurus kaugseadmes muutub, laaditakse uuesti alla.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="120"/>
@@ -1015,7 +1015,7 @@ Kui skeemi ei ole märgitud, kasutab Ferry https-protokolli. Küll aga TLS-ita s
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="157"/>
         <source>New and changed files are downloaded from the remote folder. Ferry never deletes anything on the device, and local changes are never uploaded - a local file that differs from the remote one is overwritten with the remote version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Uued ja muudetud failid laaditakse alla kaugkaustast. Ferry ei kustuta seadmest kunagi midagi ning kohalikke muudatusi ei laadita kunagi üles - kohalik fail, mis erineb kaugkaustas olevast, kirjutatakse üle kaugkaustas oleva versiooniga.</translation>
     </message>
     <message>
         <location filename="../qml/pages/SyncPairEditorPage.qml" line="166"/>
