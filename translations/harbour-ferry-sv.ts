@@ -245,7 +245,7 @@
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
         <translation>Serveradressen, eller den fullständiga WebDAV-URL:en om du känner till den - Ferry kompletterar en vanlig serveradress med WebDAV-sökvägen för ditt konto. 
-Exempel: https://cloud.exempel.se/remote.php/dav/files/USERID</translation>
+Exempel: https://cloud.example.com/remote.php/dav/files/USERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
