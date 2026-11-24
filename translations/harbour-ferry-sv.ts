@@ -245,14 +245,14 @@
 Example: https://cloud.example.com/remote.php/dav/files/USERID</source>
         <extracomment>Account form, Nextcloud. The example URL is a technical address - only USERID stands for something the user fills in.</extracomment>
         <translation>Serveradressen, eller den fullständiga WebDAV-URL:en om du känner till den - Ferry kompletterar en vanlig serveradress med WebDAV-sökvägen för ditt konto. 
-Exempel: https://cloud.example.com/remote.php/dav/files/USERID</translation>
+Exempel: https://cloud.exempel.se/remote.php/dav/files/USERID</translation>
     </message>
     <message>
         <location filename="../qml/pages/BackendFields.qml" line="79"/>
         <source>The full address of the WebDAV share, including the path it is served under. A port only where it is not the default of the scheme (https://dav.example.com:8443/dav).
 Without a scheme Ferry uses https - put http:// in front of the address for a server without TLS, which sends the password in the clear.</source>
         <extracomment>Account form, plain WebDAV. The two example addresses and the scheme names https/http are technical and stay as they are.</extracomment>
-        <translation>Den fullständiga adressen till WebDAV-delningen, inklusive sökvägen den serveras under. Ange endast en port om det inte är standardporten för protokollet (https://dav.example.com:8443/dav).
+        <translation>Den fullständiga adressen till WebDAV-delningen, inklusive sökvägen den serveras under. Ange endast en port om det inte är standardporten för protokollet (https://dav.exempel.se:8443/dav).
 Utan protokoll använder Ferry https - sätt http:// framför adressen för en server utan TLS, vilket skickar lösenordet i klartext.</translation>
     </message>
     <message>
